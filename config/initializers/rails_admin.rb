@@ -31,10 +31,10 @@ RailsAdmin.config do |config|
 
   #  ==> Included models
   # Add all excluded models here:
-  # config.excluded_models = [AudioAsset, Block, HtmlAsset, PictureAsset, Report, User, VideoAsset]
+  # config.excluded_models = [Case, User]
 
   # Add models here if you want to go 'whitelist mode':
-  # config.included_models = [AudioAsset, Block, HtmlAsset, PictureAsset, Report, User, VideoAsset]
+  # config.included_models = [Case, User]
 
   # Application wide tried label methods for models' instances
   # config.label_methods << :description # Default is [:name, :title]
@@ -104,3 +104,4 @@ RailsAdmin.config do |config|
   #   update do; end
   # end
 end
+
