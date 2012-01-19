@@ -35,6 +35,8 @@ input, textarea {
 label {
     display: block;
     margin-top: 1em;
+    font-weight: bold;
+    margin-bottom: 2px;
 }
 
 .errors-list li {
