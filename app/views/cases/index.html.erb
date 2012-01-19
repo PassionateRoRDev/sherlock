@@ -2,7 +2,7 @@
 
 <ol>
   <% @cases.each do |c| %>
-  <li><%= c.title %></li>
+  <li><%= link_to c.title, c %> [<%= link_to 'Edit', edit_case_path(c) %>]</li>
   <% end %>
 </ol>
 

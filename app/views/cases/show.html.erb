@@ -1,0 +1,11 @@
+<h1>Case: <%= @case.title %></h1>
+
+<h2>Summary</h2>
+
+<p>
+  <%= @case.summary.html_safe %>
+</p>
+
+<div>
+  <%= link_to 'Edit', edit_case_path(@case) %>
+</div>

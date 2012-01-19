@@ -6,16 +6,10 @@
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
-<body>
-  
-<div>
-  <% if signed_in? %>
-    <%= link_to 'Home', root_path %> | 
-    <%= link_to 'Logout', destroy_user_session_path, :method => :delete %>  
-  <% end %>
-</div>
-
-<%= yield %>
-
+<body>  
+  <div class="container">
+    <%= render 'shared/top_user_links' %>
+    <%= yield %>    
+  </div>
 </body>
 </html>
