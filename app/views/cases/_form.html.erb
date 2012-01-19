@@ -1,9 +1,22 @@
 <%= form_for(@case) do |f| %>
 
-  <div><%= f.label :title %><br />
+  <% if @case.errors.any? %>
+    <div id="error explanation">
+      <h2><%= pluralize(@case.errors.count, "error") %> found, please correct below:</h2>
+    </div>
+
+    <ul>
+      <% @case.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+
+  <% end %>
+
+  <div><%= f.label :title %>
   <%= f.text_field :title %></div>
 
-  <div><%= f.label :summary %><br />
+  <div><%= f.label :summary %>
   <%= f.text_area :summary, :rows => 5 %></div>
 
   <div><%= f.submit "Sign in" %></div>

@@ -1,3 +1,21 @@
+
+ol li {
+    list-style-type: decimal;    
+}
+
 input, textarea {
     padding: 2px;
+}
+
+label {
+    display: block;
+    margin-top: 1em;
+}
+
+.field_with_errors label {
+    font-weight: bold;        
+}
+
+.field_with_errors input {
+    border: 1px solid red;
 }

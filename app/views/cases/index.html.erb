@@ -1,0 +1,11 @@
+<h1>My Cases</h1>
+
+<ol>
+  <% @cases.each do |c| %>
+  <li><%= c.title %></li>
+  <% end %>
+</ol>
+
+<div>
+  <%= link_to 'Create a new Case', new_case_path %>
+</div>

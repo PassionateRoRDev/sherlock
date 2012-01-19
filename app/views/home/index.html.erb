@@ -1,5 +1,15 @@
 <h1>Your Dashboard</h1>
 
 <%= link_to 'Admin area', '/admin' %> <br/>
-<%= link_to 'Create new Case', new_case_path %>
+
+<div style="margin-top:1em;">
+You have
+<% if @cases.empty? %>
+no cases
+<% else %>
+    <%= link_to(pluralize(@cases.count, 'case'), cases_path) %>
+<% end %>
+created
+|
+<%= link_to 'Create a new Case', new_case_path %>
 
