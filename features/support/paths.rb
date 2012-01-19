@@ -3,6 +3,8 @@ module NavigationHelpers
     case page_name    
     when /the\s+homepage/
       root_path
+    when /the sign-in page/
+      new_user_session_path
     when /the new case page/
       new_case_path
     else

@@ -39,6 +39,11 @@ label {
     margin-bottom: 2px;
 }
 
+label.inline {
+    display: inline;
+    margin-top:0;
+}
+
 .errors-list li {
     list-style-type: disc;
 }
