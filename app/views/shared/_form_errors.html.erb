@@ -1,0 +1,11 @@
+<% if errors.any? %>
+    <div id="error explanation">
+      <h2><%= pluralize(errors.count, "error") %> found, please correct below:</h2>
+    </div>
+    <ul class="errors-list">
+      <% errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+
+<% end %>

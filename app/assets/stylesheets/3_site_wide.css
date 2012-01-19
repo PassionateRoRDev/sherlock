@@ -37,6 +37,10 @@ label {
     margin-top: 1em;
 }
 
+.errors-list li {
+    list-style-type: disc;
+}
+
 .field_with_errors label {
     font-weight: bold;        
 }
@@ -47,4 +51,8 @@ label {
 
 .actions {
     margin: 1em 0;
+}
+
+.form-case .summary textarea {
+    width: 95%;
 }

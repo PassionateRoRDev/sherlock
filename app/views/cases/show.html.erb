@@ -1,5 +1,7 @@
 <h1>Case: <%= @case.title %></h1>
 
+<%= link_to 'Back to Cases list', cases_path %>
+
 <h2>Summary</h2>
 
 <p>
@@ -7,5 +9,9 @@
 </p>
 
 <div>
-  <%= link_to 'Edit', edit_case_path(@case) %>
+  <%= link_to 'Edit Title and Summary', edit_case_path(@case) %>
 </div>
+
+<h2>Blocks</h2>
+
+<h3>This case doesn't have any blocks yet</h3>
