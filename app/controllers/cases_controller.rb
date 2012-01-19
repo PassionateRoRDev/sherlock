@@ -22,6 +22,10 @@ class CasesController < ApplicationController
   
   def show    
     @case = resolve_case_from_id
+    respond_to do |format|
+      format.html { render :action => 'show' }
+      format.pdf { render_pdf(@case) }
+    end
   end
   
   def update
@@ -60,6 +64,29 @@ class CasesController < ApplicationController
   def resolve_case_from_id
     the_case = current_user.cases.find_by_id(params[:id])
     the_case ? the_case : redirect_to(cases_path)
+  end
+  
+  def render_pdf(the_case)
+    
+    title = the_case.title.gsub(/\s+/, '-') + '.pdf'
+    
+    if request.env['HTTP_USER_AGENT'] =~ /msie/i
+      headers['Pragma'] = 'public'
+      headers["Content-type"] = "application/pdf" 
+      headers['Cache-Control'] = 'no-cache, must-revalidate, post-check=0, pre-check=0'
+      headers['Content-Disposition'] = "attachment; filename=\"#{title}\"" 
+      headers['Expires'] = "0" 
+    else
+      headers["Content-Type"] ||= 'application/pdf'
+      headers["Content-Disposition"] = "attachment; filename=\"#{title}\"" 
+    end
+    
+    send_file("#{Rails.root}/files/report1.pdf", 
+              :filename => title, :type => 'application/pdf')
+
+    
+    
+    
   end
 
 end
