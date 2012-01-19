@@ -3,9 +3,25 @@
 <% if @cases.empty? %>
 <h2>You haven't created any cases yet</h2>
 <% else %>
-  <ol>
+  <ol class="cases">
     <% @cases.each do |c| %>
-    <li><%= link_to c.title, c %> [<%= link_to 'Edit', edit_case_path(c) %>]</li>
+    <li>
+        <%= link_to c.title, c %>
+        <div class="summary" style="margin:1em 0;">
+          <strong>Summary:</strong>
+          <% if c.summary.blank? %>
+              <em>None</em>
+          <% else %>
+              <%= c.summary.to_s.html_safe %>
+          <% end %>
+        </div>
+        <div>
+          <%= link_to 'Edit', edit_case_path(c) %> |
+          <%= link_to 'Delete', c, 
+               :confirm => 'Are you sure you want to remove this case?', 
+               :method => :delete %>
+        </div>
+    </li>
     <% end %>
   </ol>
 <% end %>

@@ -20,12 +20,12 @@ class CasesController < ApplicationController
     
   end
   
-  def show
-    @case = current_user.cases.find_by_id(params[:id])
+  def show    
+    @case = resolve_case_from_id
   end
   
   def update
-    @case = current_user.cases.find_by_id(params[:id])
+    @case = resolve_case_from_id
     if @case
       respond_to do |format|
         if @case.update_attributes(params[:case])
@@ -37,12 +37,29 @@ class CasesController < ApplicationController
     end
   end
   
+  def destroy
+    @case = resolve_case_from_id
+    @case.destroy
+    
+    respond_to do |format|
+      format.html { redirect_to(cases_path, :notice => 'The case was successfully deleted') }
+    end
+    
+  end
+  
   def edit
-    @case = current_user.cases.find_by_id(params[:id])
+    @case = resolve_case_from_id
   end
   
   def index
     @cases = current_user.cases
+  end
+  
+  private
+  
+  def resolve_case_from_id
+    the_case = current_user.cases.find_by_id(params[:id])
+    the_case ? the_case : redirect_to(cases_path)
   end
 
 end

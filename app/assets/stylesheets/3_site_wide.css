@@ -21,6 +21,10 @@ h1 {
     margin-bottom: 8px;
 }
 
+h1 small {
+    font-size: 70%;
+}
+
 ol li {
     list-style-type: decimal;    
 }
@@ -76,4 +80,10 @@ label.inline {
     background: none repeat scroll 0 0 #E6EFC2;
     border-color: #C6D880;
     color: #264409;
+}
+
+ol.cases li {
+     margin-bottom:0.5em;
+     border-bottom:1px solid #ccc;
+     padding-bottom:0.5em;
 }

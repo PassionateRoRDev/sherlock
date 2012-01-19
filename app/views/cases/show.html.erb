@@ -1,11 +1,18 @@
-<h1>Case: <%= @case.title %></h1>
+<h1>
+  Case: <%= @case.title %>
+  <small>
+  [<%= link_to 'Delete', @case, 
+               :confirm => 'Are you sure you want to remove this case?', 
+               :method => :delete %>]
+  </small>
+</h1>
 
 <%= link_to 'Back to Cases list', cases_path %>
 
 <h2>Summary</h2>
 
 <p>
-  <%= @case.summary.html_safe %>
+  <%= @case.summary.to_s.html_safe %>
 </p>
 
 <div>
