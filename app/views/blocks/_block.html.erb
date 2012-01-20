@@ -2,6 +2,7 @@
 <div class="block text" style="background-color:#efefef;padding:1em;margin:1em 0;">
   
   <div style="text-align:right;">
+  <%= link_to 'Edit', edit_case_html_detail_path(block.case, block.html_detail) %> |
   <%= link_to 'Delete', block, 
                :confirm => 'Are you sure you want to remove this block?', 
                :method => :delete %>

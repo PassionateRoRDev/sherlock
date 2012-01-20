@@ -1,7 +1,7 @@
 class HtmlDetailsController < ApplicationController
   
   before_filter :authenticate_user!
-  before_filter :resolve_case, :only => [ :new, :create ]
+  before_filter :resolve_case, :only => [ :new, :edit, :update, :create ]
   
   def new
     
@@ -26,6 +26,26 @@ class HtmlDetailsController < ApplicationController
         format.html { render :action => 'new' }
       end
     end        
+    
+  end
+  
+  def edit
+    @detail = @case.html_details.find_by_id(params[:id])
+    redirect_to cases_path unless @detail
+    
+  end
+  
+  def update
+    @detail = @case.html_details.find_by_id(params[:id])    
+    redirect_to cases_path unless @detail
+    
+    respond_to do |format|
+      if @detail.update_attributes(params[:html_detail])
+        format.html { redirect_to(@case, :notice => 'The block has been successfully updated') }
+      else
+        format.html { render :action => 'edit' }
+      end
+    end
     
   end
   
