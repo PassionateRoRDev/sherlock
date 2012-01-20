@@ -18,7 +18,8 @@
     <%= block.html_detail.contents.to_s.html_safe %>
   <% end %>
   <% if block.picture %>
-    <%= block.picture.title %>
+    <%= block.picture.title %><br/>
+    <img src="<%= url_for file_path('pictures', block.picture.path) %>"/>
   <% end %>
   
 </div>

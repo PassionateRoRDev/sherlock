@@ -18,12 +18,19 @@ class PicturesController < ApplicationController
   
   def create
     
-    logger.debug("Deleting the 'image'")
-    params[:picture].delete('image')
+    image = params[:upload]['image']
+    logger.debug(image)
     
-    params[:picture][:path] = '1.png'
+    image.original_filename
+    image.content_type
     
-    logger.debug(params[:picture])
+    params[:picture][:original_filename] = image.original_filename
+    params[:picture][:content_type] = image.content_type    
+    
+    file_path = Picture.store(current_user, image)
+    params[:picture][:path] = file_path
+    
+    #logger.debug(params[:picture])
     
     @picture = Picture.new(params[:picture])
     block = Block.new(:case => @case)    
@@ -51,8 +58,18 @@ class PicturesController < ApplicationController
     @picture = @case.pictures.find_by_id(params[:id])    
     redirect_to cases_path unless @picture
     
+    old_path = @picture.path
+    
     respond_to do |format|
-      if @picture.update_attributes(params[:picture])
+      if @picture.update_attributes(params[:picture])                        
+        image = params[:upload]['image']
+        if image
+          logger.debug("Deleting the previous file")
+          @picture.delete_file_for_path(old_path)
+          @picture.path = Picture.store(current_user, image)
+          @picture.save
+        end
+        
         format.html { redirect_to(@case, :notice => 'The block has been successfully updated') }
       else
         format.html { render :action => 'edit' }

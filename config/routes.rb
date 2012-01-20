@@ -12,6 +12,9 @@ Ginger::Application.routes.draw do
   
   resources :blocks
   
+  match 'files/:type/:filename' => 'files#show',
+    :constraints => { :filename => /.*/ }, :as => :file
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

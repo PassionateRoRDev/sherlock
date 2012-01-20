@@ -3,7 +3,8 @@
 
 <%= render 'shared/form_errors', :errors => @picture.errors %>
 
-<%= form_for [@case, @picture] do |f| %>
+<%= form_for([@case, @picture], 
+    :html => { :enctype => 'multipart/form-data' }) do |f| %>
 
 <div>
   <%= f.label :title %>
@@ -11,8 +12,10 @@
 </div>
 
 <% if @picture.id %>
-  <div style="margin: 1em 0;">
-    <img src="http://www.google.com/images/srpr/logo3w.png"/>
+  <div style="margin: 1em 0;">    
+    <img 
+      style="border: 1px solid black;"
+      src="<%= url_for file_path('pictures', @picture.path) %>"/>    
   </div>
   <input type="button" 
          value="Change the Picture"
@@ -21,10 +24,9 @@
 <% end %>
 
   <div>
-    <%= f.label :image %>
-    <%= f.file_field :image %>
+    <label for="upload_image">Select Image:</label>
+    <%= file_field 'upload', 'image' %>        
   </div>
-
 <% if @picture.id %>
   </div>
 <% end %>
