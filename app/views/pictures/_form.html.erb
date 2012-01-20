@@ -1,0 +1,36 @@
+
+<h2>Case title: <%= @case.title %></h2>
+
+<%= render 'shared/form_errors', :errors => @picture.errors %>
+
+<%= form_for [@case, @picture] do |f| %>
+
+<div>
+  <%= f.label :title %>
+  <%= f.text_field :title, :size => 100 %>
+</div>
+
+<% if @picture.id %>
+  <div style="margin: 1em 0;">
+    <img src="http://www.google.com/images/srpr/logo3w.png"/>
+  </div>
+  <input type="button" 
+         value="Change the Picture"
+         onclick="$('#image-field-wrapper').show();"/>
+  <div id="image-field-wrapper" style="display:none;">
+<% end %>
+
+  <div>
+    <%= f.label :image %>
+    <%= f.file_field :image %>
+  </div>
+
+<% if @picture.id %>
+  </div>
+<% end %>
+    
+<div class="actions">
+  <%= f.submit 'Save' %>
+</div>
+
+<% end %>

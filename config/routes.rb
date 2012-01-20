@@ -7,6 +7,7 @@ Ginger::Application.routes.draw do
 
   resources :cases do
     resources :html_details
+    resources :pictures
   end
   
   resources :blocks
