@@ -5,7 +5,11 @@ Ginger::Application.routes.draw do
   devise_for :users
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
 
-  resources :cases
+  resources :cases do
+    resources :html_details
+  end
+  
+  resources :blocks
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

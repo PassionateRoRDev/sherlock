@@ -23,11 +23,14 @@
 <h2>Blocks</h2>
 
 <div class="blocks-area">
-  
+  <% if @case.blocks.empty? %>
+    <h3>This case doesn't have any blocks yet</h3>
+  <% else %>
+    <%= render @case.blocks %>
+  <% end %>
 </div>
-
-<h3>This case doesn't have any blocks yet</h3>
-
-<a href="#" id="link-create-html-block">Add text block</a>
+  
+<a href="#" id="link-create-html-block">Add text block (AJAX)</a><br/>
+<%= link_to 'Add text block', new_case_html_detail_path(@case) %>
 
 <%= render 'shared/tinymce' %>

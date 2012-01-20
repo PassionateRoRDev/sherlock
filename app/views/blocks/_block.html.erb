@@ -1,0 +1,11 @@
+
+<div class="block text" style="background-color:#efefef;padding:1em;margin:1em 0;">
+  
+  <div style="text-align:right;">
+  <%= link_to 'Delete', block, 
+               :confirm => 'Are you sure you want to remove this block?', 
+               :method => :delete %>
+  </div>
+  
+  <%= block.html_detail.contents.to_s.html_safe %>
+</div>

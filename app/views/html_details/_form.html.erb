@@ -1,0 +1,24 @@
+
+<h2>Case title: <%= @detail.block.case.title %></h2>
+
+<%= render 'shared/form_errors', :errors => @detail.errors %>    
+
+<%= form_for [@case, @detail] do |f| %>
+
+<div>
+  <%= f.label :contents %>
+  <%= f.text_area :contents, :rows => 8, :class => :rich %>
+</div>
+
+<div class="actions">
+  <%= f.submit 'Save' %>
+</div>
+
+<% end %>
+
+<%= render 'shared/tinymce' %>
+<script type="text/javascript">
+  $(function() {
+    tinyMCE.execCommand('mceAddControl', false, 'html_detail_contents');
+  });
+</script>

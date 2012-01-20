@@ -15,8 +15,7 @@
               <%= c.summary.to_s.html_safe %>
           <% end %>
         </div>
-        <div>
-          <%= link_to 'Edit', edit_case_path(c) %> |
+        <div>          
           <%= link_to 'Download as PDF', case_path(c, :format => :pdf) %> |
           <%= link_to 'Delete', c, 
                :confirm => 'Are you sure you want to remove this case?', 
