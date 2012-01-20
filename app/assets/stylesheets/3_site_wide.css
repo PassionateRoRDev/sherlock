@@ -50,7 +50,7 @@ label.inline {
     margin-top:0;
 }
 
-.errors-list li {
+.errors-list li, #error_explanation li {
     list-style-type: disc;
 }
 
@@ -100,6 +100,12 @@ textarea.rich {
     background: none repeat scroll 0 0 #E6EFC2;
     border-color: #C6D880;
     color: #264409;
+}
+
+.flash-messages #alert {
+    background: none repeat scroll 0 0 #FFF6BF;
+    border-color: #FFD324;
+    color: #514721;
 }
 
 ol.cases li {
