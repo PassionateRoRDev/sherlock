@@ -70,6 +70,22 @@ label.inline {
     width: 95%;
 }
 
+.blocks-area textarea {
+    width: 99%;
+    height: 5em;
+}
+
+.blocks-area .block {    
+}
+
+.blocks-area .block h3.block-title {
+    margin-bottom: 0;
+}
+
+.blocks-area .block .actions a {    
+    margin-left: 0.5em;
+}
+
 .flash-messages .msg {
     border: 2px solid #DDDDDD;
     margin-bottom: 1em;
