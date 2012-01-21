@@ -8,6 +8,9 @@
   <% if block.picture %>
     <%= link_to 'Edit', edit_case_picture_path(block.case, block.picture) %> |
   <% end %>
+  <% if block.video %>
+    <%= link_to 'Edit', edit_case_video_path(block.case, block.video) %> |
+  <% end %>
     
   <%= link_to 'Delete', block, 
                :confirm => 'Are you sure you want to remove this block?', 
@@ -20,6 +23,10 @@
   <% if block.picture %>
     <%= block.picture.title %><br/>
     <img src="<%= url_for file_path('pictures', block.picture.path) %>"/>
+  <% end %>
+  <% if block.video %>
+    <%= block.video.title %><br/>
+    <img src="<%= url_for file_path('videos', block.video.path) %>"/>
   <% end %>
   
 </div>

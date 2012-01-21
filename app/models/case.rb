@@ -6,6 +6,7 @@ class Case < ActiveRecord::Base
   
   has_many :html_details, :through => :blocks
   has_many :pictures, :through => :blocks
+  has_many :videos, :through => :blocks
   
   validates :title, :presence => true
   

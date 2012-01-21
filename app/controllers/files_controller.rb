@@ -10,17 +10,23 @@ class FilesController < ApplicationController
     type      = params[:type]
     filename  = params[:filename]
     
-    content_type = nil
-    
     user = current_user
     path = "#{Rails.root}/files/#{user.id}/#{type}/" + filename
     return redirect_to root_path unless File.exists?(path)
     
     options = {}
     
+    asset = nil
+    
     case type
     when 'pictures'
-      options[:content_type]  = 'image/png'
+      asset = Picture.find_by_user_id_and_path(user.id, filename)
+    when 'videos'
+      asset = Video.find_by_user_id_and_path(user.id, filename)
+    end
+    
+    if asset    
+      options[:content_type]  = asset.content_type if asset && asset.content_type
       options[:disposition]   = 'inline'
     end
     

@@ -1,0 +1,35 @@
+
+<h2>Case title: <%= @case.title %></h2>
+
+<%= render 'shared/form_errors', :errors => @video.errors %>
+
+<%= form_for([@case, @video], 
+    :html => { :enctype => 'multipart/form-data' }) do |f| %>
+
+<div>
+  <%= f.label :title %>
+  <%= f.text_field :title, :size => 100 %>
+</div>
+
+<% if @video.id %>
+  <div style="margin-top:1em;">
+    <input type="button" 
+           value="Change the Video"
+           onclick="$('#video-field-wrapper').show();"/>
+  </div>
+  <div id="video-field-wrapper" style="display:none;">
+<% end %>
+
+  <div>
+    <label for="upload_video">Select Video:</label>
+    <%= file_field 'upload', 'video' %>        
+  </div>
+<% if @video.id %>
+  </div>
+<% end %>
+    
+<div class="actions">
+  <%= f.submit 'Save' %>
+</div>
+
+<% end %>
