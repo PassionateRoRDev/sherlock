@@ -10,4 +10,7 @@ class User < ActiveRecord::Base
   has_many :cases, :dependent => :destroy
   has_many :blocks, :through => :cases
   
+  has_many :pictures, :through => :blocks
+  has_many :videos, :through => :blocks
+  
 end

@@ -20,9 +20,9 @@ class FilesController < ApplicationController
     
     case type
     when 'pictures'
-      asset = Picture.find_by_user_id_and_path(user.id, filename)
+      asset = user.pictures.find_by_path(filename)
     when 'videos'
-      asset = Video.find_by_user_id_and_path(user.id, filename)
+      asset = user.videos.find_by_path(filename)
     end
     
     if asset    

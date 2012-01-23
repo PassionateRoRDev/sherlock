@@ -19,9 +19,12 @@ $(function() {
        f.append(actions);       
        block.append(title).append(f);
        $('.blocks-area').append(block);
-       
+              
        tinyMCE.execCommand('mceAddControl', false, textareaId);
-       
+       setTimeout(function() {       
+        tinyMCE.execCommand('mceFocus', false, textareaId);
+       }, 500);       
+      
        return false;
     });
     
