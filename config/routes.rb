@@ -1,4 +1,4 @@
-Ginger::Application.routes.draw do
+Sherlock::Application.routes.draw do
 
   get "case/new"
 

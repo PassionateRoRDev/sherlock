@@ -4,4 +4,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-Ginger::Application.load_tasks
+Sherlock::Application.load_tasks
