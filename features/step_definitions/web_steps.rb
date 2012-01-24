@@ -21,6 +21,14 @@ When /^I press "([^"]*)"$/ do |button|
   click_button button
 end
 
+When /^I follow "([^"]*)"$/ do |link_text|
+  click_link(link_text)
+end
+
+When /^I attach file "([^"]*)" to "([^"]*)"$/ do |filepath, field|
+  attach_file(field, "#{Rails.root}/features/fixtures/files/#{filepath}")
+end
+
 Then /^page title should be "([^"]*)"$/ do |page_title|
   find('h1').should have_content(page_title)
 end
