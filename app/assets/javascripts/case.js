@@ -91,22 +91,6 @@ $(function() {
       
        return false;
     });
-    
-    $('.blocks-area .block a.cancel-block').live('click', function(e) {        
-        var block = $(this).parents('.block:first');
-        var rich = block.find('textarea');
-        if (rich.length) {
-            removeTinyMCE(rich.attr('id')); 
-        }
-        block.remove();        
-        return false;
-    });
-    
-    $('.blocks-area .block a.remove-block').live('click', function(e) {
-        if (confirm('Are you sure you want to remove this block?')) {
-            $(this).parents('.block:first').remove();
-        }
-        return false;
-    });
+        
 });
 
