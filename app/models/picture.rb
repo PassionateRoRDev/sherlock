@@ -2,6 +2,8 @@ require 'digest/md5'
 
 class Picture < ActiveRecord::Base
   
+  include FileAsset
+  
   belongs_to :block 
   validates :path, :presence => true  
   

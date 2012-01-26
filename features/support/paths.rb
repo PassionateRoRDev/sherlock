@@ -1,4 +1,5 @@
-module NavigationHelpers
+module NavigationHelpers    
+  
   def path_to(page_name)
     case page_name    
     when /the\s+homepage/
@@ -7,8 +8,9 @@ module NavigationHelpers
       new_user_session_path
     when /the new case page/
       new_case_path
-    when /details page of "Case #1"/
-      case_path(Case.find_by_title('Case #1'))
+    when /details page of "(.*?)"/
+      m = page_name.scan(/details page of "(.*?)"/)
+      case_path(Case.find_by_title(m[0].first))
     else
       raise "Can't find mapping from \"#{page_name}\" to a path.\n" +
       "Now, go and add a mapping in features/support/paths.rb"

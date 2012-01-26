@@ -29,6 +29,25 @@ When /^I attach file "([^"]*)" to "([^"]*)"$/ do |filepath, field|
   attach_file(field, "#{Rails.root}/features/fixtures/files/#{filepath}")
 end
 
+When /^I create a new case with title "([^"]*)" and summary "([^"]*)"$/ do |title, summary|
+  visit new_case_path
+  fill_in "Title", :with => title
+  fill_in "Summary", :with => summary
+  click_button("Save")        
+end
+
+When /^I create a picture block in "([^"]*)" with title "([^"]*)" and file "([^"]*)"$/ do 
+  |case_title, pic_title, pic_path|
+  
+  visit path_to('details page of "' + case_title + '"')
+  click_link('Add picture block')
+  fill_in 'Title', :with => pic_title
+  attach_file("Select Image:", 
+              "#{Rails.root}/features/fixtures/files/#{pic_path}")
+  click_button('Save')  
+  
+end
+
 Then /^page title should be "([^"]*)"$/ do |page_title|
   find('h1').should have_content(page_title)
 end

@@ -1,0 +1,8 @@
+development:    
+  files_path: files/
+
+test:
+  files_path: tmp/files/
+
+production:  
+  files_path: files/

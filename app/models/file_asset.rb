@@ -2,7 +2,7 @@ module FileAsset
   
   def delete_file_for_path(filepath, type)    
     user_id = self.block.case.user_id
-    dir = "#{Rails.root}/files/#{user_id}/#{type}"
+    dir = APP_CONFIG['files_path'] + "#{user_id}/#{type}"
     filepath = dir + '/' + self.path
     File.unlink(filepath) if File.exists?(filepath)
   end
@@ -14,12 +14,12 @@ module FileAsset
 
     filename = hash + '-' + file.original_filename
     
-    dir = "#{Rails.root}/files/#{user.id}/#{type}"
+    dir = APP_CONFIG['files_path'] + "#{user.id}/#{type}"
     FileUtils.mkdir_p(dir) unless File.directory?(dir)    
     if File.directory?(dir)
       bytes = file.read
       filepath = dir + '/' + filename
-      File.open(dir + '/' + filename, 'wb') {|f| f.write(bytes) }
+      File.open(filepath, 'wb') {|f| f.write(bytes) }
     end
     
     filename
