@@ -1,4 +1,4 @@
 $('.new-block').before('<%= escape_javascript(render @block) %>');
-SHERLOCK.cases.removeNewBlockForm();
+SHERLOCK.cases.removeInjectedForm();
 SHERLOCK.utils.flashMessage('notice', 'New Text Block has been created');
 
