@@ -9,12 +9,16 @@ class Picture < ActiveRecord::Base
   
   before_destroy :delete_file
   
-  def self.store(user, image)    
-    FileAsset::store_for_type(user, image, 'pictures')            
+  def self.store(user, upload_info)    
+    FileAsset::store_for_type(user, upload_info, 'pictures')            
   end  
   
+  def file_type
+    'pictures'
+  end
+    
   def delete_file
-    delete_file_for_path(self.path, 'pictures')  
+    delete_file_for_type(file_type)  
   end
   
   

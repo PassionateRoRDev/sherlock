@@ -1,12 +1,20 @@
 module FileAsset
   
-  def delete_file_for_path(filepath, type)    
+  def filepath_for_type(type)
     user_id = self.block.case.user_id
     dir = APP_CONFIG['files_path'] + "#{user_id}/#{type}"
-    filepath = dir + '/' + self.path
-    File.unlink(filepath) if File.exists?(filepath)
+    dir + '/' + self.path    
   end
   
+  def full_filepath
+    filepath_for_type(self.file_type)
+  end  
+  
+  def delete_file_for_type(type)    
+    filepath = filepath_for_type(type)
+    File.unlink(filepath) if File.exists?(filepath)
+  end
+    
   def self.store_for_type(user, file, type)
     
     s = Time.now.to_i.to_s + rand(0..999).to_s
