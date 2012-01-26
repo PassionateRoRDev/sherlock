@@ -3,8 +3,7 @@ var SHERLOCK = SHERLOCK || {};
 SHERLOCK.cases = SHERLOCK.cases || {};
 
 SHERLOCK.cases.removeNewBlockForm = function() {
-    var blocks = $('.blocks-area');
-    var newBlock = $('.new-block', blocks);
+    var newBlock = $('.blocks-area .new-block');
     var f = $('.injected-form-new', newBlock);       
     var textarea = $('textarea', f);
     f.hide();    
@@ -32,19 +31,15 @@ $(function() {
         if (!exists.length) {          
             ajaxHtmlDo(url, function(responseText, textStatus, XMLHttpRequest) {
                 
-                var blocks = $('.blocks-area');
-                var newBlock = $('.new-block', blocks);
+                var newBlock = $('.blocks-area .new-block');
                 newBlock.html(responseText);
+                
                 var f = $('.injected-form-new', newBlock);
                 var textarea = $('textarea', f);
                 
                 $('.link-cancel', newBlock).click(
                     SHERLOCK.cases.removeNewBlockForm);                                 
-                
-                setTimeout(function() {       
-                    tinyMCE.execCommand('mceFocus', false, textarea.attr('id'));
-                    
-                }, 500);                
+                SHERLOCK.utils.focusTinyMCE(textarea.attr('id'));                
             });
         }
         return false;

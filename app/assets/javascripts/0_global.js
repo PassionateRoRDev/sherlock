@@ -26,3 +26,10 @@ SHERLOCK.utils.removeTinyMCE = function(eltId) {
     }
 }
 
+SHERLOCK.utils.focusTinyMCE = function(eltId) {
+    if (tinyMCE) {
+        setTimeout(function() {       
+            tinyMCE.execCommand('mceFocus', false, eltId);
+        }, 500);                
+    }
+}
