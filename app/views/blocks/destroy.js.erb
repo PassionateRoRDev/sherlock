@@ -1,2 +1,2 @@
-$('#block-<%= @block.id %>').remove();
+$('#block-<%= @block.id %>').fadeOut("slow", function() { $(this).remove(); });
 SHERLOCK.utils.flashMessage('notice', 'Block has been removed');

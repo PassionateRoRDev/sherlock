@@ -16,3 +16,13 @@ SHERLOCK.utils.flashMessage = function(id, txt) {
     }
     m.html(txt);    
 }
+
+SHERLOCK.utils.removeTinyMCE = function(eltId) {
+    if (tinyMCE && eltId) {
+        var exists = tinyMCE.get(eltId);
+        if (exists) {
+            tinyMCE.remove(exists);
+        }
+    }
+}
+

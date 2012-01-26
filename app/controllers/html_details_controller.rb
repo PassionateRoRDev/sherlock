@@ -20,8 +20,10 @@ class HtmlDetailsController < ApplicationController
     # TODO: initialize weight to be the maximum one
         
     respond_to do |format|
-      if (@detail.save) 
-        format.html { redirect_to(@case, :notice => 'HTML block has been added') }        
+      if (@detail.save)        
+        @block = @detail.block        
+        format.html { redirect_to(@case, :notice => 'New Text Block has been created') }
+        format.js
       else  
         format.html { render :action => 'new' }
       end

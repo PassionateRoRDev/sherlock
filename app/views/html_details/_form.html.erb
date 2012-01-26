@@ -1,7 +1,7 @@
 
 <%= render 'shared/form_errors', :errors => @detail.errors %>    
 
-<%= form_for [@case, @detail] do |f| %>
+<%= form_for [@case, @detail], :remote => remote do |f| %>
 
 <div>
   <%= f.label :contents %>
@@ -17,7 +17,7 @@
 
 <%= render 'shared/tinymce' %>
 <script type="text/javascript">
-  $(function() {
+  $(function() {    
     tinyMCE.execCommand('mceAddControl', false, 'html_detail_contents');
   });
 </script>
