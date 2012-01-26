@@ -1,6 +1,41 @@
 
 
 $(function() {
+    
+    function removeTinyMCE(eltId) {
+        var exists = tinyMCE.get(eltId);
+        if (exists) {
+            tinyMCE.remove(exists);
+        }
+    }
+    
+    $('.block-edit-ajax').click(function(e) {
+        var url = this.href;
+        var block = $(this).parents('.block:first');
+        var exists  = $('.injected-form', block);
+        if (!exists.length) {        
+            $.ajax({
+                url: url,
+                cache: false,
+                dataType: 'html',
+                success : function(responseText, textStatus, XMLHttpRequest) {
+                    var editable = $('.block-editable', block);
+                    editable.hide();
+                    editable.after(responseText);
+                    $('.link-cancel', block).click(function() {                    
+                        $(this).parents('.injected-form').hide();
+                        removeTinyMCE('html_detail_contents');                    
+                        $(this).parents('.injected-form').remove();
+                        editable.show();
+                        return false;
+                    });
+                }
+            });
+        }
+        return false; 
+    });
+    
+    
     $('#link-create-html-block').click(function(e) {              
        var block = $('<div/>').addClass('block text');
        var title = $('<h3/>').addClass('block-title').text('Text block');       

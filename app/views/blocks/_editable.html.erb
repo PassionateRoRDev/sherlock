@@ -1,0 +1,15 @@
+<div>  
+  <h4 style="margin-bottom:1em;"><%= block.title %></h4>
+  <% if block.html_detail %>  
+    <div class="block-editable" id="block-editable-<%= block.id %>"
+      <%= block.html_detail.contents.to_s.html_safe %>
+    </div>
+  <% end %>
+  <% if block.picture %>
+    <%= block.picture.title %><br/>
+    <img src="<%= url_for file_path('pictures', block.picture.path) %>"/>
+  <% end %>
+  <% if block.video %>
+    <%= block.video.title %><br/>    
+  <% end %>
+</div>

@@ -1,6 +1,4 @@
 
-<h2>Case title: <%= @detail.block.case.title %></h2>
-
 <%= render 'shared/form_errors', :errors => @detail.errors %>    
 
 <%= form_for [@case, @detail] do |f| %>
@@ -12,6 +10,9 @@
 
 <div class="actions">
   <%= f.submit 'Save' %>
+  <% if @detail.id %>
+    <%= link_to 'Cancel', @case, :class => 'link-cancel' %>
+  <% end %>
 </div>
 
 <% end %>
