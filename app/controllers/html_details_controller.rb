@@ -30,8 +30,15 @@ class HtmlDetailsController < ApplicationController
   end
   
   def edit
+    
     @detail = @case.html_details.find_by_id(params[:id])
+    
     redirect_to cases_path unless @detail
+    
+    respond_to do |format|
+      format.html
+      format.js
+    end
     
   end
   
@@ -52,6 +59,7 @@ class HtmlDetailsController < ApplicationController
   private
   
   def resolve_case
+    
     @case = current_user.cases.find_by_id(params[:case_id]) || 
       redirect_to(cases_path)      
   end

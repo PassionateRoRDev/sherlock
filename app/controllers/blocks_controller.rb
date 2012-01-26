@@ -9,6 +9,7 @@ class BlocksController < ApplicationController
     @block.destroy    
     respond_to do |format|
       format.html { redirect_to(c, :notice => 'The block was successfully deleted') }
+      format.js
     end
     
   end

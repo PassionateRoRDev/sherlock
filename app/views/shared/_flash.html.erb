@@ -1,9 +1,9 @@
-<% if flash %>
-  <div class="flash-messages">
+<div class="flash-messages">
+  <% if flash.present? %>  
     <% flash.each do |key, value| %>
       <div class='msg' id='<%= key %>'>
         <%= value %>
       </div>
     <% end %>
-  </div>
-<% end %>
+  <% end %>
+</div>
