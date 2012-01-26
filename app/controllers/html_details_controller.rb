@@ -3,12 +3,12 @@ class HtmlDetailsController < ApplicationController
   before_filter :authenticate_user!
   before_filter :resolve_case, :only => [ :new, :edit, :update, :create ]
   
-  def new
-    
+  respond_to :html, :json, :except => :update
+  
+  def new    
     block = Block.new
     block.case = @case
     @detail  = HtmlDetail.new(:block => block)    
-    
   end
   
   def create
@@ -21,7 +21,7 @@ class HtmlDetailsController < ApplicationController
         
     respond_to do |format|
       if (@detail.save) 
-        format.html { redirect_to(@case, :notice => 'HTML block has been added') }
+        format.html { redirect_to(@case, :notice => 'HTML block has been added') }        
       else  
         format.html { render :action => 'new' }
       end
@@ -29,17 +29,9 @@ class HtmlDetailsController < ApplicationController
     
   end
   
-  def edit
-    
-    @detail = @case.html_details.find_by_id(params[:id])
-    
-    redirect_to cases_path unless @detail
-    
-    respond_to do |format|
-      format.html
-      format.js
-    end
-    
+  def edit    
+    @detail = @case.html_details.find_by_id(params[:id])    
+    redirect_to cases_path unless @detail    
   end
   
   def update

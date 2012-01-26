@@ -9,10 +9,8 @@
 </div>
 
 <div class="actions">
-  <%= f.submit 'Save' %>
-  <% if @detail.id %>
-    <%= link_to 'Cancel', @case, :class => 'link-cancel' %>
-  <% end %>
+  <%= f.submit 'Save' %>  
+  <%= link_to 'Cancel', @case, :class => 'link-cancel' %>  
 </div>
 
 <% end %>

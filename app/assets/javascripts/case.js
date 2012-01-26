@@ -1,15 +1,4 @@
 
-function flashMessage(id, txt)
-{
-    var msgs = $('.flash-messages');
-    var m = msgs.find('#' + id);
-    if (!m.length) {
-        m = $('<div>').addClass('msg').attr('id', id);
-        msgs.append(m);
-    }
-    m.html(txt);    
-}
-
 $(function() {
     
     function removeTinyMCE(eltId) {
@@ -19,27 +8,57 @@ $(function() {
         }
     }
     
+    function ajaxHtmlDo(url, success) 
+    {
+        var options = {
+            url: url,
+            cache: false,
+            dataType: 'html',
+            success : success
+        };
+        $.ajax(options);        
+    }
+    
+    $('.block-add-ajax').click(function(e) {
+        var url = this.href;
+        var exists  = $('.injected-form-new');
+        if (!exists.length) {            
+            ajaxHtmlDo(url, function(responseText, textStatus, XMLHttpRequest) {
+                var blocks = $('.blocks-area');
+                var newBlock = $('.new-block', blocks);
+                newBlock.html(responseText);
+                var f = $('.injected-form-new', newBlock);
+                var textarea = $('textarea', f);
+                $('.link-cancel', newBlock).click(function() {                                        
+                    f.hide();                    
+                    removeTinyMCE(textarea.attr('id'));                    
+                    f.remove();                    
+                    return false;
+                });
+                setTimeout(function() {       
+                    tinyMCE.execCommand('mceFocus', false, textarea.attr('id'));
+                }, 500);
+            });
+        }
+        return false;
+    });
+    
     $('.block-edit-ajax').click(function(e) {
         var url = this.href;
         var block = $(this).parents('.block:first');
         var exists  = $('.injected-form', block);
-        if (!exists.length) {        
-            $.ajax({
-                url: url,
-                cache: false,
-                dataType: 'html',
-                success : function(responseText, textStatus, XMLHttpRequest) {
-                    var editable = $('.block-editable', block);
-                    editable.hide();
-                    editable.after(responseText);
-                    $('.link-cancel', block).click(function() {                    
-                        $(this).parents('.injected-form').hide();
-                        removeTinyMCE('html_detail_contents');                    
-                        $(this).parents('.injected-form').remove();
-                        editable.show();
-                        return false;
-                    });
-                }
+        if (!exists.length) {
+            ajaxHtmlDo(url, function(responseText, textStatus, XMLHttpRequest) {
+                var editable = $('.block-editable', block);
+                editable.hide();
+                editable.after(responseText);
+                $('.link-cancel', block).click(function() {                    
+                    $(this).parents('.injected-form').hide();
+                    removeTinyMCE('html_detail_contents');                    
+                    $(this).parents('.injected-form').remove();
+                    editable.show();
+                    return false;
+                });
             });
         }
         return false; 
@@ -74,7 +93,12 @@ $(function() {
     });
     
     $('.blocks-area .block a.cancel-block').live('click', function(e) {        
-        $(this).parents('.block:first').remove();        
+        var block = $(this).parents('.block:first');
+        var rich = block.find('textarea');
+        if (rich.length) {
+            removeTinyMCE(rich.attr('id')); 
+        }
+        block.remove();        
         return false;
     });
     
