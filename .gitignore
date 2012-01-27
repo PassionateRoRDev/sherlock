@@ -5,6 +5,7 @@
 .*.swp
 .*.swo
 .rbx
+.rvmrc
 .bundle
 .DS_Store
 .LCK*
