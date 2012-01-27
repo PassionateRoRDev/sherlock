@@ -7,6 +7,15 @@ Given /^(?:|I )go to (.+)$/ do |page_name|
   visit path_to(page_name)
 end
 
+Then /^(?:|I )should be on (.+)$/ do |page_name|
+  current_path = URI.parse(current_url).path
+  if current_path.respond_to? :should
+    current_path.should == path_to(page_name)
+  else
+    assert_equal path_to(page_name), current_path
+  end
+end
+
 Given /^I sign\-in as "(.*?)" with password "(.*?)"$/ do |username, password|
   fill_in 'Email', :with => username
   fill_in 'Password', :with => password
@@ -54,6 +63,10 @@ end
 
 Then /^I should see confirmation "([^"]*)"$/ do |confirmation|
   find('.flash-messages').find('#notice').should have_content(confirmation)
+end
+
+Then /^(?:|I )should see "(.*)"$/ do |expected|
+  page.body.should include(expected)
 end
 
 Then /^the list of cases should contain (\d+) cases?$/ do |how_many|  

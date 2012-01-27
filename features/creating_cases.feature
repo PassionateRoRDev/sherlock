@@ -4,21 +4,12 @@ Feature: Creating Cases
   I want to create a new case
 
   Scenario: Going to the New Case page
-    Given there are the following users:
-    | email          | password |
-    | user1@mail.com | password |
-    And I am on the sign-in page    
-    When I sign-in as "user1@mail.com" with password "password"
-    And I go to the new case page
+    Given I am signed in
+    When I go to the new case page
     Then page title should be "Create New Case"
 
-
   Scenario: Creating a blank new case
-    Given there are the following users:
-    | email          | password |
-    | user1@mail.com | password |
-    And I am on the sign-in page    
-    When I sign-in as "user1@mail.com" with password "password"
+    Given I am signed in
     And I go to the new case page
     And I fill in "Title" with "Case #1"
     And I fill in "Summary" with "Summary of the case"
@@ -27,23 +18,13 @@ Feature: Creating Cases
     And I should see confirmation "Case has been successfully created"
     And the list of cases should contain 1 case
 
-  Scenario: Creating two blank new cases
-    Given there are the following users:
-    | email          | password |
-    | user1@mail.com | password |
-    And I am on the sign-in page    
-    When I sign-in as "user1@mail.com" with password "password"
-    And I go to the new case page
-    And I fill in "Title" with "Case #1"
-    And I fill in "Summary" with "Summary of the first case"
-    And I press "Save"
-    And I go to the new case page
-    And I fill in "Title" with "Case #2"
-    And I fill in "Summary" with "Summary of the second case"
-    And I press "Save"    
+  Scenario: Cases appear in the list 
+    Given I am signed in
+      And I have a case entitled "Case #1"
+      And I have a case entitled "Case #2"
+      And I go to the cases page
     Then page title should be "My Cases"
-    And I should see confirmation "Case has been successfully created"
     And the list of cases should contain 2 cases
+    And I should see "Case #1"
+    And I should see "Case #2"
 
-  
-    

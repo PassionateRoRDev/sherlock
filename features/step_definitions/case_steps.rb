@@ -1,3 +1,6 @@
+Given /^I have a case entitled "(.*)"$/ do |title|
+  Factory.create(:case, :title => title, :user => User.current)
+end
 
 When /^I click "([^"]*)" on the (\d+).. block$/ do |action_name, block_no|  
   block = find('.blocks-area').all('.block')[block_no.to_i - 1]

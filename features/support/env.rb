@@ -5,6 +5,15 @@
 # files.
 
 require 'cucumber/rails'
+require 'factory_girl/step_definitions'
+#  Given the following users exist:
+#   |email|
+#   |jw@mustmodify.com|
+#   |fu@bar.com|
+#  Given the following user exists: (with table above, for multiple atts)
+#  Given a user exists
+#  Given 20 users exist
+#  Given a user exists with an email of "fu@bar.com"
 
 # Capybara defaults to XPath selectors rather than Webrat's default of CSS3. In
 # order to ease the transition to Capybara we set the default here. If you'd
