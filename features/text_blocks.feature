@@ -13,3 +13,23 @@ Feature: Text Blocks
      Then I should be on details page of "#5"
       And I should see "So this is the kind of thing that happens when"
 
+  Scenario: Editing a text block
+    Given I am signed in
+      And I have a case entitled "#6"
+      And #6 has an html block
+     When I go to the details page of "#6"
+      And I follow "Edit" within ".block.text"
+      And I fill in "Content" with "Newt"
+      And I press "Save"
+     Then I should be on the details page of "#6"
+      And I should see "Newt"
+
+  Scenario: Removing a text block
+    Given I am signed in
+      And I have a case entitled "#6"
+      And #6 has an html block with content "hello there ms. mistress"
+     When I go to the details page of "#6"
+      And I follow "Delete" within ".block.text"
+      And I should be on the details page of "#6"
+      And I should not see "hello there ms. mistress"
+

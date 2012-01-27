@@ -30,8 +30,12 @@ When /^I press "([^"]*)"$/ do |button|
   click_button button
 end
 
-When /^I follow "([^"]*)"$/ do |link_text|
-  click_link(link_text)
+When /^I follow "([^"]*)"(?: within "(.*)")?$/ do |link_text, selection|
+  if selection.nil?
+    click_link(link_text)
+  else
+    find(selection).click_link(link_text)
+  end
 end
 
 When /^I attach file "([^"]*)" to "([^"]*)"$/ do |filepath, field|
@@ -67,6 +71,10 @@ end
 
 Then /^(?:|I )should see "(.*)"$/ do |expected|
   page.body.should include(expected)
+end
+
+Then /^(?:|I )should not see "([^"]*)"$/ do |text|
+  page.should have_no_content(text)
 end
 
 Then /^the list of cases should contain (\d+) cases?$/ do |how_many|  

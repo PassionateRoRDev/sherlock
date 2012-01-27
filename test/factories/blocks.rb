@@ -8,9 +8,9 @@ FactoryGirl.define do
     path '/tmp/dummy.txt'
   end
 
-  factory :html_block do
+  factory :html_detail do
     association :block
-    content "Oh for a muse of fire that would ascend the brightest heaven of invention."
+    contents "Oh for a muse of fire that would ascend the brightest heaven of invention."
   end
 
   factory :video do
