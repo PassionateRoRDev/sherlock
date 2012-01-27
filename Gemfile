@@ -7,6 +7,7 @@ gem 'rails', '3.1.3'
 
 gem 'mysql2'
 gem 'devise', '~>1.4.3'
+gem 'factory_girl_rails'
 gem 'fastercsv'
 gem 'json'
 gem 'rails_admin', :git => 'git://github.com/sferik/rails_admin.git'
