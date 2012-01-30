@@ -12,14 +12,11 @@ class Case < ActiveRecord::Base
   
   def as_json(options = {})  
     
-    options[:except] += [:user_id, :client_name, :id, :number, :updated_at]
-    super(options)
-    
-    #except = [:user_id, :client_name, :id, :number, :updated_at]
-    #include = []    
-    #result = super(:include => include, :except => except)        
-    #result['blocks'] = self.blocks.map { |block| block.as_json }    
-    #result
+    except = [:user_id, :client_name, :id, :number, :updated_at]
+    include = []    
+    result = super(:include => include, :except => except)        
+    result['blocks'] = self.blocks.map { |block| block.as_json }    
+    result
   end
   
 end
