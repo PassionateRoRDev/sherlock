@@ -26,7 +26,10 @@ describe Report do
   it 'JSON should have correct output file' do
     r = prepare_report
     decoded = ActiveSupport::JSON.decode(r.to_json)
-    decoded["outputFile"].should == 'reports/1/report1.pdf'
+    
+    files_path = "#{Rails.root}/#{APP_CONFIG['files_path']}"
+    
+    decoded["outputFile"].should == "#{files_path}1/reports/report1.pdf"
   end
   
   it 'JSON should have correct number of blocks' do
@@ -56,6 +59,25 @@ describe Report do
     
     decoded = ActiveSupport::JSON.decode(r.to_json)
     decoded["case"]['blocks'].count.should == 2
+  end
+  
+  it 'JSON should contain templatesRoot and template' do
+    r = prepare_report
+    r.template = 'template.xhtml'
+    
+    decoded = ActiveSupport::JSON.decode(r.to_json)
+    decoded['templatesRoot'].should == "#{Rails.root}/templates/"
+    decoded['template'].should == 'template.xhtml'    
+  end
+  
+  it 'JSON should contain picturesRoot and it should be absolute' do
+    r = prepare_report
+    r.template = 'template.xhtml'
+    
+    files_path = "#{Rails.root}/#{APP_CONFIG['files_path']}"
+    
+    decoded = ActiveSupport::JSON.decode(r.to_json)    
+    decoded['picturesRoot'].should == "#{files_path}1/pictures/"    
   end
   
   it 'Picture block should return its title as a caption' do

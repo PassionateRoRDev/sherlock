@@ -1,8 +1,11 @@
 development:    
   files_path: files/
+  templates_path: templates/
 
 test:
   files_path: tmp/files/
+  templates_path: templates/
 
 production:  
   files_path: files/
+  templates_path: templates/
