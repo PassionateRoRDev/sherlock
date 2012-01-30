@@ -23,7 +23,7 @@ module FileAsset
     filename = hash + '-' + file.original_filename
     
     dir = APP_CONFIG['files_path'] + "#{user.id}/#{type}"
-    FileUtils.mkdir_p(dir) unless File.directory?(dir)    
+    FileUtils.mkdir_p(dir) unless File.directory?(dir)
     if File.directory?(dir)
       bytes = file.read
       filepath = dir + '/' + filename

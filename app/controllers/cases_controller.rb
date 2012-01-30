@@ -24,7 +24,7 @@ class CasesController < ApplicationController
     @case = resolve_case_from_id
     respond_to do |format|
       format.html { render :action => 'show' }
-      format.pdf { render_pdf(@case) }
+      format.pdf { render_pdf2(@case) }
       format.js { render :json => @case }
     end
   end
@@ -67,10 +67,35 @@ class CasesController < ApplicationController
     the_case ? the_case : redirect_to(cases_path)
   end
   
-  def render_pdf(the_case)
+  def render_pdf2(the_case)
     
-    title = the_case.title.gsub(/\s+/, '-') + '.pdf'
+    report = Report.new
+    report.title = the_case.title    
+    report.case = the_case
+    report.output_file = "report1.pdf"
+    report.template = 'template.xhtml'
     
+    #logger.debug(report.to_json)
+    
+    path = report.write_json
+    command = "cd script && java -jar ReportGen.jar " + path + ""
+    logger.debug(command)
+    result = `#{command}`
+    logger.debug(result)
+    
+    #File.unlink(path) if File.exists?(path)    
+    
+    title = the_case.title.gsub(/\s+/, '-') + '.pdf'    
+    send_pdf_headers(title)
+    
+    send_file(report.reports_output_path,
+              :filename => title, :type => 'application/pdf')
+
+  end
+  
+  def send_pdf_headers(title)
+    
+    title = title.gsub(/\s+/, '-') + '.pdf'    
     if request.env['HTTP_USER_AGENT'] =~ /msie/i
       headers['Pragma'] = 'public'
       headers["Content-type"] = "application/pdf" 
@@ -81,12 +106,14 @@ class CasesController < ApplicationController
       headers["Content-Type"] ||= 'application/pdf'
       headers["Content-Disposition"] = "attachment; filename=\"#{title}\"" 
     end
+  end
+  
+  def render_pdf(the_case)
+    title = the_case.title.gsub(/\s+/, '-') + '.pdf'    
+    send_pdf_headers(title)
     
     send_file("#{Rails.root}/files/report1.pdf", 
-              :filename => title, :type => 'application/pdf')
-
-    
-    
+              :filename => title, :type => 'application/pdf')        
     
   end
 

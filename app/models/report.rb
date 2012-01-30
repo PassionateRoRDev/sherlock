@@ -23,6 +23,15 @@ class Report
     }
   end
   
+  def write_json
+    dir = reports_root
+    FileUtils.mkdir_p(dir) unless File.directory?(dir)
+    
+    json_path = reports_output_path.sub(/\.pdf$/, '.json')    
+    File.open(json_path, 'w') {|f| f.write(to_json) }
+    json_path
+  end
+  
   def files_path
     "#{Rails.root}/#{APP_CONFIG['files_path']}/"    
   end
@@ -38,11 +47,15 @@ class Report
   def path_for(name)    
     normalize_path(files_path_for_user + "/#{name}/")
   end
-  
-  def reports_output_path
-    normalize_path("#{path_for('reports')}/#{self.output_file}")
-  end
     
+  def reports_output_path
+    normalize_path("#{reports_root}/#{self.output_file}")
+  end
+  
+  def reports_root
+    path_for('reports')    
+  end  
+  
   def pictures_root
     path_for('pictures')    
   end
