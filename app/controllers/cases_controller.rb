@@ -25,6 +25,7 @@ class CasesController < ApplicationController
     respond_to do |format|
       format.html { render :action => 'show' }
       format.pdf { render_pdf(@case) }
+      format.js { render :json => @case }
     end
   end
   

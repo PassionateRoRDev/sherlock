@@ -23,4 +23,27 @@ class Block < ActiveRecord::Base
     
   end
   
+  def as_json(options = {})    
+    
+    include = []
+    except = [:created_at, :updated_at, :id, :case_id]    
+    result = super(:include => include, :except => except)
+    
+    options = {
+      :except => [:id, :block_id, :updated_at, :created_at]
+    }        
+    
+    if self.html_detail 
+      result['htmlDetail'] = self.html_detail.as_json(options)
+    end
+    if self.video
+      result['video'] = self.video.as_json(options)
+    end
+    if self.picture
+      result['picture'] = self.picture.as_json(options)
+    end
+    result
+  
+  end
+  
 end

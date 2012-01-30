@@ -42,7 +42,9 @@ class HtmlDetailsController < ApplicationController
     
     respond_to do |format|
       if @detail.update_attributes(params[:html_detail])
+        @block = @detail.block
         format.html { redirect_to(@case, :notice => 'The block has been successfully updated') }
+        format.js
       else
         format.html { render :action => 'edit' }
       end
