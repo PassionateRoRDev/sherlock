@@ -21,6 +21,11 @@ class Video < ActiveRecord::Base
     delete_file_for_type(file_type)  
   end
   
-  
+  def as_json(options = {})    
+    options[:except] += [:original_filename]
+    result = super(options)        
+    result['caption'] = result['title']
+    result
+  end 
   
 end
