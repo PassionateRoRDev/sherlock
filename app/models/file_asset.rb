@@ -3,10 +3,10 @@ module FileAsset
   def filepath_for_type(type)
     filepath_for_type_and_filename(type, self.path)
   end
-  
+
   def filepath_for_type_and_filename(type, filename)
     user_id = self.block.case.user_id
-    APP_CONFIG['files_path'] + "#{user_id}/#{type}" + '/' + filename
+    FileAsset::dir_for_user(user_id, type) + '/' + filename
   end
   
   def full_filepath
@@ -19,7 +19,7 @@ module FileAsset
   end
     
   def self.dir_for_user(user_id, type)
-    APP_CONFIG['files_path'] + "#{user_id}/#{type}"
+    "#{Rails.root}/" + APP_CONFIG['files_path'] + "#{user_id}/#{type}"
   end
   
   def self.store_for_type(user, file, type)
@@ -29,6 +29,7 @@ module FileAsset
 
     filename = hash + '-' + file.original_filename
     dir = dir_for_user(user.id, type)    
+    Rails::logger.debug("Creating dir if does not exist: " + dir)
     FileUtils.mkdir_p(dir) unless File.directory?(dir)
     if File.directory?(dir)
       bytes = file.read

@@ -36,7 +36,7 @@ class CasesController < ApplicationController
         if @case.update_attributes(params[:case])
           format.html { redirect_to(@case, :notice => 'Case has been successfully updated') }
         else
-          format.html { render :action => 'edit' }
+          foreat.html { render :action => 'edit' }
         end
       end
     end
@@ -72,18 +72,19 @@ class CasesController < ApplicationController
     report = Report.new
     report.title = the_case.title    
     report.case = the_case
-    report.output_file = "report1.pdf"
+    report.output_file = "report_#{the_case.id}.pdf"
     report.template = 'template.xhtml'
     
     logger.debug(report.to_json)
     
     path = report.write_json
-    command = "cd script && java -jar ReportGen.jar " + path + ""
+    command = "java -jar #{Rails.root}/script/ReportGen.jar " + path + " 2>&1"
     logger.debug(command)
     result = `#{command}`
+    logger.debug("Result of command:")
     logger.debug(result)
     
-    #File.unlink(path) if File.exists?(path)    
+    File.unlink(path) if File.exists?(path)    
     
     title = the_case.title.gsub(/\s+/, '-') + '.pdf'    
     send_pdf_headers(title)
