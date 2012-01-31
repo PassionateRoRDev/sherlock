@@ -24,6 +24,18 @@
     <label for="upload_video">Select Video:</label>
     <%= file_field 'upload', 'video' %>        
   </div>
+    
+  <div>
+    <label for="upload_video">
+      Select Thumbnail:
+    </label>
+    <%= file_field 'upload', 'thumbnail' %>        
+    <div style="font-style:italic;font-weight:normal;">
+    Thumbnail's dimensions will be used as video dimensions 
+    in the report.
+    </div>        
+  </div>
+    
 <% if @video.id %>
   </div>
 <% end %>

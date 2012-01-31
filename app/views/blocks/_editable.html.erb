@@ -11,5 +11,8 @@
   <% end %>
   <% if block.video %>
     <%= block.video.title %><br/>    
+    <% if block.video.thumbnail %>
+      <img src="<%= url_for file_path('videos', block.video.thumbnail) %>"/>
+    <% end %>
   <% end %>
 </div>

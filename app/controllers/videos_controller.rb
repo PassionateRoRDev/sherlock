@@ -19,13 +19,19 @@ class VideosController < ApplicationController
   def create
     
     video = params[:upload]['video']
+    thumbnail = params[:upload]['thumbnail']
+    
     logger.debug(video)
+    logger.debug('Thumbnail')
+    logger.debug(thumbnail)
     
     params[:video][:original_filename] = video.original_filename
     params[:video][:content_type] = video.content_type    
+            
+    paths = Video.store(current_user, video, thumbnail)
     
-    file_path = Video.store(current_user, video)
-    params[:video][:path] = file_path
+    params[:video][:path] = paths[:video_filename]
+    params[:video][:thumbnail] = paths[:thumbnail_filename]
     
     @video = Video.new(params[:video])
     block = Block.new(:case => @case)    
