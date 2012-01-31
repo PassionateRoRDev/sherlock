@@ -1,9 +1,12 @@
 module FileAsset
   
   def filepath_for_type(type)
+    filepath_for_type_and_filename(type, self.path)
+  end
+  
+  def filepath_for_type_and_filename(type, filename)
     user_id = self.block.case.user_id
-    dir = APP_CONFIG['files_path'] + "#{user_id}/#{type}"
-    dir + '/' + self.path    
+    APP_CONFIG['files_path'] + "#{user_id}/#{type}" + '/' + filename
   end
   
   def full_filepath

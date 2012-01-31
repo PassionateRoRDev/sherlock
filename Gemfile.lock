@@ -83,6 +83,7 @@ GEM
       orm_adapter (~> 0.0.3)
       warden (~> 1.0.3)
     diff-lcs (1.1.3)
+    dimensions (1.0.0)
     erubis (2.7.0)
     execjs (1.2.13)
       multi_json (~> 1.0)
@@ -206,6 +207,7 @@ DEPENDENCIES
   cucumber-rails
   database_cleaner
   devise (~> 1.4.3)
+  dimensions
   execjs
   factory_girl_rails
   fastercsv

@@ -75,7 +75,7 @@ class CasesController < ApplicationController
     report.output_file = "report1.pdf"
     report.template = 'template.xhtml'
     
-    #logger.debug(report.to_json)
+    logger.debug(report.to_json)
     
     path = report.write_json
     command = "cd script && java -jar ReportGen.jar " + path + ""

@@ -18,7 +18,7 @@ class VideosController < ApplicationController
   
   def create
     
-    video = params[:upload]['video']
+    video     = params[:upload]['video']
     thumbnail = params[:upload]['thumbnail']
     
     logger.debug(video)
@@ -32,6 +32,11 @@ class VideosController < ApplicationController
     
     params[:video][:path] = paths[:video_filename]
     params[:video][:thumbnail] = paths[:thumbnail_filename]
+    
+    if paths[:thumbnail_dims]
+      params[:video][:width]  = paths[:thumbnail_dims][0]
+      params[:video][:height] = paths[:thumbnail_dims][1]
+    end
     
     @video = Video.new(params[:video])
     block = Block.new(:case => @case)    
@@ -59,15 +64,36 @@ class VideosController < ApplicationController
     @video = @case.videos.find_by_id(params[:id])    
     redirect_to cases_path unless @video
     
-    old_path = @video.path
+    # is it needed? we do not overwrite the path here
+    old_filename = @video.path
     
     respond_to do |format|
       if @video.update_attributes(params[:video])                        
         video = params[:upload]['video']
         if video
+          
+          thumbnail = params[:upload]['thumbnail']
+          
           logger.debug("Deleting the previous file")
-          @video.delete_file_for_path(old_path)
-          @video.path = Video.store(current_user, video)
+          @video.delete_file_for_path(old_filename)
+          @video.delete_thumbnail
+              
+          # TODO: refactor this (thumbnails) into the Video model          
+          
+          paths = Video.store(current_user, video, thumbnail)          
+          @video.path       = paths[:video_filename]
+          @video.thumbnail  = paths[:thumbnail_filename]
+          
+          thumb_width   = 0
+          thumb_height  = 0
+          if paths[:thumbnail_dims]
+            thumb_width  = paths[:thumbnail_dims][0]
+            thumb_height = paths[:thumbnail_dims][1]
+          end
+          
+          @video.width  = thumb_width
+          @video.height = thumb_height          
+          
           @video.save
         end
         

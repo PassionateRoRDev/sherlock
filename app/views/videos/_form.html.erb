@@ -41,10 +41,8 @@
 <% end %>
     
 <div class="actions">
-  <%= f.submit 'Save' %>
-  <% if @video.id %>
-    <%= link_to 'Cancel', @case %>
-  <% end %>
+  <%= f.submit 'Save' %>  
+  <%= link_to 'Cancel', @case %>  
 </div>
 
 <% end %>
