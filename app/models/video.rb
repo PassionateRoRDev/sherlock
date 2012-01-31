@@ -8,53 +8,38 @@ class Video < ActiveRecord::Base
   validates :path, :presence => true  
   
   before_destroy :delete_file
-    
+  before_destroy :delete_thumbnail
+  
   def file_type
     'videos'
   end
   
-  def self.store(user, upload_info, thumbnail_upload)    
+  def thumbnail_method
+    self.thumbnail_pos.blank? ? :manual : :auto
+  end
+  
+  def self.store_thumbnail(user_id, video_filename, thumbnail_upload)
     
-    video_filename = FileAsset::store_for_type(user, upload_info, 'videos')
-    #Rails::logger.debug('Video path is: ' + video_filename.to_s)
-    
-    thumbnail_filename    = nil
-    full_thumbnail_path   = nil
-    thumbnail_dims        = nil
-    
-    if thumbnail_upload
-      
-      Rails::logger.debug("Reading submitted thumbnail")
-      
-      # store the thumbnail image as well
-      thumbnail_upload.original_filename =~ /([^.]+)$/
-      thumbnail_ext = $1
-      thumbnail_filename = video_filename.sub(/([^.]+)$/, thumbnail_ext)
-      #Rails::logger.debug('Thumbnail filename will be: ' + thumbnail_filename)
-      full_thumbnail_path = FileAsset::dir_for_user(user.id, 'videos') + 
-                            '/' + thumbnail_filename
-      #Rails::logger.debug('Saving video thumbnail at ' + full_thumbnail_path)
-      File.open(full_thumbnail_path, 'wb') {|f| f.write(thumbnail_upload.read) }                       
-    else            
-      Rails::logger.debug("Extracting thumbnail")      
-      thumbnail = extract_thumbnail_from_movie(user.id, video_filename)      
-      
-      full_thumbnail_path = thumbnail[:path]
-      thumbnail_filename  = thumbnail[:filename]      
-    end
+    thumbnail_upload.original_filename =~ /([^.]+)$/
+    thumbnail_ext = $1
+    thumbnail_filename = video_filename.sub(/([^.]+)$/, thumbnail_ext)
+    #Rails::logger.debug('Thumbnail filename will be: ' + thumbnail_filename)
+    full_thumbnail_path = FileAsset::dir_for_user(user_id, 'videos') + 
+                          '/' + thumbnail_filename
+    #Rails::logger.debug('Saving video thumbnail at ' + full_thumbnail_path)
+    File.open(full_thumbnail_path, 'wb') {|f| f.write(thumbnail_upload.read) }
     
     thumbnail_dims = Dimensions.dimensions(full_thumbnail_path)
-    Rails::logger.debug('Dimensions: ' + thumbnail_dims.to_s)
     
     {
-      :video_filename     => video_filename,
-      :thumbnail_filename => thumbnail_filename,
-      :thumbnail_path     => full_thumbnail_path,
-      :thumbnail_dims     => thumbnail_dims
+      :filename => thumbnail_filename,
+      :path     => full_thumbnail_path,
+      :width    => thumbnail_dims[0],
+      :height   => thumbnail_dims[1]
     }
   end
   
-  def self.extract_thumbnail_from_movie(user_id, video_filename)
+  def self.extract_thumbnail_from_movie(user_id, video_filename, thumb_timecode)
     
     Rails::logger.debug("extract_thumbnail_from_movie: " + user_id.to_s + ", " + video_filename)
     
@@ -65,7 +50,7 @@ class Video < ActiveRecord::Base
     full_thumbnail_path = dir + thumbnail_filename      
     full_video_path = dir + video_filename
     
-    timecode = 1
+    timecode = thumb_timecode || 1
     
     command = "ffmpeg -vframes 1 -i #{full_video_path} -ss #{timecode} " +
               " -f image2 #{full_thumbnail_path} 2>/dev/null"
@@ -74,11 +59,36 @@ class Video < ActiveRecord::Base
     result = `#{command}`
     Rails::logger.debug("Result of the command: " + result)    
     
+    thumbnail_dims = Dimensions.dimensions(full_thumbnail_path)
+    
     {
       :filename => thumbnail_filename,
-      :path     => full_thumbnail_path
-    }
+      :path     => full_thumbnail_path,
+      :width    => thumbnail_dims[0],
+      :height   => thumbnail_dims[1]
+    }    
     
+  end  
+  
+  def self.store(user, upload_info)        
+    FileAsset::store_for_type(user, upload_info, 'videos')                
+  end      
+  
+  def rename_thumbnail
+    user_id = self.block.case.user_id
+    thumbnail_path = FileAsset::dir_for_user(user_id, 'videos') +  '/' +
+                       self.thumbnail    
+    thumbnail_path =~ /([^.]+)$/
+    thumbnail_ext = $1
+    
+    new_thumbnail_filename = self.path.sub(/([^.]+)$/, thumbnail_ext)
+    new_thumbnail_path = FileAsset::dir_for_user(user_id, 'videos') +  '/' +
+                         new_thumbnail_filename
+                         
+    File.rename(thumbnail_path, new_thumbnail_path)
+    self.thumbnail = new_thumbnail_filename
+    
+    Rails::logger.debug('Renamed ' + thumbnail_path + ', ' + new_thumbnail_path)
     
   end
   
@@ -98,9 +108,7 @@ class Video < ActiveRecord::Base
   end
   
   def delete_file
-    delete_file_for_type(file_type)  
-    # delete thumbnail if one is present
-    delete_thumbnail 
+    delete_file_for_type(file_type)    
   end
   
   def type_from_content_type(content_type)

@@ -12,37 +12,50 @@ class VideosController < ApplicationController
     
     block = Block.new
     block.case = @case
-    @video  = Video.new(:block => block)    
-    
+    @video  = Video.new(:block => block, :thumbnail_pos => '00:00:01')    
   end
   
   def create
     
+    if params[:video][:thumbnail_method] == 'auto'
+      params[:upload].delete('thumbnail')
+    end    
+    params[:video].delete(:thumbnail_method)
+       
     video     = params[:upload]['video']
     thumbnail = params[:upload]['thumbnail']
+            
+    params[:video][:original_filename] = video.original_filename
+    params[:video][:content_type]      = video.content_type    
+            
+    video_filename = Video.store(current_user, video)
+    params[:video][:path] = video_filename
     
-    logger.debug(video)
-    logger.debug('Thumbnail')
+    # store thumbnail or automatically generate a new one:
+    thumbnail_info = {}
+    
+    logger.debug('Thumbnail is:')
     logger.debug(thumbnail)
     
-    params[:video][:original_filename] = video.original_filename
-    params[:video][:content_type] = video.content_type    
-            
-    paths = Video.store(current_user, video, thumbnail)
+    if thumbnail
+      thumbnail_info = 
+        Video.store_thumbnail(current_user.id, video_filename, thumbnail)
+      params[:video].delete(:thumbnail_pos)
+    else
+      thumbnail_info =
+        Video.extract_thumbnail_from_movie(current_user.id, video_filename, 
+                                           params[:video][:thumbnail_pos])
+    end    
     
-    params[:video][:path] = paths[:video_filename]
-    params[:video][:thumbnail] = paths[:thumbnail_filename]
-    
-    if paths[:thumbnail_dims]
-      params[:video][:width]  = paths[:thumbnail_dims][0]
-      params[:video][:height] = paths[:thumbnail_dims][1]
-    end
-    
+    params[:video][:thumbnail]  = thumbnail_info[:filename]    
+    params[:video][:width]      = thumbnail_info[:width]
+    params[:video][:height]     = thumbnail_info[:height]
+        
     @video = Video.new(params[:video])
     block = Block.new(:case => @case)    
     @video.block = block
     
-    # TODO: initialize weight to be the maximum one    
+    # TODO: initialize weight to be the maximum one
         
     respond_to do |format|
       if (@video.save) 
@@ -61,40 +74,50 @@ class VideosController < ApplicationController
   end
   
   def update
+    
     @video = @case.videos.find_by_id(params[:id])    
     redirect_to cases_path unless @video
     
-    # is it needed? we do not overwrite the path here
-    old_filename = @video.path
+    thumbnail_method = params[:video][:thumbnail_method]
+    
+    if params[:upload] && (params[:video][:thumbnail_method] == 'auto')
+      params[:upload].delete('thumbnail')
+    end    
+    params[:video].delete(:thumbnail_method)    
     
     respond_to do |format|
-      if @video.update_attributes(params[:video])                        
-        video = params[:upload]['video']
+      if @video.update_attributes(params[:video])        
+        video = params[:upload] ? params[:upload]['video'] : nil
         if video
+          video_filename = Video.store(current_user, video)          
+          @video.delete_file
+          @video.path = video_filename
+          @video.rename_thumbnail if @video.thumbnail
+          @video.save
+        end
+        
+        unless params[:keep_thumbnail].to_i == 1
           
-          thumbnail = params[:upload]['thumbnail']
-          
-          logger.debug("Deleting the previous file")
-          @video.delete_file_for_path(old_filename)
-          @video.delete_thumbnail
-              
-          # TODO: refactor this (thumbnails) into the Video model          
-          
-          paths = Video.store(current_user, video, thumbnail)          
-          @video.path       = paths[:video_filename]
-          @video.thumbnail  = paths[:thumbnail_filename]
-          
-          thumb_width   = 0
-          thumb_height  = 0
-          if paths[:thumbnail_dims]
-            thumb_width  = paths[:thumbnail_dims][0]
-            thumb_height = paths[:thumbnail_dims][1]
+          case thumbnail_method
+          when 'auto'
+            logger.debug('Extracting the thumbnail automatically!')
+            Video.extract_thumbnail_from_movie(current_user.id, @video.path, 
+                                               @video.thumbnail_pos)
+          when 'manual'
+            if params[:upload] && params[:upload]['thumbnail']
+              logger.debug('Updating the thumbnail manually!')
+              thumbnail = params[:upload]['thumbnail']
+              thumbnail_info = 
+                Video.store_thumbnail(current_user.id, @video.path, thumbnail)              
+              @video.thumbnail_pos  = nil
+              @video.width          = thumbnail_info[:width]
+              @video.height         = thumbnail_info[:height]
+              @video.save
+            end
           end
           
-          @video.width  = thumb_width
-          @video.height = thumb_height          
-          
-          @video.save
+        else
+          logger.debug("Keeping the thumbnail!!!!")
         end
         
         format.html { redirect_to(@case, :notice => 'The block has been successfully updated') }

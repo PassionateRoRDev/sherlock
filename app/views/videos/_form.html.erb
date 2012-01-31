@@ -1,5 +1,5 @@
 
-<h2>Case title: <%= @case.title %></h2>
+<h2>Case title: <%= link_to @case.title, @case %></h2>
 
 <%= render 'shared/form_errors', :errors => @video.errors %>
 
@@ -7,42 +7,155 @@
     :html => { :enctype => 'multipart/form-data' }) do |f| %>
 
 <div>
-  <%= f.label :title %>
+  <%= f.label :title, 'Title:' %>
   <%= f.text_field :title, :size => 100 %>
 </div>
 
 <% if @video.id %>
-  <div style="margin-top:1em;">
-    <input type="button" 
-           value="Change the Video"
-           onclick="$('#video-field-wrapper').show();"/>
+    
+  <div style="margin:1em 0;" id="video-change-block">
+    <input type="button" id="btn-video-change" value="Change the Video"/>
+    <a href="#" style="visibility:hidden;">Keep the existing video</a>
   </div>
-  <div id="video-field-wrapper" style="display:none;">
+  
+
+  <div id="video-field-wrapper" style="display:none;">      
+    
 <% end %>
 
   <div>
     <label for="upload_video">Select Video:</label>
     <%= file_field 'upload', 'video' %>        
-  </div>
+  </div>      
     
-  <div>
-    <label for="upload_video">
-      Select Thumbnail:
-    </label>
-    <%= file_field 'upload', 'thumbnail' %>        
-    <div style="font-style:italic;font-weight:normal;">
-    Thumbnail's dimensions will be used as video dimensions 
-    in the report.
-    </div>        
+  <% if @video.id %>
+</div>
+
+<% end %>
+
+<h4 style="margin-top:1em;">Thumbnail</h4>
+
+<% if @video.thumbnail %>  
+  <img src="<%= url_for file_path('videos', @video.thumbnail) %>"/> 
+<% end %>
+
+<% if @video.id %>
+  
+  <input type="hidden" name="keep_thumbnail" value="1"/>
+  
+  <div style="margin:5px 0;">
+    <% if @video.thumbnail_method == :auto %>
+    Thumbnail extracted from video, position <strong><%= @video.thumbnail_pos %>.</strong>
+    <% else %>
+    You have manually uploaded this thumbnail.
+    <% end %>
+    
+    <div style="margin:5px 0;">
+      <button id="btn-thumbnail-change">Change Thumbnail</button>
+      <span class="hidden">
+        <a href="#" id="link-thumbnail-keep">Keep the current thumbnail</a>
+      </span>
+    </div>
+    
   </div>
+  <div id="block-thumbnail-change-wrapper" style="display:none;">
+<% end %>  
+  
+<div id="block-thumbnail-method-auto">
+  <%= f.radio_button :thumbnail_method, :auto %>
+  <%= f.label :thumbnail_method_auto, 
+      'generate automatically from clip', :class => :inline %>
+  <span
+    <% if @video.thumbnail_method == :manual %>
+    class="hidden"
+    <% end %>
+    >
+  - timecode 
+  <%= f.text_field :thumbnail_pos, :size => 10 %>
+  (HH:MM:SS.xxx)
+  </span>
+</div>
+<div id="block-thumbnail-method-manual">
+  <%= f.radio_button :thumbnail_method, :manual %>
+  <%= f.label :thumbnail_method_manual, 
+      'manually upload a thumbnail image', :class => :inline %>
+  <div
+    <% if @video.thumbnail_method == :auto %>
+    class="hidden"
+    <% end %>
+    >
+    <label for="upload_thumbnail">Select Thumbnail:</label>
+    <%= file_field 'upload', 'thumbnail' %>
+    
+  </div>
+</div>
     
 <% if @video.id %>
   </div>
 <% end %>
-    
+
 <div class="actions">
   <%= f.submit 'Save' %>  
   <%= link_to 'Cancel', @case %>  
 </div>
 
 <% end %>
+
+<script type="text/javascript">  
+  
+  $('#btn-thumbnail-change').click(function(e) {
+    $('#block-thumbnail-change-wrapper').show();
+    $('#link-thumbnail-keep').parent().removeClass('hidden');
+    $('input[name=keep_thumbnail]').val('0');
+    return false;
+  });
+  
+  $('#link-thumbnail-keep').click(function(e) {
+    $('#block-thumbnail-change-wrapper').hide();
+    $('input[name=keep_thumbnail]').val('1');
+    return false;
+  });
+  
+  $('#video_thumbnail_method_auto').change(function(e) {
+    var autoSpan = $('span', '#block-thumbnail-method-auto');
+    var manualDiv = $('div', '#block-thumbnail-method-manual');
+    if (!this.selected) {
+      autoSpan.removeClass('hidden');
+      manualDiv.addClass('hidden');
+    } else {
+      autoSpan.addClass('hidden');
+      manualDiv.removeClass('hidden');
+    }
+  });
+  $('#video_thumbnail_method_manual').change(function(e) {
+    var autoSpan = $('span', '#block-thumbnail-method-auto');
+    var manualDiv = $('div', '#block-thumbnail-method-manual');    
+    if (this.selected) {
+      autoSpan.removeClass('hidden');
+      manualDiv.addClass('hidden');
+    } else {
+      autoSpan.addClass('hidden');
+      manualDiv.removeClass('hidden');
+    }
+  });
+  
+  $('#video-change-block a').click(function(e) {
+      $('#video-field-wrapper').hide();
+      $('#video-change-block a').css('visibility', 'hidden');
+      return false;
+  });
+  $('#btn-video-change').click(function(e) {
+      $('#video-field-wrapper').show();
+      $('#video-change-block a').css('visibility', 'visible');
+  });
+  $('#thumbnail-change-block a').click(function(e) {
+      $('#thumbnail-field-wrapper').hide();
+      $('#thumbnail-change-block a').css('visibility', 'hidden');
+      return false;
+  });  
+  $('#btn-thumbnail-change').click(function(e) {
+    $('#thumbnail-field-wrapper').show();
+    $('#thumbnail-change-block a').css('visibility', 'visible');
+  });
+  
+</script>

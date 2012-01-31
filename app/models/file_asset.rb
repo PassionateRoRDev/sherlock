@@ -22,12 +22,16 @@ module FileAsset
     "#{Rails.root}/" + APP_CONFIG['files_path'] + "#{user_id}/#{type}"
   end
   
-  def self.store_for_type(user, file, type)
-    
+  def self.generate_new_filename(original_filename)
     s = Time.now.to_i.to_s + rand(0..999).to_s
     hash = Digest::MD5.hexdigest(s)    
-
-    filename = hash + '-' + file.original_filename
+    hash + '-' + original_filename    
+  end
+  
+  def self.store_for_type(user, file, type)
+    
+    filename = generate_new_filename(file.original_filename)    
+    
     dir = dir_for_user(user.id, type)    
     Rails::logger.debug("Creating dir if does not exist: " + dir)
     FileUtils.mkdir_p(dir) unless File.directory?(dir)

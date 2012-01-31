@@ -48,6 +48,15 @@ label {
 label.inline {
     display: inline;
     margin-top:0;
+    font-weight: normal;
+}
+
+span.hidden {
+    visibility: hidden;
+}
+
+div.hidden {
+    display: none;
 }
 
 .errors-list li, #error_explanation li {
