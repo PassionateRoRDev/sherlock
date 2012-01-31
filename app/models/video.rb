@@ -23,6 +23,9 @@ class Video < ActiveRecord::Base
     thumbnail_dims        = nil
     
     if thumbnail_upload
+      
+      Rails::logger.debug("Reading submitted thumbnail")
+      
       # store the thumbnail image as well
       thumbnail_upload.original_filename =~ /([^.]+)$/
       thumbnail_ext = $1
@@ -31,12 +34,17 @@ class Video < ActiveRecord::Base
       full_thumbnail_path = FileAsset::dir_for_user(user.id, 'videos') + 
                             '/' + thumbnail_filename
       #Rails::logger.debug('Saving video thumbnail at ' + full_thumbnail_path)
-      File.open(full_thumbnail_path, 'wb') {|f| f.write(thumbnail_upload.read) }
-           
-      thumbnail_dims = Dimensions.dimensions(full_thumbnail_path)
-      Rails::logger.debug('Dimensions: ' + thumbnail_dims.to_s)
+      File.open(full_thumbnail_path, 'wb') {|f| f.write(thumbnail_upload.read) }                       
+    else            
+      Rails::logger.debug("Extracting thumbnail")      
+      thumbnail = extract_thumbnail_from_movie(user.id, video_filename)      
       
+      full_thumbnail_path = thumbnail[:path]
+      thumbnail_filename  = thumbnail[:filename]      
     end
+    
+    thumbnail_dims = Dimensions.dimensions(full_thumbnail_path)
+    Rails::logger.debug('Dimensions: ' + thumbnail_dims.to_s)
     
     {
       :video_filename     => video_filename,
@@ -44,7 +52,35 @@ class Video < ActiveRecord::Base
       :thumbnail_path     => full_thumbnail_path,
       :thumbnail_dims     => thumbnail_dims
     }
-  end    
+  end
+  
+  def self.extract_thumbnail_from_movie(user_id, video_filename)
+    
+    Rails::logger.debug("extract_thumbnail_from_movie: " + user_id.to_s + ", " + video_filename)
+    
+    dir = FileAsset::dir_for_user(user_id, 'videos') + '/'
+    thumbnail_ext = 'png'
+    thumbnail_filename = video_filename.sub(/([^.]+)$/, thumbnail_ext)
+    
+    full_thumbnail_path = dir + thumbnail_filename      
+    full_video_path = dir + video_filename
+    
+    timecode = 1
+    
+    command = "ffmpeg -vframes 1 -i #{full_video_path} -ss #{timecode} " +
+              " -f image2 #{full_thumbnail_path} 2>/dev/null"
+    
+    Rails::logger.debug("Command is: " + command)
+    result = `#{command}`
+    Rails::logger.debug("Result of the command: " + result)    
+    
+    {
+      :filename => thumbnail_filename,
+      :path     => full_thumbnail_path
+    }
+    
+    
+  end
   
   def delete_thumbnail
     Rails::logger.debug('Delete thumbnail: ' + self.thumbnail.to_s)
