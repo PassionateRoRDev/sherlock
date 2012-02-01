@@ -17,6 +17,8 @@ class VideosController < ApplicationController
   
   def create
     
+    params[:upload] = {} unless params[:upload]
+    
     if params[:video][:thumbnail_method] == 'auto'
       params[:upload].delete('thumbnail')
     end    
@@ -25,40 +27,46 @@ class VideosController < ApplicationController
     video     = params[:upload]['video']
     thumbnail = params[:upload]['thumbnail']
             
-    params[:video][:original_filename] = video.original_filename
-    params[:video][:content_type]      = video.content_type    
-            
-    video_filename = Video.store(current_user, video)
-    params[:video][:path] = video_filename
+    if video
     
-    # store thumbnail or automatically generate a new one:
-    thumbnail_info = {}
-    
-    logger.debug('Thumbnail is:')
-    logger.debug(thumbnail)
-    
-    if thumbnail
-      thumbnail_info = 
-        Video.store_thumbnail(current_user.id, video_filename, thumbnail)
-      params[:video].delete(:thumbnail_pos)
-    else
-      thumbnail_info =
-        Video.extract_thumbnail_from_movie(current_user.id, video_filename, 
-                                           params[:video][:thumbnail_pos])
-    end    
-    
-    params[:video][:thumbnail]  = thumbnail_info[:filename]    
-    params[:video][:width]      = thumbnail_info[:width]
-    params[:video][:height]     = thumbnail_info[:height]
+      params[:video][:original_filename] = video.original_filename
+      params[:video][:content_type]      = video.content_type    
+
+      video_filename = Video.store(current_user, video)
+      params[:video][:path] = video_filename
+
+      # store thumbnail or automatically generate a new one:
+      thumbnail_info = {}
+
+      logger.debug('Thumbnail is:')
+      logger.debug(thumbnail)
+
+      if thumbnail
+        thumbnail_info = 
+          Video.store_thumbnail(current_user.id, video_filename, thumbnail)
+        params[:video].delete(:thumbnail_pos)
+      else
+        thumbnail_info =
+          Video.extract_thumbnail_from_movie(current_user.id, video_filename, 
+                                             params[:video][:thumbnail_pos])
+      end    
+
+      params[:video][:thumbnail]  = thumbnail_info[:filename]    
+      params[:video][:width]      = thumbnail_info[:width]
+      params[:video][:height]     = thumbnail_info[:height]
         
+    end
+      
     @video = Video.new(params[:video])
     block = Block.new(:case => @case)    
     @video.block = block
+    logger.debug("Recoding to FLV")    
     
     # TODO: initialize weight to be the maximum one
         
     respond_to do |format|
       if (@video.save) 
+        @video.recode_to_flv
         format.html { redirect_to(@case, :notice => 'Video block has been added') }
       else  
         format.html { render :action => 'new' }
@@ -89,10 +97,11 @@ class VideosController < ApplicationController
       if @video.update_attributes(params[:video])        
         video = params[:upload] ? params[:upload]['video'] : nil
         if video
-          video_filename = Video.store(current_user, video)          
+          video_filename = Video.store(current_user, video)                    
           @video.delete_file
           @video.path = video_filename
           @video.rename_thumbnail if @video.thumbnail
+          @video.recode_to_flv
           @video.save
         end
         

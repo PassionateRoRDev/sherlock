@@ -72,7 +72,25 @@ class Video < ActiveRecord::Base
   
   def self.store(user, upload_info)        
     FileAsset::store_for_type(user, upload_info, 'videos')                
-  end      
+  end
+  
+  def flv_path
+    self.path.sub(/([^.]+)$/, 'flv')
+  end
+  
+  def full_flv_path
+    filepath_for_type_and_filename('videos', flv_path)        
+  end
+  
+  def recode_to_flv    
+    unless self.path == flv_path    
+      video_path = filepath_for_type_and_filename('videos', self.path)
+      new_video_path = full_flv_path
+      command = "ffmpeg -i #{video_path} -deinterlace -ar 44100 -r 25 -qmin 3 -qmax 6 #{new_video_path}"
+      Rails::logger.debug("Recode command: " + command)
+      `#{command}`      
+    end    
+  end
   
   def rename_thumbnail
     user_id = self.block.case.user_id
@@ -109,6 +127,10 @@ class Video < ActiveRecord::Base
   
   def delete_file
     delete_file_for_type(file_type)    
+    if flv_path 
+      full_path = full_flv_path
+      File.unlink(full_path) if File.exists?(full_path)
+    end
   end
   
   def type_from_content_type(content_type)
