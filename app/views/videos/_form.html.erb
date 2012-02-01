@@ -12,7 +12,11 @@
 </div>
 
 <% if @video.id %>
-    
+
+  <div style="margin-top:1em;">
+    <%= render 'videos/player', :video => @video %>
+  </div>
+
   <div style="margin:1em 0;" id="video-change-block">
     <input type="button" id="btn-video-change" value="Change the Video"/>
     <a href="#" style="visibility:hidden;">Keep the existing video</a>

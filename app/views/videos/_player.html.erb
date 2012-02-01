@@ -1,0 +1,14 @@
+<div id="video-container-<%= video.id %>"></div>
+<script type="text/javascript">
+  $(function() {
+    var width   = '<%= video.width %>';
+    var height  = '<%= video.height.to_i + 20 %>';
+    var playerPath = "<%= url_for root_url %>javascript/mediaplayer.swf";
+    var s1 = new SWFObject(playerPath,"mediaplayer", width, height,"8");
+    s1.addParam("allowfullscreen","false");
+    s1.addVariable("width", width);
+    s1.addVariable("height", height);
+    s1.addVariable("file","<%= file_path('videos', video.flv_path) %>");        
+    s1.write("video-container-<%= video.id %>");
+  });
+</script>

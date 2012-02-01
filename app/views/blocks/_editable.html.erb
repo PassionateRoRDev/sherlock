@@ -14,19 +14,6 @@
     <% if block.video.thumbnail %>
       <img src="<%= url_for file_path('videos', block.video.thumbnail) %>"/>
     <% end %>
-    <div id="video-container-<%= block.video.id %>"></div>
-    <script type="text/javascript">
-      $(function() {
-        var width   = '<%= block.video.width %>';
-        var height  = '<%= block.video.height.to_i + 20 %>';
-        var playerPath = "<%= url_for root_url %>javascript/mediaplayer.swf";
-        var s1 = new SWFObject(playerPath,"mediaplayer", width, height,"8");
-        s1.addParam("allowfullscreen","false");
-        s1.addVariable("width", width);
-        s1.addVariable("height", height);
-        s1.addVariable("file","<%= file_path('videos', block.video.flv_path) %>");        
-        s1.write("video-container-<%= block.video.id %>");
-      });
-    </script>
+    <%= render 'videos/player', :video => block.video %>    
   <% end %>
 </div>
