@@ -1,0 +1,29 @@
+%h1 Invite Clients to View Report
+
+=form_for @invitation, :url => case_invitations_path( @invitation.case_id ) do |form|
+  .field.email.required
+    =form.label :email, 'Client Email'
+    =form.text_field :email
+    -unless form.object.errors[:email].empty?
+      .error_message
+        =form.object.errors[:email].join(', ')
+
+
+  .field.name.required
+    =form.label :name, 'Client Name'
+    =form.text_field :name
+    -unless form.object.errors[:name].empty?
+      .error_message
+        =form.object.errors[:name].join(', ')
+
+  .field.message.required
+    =form.label :message
+    =form.text_area :message, :rows => 5
+
+  =form.hidden_field :case_id, :value => @invitation.case_id
+
+  .controls
+    =form.submit
+
+  %hr
+  &raquo; Required

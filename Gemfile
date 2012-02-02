@@ -11,6 +11,7 @@ gem 'factory_girl_rails'
 gem 'fastercsv'
 gem 'json'
 gem 'rails_admin', :git => 'git://github.com/sferik/rails_admin.git'
+gem 'valuable'
 
 gem 'execjs'
 gem 'therubyracer'

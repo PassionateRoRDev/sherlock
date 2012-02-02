@@ -9,6 +9,7 @@ Sherlock::Application.routes.draw do
     resources :html_details
     resources :pictures
     resources :videos
+    resources :invitations
   end
   
   resources :blocks

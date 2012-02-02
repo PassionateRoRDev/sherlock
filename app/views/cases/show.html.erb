@@ -8,7 +8,8 @@
 </h1>
 
 <%= link_to 'Back to Cases list', cases_path %> |
-<%= link_to 'Download as PDF', case_path(@case, :format => :pdf) %>
+<%= link_to 'Download as PDF', case_path(@case, :format => :pdf) %> |
+<%= link_to 'Invite Clients to View', new_case_invitation_path(@case) %>
 
 <h2>Summary</h2>
 

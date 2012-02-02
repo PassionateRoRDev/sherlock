@@ -63,11 +63,18 @@ div.hidden {
     list-style-type: disc;
 }
 
+.required label:before{
+  content:"\00bb";
+  color: blue;
+  padding: 0 0.5em 0 0;
+  margin-left: -1em;
+}
+
 .field_with_errors label {
     font-weight: bold;        
 }
 
-.field_with_errors input {
+.field_with_errors input, .field_with_errors textarea {
     border: 1px solid red;
 }
 
@@ -122,3 +129,4 @@ ol.cases li {
      border-bottom:1px solid #ccc;
      padding-bottom:0.5em;
 }
+
