@@ -1,3 +1,6 @@
+application:
+  sender: SherlocDocs <noreply@sherlockdocs.com>
+
 development:    
   files_path: files/
   templates_path: templates/
