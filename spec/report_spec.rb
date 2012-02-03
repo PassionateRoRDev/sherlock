@@ -105,7 +105,11 @@ describe Report do
     c.blocks << block1
     
     block2 = Block.new
-    block2.video = Video.new(:title => 'Title of the video', :path => 'video1.mpg')
+    block2.video = Video.new(
+      :title        => 'Title of the video', 
+      :path         => 'video1.mpg',
+      :content_type => 'video/mpeg'
+    )
     c.blocks << block2
     
     r = prepare_report(c)
@@ -126,6 +130,7 @@ describe Report do
       :title => 'Title of the video', 
       :path => 'video1.mpg',
       :type => 'mpeg',
+      :content_type => 'video/mpeg',
       :thumbnail => 'thumbnail1.png',
       :width  => 300,
       :height => 200      
