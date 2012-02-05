@@ -171,6 +171,47 @@ ol.cases li {
     margin-bottom: 26px;
 }
 
+.head {
+    float: right;
+    height: 37px;
+    margin-top: 15px;
+}
+
+.headtxt {
+    color: #0B7890;
+    float: left;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 26px;
+    height: 37px;
+    line-height: 37px;
+    width: 100px;
+}
+
+#top-user-links .headtxt {
+    font-weight: normal;
+}
+
+.head-account-links {
+    float: left;
+    height: 37px;    
+}
+
+.head-account-links a {
+    display: block;
+    width: 37px;
+    height: 37px;
+    float: left;
+    text-indent: -9999em;
+}
+
+.head-account-links a.settings {
+    background: url(setting.jpg);
+}
+
+.head-account-links a.help {
+    background: url(help.jpg);
+}
+
 .txtbox {
     height: 28px;
     padding-bottom: 13px;    

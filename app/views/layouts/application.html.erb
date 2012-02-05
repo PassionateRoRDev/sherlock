@@ -12,9 +12,10 @@
   </div>  
   <div class="container main-top"></div>
   <div class="container mainwrapper">    
-    <div class="inner">
+    <div class="inner">      
       <%= render 'shared/company_name' %>
-      <%= image_tag 'logo.png' %>
+      <a title="SherlockDocs Home" 
+         href="<%= url_for root_path %>"><%= image_tag 'logo.png' %></a>
       <%= render 'shared/top_user_links' %>
       <%= yield %>    
     </div>
