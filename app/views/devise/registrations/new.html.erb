@@ -11,17 +11,23 @@
 
   <div class="field">
     <%= f.label :email, 'Email :' %>
-    <%= f.email_field :email %>
+    <div class="boxfield">
+      <%= f.email_field :email, :class => :txtfield %>
+    </div>
   </div>
 
   <div class="field">
     <%= f.label :password, 'Password :' %>
-    <%= f.password_field :password %>
+    <div class="boxfield">
+      <%= f.password_field :password, :class => :txtfield %>
+    </div>
   </div>
 
   <div class="field">
     <%= f.label :password_confirmation, 'Confirm Password :' %>
-    <%= f.password_field :password_confirmation %>
+    <div class="boxfield">
+      <%= f.password_field :password_confirmation, :class => :txtfield %>
+    </div>
   </div>
 
   <div class="actions">
