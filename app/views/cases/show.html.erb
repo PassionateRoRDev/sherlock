@@ -1,16 +1,24 @@
 <h1>
-  Case: <%= @case.title %>
-  <small>
-  [<%= link_to 'Delete', @case, 
+  <%= link_to 'Cases', cases_path %> >
+  <%= @case.title %>
+  
+  <div style="float:right;">
+    <small>
+    <%= link_to 'Delete', @case, 
                :confirm => 'Are you sure you want to remove this case?', 
-               :method => :delete %>]
-  </small>
+               :method => :delete %> |
+    <%= link_to 'Download as PDF', case_path(@case, :format => :pdf) %>    
+    </small>
+  </div>
+  
 </h1>
 
-<%= link_to 'Back to Cases list', cases_path %> |
-<%= link_to 'Download as PDF', case_path(@case, :format => :pdf) %>
+<div>
+  <%= render 'page_info' %>
+  <%= render 'options' %>
+</div>
 
-<h2>Summary</h2>
+<h2 style="clear:both;">Summary</h2>
 
 <p>
   <%= @case.summary.to_s.html_safe %>

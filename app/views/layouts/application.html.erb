@@ -7,10 +7,18 @@
   <%= csrf_meta_tags %>
 </head>
 <body>  
-  <div class="container">    
+  <div class="container">
     <%= render 'shared/flash', :flash => flash %>
-    <%= render 'shared/top_user_links' %>
-    <%= yield %>    
+  </div>  
+  <div class="container main-top"></div>
+  <div class="container mainwrapper">    
+    <div class="inner">
+      <%= render 'shared/company_name' %>
+      <%= image_tag 'logo.png' %>
+      <%= render 'shared/top_user_links' %>
+      <%= yield %>    
+    </div>
   </div>
+  <div class="container main-bottom"></div>
 </body>
 </html>

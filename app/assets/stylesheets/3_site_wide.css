@@ -9,10 +9,30 @@ body {
     position: relative;
 }
 
+.main-top {
+    background: url(header_960.png);
+    height: 16px;
+}
+
+.main-bottom {
+    background: url(footer_960.png);
+    height: 16px;
+}
+
+.mainwrapper {
+    background: url(bg_960.png);    
+}
+
+.mainwrapper .inner {
+    margin: 0 45px;
+    position: relative;
+}
 
 h1 {
+    /*
     border-bottom: 1px solid #DDDDDD;
     box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+    */
     padding-bottom: 5px;
     margin-bottom: 17px;
 }
@@ -121,4 +141,80 @@ ol.cases li {
      margin-bottom:0.5em;
      border-bottom:1px solid #ccc;
      padding-bottom:0.5em;
+}
+
+#company-name {
+    position: absolute;
+    right: 0em;
+    font-size: 300%;
+    top: 1em;
+}
+
+.midleft {
+    float: left;    
+    width: 348px;
+}
+
+.midright {
+    float: right;    
+    width: 348px;
+}
+
+.inbox-hd {
+    background: url(head-bg.jpg) no-repeat scroll 0 0 transparent;
+    color: #FFFFFF;    
+    font-family: DIN-Bold;
+    font-size: 24px;
+    height: 35px;
+    line-height: 35px;    
+    padding-left: 10px;
+    margin-bottom: 26px;
+}
+
+.txtbox {
+    height: 28px;
+    padding-bottom: 13px;    
+}
+
+.boxtxt, .boxfield {
+    float: left;
+    height: 28px;
+}
+
+.boxtxt {
+    color: #397A89;    
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 16px;    
+    width: 130px;
+    line-height: 28px;
+}
+
+.boxfield {        
+    width: 218px;
+}
+
+.txtfield {
+    background: url(txtfield.jpg) no-repeat scroll 0 0 transparent;
+    border: medium none;
+    color: #666666;
+    font-size: 12px;
+    height: 28px;
+    line-height: 28px;
+    padding-left: 8px;
+    width: 210px;
+}
+
+.txtbox2 {
+    color: #397A89;
+    float: left;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 16px;
+    height: 28px;
+    padding-bottom: 13px;
+    text-align: center;
+    width: 348px;
+}
+
+.txtbox2 label {
+    margin-right: 1em;
 }
