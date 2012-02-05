@@ -68,7 +68,14 @@ label {
 label.inline {
     display: inline;
     margin-top:0;
+    float: none;
+    width: auto;
     font-weight: normal;
+}
+
+label.vertical {
+    float: none;
+    width: auto;
 }
 
 .field, .actions {
@@ -90,6 +97,10 @@ label {
     padding-left: 130px;
 }
 
+.actions.no-margin {
+    padding-left: 0;
+}
+
 .form-labels-wider label {
     width: 150px;
 }
@@ -100,7 +111,7 @@ label {
 }
 
 .field {
-    margin-bottom: 1em;
+    height: 40px;
 }
 
 
@@ -133,7 +144,7 @@ div.hidden {
 }
 
 .form-case .summary textarea {
-    width: 95%;
+    width: 85%;
 }
 
 textarea.rich {
@@ -142,7 +153,9 @@ textarea.rich {
 
 .blocks-area textarea {
     width: 99%;
+    /*
     height: 5em;
+    */
 }
 
 .blocks-area .block {    

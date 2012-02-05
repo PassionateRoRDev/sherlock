@@ -3,14 +3,24 @@
 
   <%= render 'shared/form_errors', :errors => @case.errors %>    
 
-  <div><%= f.label :title %>
-  <%= f.text_field :title %></div>
+  <div class="field">
+    <%= f.label :title, 'Title :' %>
+    <div class="boxfield">
+      <%= f.text_field :title, :class => :txtfield %>
+    </div>
+  </div>
 
-  <div class="summary"><%= f.label :summary %>
-  <%= f.text_area :summary, :rows => 10 %></div>
+  <div class="field" style="height: 200px;">
+  
+  <div class="summary">
+      <%= f.label :summary, 'Summary :' %>
+      <%= f.text_area :summary, :rows => 10 %>
+  </div>
+    
+  </div>
 
   <div class="actions">
-    <%= f.submit "Save" %>
+    <%= f.submit "Save", :class => :button %>
     <% if @case.id %>
       <%= link_to 'Cancel', @case %>
     <% end %>
