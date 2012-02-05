@@ -59,10 +59,10 @@ input, textarea {
 }
 
 label {
-    display: block;
-    margin-top: 1em;
-    font-weight: bold;
-    margin-bottom: 2px;
+    display: block;    
+    color: #397A89;
+    font-size: 16px;
+    float: left;    
 }
 
 label.inline {
@@ -70,6 +70,39 @@ label.inline {
     margin-top:0;
     font-weight: normal;
 }
+
+.field, .actions {
+    clear: both;
+}
+
+.form-center {
+    width: 400px;
+    margin: auto;
+    text-align: left;
+}
+
+label {
+    width: 130px;
+    line-height: 28px;
+}
+
+.actions, .field-right {
+    padding-left: 130px;
+}
+
+.form-labels-wider label {
+    width: 150px;
+}
+.form-labels-wider .actions,
+.form-labels-wider .field-right
+{    
+    padding-left: 150px;
+}
+
+.field {
+    margin-bottom: 1em;
+}
+
 
 span.hidden {
     visibility: hidden;
@@ -92,7 +125,11 @@ div.hidden {
 }
 
 .actions {
-    margin: 1em 0;
+    margin: 1em 0 0 0;
+}
+
+.actions a {
+    margin-left: 1em
 }
 
 .form-case .summary textarea {
@@ -258,4 +295,14 @@ ol.cases li {
 
 .txtbox2 label {
     margin-right: 1em;
+}
+
+input.button {
+    cursor: pointer;
+    width: 94px;
+    height: 28px;
+    border: none;
+    background-image:url(btn.jpg);
+    font-size: 14px;
+    color: #fff;
 }

@@ -1,33 +1,39 @@
-<h1>Login</h1>
 
-<%= form_for(resource, :as => resource_name, 
-            :url => session_path(resource_name)) do |f| %>
+<%= form_for(resource, 
+             :as => resource_name, 
+             :html => { :class => 'form-center' },
+             :url => session_path(resource_name)) do |f| %>
+
+  <h1>Login to SherlockDocs</h1>
+
+  <div class="field">    
+      <%= f.label :email, 'Email :' %>
+      <%= f.email_field :email %>    
+  </div>
+
+  <div class="field">
+      <%= f.label :password, 'Password :' %>
+      <%= f.password_field :password %>    
+  </div>
   
-  <div class="field">
-    <div>
-      <%= f.label :email %>
-      <%= f.email_field :email %>
-    </div>  
-  </div>
-
-  <div class="field">
-    <div>
-      <%= f.label :password %>
-      <%= f.password_field :password %>
+  <%- if devise_mapping.recoverable? && controller_name != 'passwords' %>
+    <div class="field field-right">
+      <%= link_to "Forgot your password?", new_password_path(resource_name) %>
     </div>
-  </div>
+  <% end -%>
 
   <% if devise_mapping.rememberable? -%>
-    <div style="margin-top:5px;">
+    <div style="margin-top:0px;">
       <%= f.check_box :remember_me %> 
       <%= f.label :remember_me, :class => :inline %>
     </div>
   <% end -%>
 
-  <div class="actions"><%= f.submit "Sign in" %></div>
+  <div class="actions">
+    <%= f.submit "Login", :class => :button %>
+    <%= link_to 'Register', new_user_registration_path %>
+  </div>
 <% end %>
-
-<%= render :partial => "devise/shared/links" %>
   
   <script type="text/javascript">
     $(function() {
