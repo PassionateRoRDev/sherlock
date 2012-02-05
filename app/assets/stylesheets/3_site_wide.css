@@ -319,3 +319,8 @@ input.button {
     font-size: 14px;
     color: #fff;
 }
+
+input.button-wide {
+    width: 218px;
+    background-image:url(btn_218.png);
+}
