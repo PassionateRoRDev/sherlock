@@ -4,6 +4,9 @@
 <%= form_for([@case, @video], 
     :html => { :enctype => 'multipart/form-data' }) do |f| %>
 
+<input type="hidden" name="insert_before_id" 
+       value="<%= @insert_before_id %>"/>
+
 <div class="field">      
   <%= f.label :title, 'Title :' %>
   <div class="boxfield">

@@ -13,7 +13,7 @@ class PicturesController < ApplicationController
     block = Block.new
     block.case = @case
     @picture  = Picture.new(:block => block)    
-    
+    @insert_before_id = params[:insert_before_id].to_i
   end
   
   def create
@@ -29,6 +29,8 @@ class PicturesController < ApplicationController
     
     @picture = Picture.new(params[:picture])
     block = Block.new(:case => @case)    
+    @insert_before_id = params[:insert_before_id].to_i
+    block.insert_before_id = @insert_before_id    
     @picture.block = block          
         
     respond_to do |format|

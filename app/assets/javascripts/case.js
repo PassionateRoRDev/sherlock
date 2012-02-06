@@ -58,20 +58,30 @@ $(function() {
     
     $('.form-insert-block').submit(function(e) {        
         var t = $('select', this).val();
+        var wrapper = 
+            $(this).parents('.form-insert-block-wrapper:first');
+        
+        var insertBeforeQuery = '';
+        var next = wrapper.next();
+        if (next.hasClass('block')) {
+            var blockId = next.data('block_id');            
+            insertBeforeQuery = ('?insert_before_id=' + blockId);
+        }
+        
         switch (t) {
             case '':
                 alert('Please select a block type');
                 break;
             case 'text':
-                var wrapper = 
-                    $(this).parents('.form-insert-block-wrapper:first');
                 SHERLOCK.cases.insertBlockBefore(wrapper);
                 break;
             case 'picture':
-                location.href = SHERLOCK.urls.new_block_picture;
+                location.href = SHERLOCK.urls.new_block_picture +
+                                insertBeforeQuery;
                 break;            
             case 'video':
-                location.href = SHERLOCK.urls.new_block_video;
+                location.href = SHERLOCK.urls.new_block_video +
+                                insertBeforeQuery;
                 break;            
         }                
         return false;

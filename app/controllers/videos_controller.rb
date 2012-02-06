@@ -13,6 +13,7 @@ class VideosController < ApplicationController
     block = Block.new
     block.case = @case
     @video  = Video.new(:block => block, :thumbnail_pos => '00:00:01')    
+    @insert_before_id = params[:insert_before_id].to_i
   end
   
   def create
@@ -58,7 +59,9 @@ class VideosController < ApplicationController
     end
       
     @video = Video.new(params[:video])
-    block = Block.new(:case => @case)    
+    block = Block.new(:case => @case)
+    @insert_before_id = params[:insert_before_id].to_i
+    block.insert_before_id = @insert_before_id    
     @video.block = block
     logger.debug("Recoding to FLV")    
     
