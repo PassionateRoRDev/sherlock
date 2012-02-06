@@ -10,16 +10,14 @@
     </div>
   </div>
 
-  <div class="field" style="height: 200px;">
-  
-  <div class="summary">
+  <div>    
       <%= f.label :summary, 'Summary :' %>
-      <%= f.text_area :summary, :rows => 10 %>
-  </div>
-    
-  </div>
+      <div class="summary">
+        <%= f.text_area :summary, :rows => 10 %>
+      </div>
+  </div>      
 
-  <div class="actions">
+  <div class="actions no-margin">
     <%= f.submit "Save", :class => :button %>
     <% if @case.id %>
       <%= link_to 'Cancel', @case %>

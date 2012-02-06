@@ -29,20 +29,26 @@ body {
 }
 
 h1 {
-    /*
     border-bottom: 1px solid #DDDDDD;
-    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
-    */
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);    
     padding-bottom: 5px;
     margin-bottom: 17px;
 }
 
 h1 {
-    margin-bottom: 8px;
+    margin-bottom: 12px;
+}
+
+h1 {
+    font-size: 200%;
 }
 
 h1 small {
-    font-size: 70%;
+    font-size: 55%;
+}
+
+h1 a {
+    text-decoration: none;
 }
 
 ol li {
@@ -162,8 +168,12 @@ div.hidden {
     margin-left: 1em
 }
 
-.form-case .summary textarea {
-    width: 85%;
+.form-case .summary {
+     clear:both;
+}
+
+.form-case .summary textarea {    
+    width: 99%;
 }
 
 textarea.rich {
@@ -272,8 +282,8 @@ ol.cases h2 {
     font-family: DIN-Bold;
     font-size: 24px;
     height: 35px;
-    line-height: 35px;    
-    padding-left: 10px;
+    line-height: 37px;    
+    padding-left: 12px;
     margin-bottom: 26px;
 }
 
