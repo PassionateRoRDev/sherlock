@@ -93,6 +93,10 @@ label.vertical {
     text-align: left;
 }
 
+.form-center-wide {
+    width: 500px;
+}
+
 label {
     width: 130px;
     line-height: 28px;
@@ -173,7 +177,8 @@ textarea.rich {
     */
 }
 
-.blocks-area .block {    
+.blocks-area .block {
+    clear: both;
 }
 
 .blocks-area .block h3.block-title {
@@ -390,6 +395,7 @@ h4.label {
     height: 28px;
     overflow: hidden;
     width: 387px;
+    padding-top: 4px;
 }
 
 .styled-select select {
@@ -397,8 +403,6 @@ h4.label {
     border: medium none;
     color: #6D6D6D;
     font-family: Arial,Helvetica,sans-serif;
-    font-size: 14px;
-    height: 28px;
-    padding-top: 5px;
+    font-size: 14px;    
     width: 410px;
 }
