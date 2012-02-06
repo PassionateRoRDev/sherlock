@@ -29,7 +29,7 @@ SHERLOCK.cases.removeInjectedForm = function() {
 
 SHERLOCK.cases.insertBlockBefore = function(insertBefore) {
     
-    var url = $('.block-add-ajax').attr('href');            
+    var url = $('.link-add-text').attr('href');            
     var exists = $('.injected-form-new');
     if (!exists.length) {          
         SHERLOCK.ajaxHtmlDo(url, function(responseText, textStatus, XMLHttpRequest) {                        
@@ -60,8 +60,12 @@ $(function() {
                     $(this).parents('.form-insert-block-wrapper:first');
                 SHERLOCK.cases.insertBlockBefore(wrapper);
                 break;
-            default:
-                alert('Not implemented yet!');
+            case 'picture':
+                location.href = $('.link-add-picture').attr('href');
+                break;            
+            case 'video':
+                location.href = $('.link-add-video').attr('href');
+                break;            
         }                
         return false;
     });

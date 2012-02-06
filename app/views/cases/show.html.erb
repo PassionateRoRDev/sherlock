@@ -50,9 +50,11 @@
 </div>
   
 <%= link_to 'Add text block (AJAX)', 
-    new_case_html_detail_path(@case), :class => 'block-add-ajax' %><br/>
+    new_case_html_detail_path(@case), :class => 'link-add-text block-add-ajax' %><br/>
 <%= link_to 'Add text block', new_case_html_detail_path(@case) %><br/>
-<%= link_to 'Add picture block', new_case_picture_path(@case) %><br/>
-<%= link_to 'Add video block', new_case_video_path(@case) %><br/>
+<%= link_to 'Add picture block', new_case_picture_path(@case), 
+            :class => 'link-add-picture' %><br/>
+<%= link_to 'Add video block', new_case_video_path(@case),
+            :class => 'link-add-video' %><br/>
 
 <%= render 'shared/tinymce' %>
