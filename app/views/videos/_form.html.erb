@@ -132,8 +132,9 @@
   });
   
   $('#link-thumbnail-keep').click(function(e) {
-    $('#block-thumbnail-change-wrapper').hide();
+    $('#block-thumbnail-change-wrapper').hide();    
     $('input[name=keep_thumbnail]').val('1');
+    $('#link-thumbnail-keep').parent().addClass('hidden');
     return false;
   });
   

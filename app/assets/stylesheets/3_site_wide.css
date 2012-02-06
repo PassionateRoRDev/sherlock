@@ -445,3 +445,9 @@ h4.label {
     font-size: 14px;    
     width: 410px;
 }
+
+.form-insert-block-wrapper {
+    float:left;
+    width:100%;
+    height:35px;
+}
