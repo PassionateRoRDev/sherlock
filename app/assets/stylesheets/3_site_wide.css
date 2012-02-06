@@ -372,3 +372,11 @@ input.button-wide {
     width: 218px;
     background-image:url(btn_218.png);
 }
+
+h4.label {
+    clear: both;
+    margin-top:1em;    
+    color:#397A89;
+    font-size:16px;
+    font-weight:normal;
+}
