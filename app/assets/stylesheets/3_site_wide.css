@@ -55,7 +55,12 @@ ol li {
 }
 
 input, textarea {
-    padding: 2px;
+    padding: 2px;    
+}
+
+input.txtfield {
+    padding-bottom: 0px;
+    padding-top: 0px;
 }
 
 label {
@@ -135,6 +140,11 @@ div.hidden {
     border: 1px solid red;
 }
 
+.field_with_errors input.txtfield {
+    border: none;
+    background-image: url(txtfield-error.png);
+}
+
 .actions {
     margin: 1em 0 0 0;
 }
@@ -169,22 +179,50 @@ textarea.rich {
     margin-left: 0.5em;
 }
 
-.flash-messages .msg {
+.flash-messages .msg, #error_explanation {
     border: 2px solid #DDDDDD;
     margin-bottom: 1em;
     padding: 0.8em;
 }
 
-.flash-messages #notice {
+#error_explanation {
+    padding-bottom: 0;
+    background: none repeat scroll 0 0 #FBE3E4;
+    border-color: #FBC2C4;
+    color: #8A1F11;
+}
+
+#error_explanation h2 {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+#error_explanation ul {
+    margin-top: 0.5em;
+}
+
+.flash-messages .notice {
     background: none repeat scroll 0 0 #E6EFC2;
     border-color: #C6D880;
     color: #264409;
 }
 
+/*
 .flash-messages #alert {
     background: none repeat scroll 0 0 #FFF6BF;
     border-color: #FFD324;
     color: #514721;
+}
+*/
+
+.flash-messages .alert {
+    background: none repeat scroll 0 0 #FBE3E4;
+    border-color: #FBC2C4;
+    color: #8A1F11;
+}
+
+body.c-sessions .container-upper .flash-messages {
+    display: none;
 }
 
 ol.cases li {

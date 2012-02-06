@@ -15,7 +15,17 @@ SHERLOCK.utils.flashMessage = function(id, txt) {
         msgs.append(m);
     }
     m.html(txt);    
-}
+};
+
+SHERLOCK.focusOnField = function(element) {
+    var form = $(element).get(0).form;
+    var focusField = element;
+    var errorFields = $('.field_with_errors input', form);
+    if (errorFields.length) {
+        focusField = errorFields[0];        
+    }
+    focusField.focus();    
+};
 
 SHERLOCK.utils.removeTinyMCE = function(eltId) {
     if (tinyMCE && eltId) {
@@ -24,7 +34,7 @@ SHERLOCK.utils.removeTinyMCE = function(eltId) {
             tinyMCE.remove(exists);
         }
     }
-}
+};
 
 SHERLOCK.utils.focusTinyMCE = function(eltId) {
     if (tinyMCE) {
@@ -32,4 +42,4 @@ SHERLOCK.utils.focusTinyMCE = function(eltId) {
             tinyMCE.execCommand('mceFocus', false, eltId);
         }, 500);                
     }
-}
+};

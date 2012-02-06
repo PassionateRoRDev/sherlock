@@ -6,9 +6,9 @@
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
-<body>  
-  <div class="container">
-    <%= render 'shared/flash', :flash => flash %>
+<body class="c-<%= controller_name %> a-<%= action_name %>">  
+  <div class="container container-upper">    
+    <%= render('shared/flash', :flash => flash) %>
   </div>  
   <div class="container main-top"></div>
   <div class="container mainwrapper">    
