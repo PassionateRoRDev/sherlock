@@ -18,17 +18,20 @@
   <%= render 'options' %>
 </div>
 
-<h2 style="clear:both;">Summary</h2>
+<div style="clear:both;padding-top:1em;position:relative;">
+  <div class="inbox-hd" style="">Title &amp; Summary</div>
+  <div style="position:absolute;left:355px;top:23px;">
+    <%= link_to 'Edit', edit_case_path(@case) %>
+  </div>
+</div>
+
+<h2><%= @case.title %></h2>
 
 <p>
   <%= @case.summary.to_s.html_safe %>
 </p>
 
-<div>
-  <%= link_to 'Edit Title and Summary', edit_case_path(@case) %>
-</div>
-
-<h2>Blocks</h2>
+<div class="inbox-hd" style="margin-top:1em;">Blocks</div>
 
 <script type="text/javascript" 
         src="<%= url_for root_url %>javascript/swfobject.js"></script>

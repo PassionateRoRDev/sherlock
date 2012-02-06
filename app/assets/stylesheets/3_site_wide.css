@@ -338,6 +338,10 @@ ol.cases li {
     width: 210px;
 }
 
+.txtfield.hinted {
+    color: #B3B1B1;
+}
+
 .txtfield-wide {
     background-image: url(txtfield-wide.png);
     width: 342px;

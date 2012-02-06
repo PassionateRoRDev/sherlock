@@ -1,31 +1,55 @@
 <div class="midleft">    
-    <div class="inbox-hd">Page Information</div>
-    
+    <div class="inbox-hd">Page Information</div>    
     <form>
       <div class="field">
-        <label>File Name :</label>
+        <label>Client Name :</label>
         <div class="boxfield">
-          <input type="text" class="txtfield"/>
+          <input type="text" class="txtfield hint hinted" 
+                 title="not required"/>
         </div>
       </div>
       <div class="field">
-        <label>Title :</label>
+        <label>Type of Case :</label>
         <div class="boxfield">
-          <input type="text" class="txtfield"/>
+          <input type="text" class="txtfield hint hinted" 
+                 title="not required"/>
         </div>
       </div>
       <div class="field">
-        <label>Client ID :</label>
+        <label>Case Number :</label>
         <div class="boxfield">
-          <input type="text" class="txtfield"/>
+          <input type="text" class="txtfield hint hinted" 
+                 title="not required, can be alphanumeric"/>
         </div>
       </div>
       <div class="field">
-        <label>Description :</label>
+        <label>Start Date :</label>
         <div class="boxfield">
-          <input type="text" class="txtfield"/>
+          <input type="text" class="txtfield hint hinted" 
+                 title="optional"/>
+        </div>
+      </div>
+      <div class="field">
+        <label>End Date :</label>
+        <div class="boxfield">
+          <input type="text" class="txtfield hint hinted" 
+                 title="optional, must be after start date"/>
+        </div>
+      </div>
+      
+      <div class="field">
+        <label>Report Date :</label>
+        <div class="boxfield">
+          <input type="text" class="txtfield hint hinted" 
+                 title="optional"/>
         </div>
       </div>
     </form>
           
+    <script type="text/javascript">
+    $(document).ready(function() {
+      $('input.hint').inputHints();
+    });
+    </script>
+    
 </div>
