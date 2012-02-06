@@ -49,12 +49,14 @@
   <div class="new-block"></div>
 </div>
   
-<%= link_to 'Add text block (AJAX)', 
-    new_case_html_detail_path(@case), :class => 'link-add-text block-add-ajax' %><br/>
-<%= link_to 'Add text block', new_case_html_detail_path(@case) %><br/>
-<%= link_to 'Add picture block', new_case_picture_path(@case), 
-            :class => 'link-add-picture' %><br/>
-<%= link_to 'Add video block', new_case_video_path(@case),
-            :class => 'link-add-video' %><br/>
-
-<%= render 'shared/tinymce' %>
+<script type="text/javascript">
+  SHERLOCK.urls = {
+    new_block_text    : '<%= new_case_html_detail_path(@case) %>',
+    new_block_picture : '<%= new_case_picture_path(@case) %>',
+    new_block_video   : '<%= new_case_video_path(@case) %>'
+  };
+</script>
+        
+<div style="clear:both;">
+  <%= render 'shared/tinymce' %>
+</div>

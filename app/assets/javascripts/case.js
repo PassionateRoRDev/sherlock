@@ -28,8 +28,8 @@ SHERLOCK.cases.removeInjectedForm = function() {
 };
 
 SHERLOCK.cases.insertBlockBefore = function(insertBefore) {
-    
-    var url = $('.link-add-text').attr('href');         
+            
+    var url = SHERLOCK.urls.new_block_text;
     var exists = $('.injected-form-new');
     if (!exists.length) {          
         
@@ -68,10 +68,10 @@ $(function() {
                 SHERLOCK.cases.insertBlockBefore(wrapper);
                 break;
             case 'picture':
-                location.href = $('.link-add-picture').attr('href');
+                location.href = SHERLOCK.urls.new_block_picture;
                 break;            
             case 'video':
-                location.href = $('.link-add-video').attr('href');
+                location.href = SHERLOCK.urls.new_block_video;
                 break;            
         }                
         return false;
