@@ -17,8 +17,6 @@ class HtmlDetailsController < ApplicationController
     block = Block.new(:case => @case)    
     @detail.block = block
     
-    # TODO: initialize weight to be the maximum one
-        
     respond_to do |format|
       if (@detail.save)        
         @block = @detail.block        

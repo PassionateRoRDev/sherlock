@@ -62,8 +62,6 @@ class VideosController < ApplicationController
     @video.block = block
     logger.debug("Recoding to FLV")    
     
-    # TODO: initialize weight to be the maximum one
-        
     respond_to do |format|
       if (@video.save) 
         @video.recode_to_flv

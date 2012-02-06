@@ -29,9 +29,7 @@ class PicturesController < ApplicationController
     
     @picture = Picture.new(params[:picture])
     block = Block.new(:case => @case)    
-    @picture.block = block
-    
-    # TODO: initialize weight to be the maximum one    
+    @picture.block = block          
         
     respond_to do |format|
       if (@picture.save) 
