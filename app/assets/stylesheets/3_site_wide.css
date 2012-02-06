@@ -241,6 +241,14 @@ ol.cases li {
      padding-bottom:0.5em;
 }
 
+ol.cases h2 {
+    font-size: 150%;
+}
+
+.link-buttons {
+    height:32px;
+}
+
 #company-name {
     position: absolute;
     right: 0em;
@@ -377,7 +385,28 @@ input.button {
     color: #fff;
 }
 
-input.button-wide {
+a.button {    
+    text-decoration: none;
+    display: block;
+    float: left;
+    font-size: 14px;
+    width: 94px;
+    height: 28px;
+    line-height: 28px;
+    text-align: center;
+    border: none;
+    margin-right: 1em;
+    background-image:url(btn.jpg);
+    color: #fff;
+}
+
+.right,
+a.button.right {
+    float: right;
+}
+
+input.button-wide,
+a.button-wide {
     width: 218px;
     background-image:url(btn_218.png);
 }

@@ -1,32 +1,44 @@
+
 <h1>My Cases</h1>
+
+<div class="link-buttons" style="padding-left:2em;">
+  <%= link_to 'Create a new Case', new_case_path, 
+              :class => "button button-wide right" %>
+</div>
 
 <% if @cases.empty? %>
 <h2>You haven't created any cases yet</h2>
 <% else %>
   <ol class="cases">
     <% @cases.each do |c| %>
-    <li>
-        <%= link_to c.title, c %>
+    <li style="clear:both;">
+        <h2><%= link_to c.title, c %></h2>
+        
         <div class="summary" style="margin:1em 0;">
-          <strong>Summary:</strong>
+          
           <% if c.summary.blank? %>
               <em>None</em>
           <% else %>
               <%= c.summary.to_s.html_safe %>
           <% end %>
         </div>
-        <div>
-          <%= link_to 'View Case Details', c %> |
-          <%= link_to 'Download as PDF', case_path(c, :format => :pdf) %> |
+        <div class="link-buttons">
+          <%= link_to 'View Case', c, :class => :button %>
+          <%= link_to 'Get PDF', 
+                      case_path(c, :format => :pdf), :class => :button %>
           <%= link_to 'Delete', c, 
                :confirm => 'Are you sure you want to remove this case?', 
-               :method => :delete %>
+               :method => :delete,
+               :class => :button %>
         </div>
     </li>
     <% end %>
   </ol>
+
+  <div class="link-buttons" style="padding-left:2em;">
+  <%= link_to 'Create a new Case', new_case_path, 
+              :class => "button button-wide right" %>
+  </div>
+
 <% end %>
 
-<div>
-  <%= link_to 'Create a new Case', new_case_path %>
-</div>

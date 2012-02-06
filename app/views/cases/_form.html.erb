@@ -6,7 +6,7 @@
   <div class="field">
     <%= f.label :title, 'Title :' %>
     <div class="boxfield">
-      <%= f.text_field :title, :class => :txtfield %>
+      <%= f.text_field :title, :class => 'txtfield txtfield-wide' %>
     </div>
   </div>
 
@@ -19,7 +19,7 @@
     
   </div>
 
-  <div class="actions no-margin">
+  <div class="actions">
     <%= f.submit "Save", :class => :button %>
     <% if @case.id %>
       <%= link_to 'Cancel', @case %>
