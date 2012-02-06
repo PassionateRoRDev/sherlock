@@ -145,6 +145,11 @@ div.hidden {
     background-image: url(txtfield-error.png);
 }
 
+.field_with_errors input.txtfield.txtfield-wide {
+    border: none;
+    background-image: url(txtfield-error-wide.png);
+}
+
 .actions {
     margin: 1em 0 0 0;
 }
@@ -331,6 +336,11 @@ ol.cases li {
     line-height: 28px;
     padding-left: 8px;
     width: 210px;
+}
+
+.txtfield-wide {
+    background-image: url(txtfield-wide.png);
+    width: 342px;
 }
 
 .txtbox2 {

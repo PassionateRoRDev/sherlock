@@ -18,19 +18,14 @@ class PicturesController < ApplicationController
   
   def create
     
-    image = params[:upload]['image']
-    logger.debug(image)
+    image = params[:upload] ? params[:upload]['image'] : nil
     
-    image.original_filename
-    image.content_type
-    
-    params[:picture][:original_filename] = image.original_filename
-    params[:picture][:content_type] = image.content_type    
-    
-    file_path = Picture.store(current_user, image)
-    params[:picture][:path] = file_path
-    
-    #logger.debug(params[:picture])
+    if image          
+      params[:picture][:original_filename] = image.original_filename
+      params[:picture][:content_type] = image.content_type    
+      file_path = Picture.store(current_user, image)
+      params[:picture][:path] = file_path
+    end      
     
     @picture = Picture.new(params[:picture])
     block = Block.new(:case => @case)    
@@ -55,6 +50,7 @@ class PicturesController < ApplicationController
   end
   
   def update
+    
     @picture = @case.pictures.find_by_id(params[:id])    
     redirect_to cases_path unless @picture
     

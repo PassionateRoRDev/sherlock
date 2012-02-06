@@ -1,38 +1,58 @@
 
-<h2>Case title: <%= @case.title %></h2>
-
 <%= render 'shared/form_errors', :errors => @picture.errors %>
 
 <%= form_for([@case, @picture], 
     :html => { :enctype => 'multipart/form-data' }) do |f| %>
 
-<div>
-  <%= f.label :title %>
-  <%= f.text_field :title, :size => 100 %>
+<div class="field">  
+  <%= f.label :title, 'Title :' %>  
+  <div class="boxfield">
+    <%= f.text_field :title, :class => 'txtfield txtfield-wide', :size => 100 %>
+  </div>
 </div>
 
-<% if @picture.id %>
-  <div style="margin: 1em 0;">    
-    <img 
-      style="border: 1px solid black;"
-      src="<%= url_for file_path('pictures', @picture.path) %>"/>    
-  </div>
-  <input type="button" 
-         value="Change the Picture"
-         onclick="$('#image-field-wrapper').show();"/>
-  <div id="image-field-wrapper" style="display:none;">
-<% end %>
+  <% if @picture.id %>
+    <div class="field-right" style="margin-bottom:1em;">
+      <div style="margin: 1em 0;">    
+        <img 
+          style="border: 1px solid black;"
+          src="<%= url_for file_path('pictures', @picture.path) %>"/>    
+      </div>
+      <input type="button"
+             id="btn-change-picture"
+             class="button button-wide"
+             value="Change the Picture"/>
+      <a href="#" 
+         style="visibility:hidden;"
+         id="link-keep-picture">Keep the picture</a>
+         
+      <script type="text/javascript">
+      $(function() {
+        $('#btn-change-picture').click(function() {
+          $('#image-field-wrapper').show();
+          $('#link-keep-picture').css('visibility', 'visible');
+        });
+        $('#link-keep-picture').click(function(e) {
+          $('#image-field-wrapper').hide();
+          $('#link-keep-picture').css('visibility', 'hidden');
+          return false;
+        });
+      });
+      </script>         
+    </div>
+    <div id="image-field-wrapper" style="display:none;">
+  <% end %>
 
-  <div>
-    <label for="upload_image">Select Image:</label>
-    <%= file_field 'upload', 'image' %>        
-  </div>
-<% if @picture.id %>
-  </div>
-<% end %>
-    
+    <div class="field">
+      <label for="upload_image">Select Image:</label>
+      <%= file_field 'upload', 'image' %>        
+    </div>
+  <% if @picture.id %>
+    </div>
+  <% end %>
+      
 <div class="actions">
-  <%= f.submit 'Save' %>
+  <%= f.submit 'Save', :class => :button %>
   <% if @picture.id %>
     <%= link_to 'Cancel', @case %>
   <% end %>

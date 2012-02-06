@@ -5,7 +5,8 @@ class Picture < ActiveRecord::Base
   include FileAsset
   
   belongs_to :block 
-  validates :path, :presence => true  
+  validates :path, :presence => true
+  validates :title, :presence => true
   
   before_destroy :delete_file
   
