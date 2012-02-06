@@ -9,13 +9,17 @@ class HtmlDetailsController < ApplicationController
     block = Block.new
     block.case = @case
     @detail  = HtmlDetail.new(:block => block)    
+    @insert_before_id = params[:insert_before_id].to_i
   end
   
   def create
         
     @detail = HtmlDetail.new(params[:html_detail])
     block = Block.new(:case => @case)    
-    @detail.block = block
+    
+    @insert_before_id = params[:insert_before_id].to_i
+    block.insert_before_id = @insert_before_id
+    @detail.block = block    
     
     respond_to do |format|
       if (@detail.save)        

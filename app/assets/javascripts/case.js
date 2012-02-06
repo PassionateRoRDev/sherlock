@@ -29,9 +29,16 @@ SHERLOCK.cases.removeInjectedForm = function() {
 
 SHERLOCK.cases.insertBlockBefore = function(insertBefore) {
     
-    var url = $('.link-add-text').attr('href');            
+    var url = $('.link-add-text').attr('href');         
     var exists = $('.injected-form-new');
     if (!exists.length) {          
+        
+        var next = insertBefore.next();
+        if (next.hasClass('block')) {
+            var blockId = next.data('block_id');
+            url += ('?insert_before_id=' + blockId);            
+        }                
+        
         SHERLOCK.ajaxHtmlDo(url, function(responseText, textStatus, XMLHttpRequest) {                        
             var newBlock = $('.blocks-area .new-block');
             insertBefore.before(newBlock);

@@ -7,11 +7,11 @@ $.ajaxSetup({
 var SHERLOCK = SHERLOCK || {};
 SHERLOCK.utils = SHERLOCK.utils || {};
 
-SHERLOCK.utils.flashMessage = function(id, txt) {
+SHERLOCK.utils.flashMessage = function(clazz, txt) {
     var msgs = $('.flash-messages');
-    var m = msgs.find('#' + id);
+    var m = msgs.find('.' + clazz);
     if (!m.length) {
-        m = $('<div>').addClass('msg').attr('id', id);
+        m = $('<div>').addClass('msg').addClass(clazz);
         msgs.append(m);
     }
     m.html(txt);    

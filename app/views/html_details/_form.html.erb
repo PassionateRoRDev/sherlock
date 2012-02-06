@@ -3,6 +3,9 @@
 
 <%= form_for [@case, @detail], :remote => remote do |f| %>
 
+<input type="hidden" name="insert_before_id" 
+       value="<%= @insert_before_id %>"/>
+
 <div class="field" style="height:240px;">  
   <%= f.text_area :contents, :rows => 13, :class => :rich %>
 </div>
