@@ -14,11 +14,23 @@ class PicturesController < ApplicationController
     block.case = @case
     @picture  = Picture.new(:block => block)    
     @insert_before_id = params[:insert_before_id].to_i
+    
+    @cookie = cookies['_sherlock_session']
+    
   end
   
   def create
     
+    logger.debug("Create picture called")
+    logger.debug(params[:upload])    
+    
     image = params[:upload] ? params[:upload]['image'] : nil
+    
+    logger.debug('Image:')
+    logger.debug(image)
+    
+    logger.debug('Picture:')
+    logger.debug(params[:picture])
     
     if image          
       params[:picture][:original_filename] = image.original_filename

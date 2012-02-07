@@ -36,6 +36,19 @@ SHERLOCK.utils.removeTinyMCE = function(eltId) {
     }
 };
 
+SHERLOCK.utils.cookie = function(cookieName) {
+    var result = '';    
+    var cookies = document.cookie.split(';');
+    $(cookies).each(function() {
+        var pair = this.split('=');
+        alert(pair[0]);
+        if (pair[0] == cookieName) {          
+          result = pair[1];          
+        }
+    });
+    return result;      
+}
+
 SHERLOCK.utils.focusTinyMCE = function(eltId) {
     if (tinyMCE) {
         setTimeout(function() {       

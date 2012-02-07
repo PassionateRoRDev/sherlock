@@ -19,6 +19,7 @@
       <div style="margin: 1em 0;">    
         <img 
           style="border: 1px solid black;"
+          width="<%= @picture.width_for_display(750) %>"
           src="<%= url_for file_path('pictures', @picture.path) %>"/>    
       </div>
       <input type="button"
@@ -59,6 +60,11 @@
   <% if @picture.id %>
     <%= link_to 'Cancel', @case %>
   <% end %>
+  <% unless @picture.id %>
+    <input type="button" value="Screen Capture" 
+           id="btn-screen-capture"
+           class="button button-wide"/>
+  <% end %>  
 </div>
 
 <% end %>
