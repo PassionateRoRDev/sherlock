@@ -9,6 +9,11 @@ body {
     position: relative;
 }
 
+@font-face {
+    font-family: "DIN-Bold";
+    src: url(DIN-Bold.TTF);
+}
+
 .main-top {
     background: url(header_960.png);
     height: 16px;
@@ -279,7 +284,7 @@ ol.cases h2 {
 .inbox-hd {
     background: url(head-bg.jpg) no-repeat scroll 0 0 transparent;
     color: #FFFFFF;    
-    font-family: DIN-Bold;
+    font-family: "DIN-Bold";
     font-size: 24px;
     height: 35px;
     line-height: 37px;    
