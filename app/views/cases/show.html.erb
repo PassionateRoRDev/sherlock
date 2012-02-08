@@ -5,10 +5,11 @@
   <div style="float:right;">
     <small>
     <%= link_to 'Create New Case', new_case_path %> |
+    <%= link_to 'Preview', case_preview_path(@case), :class => 'link-preview' %>    |
+    <%= link_to 'Get PDF', case_path(@case, :format => :pdf) %>    |
     <%= link_to 'Delete', @case, 
                :confirm => 'Are you sure you want to remove this case?', 
-               :method => :delete %> |
-    <%= link_to 'Download as PDF', case_path(@case, :format => :pdf) %>    
+               :method => :delete %>               
     </small>
   </div>
   
@@ -48,6 +49,17 @@
     
   <div class="new-block"></div>
 </div>
+        
+<div class="form-center" style="clear:both;padding-top:2em;">  
+        
+<div class="link-buttons" style="padding-left:5em;">
+  <%= link_to 'Preview', case_preview_path(@case),
+              :class => "link-preview button" %>
+  <%= link_to 'PDF', case_path(@case, :format => :pdf),
+              :class => "button" %>
+</div>
+  
+</div>
   
 <script type="text/javascript">
   SHERLOCK.urls = {
@@ -55,8 +67,10 @@
     new_block_picture : '<%= new_case_picture_path(@case) %>',
     new_block_video   : '<%= new_case_video_path(@case) %>'
   };
+  $('.link-preview').attr('target', '_blank');
 </script>
         
 <div style="clear:both;">
   <%= render 'shared/tinymce' %>
 </div>
+

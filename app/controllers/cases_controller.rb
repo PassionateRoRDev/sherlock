@@ -1,6 +1,7 @@
 class CasesController < ApplicationController
   
   before_filter :authenticate_user!
+  before_filter :resolve_case_from_id, :except => [ :new, :create, :index ]
   
   def new
     @case = Case.new
@@ -20,17 +21,20 @@ class CasesController < ApplicationController
     
   end
   
-  def show    
-    @case = resolve_case_from_id
+  def preview    
+    render :preview, :layout => false
+  end
+  
+  def show        
     respond_to do |format|
-      format.html { render :action => 'show' }
+      format.xml { render :xml => @case }
+      format.html      
       format.pdf { render_pdf2(@case) }
       format.js { render :json => @case }
     end
   end
   
-  def update
-    @case = resolve_case_from_id
+  def update    
     if @case
       respond_to do |format|
         if @case.update_attributes(params[:case])
@@ -42,8 +46,7 @@ class CasesController < ApplicationController
     end
   end
   
-  def destroy
-    @case = resolve_case_from_id
+  def destroy   
     @case.destroy
     
     respond_to do |format|
@@ -52,8 +55,7 @@ class CasesController < ApplicationController
     
   end
   
-  def edit
-    @case = resolve_case_from_id
+  def edit    
   end
   
   def index
@@ -63,8 +65,7 @@ class CasesController < ApplicationController
   private
   
   def resolve_case_from_id
-    the_case = current_user.cases.find_by_id(params[:id])
-    the_case ? the_case : redirect_to(cases_path)
+    @case = current_user.cases.find_by_id(params[:id]) || redirect_to(cases_path)    
   end
   
   def render_pdf2(the_case)
