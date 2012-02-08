@@ -1,0 +1,24 @@
+<% if block.html_detail %>
+  <p>
+  <%= block.html_detail.contents.to_s.html_safe %>  
+  </p>
+<% end %>
+
+<% if block.picture %>
+  <div class="picture-block">
+    <img src="<%= url_for file_path('pictures', block.picture.path) %>"
+         title="<%= block.picture.title %>"
+         width="<%= block.picture.width_for_display(1024) %>"/>
+    <h4><%= block.picture.title %></h4>
+  </div>
+<% end %>
+
+<% if block.video %>
+  <div class="video-block">
+    <img src="<%= url_for file_path('videos', block.video.thumbnail) %>"
+         title="<%= block.video.title %>"
+         width="<%= block.video.width %>"
+         height="<%= block.video.height %>"/>
+    <h4>Video: <%= block.video.title %></h4>
+  </div>
+<% end %>

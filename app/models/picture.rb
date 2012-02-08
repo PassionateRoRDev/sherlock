@@ -5,7 +5,8 @@ class Picture < ActiveRecord::Base
   include FileAsset
   
   belongs_to :block 
-  validates :path, :presence => true  
+  validates :path, :presence => true
+  validates :title, :presence => true
   
   before_destroy :delete_file
   
@@ -15,6 +16,11 @@ class Picture < ActiveRecord::Base
   
   def file_type
     'pictures'
+  end
+  
+  def width_for_display(max_width)    
+    dims = Dimensions.dimensions(full_filepath)
+    dims[0] > max_width ? max_width : dims[0]    
   end
     
   def delete_file

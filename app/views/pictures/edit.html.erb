@@ -1,3 +1,13 @@
-<h1>Edit Picture Block</h1>
+<h1>
+  <%= link_to 'My Cases', cases_path %> &gt; 
+  <%= link_to @case.title, @case %> &gt;
+  Edit Picture Block
+</h1>
 
 <%= render 'form' %>
+
+<script type="text/javascript">
+  $(function() {
+    $('#picture_title').focus();
+  });
+</script>

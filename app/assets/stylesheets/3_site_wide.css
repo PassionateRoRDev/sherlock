@@ -9,20 +9,51 @@ body {
     position: relative;
 }
 
+@font-face {
+    font-family: "DIN-Bold";
+    src: url(DIN-Bold.TTF);
+}
+
+.main-top {
+    background: url(header_960.png);
+    height: 16px;
+}
+
+.main-bottom {
+    background: url(footer_960.png);
+    height: 16px;
+}
+
+.mainwrapper {
+    background: url(bg_960.png);    
+}
+
+.mainwrapper .inner {
+    margin: 0 45px;
+    position: relative;
+}
 
 h1 {
     border-bottom: 1px solid #DDDDDD;
-    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);    
     padding-bottom: 5px;
     margin-bottom: 17px;
 }
 
 h1 {
-    margin-bottom: 8px;
+    margin-bottom: 12px;
+}
+
+h1 {
+    font-size: 200%;
 }
 
 h1 small {
-    font-size: 70%;
+    font-size: 55%;
+}
+
+h1 a {
+    text-decoration: none;
 }
 
 ol li {
@@ -35,21 +66,74 @@ ol li {
 }
 
 input, textarea {
-    padding: 2px;
+    padding: 2px;    
+}
+
+input.txtfield {
+    padding-bottom: 0px;
+    padding-top: 0px;
 }
 
 label {
-    display: block;
-    margin-top: 1em;
-    font-weight: bold;
-    margin-bottom: 2px;
+    display: block;    
+    color: #397A89;
+    font-size: 16px;
+    float: left;    
 }
 
 label.inline {
     display: inline;
     margin-top:0;
+    float: none;
+    width: auto;
     font-weight: normal;
 }
+
+label.vertical {
+    float: none;
+    width: auto;
+}
+
+.field, .actions {
+    clear: both;
+}
+
+.form-center {
+    width: 400px;
+    margin: auto;
+    text-align: left;
+}
+
+.form-center-wide {
+    width: 500px;
+}
+
+label {
+    width: 130px;
+    line-height: 28px;
+}
+
+.actions, .field-right {
+    padding-left: 130px;
+}
+
+.actions.no-margin {
+    padding-left: 0;
+}
+
+.form-labels-wider label {
+    width: 150px;
+}
+.form-labels-wider .actions,
+.form-labels-wider .field-right
+{    
+    padding-left: 150px;
+}
+
+.field {
+    height: 40px;
+}
+
 
 span.hidden {
     visibility: hidden;
@@ -78,12 +162,30 @@ div.hidden {
     border: 1px solid red;
 }
 
-.actions {
-    margin: 1em 0;
+.field_with_errors input.txtfield {
+    border: none;
+    background-image: url(txtfield-error.png);
 }
 
-.form-case .summary textarea {
-    width: 95%;
+.field_with_errors input.txtfield.txtfield-wide {
+    border: none;
+    background-image: url(txtfield-error-wide.png);
+}
+
+.actions {
+    margin: 1em 0 0 0;
+}
+
+.actions a {
+    margin-left: 1em
+}
+
+.form-case .summary {
+     clear:both;
+}
+
+.form-case .summary textarea {    
+    width: 99%;
 }
 
 textarea.rich {
@@ -92,10 +194,13 @@ textarea.rich {
 
 .blocks-area textarea {
     width: 99%;
+    /*
     height: 5em;
+    */
 }
 
-.blocks-area .block {    
+.blocks-area .block {
+    clear: both;
 }
 
 .blocks-area .block h3.block-title {
@@ -106,22 +211,50 @@ textarea.rich {
     margin-left: 0.5em;
 }
 
-.flash-messages .msg {
+.flash-messages .msg, #error_explanation {
     border: 2px solid #DDDDDD;
     margin-bottom: 1em;
     padding: 0.8em;
 }
 
-.flash-messages #notice {
+#error_explanation {
+    padding-bottom: 0;
+    background: none repeat scroll 0 0 #FBE3E4;
+    border-color: #FBC2C4;
+    color: #8A1F11;
+}
+
+#error_explanation h2 {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+#error_explanation ul {
+    margin-top: 0.5em;
+}
+
+.flash-messages .notice {
     background: none repeat scroll 0 0 #E6EFC2;
     border-color: #C6D880;
     color: #264409;
 }
 
+/*
 .flash-messages #alert {
     background: none repeat scroll 0 0 #FFF6BF;
     border-color: #FFD324;
     color: #514721;
+}
+*/
+
+.flash-messages .alert {
+    background: none repeat scroll 0 0 #FBE3E4;
+    border-color: #FBC2C4;
+    color: #8A1F11;
+}
+
+body.c-sessions .container-upper .flash-messages {
+    display: none;
 }
 
 ol.cases li {
@@ -130,3 +263,203 @@ ol.cases li {
      padding-bottom:0.5em;
 }
 
+ol.cases h2 {
+    font-size: 150%;
+}
+
+.link-buttons {
+    height:32px;
+}
+
+#company-name {
+    position: absolute;
+    right: 0em;
+    font-size: 300%;
+    top: 1em;
+}
+
+.midleft {
+    float: left;    
+    width: 348px;
+}
+
+.midright {
+    float: right;    
+    width: 348px;
+}
+
+.inbox-hd {
+    background: url(head-bg.jpg) no-repeat scroll 0 0 transparent;
+    color: #FFFFFF;    
+    font-family: "DIN-Bold";
+    font-size: 24px;
+    height: 35px;
+    line-height: 37px;    
+    padding-left: 12px;
+    margin-bottom: 26px;
+}
+
+.head {
+    float: right;
+    height: 37px;
+    margin-top: 15px;
+}
+
+.headtxt {
+    color: #0B7890;
+    float: left;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 26px;
+    height: 37px;
+    line-height: 37px;
+    width: 100px;
+}
+
+#top-user-links .headtxt {
+    font-weight: normal;
+}
+
+.head-account-links {
+    float: left;
+    height: 37px;    
+}
+
+.head-account-links a {
+    display: block;
+    width: 37px;
+    height: 37px;
+    float: left;
+    text-indent: -9999em;
+}
+
+.head-account-links a.settings {
+    background: url(setting.jpg);
+}
+
+.head-account-links a.help {
+    background: url(help.jpg);
+}
+
+.txtbox {
+    height: 28px;
+    padding-bottom: 13px;    
+}
+
+.boxtxt, .boxfield {
+    float: left;
+    height: 28px;
+}
+
+.boxtxt {
+    color: #397A89;    
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 16px;    
+    width: 130px;
+    line-height: 28px;
+}
+
+.boxfield {        
+    width: 218px;
+}
+
+.txtfield {
+    background: url(txtfield.jpg) no-repeat scroll 0 0 transparent;
+    border: medium none;
+    color: #666666;
+    font-size: 12px;
+    height: 28px;
+    line-height: 28px;
+    padding-left: 8px;
+    width: 210px;
+}
+
+.txtfield.hinted {
+    color: #B3B1B1;
+}
+
+.txtfield-wide {
+    background-image: url(txtfield-wide.png);
+    width: 342px;
+}
+
+.txtbox2 {
+    color: #397A89;
+    float: left;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 16px;
+    height: 28px;
+    padding-bottom: 13px;
+    text-align: center;
+    width: 348px;
+}
+
+.txtbox2 label {
+    margin-right: 1em;
+}
+
+input.button {
+    cursor: pointer;
+    width: 94px;
+    height: 28px;
+    border: none;
+    background-image:url(btn.jpg);
+    font-size: 14px;
+    color: #fff;
+}
+
+a.button {    
+    text-decoration: none;
+    display: block;
+    float: left;
+    font-size: 14px;
+    width: 94px;
+    height: 28px;
+    line-height: 28px;
+    text-align: center;
+    border: none;
+    margin-right: 1em;
+    background-image:url(btn.jpg);
+    color: #fff;
+}
+
+.right,
+a.button.right {
+    float: right;
+}
+
+input.button-wide,
+a.button-wide {
+    width: 218px;
+    background-image:url(btn_218.png);
+}
+
+h4.label {
+    clear: both;
+    margin-top:1em;    
+    color:#397A89;
+    font-size:16px;
+    font-weight:normal;
+}
+
+.styled-select {
+    background: url(dropdown.jpg) no-repeat scroll 0 0 transparent;
+    height: 28px;
+    overflow: hidden;
+    width: 387px;
+    padding-top: 4px;
+}
+
+.styled-select select {
+    background: none repeat scroll 0 0 transparent;
+    border: medium none;
+    color: #6D6D6D;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 14px;    
+    width: 410px;
+}
+
+.form-insert-block-wrapper {
+    float:left;
+    width:100%;
+    height:35px;
+}

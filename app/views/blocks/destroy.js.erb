@@ -1,2 +1,7 @@
-$('#block-<%= @block.id %>').fadeOut("slow", function() { $(this).remove(); });
+var block = $('#block-<%= @block.id %>');
+var prev = block.prev();
+if (prev.hasClass('form-insert-block-wrapper')) {  
+  prev.remove();
+}
+block.fadeOut("slow", function() { $(this).remove(); });
 SHERLOCK.utils.flashMessage('notice', 'Block has been removed');

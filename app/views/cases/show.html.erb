@@ -1,44 +1,76 @@
 <h1>
-  Case: <%= @case.title %>
-  <small>
-  [<%= link_to 'Delete', @case, 
+  <%= link_to 'My Cases', cases_path %> &gt;
+  <%= @case.title %>
+  
+  <div style="float:right;">
+    <small>
+    <%= link_to 'Create New Case', new_case_path %> |
+    <%= link_to 'Preview', case_preview_path(@case), :class => 'link-preview' %>    |
+    <%= link_to 'Get PDF', case_path(@case, :format => :pdf) %>    |
+    <%= link_to 'Delete', @case, 
                :confirm => 'Are you sure you want to remove this case?', 
-               :method => :delete %>]
-  </small>
+               :method => :delete %>               
+    </small>
+  </div>
+  
 </h1>
 
-<%= link_to 'Back to Cases list', cases_path %> |
-<%= link_to 'Download as PDF', case_path(@case, :format => :pdf) %> |
-<%= link_to 'Invite Clients to View', new_case_invitation_path(@case) %>
+<div>
+  <%= render 'page_info' %>
+  <%= render 'options' %>
+</div>
 
-<h2>Summary</h2>
+<div style="clear:both;padding-top:1em;position:relative;">
+  <div class="inbox-hd" style="">Title &amp; Summary</div>
+  <div style="position:absolute;left:355px;top:23px;">
+    <%= link_to 'Edit', edit_case_path(@case) %>
+  </div>
+</div>
+
+<h2><%= @case.title %></h2>
 
 <p>
   <%= @case.summary.to_s.html_safe %>
 </p>
 
-<div>
-  <%= link_to 'Edit Title and Summary', edit_case_path(@case) %>
-</div>
-
-<h2>Blocks</h2>
+<div class="inbox-hd" style="margin-top:1em;">Blocks</div>
 
 <script type="text/javascript" 
         src="<%= url_for root_url %>javascript/swfobject.js"></script>
 
 <div class="blocks-area">
   <% if @case.blocks.empty? %>
-    <h3>This case doesn't have any blocks yet</h3>
+    <h3 class="no-blocks-msg">This case doesn't have any blocks yet</h3>
   <% else %>
     <%= render @case.blocks %>
   <% end %>
+    
+  <%= render 'blocks/form_insert' %>
+    
   <div class="new-block"></div>
 </div>
+        
+<div class="form-center" style="clear:both;padding-top:2em;">  
+        
+<div class="link-buttons" style="padding-left:5em;">
+  <%= link_to 'Preview', case_preview_path(@case),
+              :class => "link-preview button" %>
+  <%= link_to 'PDF', case_path(@case, :format => :pdf),
+              :class => "button" %>
+</div>
   
-<%= link_to 'Add text block (AJAX)', 
-    new_case_html_detail_path(@case), :class => 'block-add-ajax' %><br/>
-<%= link_to 'Add text block', new_case_html_detail_path(@case) %><br/>
-<%= link_to 'Add picture block', new_case_picture_path(@case) %><br/>
-<%= link_to 'Add video block', new_case_video_path(@case) %><br/>
+</div>
+  
+<script type="text/javascript">
+  SHERLOCK.urls = {
+    new_block_text    : '<%= new_case_html_detail_path(@case) %>',
+    new_block_picture : '<%= new_case_picture_path(@case) %>',
+    new_block_video   : '<%= new_case_video_path(@case) %>'
+  };
+  $('.link-preview').attr('target', '_blank');
+</script>
+        
+<div style="clear:both;">
+  <%= render 'shared/tinymce' %>
+</div>
 
-<%= render 'shared/tinymce' %>

@@ -1,11 +1,14 @@
 
+<%= render 'blocks/form_insert' %>
+
 <div class="block text" id="block-<%= block.id %>" 
+     data-block_id="<%= block.id %>"
      style="background-color:#efefef;padding:1em;margin:1em 0;">
         
   <div style="float:right;">
   <% if block.html_detail %>    
-    <%= link_to 'Edit', edit_case_html_detail_path(block.case, block.html_detail) %> |
-    <%= link_to 'Edit AJAX', 
+    <%= link_to 'Edit', edit_case_html_detail_path(block.case, block.html_detail) if false %>
+    <%= link_to 'Edit', 
         edit_case_html_detail_path(block.case, block.html_detail),
         :class => 'block-edit-ajax' %> |
   <% end %>
@@ -19,8 +22,8 @@
     
   <%= link_to 'Delete', block, 
                :confirm => 'Are you sure you want to remove this block?', 
-               :method => :delete %> |
-    <%= link_to 'Delete AJAX', block, 
+               :method => :delete if false %>
+    <%= link_to 'Delete', block, 
                :confirm => 'Are you sure you want to remove this block?', 
                :remote => true,
                :method => :delete %>

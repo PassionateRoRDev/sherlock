@@ -1,34 +1,45 @@
 
-<h2>Case title: <%= link_to @case.title, @case %></h2>
-
 <%= render 'shared/form_errors', :errors => @video.errors %>
 
 <%= form_for([@case, @video], 
     :html => { :enctype => 'multipart/form-data' }) do |f| %>
 
-<div>
-  <%= f.label :title, 'Title:' %>
-  <%= f.text_field :title, :size => 100 %>
+<input type="hidden" name="insert_before_id" 
+       value="<%= @insert_before_id %>"/>
+
+<div class="field">      
+  <%= f.label :title, 'Title :' %>
+  <div class="boxfield">
+    <%= f.text_field :title, :class => 'txtfield txtfield-wide', :size => 100 %>
+  </div>  
 </div>
 
 <% if @video.id %>
 
-  <div style="margin-top:1em;">
-    <%= render 'videos/player', :video => @video %>
-  </div>
+  <h4 class="label">Video :</h4>
 
-  <div style="margin:1em 0;" id="video-change-block">
-    <input type="button" id="btn-video-change" value="Change the Video"/>
-    <a href="#" style="visibility:hidden;">Keep the existing video</a>
-  </div>
+  <div class="field-right">
+
+    <div style="margin-top:1em;">
+      <%= render 'videos/player', :video => @video %>
+    </div>
+
+    <div style="margin:1em 0;" id="video-change-block">
+      <input type="button" 
+             class="button button-wide"
+             id="btn-video-change" value="Change the Video"/>
+      <a href="#" style="visibility:hidden;">Keep the existing video</a>
+    </div>
   
+  </div> 
 
   <div id="video-field-wrapper" style="display:none;">      
+      
     
 <% end %>
 
   <div>
-    <label for="upload_video">Select Video:</label>
+    <label for="upload_video">Select Video :</label>
     <%= file_field 'upload', 'video' %>        
   </div>      
     
@@ -37,17 +48,18 @@
 
 <% end %>
 
-<h4 style="margin-top:1em;">Thumbnail</h4>
-
-<% if @video.thumbnail %>  
-  <img src="<%= url_for file_path('videos', @video.thumbnail) %>"/> 
-<% end %>
+<h4 class="label">Thumbnail :</h4>
+<div class="field-right">  
+  <% if @video.thumbnail %>  
+    <img src="<%= url_for file_path('videos', @video.thumbnail) %>"/> 
+  <% end %>  
+</div>
 
 <% if @video.id %>
   
   <input type="hidden" name="keep_thumbnail" value="1"/>
   
-  <div style="margin:5px 0;">
+  <div class="field-right" style="margin:5px 0;">
     <% if @video.thumbnail_method == :auto %>
     Thumbnail extracted from video, position <strong><%= @video.thumbnail_pos %>.</strong>
     <% else %>
@@ -55,43 +67,51 @@
     <% end %>
     
     <div style="margin:5px 0;">
-      <button id="btn-thumbnail-change">Change Thumbnail</button>
+      <input type="button" 
+             class="button button-wide"
+             value="Change Thumbnail"
+             id="btn-thumbnail-change"/>
       <span class="hidden">
         <a href="#" id="link-thumbnail-keep">Keep the current thumbnail</a>
       </span>
     </div>
     
   </div>
-  <div id="block-thumbnail-change-wrapper" style="display:none;">
+  <div id="block-thumbnail-change-wrapper"        
+       style="display:none;">
 <% end %>  
   
-<div id="block-thumbnail-method-auto">
-  <%= f.radio_button :thumbnail_method, :auto %>
-  <%= f.label :thumbnail_method_auto, 
-      'generate automatically from clip', :class => :inline %>
-  <span
-    <% if @video.thumbnail_method == :manual %>
-    class="hidden"
-    <% end %>
-    >
-  - timecode 
-  <%= f.text_field :thumbnail_pos, :size => 10 %>
-  (HH:MM:SS.xxx)
-  </span>
-</div>
-<div id="block-thumbnail-method-manual">
-  <%= f.radio_button :thumbnail_method, :manual %>
-  <%= f.label :thumbnail_method_manual, 
-      'manually upload a thumbnail image', :class => :inline %>
-  <div
-    <% if @video.thumbnail_method == :auto %>
-    class="hidden"
-    <% end %>
-    >
-    <label for="upload_thumbnail">Select Thumbnail:</label>
-    <%= file_field 'upload', 'thumbnail' %>
+<div class="field-right">    
     
+  <div id="block-thumbnail-method-auto">
+    <%= f.radio_button :thumbnail_method, :auto %>
+    <%= f.label :thumbnail_method_auto, 
+        'generate automatically from clip', :class => :inline %>
+    <span
+      <% if @video.thumbnail_method == :manual %>
+      class="hidden"
+      <% end %>
+      >
+    - timecode 
+    <%= f.text_field :thumbnail_pos, :size => 10 %>
+    (HH:MM:SS.xxx)
+    </span>
   </div>
+  <div id="block-thumbnail-method-manual">
+    <%= f.radio_button :thumbnail_method, :manual %>
+    <%= f.label :thumbnail_method_manual, 
+        'manually upload a thumbnail image', :class => :inline %>
+    <div
+      <% if @video.thumbnail_method == :auto %>
+      class="hidden"
+      <% end %>
+      >
+      <label for="upload_thumbnail">Select Thumbnail</label>
+      <%= file_field 'upload', 'thumbnail' %>
+
+    </div>
+  </div>
+    
 </div>
     
 <% if @video.id %>
@@ -99,7 +119,7 @@
 <% end %>
 
 <div class="actions">
-  <%= f.submit 'Save' %>  
+  <%= f.submit 'Save', :class => :button %>  
   <%= link_to 'Cancel', @case %>  
 </div>
 
@@ -115,8 +135,9 @@
   });
   
   $('#link-thumbnail-keep').click(function(e) {
-    $('#block-thumbnail-change-wrapper').hide();
+    $('#block-thumbnail-change-wrapper').hide();    
     $('input[name=keep_thumbnail]').val('1');
+    $('#link-thumbnail-keep').parent().addClass('hidden');
     return false;
   });
   

@@ -13,30 +13,37 @@ class PicturesController < ApplicationController
     block = Block.new
     block.case = @case
     @picture  = Picture.new(:block => block)    
+    @insert_before_id = params[:insert_before_id].to_i
+    
+    @cookie = cookies['_sherlock_session']
     
   end
   
   def create
     
-    image = params[:upload]['image']
+    logger.debug("Create picture called")
+    logger.debug(params[:upload])    
+    
+    image = params[:upload] ? params[:upload]['image'] : nil
+    
+    logger.debug('Image:')
     logger.debug(image)
     
-    image.original_filename
-    image.content_type
+    logger.debug('Picture:')
+    logger.debug(params[:picture])
     
-    params[:picture][:original_filename] = image.original_filename
-    params[:picture][:content_type] = image.content_type    
-    
-    file_path = Picture.store(current_user, image)
-    params[:picture][:path] = file_path
-    
-    #logger.debug(params[:picture])
+    if image          
+      params[:picture][:original_filename] = image.original_filename
+      params[:picture][:content_type] = image.content_type    
+      file_path = Picture.store(current_user, image)
+      params[:picture][:path] = file_path
+    end      
     
     @picture = Picture.new(params[:picture])
     block = Block.new(:case => @case)    
-    @picture.block = block
-    
-    # TODO: initialize weight to be the maximum one    
+    @insert_before_id = params[:insert_before_id].to_i
+    block.insert_before_id = @insert_before_id    
+    @picture.block = block          
         
     respond_to do |format|
       if (@picture.save) 
@@ -55,6 +62,7 @@ class PicturesController < ApplicationController
   end
   
   def update
+    
     @picture = @case.pictures.find_by_id(params[:id])    
     redirect_to cases_path unless @picture
     

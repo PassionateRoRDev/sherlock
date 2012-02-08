@@ -134,7 +134,7 @@ class Video < ActiveRecord::Base
   end
   
   def type_from_content_type(content_type)
-    content_type.split('/').last
+    content_type ? content_type.split('/').last : ''    
   end
   
   def as_json(options = {})    

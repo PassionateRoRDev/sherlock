@@ -1,16 +1,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Sherlock</title>
+  <title>Reports Made - SherlockDocs</title>
   <%= stylesheet_link_tag    "application" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
-<body>  
-  <div class="container">    
-    <%= render 'shared/flash', :flash => flash %>
-    <%= render 'shared/top_user_links' %>
-    <%= yield %>    
+<body class="c-<%= controller_name %> a-<%= action_name %>">  
+  <div class="container container-upper">    
+    <%= render('shared/flash', :flash => flash) %>
+  </div>  
+  <div class="container main-top"></div>
+  <div class="container mainwrapper">    
+    <div class="inner">      
+      <%= render 'shared/company_name' %>
+      <a title="SherlockDocs Home" 
+         href="<%= url_for root_path %>"><%= image_tag 'logo.png' %></a>
+      <%= render 'shared/top_user_links' %>
+      <%= yield %>    
+    </div>
   </div>
+  <div class="container main-bottom"></div>
 </body>
 </html>

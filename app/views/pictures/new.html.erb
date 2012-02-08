@@ -1,3 +1,44 @@
-<h1>Create a Picture Block</h1>
+<h1>
+  <%= link_to 'My Cases', cases_path %> &gt; 
+  <%= link_to @case.title, @case %> &gt;
+  Create a Picture Block
+</h1>
 
 <%= render 'form' %>
+
+<div id="appletContainer" style="display:none;height:60px;"></div>
+
+<script type="text/javascript">
+  $(function() {
+    $('#picture_title').focus();
+  });
+</script>
+
+<script type="text/javascript">
+  
+    function captureDone()
+    {
+      alert('Capture done!');
+    }
+  
+    $(function() {
+      $('#btn-screen-capture').click(function() {
+                
+        var container = $('#appletContainer');
+        if (container.html() == '') {
+          var post_url = '<%= case_pictures_url(@case) %>';          
+          var token = $('meta[name=csrf-token]').attr('content');
+          var code = '<applet archive="<%= root_url %>/SherlockScreen.jar?v=' + new Date().valueOf() + '" ' +
+            'code="sherlockscreen.SherlockScreen.class" ' +
+            'width="300" height="60" MAYSCRIPT>' +        
+            '<param name="token" value="' + token + '"/>' +
+            '<param name="cookie" value="<%= @cookie %>"/>' +
+            '<param name="insert_before_id" value="<%= @insert_before_id %>"/>' +
+            '<param name="post_url" value="' + post_url + '"/>'+
+            '</applet>';      
+          container.html(code);        
+          container.show();
+         }
+      });      
+    });        
+    </script>

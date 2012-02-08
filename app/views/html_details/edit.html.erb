@@ -1,5 +1,6 @@
-<h1>Edit Text Block</h1>
-
-<h2>Case title: <%= @detail.block.case.title %></h2>
+<h1>
+  Edit Text Block
+  (Case title: <%= link_to @detail.block.case.title, @detail.block.case %>)
+</h1>
 
 <%= render 'form', :remote => false %>

@@ -7,15 +7,25 @@ $.ajaxSetup({
 var SHERLOCK = SHERLOCK || {};
 SHERLOCK.utils = SHERLOCK.utils || {};
 
-SHERLOCK.utils.flashMessage = function(id, txt) {
+SHERLOCK.utils.flashMessage = function(clazz, txt) {
     var msgs = $('.flash-messages');
-    var m = msgs.find('#' + id);
+    var m = msgs.find('.' + clazz);
     if (!m.length) {
-        m = $('<div>').addClass('msg').attr('id', id);
+        m = $('<div>').addClass('msg').addClass(clazz);
         msgs.append(m);
     }
     m.html(txt);    
-}
+};
+
+SHERLOCK.focusOnField = function(element) {
+    var form = $(element).get(0).form;
+    var focusField = element;
+    var errorFields = $('.field_with_errors input', form);
+    if (errorFields.length) {
+        focusField = errorFields[0];        
+    }
+    focusField.focus();    
+};
 
 SHERLOCK.utils.removeTinyMCE = function(eltId) {
     if (tinyMCE && eltId) {
@@ -24,6 +34,19 @@ SHERLOCK.utils.removeTinyMCE = function(eltId) {
             tinyMCE.remove(exists);
         }
     }
+};
+
+SHERLOCK.utils.cookie = function(cookieName) {
+    var result = '';    
+    var cookies = document.cookie.split(';');
+    $(cookies).each(function() {
+        var pair = this.split('=');
+        alert(pair[0]);
+        if (pair[0] == cookieName) {          
+          result = pair[1];          
+        }
+    });
+    return result;      
 }
 
 SHERLOCK.utils.focusTinyMCE = function(eltId) {
@@ -32,4 +55,4 @@ SHERLOCK.utils.focusTinyMCE = function(eltId) {
             tinyMCE.execCommand('mceFocus', false, eltId);
         }, 500);                
     }
-}
+};

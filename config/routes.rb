@@ -12,6 +12,8 @@ Sherlock::Application.routes.draw do
     resources :invitations
   end
   
+  get 'cases/preview/:id' => 'cases#preview', :as => :case_preview
+  
   resources :blocks
   
   match 'files/:type/:filename' => 'files#show',

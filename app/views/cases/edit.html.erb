@@ -1,5 +1,11 @@
-<h1>Edit Case</h1>
-
-<%= link_to 'Back to Cases list', cases_path %>
+<h1>
+  <%= link_to 'My Cases', cases_path %> &gt; Edit Case
+</h1>
 
 <%= render 'form' %>
+
+<script type="text/javascript">
+  $(function() {
+    $('#case_title').focus();
+  });
+</script>

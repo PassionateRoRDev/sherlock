@@ -7,7 +7,8 @@
   <% end %>
   <% if block.picture %>
     <%= block.picture.title %><br/>
-    <img src="<%= url_for file_path('pictures', block.picture.path) %>"/>
+    <img src="<%= url_for file_path('pictures', block.picture.path) %>"
+         width="<%= block.picture.width_for_display(840) %>"/>
   <% end %>
   <% if block.video %>
     <%= block.video.title %><br/>    
