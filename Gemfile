@@ -7,6 +7,7 @@ gem 'rails', '3.1.3'
 
 gem 'mysql2'
 gem 'devise', '~>1.4.3'
+gem 'devise_invitable'
 gem 'factory_girl_rails'
 gem 'fastercsv'
 gem 'json'

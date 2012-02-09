@@ -13,8 +13,15 @@ describe Invitation do
 
   describe 'deliver' do
     it 'does not send mail if invalid' do
-      PostOffice.should_not_receive(:report)
+      PostOffice.should_not_receive(:invitation)
       Factory.build(:invitation, :email => nil).deliver
+    end
+
+    it 'sends an invitation if valid' do
+      i = mock(PostOffice)
+      i.should_receive(:deliver)
+      PostOffice.should_receive(:invitation).and_return(i)
+      Factory.build(:invitation).deliver
     end
   end
 

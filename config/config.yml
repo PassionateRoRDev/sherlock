@@ -4,11 +4,15 @@ application:
 development:    
   files_path: files/
   templates_path: templates/
+  domain: localhost:3000
 
 test:
   files_path: tmp/files/
   templates_path: templates/
+  domain: localhost:3000
 
 production:  
   files_path: files/
   templates_path: templates/
+  domain: SherlockDocs.com
+

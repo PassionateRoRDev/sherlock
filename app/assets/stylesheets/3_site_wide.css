@@ -131,6 +131,7 @@ label {
 }
 
 .field {
+    margin-top: 0.5em;
     height: 40px;
 }
 
@@ -148,7 +149,7 @@ div.hidden {
 }
 
 .required label:before{
-  content:"\00bb";
+  content:"\2217";
   color: blue;
   padding: 0 0.5em 0 0;
   margin-left: -1em;

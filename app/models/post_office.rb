@@ -1,9 +1,9 @@
 class PostOffice < ActionMailer::Base
 
-  def report( invitation )
+  def invitation( invitation )
     @invitation = invitation
     mail(
-      :to => @invitation.target, 
+      :to => @invitation.recipient, 
       :subject => 'View Report', 
       :from => APP_CONFIG[:sender]
     )
