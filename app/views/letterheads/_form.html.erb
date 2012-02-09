@@ -4,7 +4,8 @@
 <%= form_for(@letterhead) do |f| %>
   <% if @letterhead.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@letterhead.errors.count, "error") %> prohibited this letterhead from being saved:</h2>
+      <h2><%= pluralize(@letterhead.errors.count, "error") %> 
+        prohibited this letterhead from being saved:</h2>
 
       <ul>
       <% @letterhead.errors.full_messages.each do |msg| %>
@@ -16,11 +17,7 @@
 
   <div class="box">
     
-    <div class="heading">
-      <div class="head-bg-left"></div>
-      <div class="head-bg">Set Your Page Default</div>
-      <div class="head-bg-right"></div>
-    </div>
+    <%= render 'designer/header', :title => 'Set Your Page Default' %>    
     
     <div class="box-cont">
       
@@ -64,106 +61,15 @@
   
   <div class="box">
     
-    <div class="heading">
-      <div class="head-bg-left"></div>
-      <div class="head-bg">Build Your Header</div>
-      <div class="head-bg-right"></div>
-    </div>
+    <%= render 'designer/header', :title => 'Build Your Header' %>    
     
     <div class="box-cont">
       
-      <div class="set-one">            
-        <div class="leftbox">Background</div>
-        <div class="rightbox">            
-          <div class="left">            
-            <label class="inline">Color</label>            
-          </div>
-          <div class="color-wrapper">
-            <%= f.text_field :bgcolor, :class => :simple_color %>            
-          </div>
-        </div>        
-      </div>
-      
-      <div class="set-two">
-        <div class="leftbox">Border</div>
-        <div class="rightbox">
-          <%= f.check_box :border %>
-          <%= f.label :border, 'Yes', :class => :inline %>          
-        </div>
-      </div>
-      
-      <div class="set-one">
-        <div class="leftbox">Typeface</div>        
-          <div class="rightbox">
-              <div class="line">
-                <div class="lineleft">Font</div>
-                <div class="styled-select1">                  
-                  <%= f.select :font_size, font_size_options, 
-                      :class => :listtxt %>                                    
-                </div>
-              </div>
-              <div class="line">
-                <div class="lineleft">Size </div>
-                <div class="styled-select2">
-                  <%= f.select :font_size, font_size_options, :class => :listtxt2 %>
-                </div>
-              </div>
-              <div class="linelast">
-                <div class="lineleft"> Color </div>
-                <div class="lineright">
-                  <%= f.text_field :font_color, :class => :simpler_color %>                  
-                </div>
-              </div>
-            </div>        
-      </div>
-      
-      <div class="set-two">
-            <div class="leftbox">Divider Above?</div>
-            <div class="rightbox">
-
-              <div class="line">
-                <div class="lineleft1">
-                  <%= f.check_box :divider %>
-                  &nbsp;Yes                  
-                  <div class="right" style="margin-right:5px;">
-                    <%= f.label :divider_size, 'Size', :class => :inline %>
-                  </div>
-                </div>
-                <div class="styled-select3">                  
-                  <%= f.select :divider_size, divider_size_options, 
-                      :class => :listtxt2 %>                  
-                </div>
-                <div class="lineleft4">Width</div>
-                <div class="styled-select3">
-                  <%= f.select :divider_width, divider_width_options, 
-                      :class => :listtxt2 %>
-                </div>
-              </div>
-              <div class="linelast">
-                <div class="lineleft"> Color </div>
-                <div class="lineright">
-                  <%= f.text_field :divider_color, :class => :simple_color %>                  
-                </div>
-              </div>
-
-            </div>
-        </div>
-      
-      <div class="set-one">
-        <div class="leftbox">Header Text</div>
-        <div class="rightbox">
-          <div class="line">
-            <%= f.text_area :contents, :class => :areatxt %>            
-          </div>
-
-          <div class="linelast">
-            <div class="lineleft2">Align Text </div>
-            <div class="styled-select2">
-              <%= f.select :text_align, text_align_options, :class => :listtxt2 %>              
-            </div>
-          </div>
-        </div>
-      </div>
+      <%= render 'designer/background', :f => f %>
+      <%= render 'designer/border', :f => f %>
+      <%= render 'designer/font_settings', :f => f %>            
+      <%= render 'designer/divider_above', :f => f %>        
+      <%= render 'designer/text', :label => :Header, :f => f %>
       
       <div class="set-two">
             <div class="leftbox">Logo</div>
@@ -212,75 +118,12 @@
           </div>        
       
     </div>
-    <div class="clear box-bot"></div>    
+    <div class="clear box-bot"></div>
   </div>
   
-  <div class="box">
-  <!--
-  
-  <div class="field">
-    <%= f.label :alignment %><br />
-    <%= f.text_field :alignment %>
+  <div class="actions no-margin">
+    <%= f.submit 'Save', :class => :button %>
   </div>
-  <div class="field">
-    <%= f.label :bgcolor %><br />
-    <%= f.text_field :bgcolor %>
-  </div>
-  <div class="field">
-    <%= f.label :border %><br />
-    <%= f.check_box :border %>
-  </div>
-  <div class="field">
-    <%= f.label :font_face %><br />
-    <%= f.text_field :font_face %>
-  </div>
-  <div class="field">
-    <%= f.label :font_size %><br />
-    <%= f.number_field :font_size %>
-  </div>
-  <div class="field">
-    <%= f.label :font_color %><br />
-    <%= f.text_field :font_color %>
-  </div>
-  <div class="field">
-    <%= f.label :divider %><br />
-    <%= f.check_box :divider %>
-  </div>
-  <div class="field">
-    <%= f.label :divider_size %><br />
-    <%= f.number_field :divider_size %>
-  </div>
-  <div class="field">
-    <%= f.label :divider_width %><br />
-    <%= f.number_field :divider_width %>
-  </div>
-  <div class="field">
-    <%= f.label :divider_color %><br />
-    <%= f.text_field :divider_color %>
-  </div>
-  <div class="field">
-    <%= f.label :contents %><br />
-    <%= f.text_area :contents %>
-  </div>
-  <div class="field">
-    <%= f.label :logo_path %><br />
-    <%= f.text_field :logo_path %>
-  </div>
-  <div class="field">
-    <%= f.label :logo_alignment %><br />
-    <%= f.text_field :logo_alignment %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-  
-  -->
-  
-  </div>
-  
-    <div class="actions no-margin">
-      <%= f.submit 'Save', :class => :button %>
-    </div>
         
 <% end %>      
   

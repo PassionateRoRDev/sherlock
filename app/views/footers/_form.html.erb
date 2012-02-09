@@ -13,11 +13,7 @@
 
   <div class="box">
     
-    <div class="heading">
-      <div class="head-bg-left"></div>
-      <div class="head-bg">Set Your Page Default</div>
-      <div class="head-bg-right"></div>
-    </div>
+    <%= render 'designer/header', :title => 'Set Your Page Default' %>
     
     <div class="box-cont">
       
@@ -57,6 +53,29 @@
       </div>
     </div>  
     <div class="box-bot"></div>  
+  </div>
+
+  <div class="box">
+    
+    <%= render 'designer/header', :title => 'Build Your Footer' %>
+    
+    <div class="box-cont">      
+      <%= render 'designer/background', :f => f %>
+      <%= render 'designer/border', :f => f %>
+      <%= render 'designer/font_settings', :f => f %>
+      <%= render 'designer/divider_above', :f => f %>
+      <%= render 'designer/text', :label => :Footer, :f => f %>
+      
+      <div class="set-two">
+        <div class="leftbox">Divider Below?</div>
+        <div class="rightbox">
+          <%= f.check_box :divider_below %>          
+          &nbsp; Yes
+        </div>
+      </div>
+      
+    </div>
+    <div class="clear box-bot"></div>
   </div>
 
   <div class="actions no-margin">

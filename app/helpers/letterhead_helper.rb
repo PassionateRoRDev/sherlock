@@ -1,5 +1,13 @@
 module LetterheadHelper
   
+  def font_face_options
+    [
+      ['Arial', 'arial'],
+      ['Helvetica', 'helvetica'],
+      ['Verdana', 'verdana']
+    ]
+  end
+  
   def font_size_options   
     [10, 12, 14, 16].map do |size|
       ["#{size} px", size]
