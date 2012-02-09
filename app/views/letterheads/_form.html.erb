@@ -1,7 +1,8 @@
 
 <div class="form-letterhead form-center">
 
-<%= form_for(@letterhead) do |f| %>
+<%= form_for(@letterhead, 
+             :html => { :enctype => 'multipart/form-data' }) do |f| %>
   <% if @letterhead.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@letterhead.errors.count, "error") %> 
@@ -102,6 +103,9 @@
                   <div class="lineleft-txt">Upload an image</div>
                   <div class="lineleft-txt1">For best results upload a 900 x 630 JPG or PNG.</div>
                   <div class="lineleft-txt2">                    
+                    
+                    <%= file_field 'upload', 'logo' %>
+                    
                     <div class="textfield1" style="float:left;">
                       <input class="txtfield" name="" type="text" />
                     </div>

@@ -42,9 +42,17 @@ class LetterheadsController < ApplicationController
   # POST /letterheads
   # POST /letterheads.json
   def create
+        
+    params[:upload] ||= {}
+    image = params[:upload]['logo']
+    if image
+      params[:letterhead][:logo_content_type] = image.content_type    
+      file_path = Letterhead.store_logo(current_user, image)
+      params[:letterhead][:logo_path] = file_path
+    end      
     
     @letterhead = Letterhead.new(params[:letterhead])
-    @letterhead.user = current_user
+    @letterhead.user = current_user    
     
     respond_to do |format|
       if @letterhead.save
@@ -63,6 +71,16 @@ class LetterheadsController < ApplicationController
     
     respond_to do |format|
       if @letterhead.update_attributes(params[:letterhead])
+        
+        params[:upload] ||= {}        
+        image = params[:upload]['logo']
+        if image
+          logger.debug("Deleting the previous file")
+          @letterhead.delete_logo
+          @letterhead.logo_path = Letterhead.store_logo(current_user, image)
+          @letterhead.save
+        end
+        
         format.html { redirect_to edit_letterhead_path(@letterhead), 
                       notice: 'Letterhead was successfully updated.' }
         format.json { head :ok }

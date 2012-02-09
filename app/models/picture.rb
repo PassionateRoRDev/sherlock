@@ -12,7 +12,7 @@ class Picture < ActiveRecord::Base
   
   def self.store(user, upload_info)    
     FileAsset::store_for_type(user, upload_info, 'pictures')            
-  end  
+  end
   
   def file_type
     'pictures'

@@ -18,7 +18,8 @@ class VideosController < ApplicationController
   
   def create
     
-    params[:upload] = {} unless params[:upload]
+    
+    params[:upload] ||= {}
     
     if params[:video][:thumbnail_method] == 'auto'
       params[:upload].delete('thumbnail')
@@ -95,7 +96,7 @@ class VideosController < ApplicationController
     params[:video].delete(:thumbnail_method)    
     
     respond_to do |format|
-      if @video.update_attributes(params[:video])        
+      if @video.update_attributes(params[:video])
         video = params[:upload] ? params[:upload]['video'] : nil
         if video
           video_filename = Video.store(current_user, video)                    
