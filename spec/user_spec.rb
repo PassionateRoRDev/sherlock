@@ -7,14 +7,34 @@ describe User do
 
   it "should have link to a picture through blocks and cases" do    
     picture = FactoryGirl.create(:picture)
-    user = picture.block.case.user
-    user.pictures.should include(picture)
+    author = picture.block.case.author
+    author.pictures.should include(picture)
   end
   
   it "should have videos through blocks and cases" do
     video = FactoryGirl.create(:video)
-    user = video.block.case.user
-    user.videos.should include(video)
+    author = video.block.case.author
+    author.videos.should include(video)
+  end
+
+  it 'can not view cases by default' do
+    secret = Factory.create(:case)
+    snoop = Factory.create(:user)
+    snoop.can_view?( secret ).should == false
+  end
+
+  it 'can view cases when it is on the viewer list' do
+    client = Factory.create(:user)
+    info = Factory.create(:case, :viewers => [client])
+    
+    client.can_view?( info ).should == true
+  end
+
+  it 'can view cases when listed as the author' do
+    author = Factory.create(:user)
+    great_am_tale = Factory.create(:case, :author => author)
+
+    author.can_view?( great_am_tale ).should == true
   end
 end
 

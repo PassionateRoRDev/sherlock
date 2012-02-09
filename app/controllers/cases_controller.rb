@@ -10,7 +10,7 @@ class CasesController < ApplicationController
   def create
     
     @case = Case.new(params[:case])
-    @case.user = current_user
+    @case.author = current_user
     respond_to do |format|
       if (@case.save) 
         format.html { redirect_to(cases_path, :notice => 'Case has been successfully created') }

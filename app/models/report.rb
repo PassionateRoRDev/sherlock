@@ -36,8 +36,8 @@ class Report
     "#{Rails.root}/#{APP_CONFIG['files_path']}/"    
   end
   
-  def files_path_for_user
-    "#{files_path}/#{self.case.user.id}/"
+  def files_path_for_author
+    "#{files_path}/#{self.case.author_id}/"
   end
       
   def templates_root
@@ -45,7 +45,7 @@ class Report
   end
   
   def path_for(name)    
-    normalize_path(files_path_for_user + "/#{name}/")
+    normalize_path(files_path_for_author + "/#{name}/")
   end
     
   def reports_output_path

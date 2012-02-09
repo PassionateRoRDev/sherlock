@@ -18,13 +18,13 @@ class Video < ActiveRecord::Base
     self.thumbnail_pos.blank? ? :manual : :auto
   end
   
-  def self.store_thumbnail(user_id, video_filename, thumbnail_upload)
+  def self.store_thumbnail(author_id, video_filename, thumbnail_upload)
     
     thumbnail_upload.original_filename =~ /([^.]+)$/
     thumbnail_ext = $1
     thumbnail_filename = video_filename.sub(/([^.]+)$/, thumbnail_ext)
     #Rails::logger.debug('Thumbnail filename will be: ' + thumbnail_filename)
-    full_thumbnail_path = FileAsset::dir_for_user(user_id, 'videos') + 
+    full_thumbnail_path = FileAsset::dir_for_author(author_id, 'videos') + 
                           '/' + thumbnail_filename
     #Rails::logger.debug('Saving video thumbnail at ' + full_thumbnail_path)
     File.open(full_thumbnail_path, 'wb') {|f| f.write(thumbnail_upload.read) }
@@ -39,11 +39,11 @@ class Video < ActiveRecord::Base
     }
   end
   
-  def self.extract_thumbnail_from_movie(user_id, video_filename, thumb_timecode)
+  def self.extract_thumbnail_from_movie(author_id, video_filename, thumb_timecode)
     
-    Rails::logger.debug("extract_thumbnail_from_movie: " + user_id.to_s + ", " + video_filename)
+    Rails::logger.debug("extract_thumbnail_from_movie: " + author_id.to_s + ", " + video_filename)
     
-    dir = FileAsset::dir_for_user(user_id, 'videos') + '/'
+    dir = FileAsset::dir_for_author(author_id, 'videos') + '/'
     thumbnail_ext = 'png'
     thumbnail_filename = video_filename.sub(/([^.]+)$/, thumbnail_ext)
     
@@ -70,8 +70,8 @@ class Video < ActiveRecord::Base
     
   end  
   
-  def self.store(user, upload_info)        
-    FileAsset::store_for_type(user, upload_info, 'videos')                
+  def self.store(author, upload_info)        
+    FileAsset::store_for_type(author, upload_info, 'videos')                
   end
   
   def flv_path
@@ -93,14 +93,14 @@ class Video < ActiveRecord::Base
   end
   
   def rename_thumbnail
-    user_id = self.block.case.user_id
-    thumbnail_path = FileAsset::dir_for_user(user_id, 'videos') +  '/' +
+    author_id = self.block.case.author_id
+    thumbnail_path = FileAsset::dir_for_author(author_id, 'videos') +  '/' +
                        self.thumbnail    
     thumbnail_path =~ /([^.]+)$/
     thumbnail_ext = $1
     
     new_thumbnail_filename = self.path.sub(/([^.]+)$/, thumbnail_ext)
-    new_thumbnail_path = FileAsset::dir_for_user(user_id, 'videos') +  '/' +
+    new_thumbnail_path = FileAsset::dir_for_author(author_id, 'videos') +  '/' +
                          new_thumbnail_filename
                          
     File.rename(thumbnail_path, new_thumbnail_path)
@@ -113,8 +113,8 @@ class Video < ActiveRecord::Base
   def delete_thumbnail
     Rails::logger.debug('Delete thumbnail: ' + self.thumbnail.to_s)
     if self.thumbnail
-      user_id = self.block.case.user_id
-      thumbnail_path = FileAsset::dir_for_user(user_id, 'videos') +  '/' +
+      author_id = self.block.case.author_id
+      thumbnail_path = FileAsset::dir_for_author(author_id, 'videos') +  '/' +
                        self.thumbnail
       File.unlink(thumbnail_path) if File.exists?(thumbnail_path)
     end

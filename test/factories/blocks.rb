@@ -5,6 +5,7 @@ FactoryGirl.define do
 
   factory :picture do
     association :block
+    title 'Something'
     path '/tmp/dummy.txt'
   end
 

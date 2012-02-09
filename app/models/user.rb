@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me
   
-  has_many :cases, :dependent => :destroy
+  has_and_belongs_to_many :cases, :join_table => 'viewers', :foreign_key => 'viewer_id', :association_foreign_key => 'case_id'
   has_many :blocks, :through => :cases
   
   has_many :pictures, :through => :blocks
@@ -16,4 +16,14 @@ class User < ActiveRecord::Base
   def invited?
     ! self.invitation_token.blank?  
   end
+
+  def can_view?( object )
+    case object
+    when Case
+      object.viewers.include?( self ) || object.author == self
+    else
+      false
+    end
+  end
+
 end

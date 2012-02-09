@@ -5,7 +5,7 @@ class IntroductoryInvitationPresenter
   end
 
   def user
-    @invitation.user
+    @invitation.guest
   end
 
   def recipient

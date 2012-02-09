@@ -24,26 +24,30 @@ class Invitation < Valuable
   end
 
   def deliver 
-    valid? && find_or_create_user && deliver_email
+    valid? && find_or_create_guest && set_permissions && deliver_email
   end
    
-  def find_or_create_user 
-    @user ||= User.where(:email => self.email).first || 
+  def find_or_create_guest 
+    @guest ||= User.where(:email => self.email).first || 
          User.invite!(:email => self.email, 
                       :name => self.name, 
                       :skip_invitation => true)
+  end
+
+  def set_permissions
+    self.case.viewers << self.guest
   end
 
   def deliver_email
     PostOffice.invitation( self.with_presentation_layer ).deliver
   end
 
-  def user
-    self.find_or_create_user
+  def guest
+    self.find_or_create_guest
   end
 
   def with_presentation_layer
-    if self.user.invited?
+    if self.guest.invited?
       IntroductoryInvitationPresenter.new( self )
     else
       RepeatInvitationPresenter.new( self )

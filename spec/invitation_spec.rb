@@ -25,16 +25,14 @@ describe Invitation do
     end
   end
 
-  describe 'target' do
-    it 'is formatted for use in email' do
-      n = Factory.build(:invitation, :name => 'Bill Harris', :email => 'bill@tw.com').target.should == "Bill Harris <bill@tw.com>"
-    end
+  it 'adds permission for the new user to view the case' do
+    n = Factory.build :invitation
+    n.deliver
+    client = User.where(:email => n.email ).first
+    c = Case.find( n.case )
+    client.can_view?( c ).should be_true
   end
 
-#  it 'creates an invitation if user does not already exist' do
-#    User.should_receive(:invite!).with(:email => 'new_user@email.com').and_return(nil)
-#    Factory.build(:invitation, :email => 'new_user@email.com').deliver
-#  end
 end
 
 

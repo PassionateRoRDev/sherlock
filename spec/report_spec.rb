@@ -4,7 +4,7 @@ def prepare_case
   u = User.new
   u.id = 1
   c = Case.new(:title => 'Case #170', :summary => 'Summary!')  
-  c.user = u
+  c.author = u
   c  
 end
 
