@@ -79,7 +79,7 @@
             <label class="inline">Color</label>            
           </div>
           <div class="color-wrapper">
-            <input class='simple_color' value='#cc3333'/>
+            <%= f.text_field :bgcolor, :class => :simple_color %>            
           </div>
         </div>        
       </div>
@@ -87,8 +87,8 @@
       <div class="set-two">
         <div class="leftbox">Border</div>
         <div class="rightbox">
-          <input type="checkbox" id="border"/>
-          <label class="inline" for="checkbox">Yes</label>
+          <%= f.check_box :border %>
+          <%= f.label :border, 'Yes', :class => :inline %>          
         </div>
       </div>
       
@@ -97,31 +97,21 @@
           <div class="rightbox">
               <div class="line">
                 <div class="lineleft">Font</div>
-                <div class="styled-select1">
-                  <select name="" class="listtxt">
-                    <option>Arial</option>
-                    <option>Helvetica</option>
-                    <option>Verdana</option>
-                    <option>more..</option>
-                  </select>
+                <div class="styled-select1">                  
+                  <%= f.select :font_size, font_size_options, 
+                      :class => :listtxt %>                                    
                 </div>
               </div>
               <div class="line">
                 <div class="lineleft">Size </div>
                 <div class="styled-select2">
-                  <select name="" class="listtxt2">
-                    <option>10 px</option>
-                    <option>12 px</option>
-                    <option>14 px</option>
-                    <option>16 px</option>
-                  </select>
+                  <%= f.select :font_size, font_size_options, :class => :listtxt2 %>
                 </div>
               </div>
               <div class="linelast">
                 <div class="lineleft"> Color </div>
                 <div class="lineright">
-                  <input value="#cc3333" 
-                         class="simple_color" style="display: none;">                  
+                  <%= f.text_field :font_color, :class => :simpler_color %>                  
                 </div>
               </div>
             </div>        
@@ -133,33 +123,26 @@
 
               <div class="line">
                 <div class="lineleft1">
-                  <input name="" type="checkbox" value="" checked="checked" />
-                  &nbsp; Yes-> &nbsp; Size </div>
-                <div class="styled-select3">
-                  <select class="listtxt2" name="">
-                    <option>10 px</option>
-
-                    <option>12 px</option>
-                    <option>14 px</option>
-                    <option>16 px</option>
-                  </select>
+                  <%= f.check_box :divider %>
+                  &nbsp;Yes                  
+                  <div class="right" style="margin-right:5px;">
+                    <%= f.label :divider_size, 'Size', :class => :inline %>
+                  </div>
                 </div>
-                <div class="lineleft4"> Width </div>
-
+                <div class="styled-select3">                  
+                  <%= f.select :divider_size, divider_size_options, 
+                      :class => :listtxt2 %>                  
+                </div>
+                <div class="lineleft4">Width</div>
                 <div class="styled-select3">
-                  <select class="listtxt2" name="">
-                    <option>75 %</option>
-                    <option>100 %</option>
-                    <option>125 %</option>
-                    <option>150 %</option>
-                  </select>
-
+                  <%= f.select :divider_width, divider_width_options, 
+                      :class => :listtxt2 %>
                 </div>
               </div>
               <div class="linelast">
                 <div class="lineleft"> Color </div>
                 <div class="lineright">
-                  <input class='simple_color' value='#cc3333'/>
+                  <%= f.text_field :divider_color, :class => :simple_color %>                  
                 </div>
               </div>
 
@@ -170,18 +153,13 @@
         <div class="leftbox">Header Text</div>
         <div class="rightbox">
           <div class="line">
-            <textarea class="areatxt" name="" cols="" rows=""></textarea>
+            <%= f.text_area :contents, :class => :areatxt %>            
           </div>
 
           <div class="linelast">
             <div class="lineleft2">Align Text </div>
             <div class="styled-select2">
-              <select class="listtxt2" name="">
-                <option>Left</option>
-                <option>Center</option>
-                <option>Right</option>
-
-              </select>
+              <%= f.select :text_align, text_align_options, :class => :listtxt2 %>              
             </div>
           </div>
         </div>
@@ -191,6 +169,7 @@
             <div class="leftbox">Logo</div>
             <div class="rightbox">
 
+              <!--
               <div class="line">
                 <div class="lineleft2">Choose Graphics </div>
                 <div class="styled-select1">
@@ -203,16 +182,12 @@
                   </select>
                 </div>
               </div>
+              -->
               <div class="line">
                 <div class="lineleft2">Alignment </div>
                 <div class="styled-select1">
-                  <select class="listtxt" name="">
-
-                    <option>None</option>
-                    <option>Option 1</option>
-                    <option>Option 2</option>
-                    <option>Option 3</option>
-                  </select>
+                  <%= f.select :logo_alignment, logo_align_options, 
+                               :class => :listtxt %>                  
                 </div>
               </div>
 

@@ -17,14 +17,11 @@ class LetterheadsController < ApplicationController
 
   # GET /letterheads/1
   # GET /letterheads/1.json
-  def show
-    
-    return redirect_to(root_path)
-    
-    #respond_to do |format|
-    #  format.html # show.html.erb
-    #  format.json { render json: @letterhead }
-    #end
+  def show    
+    respond_to do |format|
+      format.html # show.html.erb
+      format.json { render json: @letterhead }
+    end
   end
 
   # GET /letterheads/new
@@ -66,7 +63,8 @@ class LetterheadsController < ApplicationController
     
     respond_to do |format|
       if @letterhead.update_attributes(params[:letterhead])
-        format.html { redirect_to @letterhead, notice: 'Letterhead was successfully updated.' }
+        format.html { redirect_to edit_letterhead_path(@letterhead), 
+                      notice: 'Letterhead was successfully updated.' }
         format.json { head :ok }
       else
         format.html { render action: "edit" }

@@ -554,3 +554,7 @@ input.link {
     margin-right: 5px;
 }
 
+.box .rightbox label {    
+    line-height: 14px;
+}
+
