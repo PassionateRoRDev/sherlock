@@ -35,7 +35,10 @@ class CasesController < ApplicationController
   end
   
   def update    
-    if @case
+    if @case      
+            
+      params[:case] = convert_dates(params[:case])
+            
       respond_to do |format|
         if @case.update_attributes(params[:case])
           format.html { redirect_to(@case, :notice => 'Case has been successfully updated') }
@@ -118,5 +121,18 @@ class CasesController < ApplicationController
               :filename => title, :type => 'application/pdf')        
     
   end
-
+  
+  def convert_date(date_string)
+    if date_string.to_s =~ /(\d\d)\/(\d\d)\/(\d{4})/
+      date_string = "#{$3}-#{$1}-#{$2}"
+    end
+    date_string
+  end
+  
+  def convert_dates(params)    
+    params['opened_on'] = convert_date(params['opened_on'])
+    params['closed_on'] = convert_date(params['closed_on'])    
+    params
+  end
+    
 end
