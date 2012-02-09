@@ -1,4 +1,6 @@
-<h1>My Dashboard</h1>
+<h1>Dashboard</h1>
+
+<h2>Cases</h2>
 
 <div style="margin-top:1em;">
 You have
@@ -10,4 +12,12 @@ no cases
 created
 |
 <%= link_to 'Create a new Case', new_case_path %>
+
+<h2>Letterhead</h2>
+
+<% if current_user.letterhead %>
+  <%= link_to 'Edit Letterhead', edit_letterhead_path %>
+<% else %>
+<%= link_to 'Create Letterhead', new_letterhead_path %>
+<% end %>
 

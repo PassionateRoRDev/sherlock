@@ -1,0 +1,128 @@
+
+<div class="form-letterhead form-center">
+
+<%= form_for(@letterhead) do |f| %>
+  <% if @letterhead.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@letterhead.errors.count, "error") %> prohibited this letterhead from being saved:</h2>
+
+      <ul>
+      <% @letterhead.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="box">
+    
+    <div class="heading">
+      <div class="head-bg-left"></div>
+      <div class="head-bg">Set Your Page Default</div>
+      <div class="head-bg-right"></div>
+    </div>
+    
+    <div class="box-cont">    
+      <div class="box-line">
+        <%= f.radio_button(:all_pages, 1) %>
+        <%= f.label :all_pages_1, 'Set all pages to have this Header', 
+                    :class => :inline %>
+      </div>
+      <div class="box-line">
+        <%= f.radio_button(:all_pages, 0) %>
+        <%= f.label :all_pages_0, 'Set first page Only to have Header', 
+                    :class => :inline %>    
+      </div>
+      
+      <div class="box-line" style="margin:0.5em 0;">
+        <%= f.check_box :link %>
+        <%= f.label :link, 'Make Header a link?', :class => :inline %>    
+      </div>
+      
+      <div class="box-line alignment">
+        
+        <strong>Align</strong> this Header on your pages:
+        
+        <%= f.radio_button(:alignment, 'left') %>
+        <%= f.label :alignment_left, 'Left', :class => :inline %>
+        
+        <%= f.radio_button(:alignment, 'center') %>
+        <%= f.label :alignment_center, 'Centered', :class => :inline %>
+        
+        <%= f.radio_button(:alignment, 'right') %>
+        <%= f.label :alignment_right, 'Right', :class => :inline %>
+                        
+    </div>        
+    
+  </div>
+  
+  <div class="box-bot"></div>
+  
+  <!--
+  
+  <div class="field">
+    <%= f.label :alignment %><br />
+    <%= f.text_field :alignment %>
+  </div>
+  <div class="field">
+    <%= f.label :bgcolor %><br />
+    <%= f.text_field :bgcolor %>
+  </div>
+  <div class="field">
+    <%= f.label :border %><br />
+    <%= f.check_box :border %>
+  </div>
+  <div class="field">
+    <%= f.label :font_face %><br />
+    <%= f.text_field :font_face %>
+  </div>
+  <div class="field">
+    <%= f.label :font_size %><br />
+    <%= f.number_field :font_size %>
+  </div>
+  <div class="field">
+    <%= f.label :font_color %><br />
+    <%= f.text_field :font_color %>
+  </div>
+  <div class="field">
+    <%= f.label :divider %><br />
+    <%= f.check_box :divider %>
+  </div>
+  <div class="field">
+    <%= f.label :divider_size %><br />
+    <%= f.number_field :divider_size %>
+  </div>
+  <div class="field">
+    <%= f.label :divider_width %><br />
+    <%= f.number_field :divider_width %>
+  </div>
+  <div class="field">
+    <%= f.label :divider_color %><br />
+    <%= f.text_field :divider_color %>
+  </div>
+  <div class="field">
+    <%= f.label :contents %><br />
+    <%= f.text_area :contents %>
+  </div>
+  <div class="field">
+    <%= f.label :logo_path %><br />
+    <%= f.text_field :logo_path %>
+  </div>
+  <div class="field">
+    <%= f.label :logo_alignment %><br />
+    <%= f.text_field :logo_alignment %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+  
+  -->
+  
+  <div class="actions no-margin">
+    <%= f.submit 'Save', :class => :button %>
+  </div>
+  
+<% end %>
+
+  
+</div>

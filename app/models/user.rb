@@ -13,4 +13,6 @@ class User < ActiveRecord::Base
   has_many :pictures, :through => :blocks
   has_many :videos, :through => :blocks
   
+  has_one :letterhead
+  
 end
