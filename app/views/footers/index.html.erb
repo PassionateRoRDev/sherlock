@@ -1,0 +1,51 @@
+<h1>Listing footers</h1>
+
+<table>
+  <tr>
+    <th>All pages</th>
+    <th>Link</th>
+    <th>Alignment</th>
+    <th>Bgcolor</th>
+    <th>Border</th>
+    <th>Font face</th>
+    <th>Font size</th>
+    <th>Font color</th>
+    <th>Divider above</th>
+    <th>Divider</th>
+    <th>Divider width</th>
+    <th>Divider color</th>
+    <th>Contents</th>
+    <th>Text align</th>
+    <th>Divider below</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @footers.each do |footer| %>
+  <tr>
+    <td><%= footer.all_pages %></td>
+    <td><%= footer.link %></td>
+    <td><%= footer.alignment %></td>
+    <td><%= footer.bgcolor %></td>
+    <td><%= footer.border %></td>
+    <td><%= footer.font_face %></td>
+    <td><%= footer.font_size %></td>
+    <td><%= footer.font_color %></td>
+    <td><%= footer.divider_above %></td>
+    <td><%= footer.divider %></td>
+    <td><%= footer.divider_width %></td>
+    <td><%= footer.divider_color %></td>
+    <td><%= footer.contents %></td>
+    <td><%= footer.text_align %></td>
+    <td><%= footer.divider_below %></td>
+    <td><%= link_to 'Show', footer %></td>
+    <td><%= link_to 'Edit', edit_footer_path(footer) %></td>
+    <td><%= link_to 'Destroy', footer, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Footer', new_footer_path %>

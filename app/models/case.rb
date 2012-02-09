@@ -8,6 +8,8 @@ class Case < ActiveRecord::Base
   has_many :pictures, :through => :blocks
   has_many :videos, :through => :blocks
   
+  has_one :footer
+  
   validates :title, :presence => true
   
   def as_json(options = {})  

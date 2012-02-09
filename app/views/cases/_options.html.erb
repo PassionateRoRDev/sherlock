@@ -16,4 +16,12 @@
   <div class="txtbox2">
     <input type="text" name="" class="txtfield">
   </div>
+  
+  <% if @case.footer %>
+    <%= link_to 'Edit Footer', edit_case_footer_path(@case, @case.footer),
+    :class => :button %>
+  <% else %>
+    <%= link_to 'Create Footer', new_case_footer_path(@case), :class => :button %>
+  <% end %>
+    
 </div>

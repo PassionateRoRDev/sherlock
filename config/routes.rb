@@ -1,5 +1,5 @@
 Sherlock::Application.routes.draw do
-
+  
   devise_for :users
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
   
@@ -9,6 +9,8 @@ Sherlock::Application.routes.draw do
     resources :html_details
     resources :pictures
     resources :videos
+    
+    resources :footers
   end
   
   get 'cases/preview/:id' => 'cases#preview', :as => :case_preview

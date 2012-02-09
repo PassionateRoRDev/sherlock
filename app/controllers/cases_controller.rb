@@ -1,7 +1,7 @@
 class CasesController < ApplicationController
   
   before_filter :authenticate_user!
-  before_filter :resolve_case_from_id, :except => [ :new, :create, :index ]
+  before_filter :resolve_case, :except => [ :new, :create, :index ]
   
   def new
     @case = Case.new
@@ -66,9 +66,9 @@ class CasesController < ApplicationController
   end
   
   private
-  
-  def resolve_case_from_id
-    @case = current_user.cases.find_by_id(params[:id]) || redirect_to(cases_path)    
+    
+  def resolve_case
+    resolve_case_using_param(:id)
   end
   
   def render_pdf2(the_case)
