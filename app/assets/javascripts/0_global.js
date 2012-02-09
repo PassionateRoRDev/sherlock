@@ -56,3 +56,48 @@ SHERLOCK.utils.focusTinyMCE = function(eltId) {
         }, 500);                
     }
 };
+
+SHERLOCK.utils.hintFieldOnBlur = function(inst) {    
+    var title = $(inst).attr('title');
+    if (($(inst).val() == '')) {     
+        $(inst).val(title).addClass('hinted');
+    } else {
+        $(inst).removeClass('hinted');
+    }    
+};
+
+SHERLOCK.utils.initializeAutoHintFields = function() {
+    
+    var fields = $('.hint');
+    fields.focus(function() {
+        if (!$(this).hasClass('datepicker')) {
+            if ($(this).val() == $(this).attr('title')) { 
+                $(this).val('').removeClass('hinted');            
+            }
+        }
+    });    
+    
+    fields.blur(function() {
+        if (!$(this).hasClass('datepicker')) {
+            SHERLOCK.utils.hintFieldOnBlur(this);
+        }
+    });    
+    
+    fields.each(function() {
+        $(this).attr('AUTOCOMPLETE', 'OFF');
+        var title = $(this).attr('title');
+        if (this.value == '') { 
+            this.value = title;
+        }
+        if (this.value == title) { 
+            $(this).addClass('hinted'); 
+        }        
+    });
+};
+
+$(function() {
+    SHERLOCK.utils.initializeAutoHintFields();
+});
+
+
+        

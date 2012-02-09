@@ -1,55 +1,83 @@
-<div class="midleft" style="position:relative;">    
-    <div class="inbox-hd">Page Information</div>    
-    <form>
+<div class="midleft" style="position:relative;">
+            
+    <div class="inbox-hd">
+      Page Information
+    </div>   
+  
+    <%= form_for caze do |f| %>
+
+      <div style="position:absolute;top:8px;right: 10px;">
+        <%= f.submit 'Save', :class => 'link' %>
+      </div>
+            
       <div class="field">
-        <label>Client Name :</label>
+        <%= f.label :client_name, 'Client Name :' %>
         <div class="boxfield">
-          <input type="text" class="txtfield hint hinted" 
-                 title="not required"/>
+          <%= f.text_field :client_name, 
+                           :class => 'txtfield hint', 
+                           :title => 'not required' %>          
         </div>
       </div>
       <div class="field">
         <label>Type of Case :</label>
         <div class="boxfield">
-          <input type="text" class="txtfield hint hinted" 
+          <input type="text" class="txtfield hint" 
                  title="not required"/>
         </div>
       </div>
       <div class="field">
-        <label>Case Number :</label>
+        <%= f.label :number, 'Case Number :' %>
         <div class="boxfield">
-          <input type="text" class="txtfield hint hinted" 
-                 title="not required, can be alphanumeric"/>
+          <%= f.text_field :number,
+                           :class => 'txtfield hint',
+                           :title => 'not required, can be alphanumeric' %>          
         </div>
       </div>
       <div class="field">
-        <label>Start Date :</label>
+        <%= f.label :opened_on, 'Start Date :' %>
         <div class="boxfield">
-          <input type="text" class="txtfield hint hinted" 
-                 title="optional"/>
+          <%= f.text_field :opened_on,
+                           :value => date_value(f.object.opened_on),
+                           :class => 'txtfield hint datepicker',
+                           :title => 'optional' %>          
         </div>
       </div>
       <div class="field">
-        <label>End Date :</label>
+        <%= f.label :opened_on, 'End Date :' %>
         <div class="boxfield">
-          <input type="text" class="txtfield hint hinted" 
-                 title="optional, must be after start date"/>
-        </div>
+          <%= f.text_field :closed_on,
+                           :value => date_value(f.object.closed_on),
+                           :class => 'txtfield hint datepicker',
+                           :title => 'optional, must be after start date' %>          
+        </div>        
       </div>
       
       <div class="field">
         <label>Report Date :</label>
         <div class="boxfield">
-          <input type="text" class="txtfield hint hinted" 
+          <input type="text" class="txtfield hint datepicker" 
                  title="optional"/>
         </div>
       </div>
-    </form>
-          
+    
+    <% end %>
+    
     <script type="text/javascript">
-    $(document).ready(function() {
-      $('input.hint').inputHints();
-    });
+    $('.datepicker').datepicker({
+      beforeShow: function(input, inst) {
+        if ($(input).hasClass('hinted')) {
+          $(input).removeClass('hinted').val('');
+        }        
+      },
+      onClose : function(dateText, inst) {
+        var input = this;
+        if ($(input).hasClass('hint')) {
+          if (dateText == '') {
+            $(input).val($(input).attr('title')).addClass('hinted');
+          }
+        }
+      }
+    });    
     </script>
     
 </div>
