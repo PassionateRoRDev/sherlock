@@ -18,6 +18,13 @@
   </div>
 
   <div class="field">
+    <%= f.label :company_name, 'Company Name :' %>
+    <div class="boxfield">
+      <%= f.email_field :company_name, :class => :txtfield %>
+    </div>
+  </div>
+
+  <div class="field">
     <%= f.label :password, 'Password :' %>
     <div class="boxfield">
       <%= f.password_field :password, :class => :txtfield %>

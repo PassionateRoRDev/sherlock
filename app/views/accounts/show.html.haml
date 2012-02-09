@@ -1,0 +1,10 @@
+%h1 Your Account
+
+=form_for @account, :url => account_path do |form|
+  .field
+    =form.label :company_name
+    =form.text_field :company_name
+
+  .controls
+    =form.submit :class => 'button'
+

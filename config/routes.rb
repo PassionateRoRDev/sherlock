@@ -11,7 +11,9 @@ Sherlock::Application.routes.draw do
     resources :videos
     resources :invitations
   end
-  
+
+  resource :account, :only => [:show, :update]
+ 
   get 'cases/preview/:id' => 'cases#preview', :as => :case_preview
   
   resources :blocks

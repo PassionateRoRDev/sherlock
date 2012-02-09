@@ -130,11 +130,13 @@ label {
     padding-left: 150px;
 }
 
-.field {
-    margin-top: 0.5em;
-    height: 40px;
+.field, .controls {
+  margin-top: 1.5em;
 }
 
+.controls {
+  margin-left: 130px;
+}
 
 span.hidden {
     visibility: hidden;
