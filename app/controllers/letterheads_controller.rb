@@ -19,10 +19,12 @@ class LetterheadsController < ApplicationController
   # GET /letterheads/1.json
   def show
     
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @letterhead }
-    end
+    return redirect_to(root_path)
+    
+    #respond_to do |format|
+    #  format.html # show.html.erb
+    #  format.json { render json: @letterhead }
+    #end
   end
 
   # GET /letterheads/new
@@ -49,7 +51,7 @@ class LetterheadsController < ApplicationController
     
     respond_to do |format|
       if @letterhead.save
-        format.html { redirect_to @letterhead, notice: 'Letterhead was successfully created.' }
+        format.html { redirect_to root_path, notice: 'Letterhead was successfully created.' }
         format.json { render json: @letterhead, status: :created, location: @letterhead }
       else
         format.html { render action: "new" }

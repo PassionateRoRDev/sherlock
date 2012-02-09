@@ -24,13 +24,13 @@
     
     <div class="box-cont">    
       <div class="box-line">
-        <%= f.radio_button(:all_pages, 1) %>
-        <%= f.label :all_pages_1, 'Set all pages to have this Header', 
+        <%= f.radio_button(:all_pages, true) %>
+        <%= f.label :all_pages_true, 'Set all pages to have this Header', 
                     :class => :inline %>
       </div>
       <div class="box-line">
-        <%= f.radio_button(:all_pages, 0) %>
-        <%= f.label :all_pages_0, 'Set first page Only to have Header', 
+        <%= f.radio_button(:all_pages, false) %>
+        <%= f.label :all_pages_false, 'Set first page Only to have Header', 
                     :class => :inline %>    
       </div>
       
