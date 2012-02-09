@@ -19,8 +19,7 @@
   .field.message.required
     =form.label :message
     =form.text_area :message, :rows => 5
-
-  =form.hidden_field :case_id, :value => @invitation.case_id
+    =form.hidden_field :case_id, :value => @invitation.case_id
 
   .controls
-    =form.submit
+    =form.submit :class => 'button'
