@@ -22,7 +22,10 @@
       <div class="head-bg-right"></div>
     </div>
     
-    <div class="box-cont">    
+    <div class="box-cont">
+      
+      <div style="margin: 22px 32px 15px;">
+      
       <div class="box-line">
         <%= f.radio_button(:all_pages, true) %>
         <%= f.label :all_pages_true, 'Set all pages to have this Header', 
@@ -52,12 +55,192 @@
         <%= f.radio_button(:alignment, 'right') %>
         <%= f.label :alignment_right, 'Right', :class => :inline %>
                         
-    </div>        
-    
+      </div>
+        
+      </div>
+    </div>  
+    <div class="box-bot"></div>  
   </div>
   
-  <div class="box-bot"></div>
+  <div class="box">
+    
+    <div class="heading">
+      <div class="head-bg-left"></div>
+      <div class="head-bg">Build Your Header</div>
+      <div class="head-bg-right"></div>
+    </div>
+    
+    <div class="box-cont">
+      
+      <div class="set-one">            
+        <div class="leftbox">Background</div>
+        <div class="rightbox">            
+          <div class="left">            
+            <label class="inline">Color</label>            
+          </div>
+          <div class="color-wrapper">
+            <input class='simple_color' value='#cc3333'/>
+          </div>
+        </div>        
+      </div>
+      
+      <div class="set-two">
+        <div class="leftbox">Border</div>
+        <div class="rightbox">
+          <input type="checkbox" id="border"/>
+          <label class="inline" for="checkbox">Yes</label>
+        </div>
+      </div>
+      
+      <div class="set-one">
+        <div class="leftbox">Typeface</div>        
+          <div class="rightbox">
+              <div class="line">
+                <div class="lineleft">Font</div>
+                <div class="styled-select1">
+                  <select name="" class="listtxt">
+                    <option>Arial</option>
+                    <option>Helvetica</option>
+                    <option>Verdana</option>
+                    <option>more..</option>
+                  </select>
+                </div>
+              </div>
+              <div class="line">
+                <div class="lineleft">Size </div>
+                <div class="styled-select2">
+                  <select name="" class="listtxt2">
+                    <option>10 px</option>
+                    <option>12 px</option>
+                    <option>14 px</option>
+                    <option>16 px</option>
+                  </select>
+                </div>
+              </div>
+              <div class="linelast">
+                <div class="lineleft"> Color </div>
+                <div class="lineright">
+                  <input value="#cc3333" 
+                         class="simple_color" style="display: none;">                  
+                </div>
+              </div>
+            </div>        
+      </div>
+      
+      <div class="set-two">
+            <div class="leftbox">Divider Above?</div>
+            <div class="rightbox">
+
+              <div class="line">
+                <div class="lineleft1">
+                  <input name="" type="checkbox" value="" checked="checked" />
+                  &nbsp; Yes-> &nbsp; Size </div>
+                <div class="styled-select3">
+                  <select class="listtxt2" name="">
+                    <option>10 px</option>
+
+                    <option>12 px</option>
+                    <option>14 px</option>
+                    <option>16 px</option>
+                  </select>
+                </div>
+                <div class="lineleft4"> Width </div>
+
+                <div class="styled-select3">
+                  <select class="listtxt2" name="">
+                    <option>75 %</option>
+                    <option>100 %</option>
+                    <option>125 %</option>
+                    <option>150 %</option>
+                  </select>
+
+                </div>
+              </div>
+              <div class="linelast">
+                <div class="lineleft"> Color </div>
+                <div class="lineright">
+                  <input class='simple_color' value='#cc3333'/>
+                </div>
+              </div>
+
+            </div>
+        </div>
+      
+      <div class="set-one">
+        <div class="leftbox">Header Text</div>
+        <div class="rightbox">
+          <div class="line">
+            <textarea class="areatxt" name="" cols="" rows=""></textarea>
+          </div>
+
+          <div class="linelast">
+            <div class="lineleft2">Align Text </div>
+            <div class="styled-select2">
+              <select class="listtxt2" name="">
+                <option>Left</option>
+                <option>Center</option>
+                <option>Right</option>
+
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="set-two">
+            <div class="leftbox">Logo</div>
+            <div class="rightbox">
+
+              <div class="line">
+                <div class="lineleft2">Choose Graphics </div>
+                <div class="styled-select1">
+                  <select class="listtxt" name="">
+                    <option>None</option>
+                    <option>Option 1</option>
+                    <option>Option 2</option>
+
+                    <option>Option 3</option>
+                  </select>
+                </div>
+              </div>
+              <div class="line">
+                <div class="lineleft2">Alignment </div>
+                <div class="styled-select1">
+                  <select class="listtxt" name="">
+
+                    <option>None</option>
+                    <option>Option 1</option>
+                    <option>Option 2</option>
+                    <option>Option 3</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="linelast">
+                <div class="lineleft3">
+                  <div class="lineleft-txt">Upload an image</div>
+                  <div class="lineleft-txt1">For best results upload a 900 x 630 JPG or PNG.</div>
+                  <div class="lineleft-txt2">                    
+                    <div class="textfield1" style="float:left;">
+                      <input class="txtfield" name="" type="text" />
+                    </div>
+                    <div class="btn" style="float:right;">
+                      <a href="#" class="button">Browse</a>
+                    </div>                   
+                  </div>
+                </div>
+                <div class="rightbox2">
+                  <%= image_tag 'letterhead_img.jpg' %>                  
+                </div>
+              </div>
+            </div>
+          </div>        
+      
+    </div>
+    <div class="clear box-bot"></div>    
+  </div>
   
+  <div class="box">
   <!--
   
   <div class="field">
@@ -118,11 +301,25 @@
   
   -->
   
-  <div class="actions no-margin">
-    <%= f.submit 'Save', :class => :button %>
   </div>
   
-<% end %>
-
+    <div class="actions no-margin">
+      <%= f.submit 'Save', :class => :button %>
+    </div>
+        
+<% end %>      
   
 </div>
+
+<script type="text/javascript">
+  $('.simple_color').simpleColor({
+			cellWidth: 9,
+			cellHeight: 9,
+			border: '1px solid #333333',
+			buttonClass: 'btn-color'
+	});
+	
+	$('input#alert_button').click( function() {
+		alert($('input.simple_color')[0].value)
+	});
+</script>

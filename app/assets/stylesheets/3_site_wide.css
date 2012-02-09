@@ -491,6 +491,12 @@ input.link {
     width: 810px;
 }
 
+.box {
+    margin-bottom: 2em;
+    float: left;
+    width: 810px;
+}
+
 .box .heading {
     height: 36px;
 }
@@ -521,34 +527,30 @@ input.link {
     background: url(head-tab-end.jpg) no-repeat;
 }
 
-.box-line {
-    color: #67696A;
-    font-size: 16px;
-    font-family: Arial, Helvetica, sans-serif;
-}
-
-.box-line label {
-    color: #67696A;
-    margin-left: 5px;
-}
-
-.box-line.alignment label {
-    margin-left: 0px;
-    margin-right: 1em;
-}
-
-.box-line.alignment input {
-    margin-left: 5px;
-}
-
 .box-cont {
     border-left: 1px solid #AEADAD;
     border-right: 1px solid #AEADAD;    
-    padding: 22px 32px 15px;    
+    font-family: Arial,Helvetica,sans-serif;        
+    width: 808px;
+    float: left;
 }
 
 .box-bot {
+    float: left;
     background: url(box-line-bot.jpg) no-repeat scroll 0 0 transparent;
     height: 7px;
-    width: 810px;
+    width: 810px;       
 }
+
+.simpleColorContainer {    
+}
+
+.left {
+    float: left;
+}
+
+.simpleColorDisplay {
+    float: left;
+    margin-right: 5px;
+}
+
