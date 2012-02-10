@@ -74,7 +74,8 @@ class CasesController < ApplicationController
   def render_pdf2(the_case)
     
     report = Report.new
-    report.title = the_case.title    
+    report.title = the_case.title
+    report.header = current_user.letterhead
     report.case = the_case
     report.output_file = "report_#{the_case.id}.pdf"
     report.template = 'template.xhtml'
@@ -88,7 +89,7 @@ class CasesController < ApplicationController
     logger.debug("Result of command:")
     logger.debug(result)
     
-    File.unlink(path) if File.exists?(path)    
+    #File.unlink(path) if File.exists?(path)    
     
     title = the_case.title.gsub(/\s+/, '-') + '.pdf'    
     send_pdf_headers(title)

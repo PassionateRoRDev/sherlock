@@ -27,5 +27,12 @@ class Letterhead < ActiveRecord::Base
     delete_file_for_type(file_type)  
   end
 
+  def as_json(options = {})
+    {
+      :text       => self.contents,
+      :fontSize   => self.font_size,
+      :textAlign  => self.text_align
+    }    
+  end
   
 end

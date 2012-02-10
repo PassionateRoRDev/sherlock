@@ -4,16 +4,20 @@ class Report
   attr_accessor :title
   attr_accessor :output_file
   attr_accessor :template
+  attr_accessor :header  
   
   def initialize(params = {})
     self.case         = params[:case]
     self.title        = params[:title]
+    self.header       = params[:header]
     self.output_file  = params[:output_file]
   end
   
   def as_json(options = {})
     {
       'title'         => self.title,
+      'header'        => self.header.as_json,
+      'footer'        => self.case.footer.as_json,
       'outputFile'    => reports_output_path,
       'picturesRoot'  => pictures_root,
       'videosRoot'    => videos_root,      
