@@ -6,6 +6,8 @@ class Footer < ActiveRecord::Base
     
     result = super(options)
     
+    result[:text] = result['contents']
+    
     if options[:camelize]
       result.keys.each { |k| result[k.to_s.camelize(:lower)] = result[k] }      
     end

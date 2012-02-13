@@ -18,7 +18,7 @@ class Letterhead < ActiveRecord::Base
   end
   
   def is_link
-    self.link.present?
+    self.link.to_s != ''
   end
   
   def path
@@ -36,16 +36,11 @@ class Letterhead < ActiveRecord::Base
 
   def as_json(options = {})
 
-    should_camelize = options[:camelize]
-    
-    options = {
-      :exclude => [:id, :updated_at, :created_at]
-    }
-    
     result = super(options)
     
-    if should_camelize
-      Rails::logger.debug("TRANSFORMING!")
+    result[:text] = result['contents']
+    
+    if options[:camelize]      
       result.keys.each { |k| result[k.to_s.camelize(:lower)] = result[k] }      
     end
     

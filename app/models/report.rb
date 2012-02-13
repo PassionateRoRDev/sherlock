@@ -17,11 +17,11 @@ class Report
     
     header_options = {
       :camelize => true,
-      :exclude => [:id, :user_id, :created_at, :updated_at]
+      :except => [:id, :user_id, :created_at, :updated_at]
     }
     footer_options = {
       :camelize => true,
-      :exclude => [:id, :user_id, :created_at, :updated_at]
+      :except => [:id, :case_id, :created_at, :updated_at]
     }
     
     {

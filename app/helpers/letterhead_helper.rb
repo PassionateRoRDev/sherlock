@@ -31,13 +31,13 @@ module LetterheadHelper
   end
   
   def divider_size_options   
-    [10, 12, 14, 16].map do |size|
+    [1, 2, 3, 4, 5, 10, 12, 14, 16].map do |size|
       ["#{size} px", size]
     end        
   end
   
   def divider_width_options
-    [75, 100, 125, 100].map do |width|
+    [50, 60, 65, 75, 80, 85, 100].map do |width|
       ["#{width} %", width]
     end    
   end
