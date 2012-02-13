@@ -5,5 +5,5 @@ Feature: Dashboard Page
 
   Scenario: Logging-in to Dashboard
     Given I am signed in
-    Then page title should be "My Dashboard"
+    Then page title should be "Dashboard"
     

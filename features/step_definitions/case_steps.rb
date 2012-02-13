@@ -1,5 +1,5 @@
 Given /^I have a case entitled "(.*)"$/ do |title|
-  Factory.create(:case, :title => title, :user => User.current)
+  Factory.create(:case, :title => title, :author => User.current)
 end
 
 Given /^(.*) has an html block(?: with content "(.*)")?$/ do |case_title, content|

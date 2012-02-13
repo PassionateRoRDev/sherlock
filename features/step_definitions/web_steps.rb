@@ -16,14 +16,18 @@ Then /^(?:|I )should be on (.+)$/ do |page_name|
   end
 end
 
-Given /^I sign\-in as "(.*?)" with password "(.*?)"$/ do |username, password|
-  fill_in 'Email', :with => username
-  fill_in 'Password', :with => password
-  click_button 'Sign in'
+Given /^I sign-in as "(.*?)" with password "(.*?)"$/ do |username, password|
+  fill_in 'Email :', :with => username
+  fill_in 'Password :', :with => password
+  click_button 'Login'
 end
 
 When /^I fill in "([^"]*)" with "([^"]*)"$/ do |element, value|
   fill_in(element, :with => value)
+end
+
+When /^(?:|I )select "([^"]*)" from "([^"]*)"$/ do |value, field|
+  select(value, :from => field)
 end
 
 When /^I press "([^"]*)"$/ do |button|
@@ -66,7 +70,7 @@ Then /^page title should be "([^"]*)"$/ do |page_title|
 end
 
 Then /^I should see confirmation "([^"]*)"$/ do |confirmation|
-  find('.flash-messages').find('#notice').should have_content(confirmation)
+  find('.flash-messages').find('.notice').should have_content(confirmation)
 end
 
 Then /^(?:|I )should see "(.*)"$/ do |expected|
@@ -80,6 +84,4 @@ end
 Then /^the list of cases should contain (\d+) cases?$/ do |how_many|  
   find(:css, 'ol.cases').should match_exactly(how_many.to_i, "li")
 end
-
-
 

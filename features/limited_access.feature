@@ -5,5 +5,5 @@ Feature: Limited Access
 
   Scenario: Visiting the main page
     Given I am on the homepage
-    Then page title should be "Sign in"
+    Then page title should be "Login to SherlockDocs"
     
