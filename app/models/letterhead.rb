@@ -25,8 +25,8 @@ class Letterhead < ActiveRecord::Base
     logo_path
   end
   
-  # Overrides user_id from FileAsset
-  def user_id
+  # Overrides author_id from FileAsset
+  def author_id
     self.user.id
   end
   
@@ -52,10 +52,13 @@ class Letterhead < ActiveRecord::Base
       }
     end
     
-    if logo_path.present?
+    if logo_path.present?      
+      dims = File.exists?(full_filepath) ? Dimensions.dimensions(full_filepath) : nil
       result[:logo] = {
-        :alignment  => result[:logo_alignment],
-        :path       => result[:logo_path]
+        :align  => logo_alignment,
+        :path   => logo_path,
+        :width  => dims ? dims[0] : 0,
+        :height => dims ? dims[1] : 1        
       }
     end
     

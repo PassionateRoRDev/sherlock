@@ -38,6 +38,14 @@ class Report
     }
   end
   
+  def postprocess_header_json(json)
+    if json && json[:logo]
+      dims = Dimensions.dimensions(full_filepath)
+      json[:logo][:width]   = dims[0]
+      json[:logo][:height]  = dims[1]
+    end
+  end
+  
   def write_json
     dir = reports_root
     FileUtils.mkdir_p(dir) unless File.directory?(dir)

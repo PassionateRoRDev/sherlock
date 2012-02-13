@@ -4,12 +4,11 @@ module FileAsset
     filepath_for_type_and_filename(type, self.path)
   end
   
-  def user_id
+  def author_id
     self.block.case.user_id
   end
 
-  def filepath_for_type_and_filename(type, filename)
-    author_id = self.block.case.author_id
+  def filepath_for_type_and_filename(type, filename)    
     FileAsset::dir_for_author(author_id, type) + '/' + filename
   end
   
