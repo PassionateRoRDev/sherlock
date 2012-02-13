@@ -1,11 +1,8 @@
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
 def prepare_case
-  u = User.new
-  u.id = 1
-  c = Case.new(:title => 'Case #170', :summary => 'Summary!')  
-  c.user = u
-  c  
+  u = User.new { |u| u.id = 1}
+  Case.new(:title => 'Case #170', :summary => 'Summary!', :user => u)    
 end
 
 def prepare_report(c = nil)
@@ -33,10 +30,9 @@ describe Report do
   end
   
   it 'JSON should have correct number of blocks' do
-    c = prepare_case
-    block1 = Block.new
-    block1.html_detail = HtmlDetail.new(:contents => 'Contents of the first HTML block')
-    c.blocks << block1
+    c = prepare_case    
+    c.blocks << Block.new(
+      :html_detail => HtmlDetail.new(:contents => 'Contents of the first HTML block'))
     
     r = prepare_report(c)
     
@@ -47,13 +43,11 @@ describe Report do
   it 'JSON should have correct number of blocks' do
     c = prepare_case
     
-    block1 = Block.new
-    block1.html_detail = HtmlDetail.new(:contents => 'Contents of the first HTML block')
-    c.blocks << block1
+    c.blocks << Block.new(
+      :html_detail => HtmlDetail.new(:contents => 'Contents of the first HTML block'))
     
-    block2 = Block.new
-    block2.picture = Picture.new(:title => 'Title of the picture', :path => 'picture1.png')
-    c.blocks << block2
+    c.blocks << Block.new(
+      :picture =>  Picture.new(:title => 'Title of the picture', :path => 'picture1.png'))
     
     r = prepare_report(c)
     
@@ -83,13 +77,11 @@ describe Report do
   it 'Picture block should return its title as a caption' do
     c = prepare_case
     
-    block1 = Block.new
-    block1.html_detail = HtmlDetail.new(:contents => 'Contents of the first HTML block')
-    c.blocks << block1
+    c.blocks << Block.new(
+      :html_detail => HtmlDetail.new(:contents => 'Contents of the first HTML block'))    
     
-    block2 = Block.new
-    block2.picture = Picture.new(:title => 'Title of the picture', :path => 'picture1.png')
-    c.blocks << block2
+    c.blocks << Block.new(
+      :picture => Picture.new(:title => 'Title of the picture', :path => 'picture1.png'))
     
     r = prepare_report(c)
     
@@ -100,17 +92,16 @@ describe Report do
   it 'Video block should return its title as a caption' do
     c = prepare_case
     
-    block1 = Block.new
-    block1.html_detail = HtmlDetail.new(:contents => 'Contents of the first HTML block')
-    c.blocks << block1
+    c.blocks << Block.new(
+      :html_detail => HtmlDetail.new(:contents => 'Contents of the first HTML block'))
     
-    block2 = Block.new
-    block2.video = Video.new(
-      :title        => 'Title of the video', 
-      :path         => 'video1.mpg',
-      :content_type => 'video/mpeg'
+    c.blocks << Block.new(
+      :video => Video.new(
+        :title        => 'Title of the video', 
+        :path         => 'video1.mpg',
+        :content_type => 'video/mpeg'
+      )
     )
-    c.blocks << block2
     
     r = prepare_report(c)
     
@@ -121,21 +112,20 @@ describe Report do
   it 'Video block should return its dimensions' do
     c = prepare_case
     
-    block1 = Block.new
-    block1.html_detail = HtmlDetail.new(:contents => 'Contents of the first HTML block')
-    c.blocks << block1
+    c.blocks << Block.new(
+      :html_detail => HtmlDetail.new(:contents => 'Contents of the first HTML block'))
     
-    block2 = Block.new
-    block2.video = Video.new(
-      :title => 'Title of the video', 
-      :path => 'video1.mpg',
-      :type => 'mpeg',
-      :content_type => 'video/mpeg',
-      :thumbnail => 'thumbnail1.png',
-      :width  => 300,
-      :height => 200      
-    )
-    c.blocks << block2
+    c.blocks << Block.new(
+      :video => Video.new(
+        :title => 'Title of the video', 
+        :path => 'video1.mpg',
+        :type => 'mpeg',
+        :content_type => 'video/mpeg',
+        :thumbnail => 'thumbnail1.png',
+        :width  => 300,
+        :height => 200
+      )
+    )    
     
     r = prepare_report(c)
     
