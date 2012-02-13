@@ -10,8 +10,8 @@ FactoryGirl.define do
     font_face "MyString"
     font_size 15
     font_color "blue"
-    divider false
-    divider_size 10
+    divider_above true
+    divider_size 2
     divider_width 75
     divider_color "green"
     contents "This is my header"

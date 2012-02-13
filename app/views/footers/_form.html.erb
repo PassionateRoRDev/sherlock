@@ -30,12 +30,9 @@
                     :class => :inline %>    
       </div>
       
-      <div class="box-line" style="margin:0.5em 0;">
-        <%= f.check_box :link %>
-        <%= f.label :link, 'Make Footer a link?', :class => :inline %>    
-      </div>
-      
-      <div class="box-line alignment">
+      <%= render 'designer/is_link', :label => 'Footer', :f => f %>
+              
+      <div class="box-line alignment" style="margin-top:0.5em;">      
         
         <strong>Align</strong> this Footer on your pages:
         

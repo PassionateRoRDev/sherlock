@@ -34,13 +34,10 @@
         <%= f.label :all_pages_false, 'Set first page Only to have Header', 
                     :class => :inline %>    
       </div>
-      
-      <div class="box-line" style="margin:0.5em 0;">
-        <%= f.check_box :link %>
-        <%= f.label :link, 'Make Header a link?', :class => :inline %>    
-      </div>
-      
-      <div class="box-line alignment">
+        
+      <%= render 'designer/is_link', :label => 'Header', :f => f %>
+            
+      <div class="box-line alignment" style="margin-top:0.5em;">
         
         <strong>Align</strong> this Header on your pages:
         
@@ -134,14 +131,14 @@
 </div>
 
 <script type="text/javascript">
+      
   $('.simple_color').simpleColor({
-			cellWidth: 9,
-			cellHeight: 9,
-			border: '1px solid #333333',
-			buttonClass: 'btn-color'
-	});
-	
-	$('input#alert_button').click( function() {
-		alert($('input.simple_color')[0].value)
-	});
+    cellWidth: 9,
+    cellHeight: 9,
+    border: '1px solid #333333',
+    buttonClass: 'btn-color'
+  });
+  $('input#alert_button').click( function() {
+    alert($('input.simple_color')[0].value)
+  });
 </script>

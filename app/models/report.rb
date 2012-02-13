@@ -14,10 +14,20 @@ class Report
   end
   
   def as_json(options = {})
+    
+    header_options = {
+      :camelize => true,
+      :exclude => [:id, :user_id, :created_at, :updated_at]
+    }
+    footer_options = {
+      :camelize => true,
+      :exclude => [:id, :user_id, :created_at, :updated_at]
+    }
+    
     {
       'title'         => self.title,
-      'header'        => self.header.as_json,
-      'footer'        => self.case.footer.as_json,
+      'header'        => self.header.as_json(header_options),
+      'footer'        => self.case.footer.as_json(footer_options),
       'outputFile'    => reports_output_path,
       'picturesRoot'  => pictures_root,
       'videosRoot'    => videos_root,      

@@ -1,0 +1,34 @@
+<div class="box-line is-link-wrapper" style="margin:0.5em 0 0 0;">        
+  <%= f.check_box :is_link %>
+  <%= f.label :is_link, 'Make ' + label + ' a link?', :class => :inline %>    
+</div>
+
+<div class="box-line box-line-link 
+<% unless f.object.is_link %>hidden<% end %>" style="margin:0;">
+  <%= f.label :link, 'URL:', :class => :inline %>
+  <%= f.text_field :link, :size => 90 %>
+</div>
+
+<script type="text/javascript">
+  $(function() {
+    var checkbox = $('.is-link-wrapper input[type=checkbox]');
+    var url_field = $('.box-line.box-line-link input[type=text]');
+    checkbox.click(function() {
+      if (this.checked) {
+        $('.box-line.box-line-link').removeClass('hidden');
+        if (url_field.val() == '') {
+          url_field.focus();
+        }
+      } else {
+        $('.box-line.box-line-link').addClass('hidden');
+      }
+    });
+    $(checkbox.get(0).form).submit(function() {
+      if (!checkbox.get(0).checked) {
+        url_field.val('');
+      }
+      return true;
+    });
+  });
+</script>
+      

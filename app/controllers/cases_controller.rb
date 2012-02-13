@@ -89,7 +89,7 @@ class CasesController < ApplicationController
     logger.debug("Result of command:")
     logger.debug(result)
     
-    #File.unlink(path) if File.exists?(path)    
+    File.unlink(path) if File.exists?(path)    
     
     title = the_case.title.gsub(/\s+/, '-') + '.pdf'    
     send_pdf_headers(title)

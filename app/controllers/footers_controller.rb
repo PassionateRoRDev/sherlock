@@ -44,6 +44,7 @@ class FootersController < ApplicationController
   # POST /footers
   # POST /footers.json
   def create
+    
     @footer = Footer.new(params[:footer])
     @footer.case = @case
 

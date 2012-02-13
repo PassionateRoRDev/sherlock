@@ -67,6 +67,10 @@
     margin-left: 5px;
 }
 
+.box-line.box-line-link label {
+    margin-left: 22px;
+}
+
 .box-line.alignment label {
     margin-left: 0px;
     margin-right: 1em;
