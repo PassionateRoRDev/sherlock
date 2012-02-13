@@ -6,6 +6,13 @@ class Letterhead < ActiveRecord::Base
   
   include FileAsset  
   
+  def logo    
+    Logo.new(
+      :path         => self.logo_path,
+      :content_type => self.logo_content_type
+    )
+  end
+  
   def self.store_logo(user, upload_info)    
     FileAsset::store_for_type(user, upload_info, 'logos')            
   end

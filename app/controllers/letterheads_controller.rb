@@ -69,15 +69,20 @@ class LetterheadsController < ApplicationController
   # PUT /letterheads/1.json
   def update
     
+    content_type = nil
+    params[:upload] ||= {}
+    image = params[:upload]['logo']
+    if image
+      content_type = image.content_type      
+    end
+    
     respond_to do |format|
       if @letterhead.update_attributes(params[:letterhead])
         
-        params[:upload] ||= {}        
-        image = params[:upload]['logo']
         if image
-          logger.debug("Deleting the previous file")
           @letterhead.delete_logo
           @letterhead.logo_path = Letterhead.store_logo(current_user, image)
+          @letterhead.logo_content_type = content_type
           @letterhead.save
         end
         

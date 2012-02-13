@@ -115,6 +115,11 @@
                   <%= image_tag 'letterhead_img.jpg' %>                  
                 </div>
               </div>
+              
+              <% if f.object.logo_path %>
+                <img src="<%= url_for file_path('logos', f.object.logo_path) %>"/>              
+              <% end %>
+              
             </div>
           </div>        
       

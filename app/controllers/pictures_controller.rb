@@ -57,10 +57,17 @@ class PicturesController < ApplicationController
     @picture = @case.pictures.find_by_id(params[:id])    
     redirect_to cases_path unless @picture
     
+    params[:upload] ||= {}
+    image = params[:upload]['image']
+    
+    if image    
+      params[:picture][:original_filename] = image.original_filename
+      params[:picture][:content_type] = image.content_type              
+    end
+    
     respond_to do |format|
       if @picture.update_attributes(params[:picture])                        
-        params[:upload] ||= {}
-        image = params[:upload]['image']
+                
         if image
           logger.debug("Deleting the previous file")
           @picture.delete_file
@@ -79,8 +86,7 @@ class PicturesController < ApplicationController
   private
   
   def resolve_case
-    @case = current_user.cases.find_by_id(params[:case_id]) || 
-      redirect_to(cases_path)      
+    resolve_case_using_param(:case_id)    
   end
   
 end

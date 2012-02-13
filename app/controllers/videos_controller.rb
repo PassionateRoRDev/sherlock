@@ -142,8 +142,7 @@ class VideosController < ApplicationController
   private
   
   def resolve_case
-    @case = current_user.cases.find_by_id(params[:case_id]) || 
-      redirect_to(cases_path)      
+    resolve_case_using_param(:case_id)    
   end
   
 end

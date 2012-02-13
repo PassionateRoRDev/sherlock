@@ -8,8 +8,8 @@ module FileAsset
     self.block.case.author_id
   end
 
-  def filepath_for_type_and_filename(type, filename)    
-    FileAsset::dir_for_author(author_id, type) + '/' + filename
+  def filepath_for_type_and_filename(type, filename)        
+    filename ? FileAsset::dir_for_author(author_id, type) + '/' + filename : nil
   end
   
   def full_filepath
@@ -17,8 +17,8 @@ module FileAsset
   end  
   
   def delete_file_for_type(type)    
-    filepath = filepath_for_type(type)
-    File.unlink(filepath) if File.exists?(filepath)
+    filepath = filepath_for_type(type)    
+    File.unlink(filepath) if filepath && File.exists?(filepath)
   end
     
   def self.dir_for_author(author_id, type)
