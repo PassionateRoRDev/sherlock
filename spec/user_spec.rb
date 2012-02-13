@@ -36,5 +36,10 @@ describe User do
 
     author.can_view?( great_am_tale ).should == true
   end
+
+  it 'has a list of authored cases' do
+    c = Factory.create(:case)
+    c.author.authored_cases.should include(c)
+  end
 end
 
