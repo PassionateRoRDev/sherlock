@@ -29,6 +29,7 @@ class Report
       'header'        => self.header.as_json(header_options),
       'footer'        => self.case.footer.as_json(footer_options),
       'outputFile'    => reports_output_path,
+      'logosRoot'     => logos_root,
       'picturesRoot'  => pictures_root,
       'videosRoot'    => videos_root,      
       'templatesRoot' => templates_root,
@@ -64,6 +65,10 @@ class Report
     
   def reports_output_path
     normalize_path("#{reports_root}/#{self.output_file}")
+  end
+  
+  def logos_root
+    path_for('logos')
   end
   
   def reports_root

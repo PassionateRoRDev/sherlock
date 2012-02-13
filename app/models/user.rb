@@ -14,6 +14,10 @@ class User < ActiveRecord::Base
   has_many :pictures, :through => :blocks
   has_many :videos, :through => :blocks
 
+  def find_case_by_id(case_id)
+    authored_cases.find_by_id(case_id) || viewable_cases.find_by_id(case_id)
+  end
+  
   def cases
     authored_cases + viewable_cases
   end

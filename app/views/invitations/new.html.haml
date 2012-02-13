@@ -1,4 +1,4 @@
-%h1 Invite Clients to View Report
+%h1 Invite Client to View Report
 
 =form_for @invitation, :url => case_invitations_path( @invitation.case_id ) do |form|
   .field.email.required
@@ -18,8 +18,8 @@
 
   .field.message.required
     =form.label :message
-    =form.text_area :message, :rows => 5
+    =form.text_area :message, :rows => 5, :cols => 100
     =form.hidden_field :case_id, :value => @invitation.case_id
 
   .controls
-    =form.submit :class => 'button'
+    =form.submit 'Send', :class => 'button'

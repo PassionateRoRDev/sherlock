@@ -9,6 +9,10 @@
             page-break-inside: avoid;
         }
         
+        h1 {
+            clear: both;
+        }        
+        
         div#header {
           display: block;          
           position: running(header);
@@ -22,9 +26,11 @@
         div#header hr, div#footer hr {
             border: none;
             margin: auto;
+            clear: both;
         }                        
           
-        @page { 
+        @page {
+            {PAGE_MARGIN_TOP}
             @top-center { 
                 content: element(header);                
             } 
