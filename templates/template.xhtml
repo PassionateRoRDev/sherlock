@@ -9,9 +9,35 @@
             page-break-inside: avoid;
         }
         
+        div#header {
+          display: block;          
+          position: running(header);
+        }
+        
+        div#footer {
+          display: block;           
+          position: running(footer);
+        }
+        
+        div#header hr, div#footer hr {
+            border: none;
+            margin: auto;
+        }                        
+          
+        @page { 
+            @top-center { 
+                content: element(header);                
+            } 
+            @bottom-center { 
+                content: element(footer);
+            }
+        }  
+        
         </style>
     </head>
     <body>        
+        {HEADER}
+        {FOOTER}
         {BODY}                
     </body>
 </html>

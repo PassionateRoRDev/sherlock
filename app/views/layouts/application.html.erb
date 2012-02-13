@@ -3,7 +3,12 @@
 <head>
   <title>Reports Made - SherlockDocs</title>
   <%= stylesheet_link_tag    "application" %>
+    
+  <link rel="stylesheet" 
+        href="http://jquery-ui.googlecode.com/svn/trunk/themes/base/jquery.ui.all.css"></link>
+
   <%= javascript_include_tag "application" %>
+      
   <%= csrf_meta_tags %>
 </head>
 <body class="c-<%= controller_name %> a-<%= action_name %>">  

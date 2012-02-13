@@ -1,0 +1,15 @@
+<div class="set-one">
+  <div class="leftbox"><%= label %> Text</div>
+  <div class="rightbox">
+    <div class="line">
+      <%= f.text_area :contents, :class => :areatxt %>            
+    </div>
+
+    <div class="linelast">
+      <div class="lineleft2">Align Text </div>
+      <div class="styled-select2">
+        <%= f.select :text_align, text_align_options, :class => :listtxt2 %>              
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,95 @@
+<%= form_for [@case, @footer] do |f| %>
+  <% if @footer.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@footer.errors.count, "error") %> prohibited this footer from being saved:</h2>
+
+      <ul>
+      <% @footer.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="box">
+    
+    <%= render 'designer/header', :title => 'Set Your Page Default' %>
+    
+    <div class="box-cont">
+      
+      <div style="margin: 22px 32px 15px;">
+      
+      <div class="box-line">
+        <%= f.radio_button(:all_pages, true) %>
+        <%= f.label :all_pages_true, 'Set all pages to have this Footer', 
+                    :class => :inline %>
+      </div>
+      <div class="box-line">
+        <%= f.radio_button(:all_pages, false) %>
+        <%= f.label :all_pages_false, 'Set first page Only to have Footer', 
+                    :class => :inline %>    
+      </div>
+      
+      <%= render 'designer/is_link', :label => 'Footer', :f => f %>
+              
+      <div class="box-line alignment" style="margin-top:0.5em;">      
+        
+        <strong>Align</strong> this Footer on your pages:
+        
+        <%= f.radio_button(:alignment, 'left') %>
+        <%= f.label :alignment_left, 'Left', :class => :inline %>
+        
+        <%= f.radio_button(:alignment, 'center') %>
+        <%= f.label :alignment_center, 'Centered', :class => :inline %>
+        
+        <%= f.radio_button(:alignment, 'right') %>
+        <%= f.label :alignment_right, 'Right', :class => :inline %>
+                        
+      </div>
+        
+      </div>
+    </div>  
+    <div class="box-bot"></div>  
+  </div>
+
+  <div class="box">
+    
+    <%= render 'designer/header', :title => 'Build Your Footer' %>
+    
+    <div class="box-cont">      
+      <%= render 'designer/background', :f => f %>
+      <%= render 'designer/border', :f => f %>
+      <%= render 'designer/font_settings', :f => f %>
+      <%= render 'designer/divider_above', :f => f %>
+      <%= render 'designer/text', :label => :Footer, :f => f %>
+      
+      <div class="set-two">
+        <div class="leftbox">Divider Below?</div>
+        <div class="rightbox">
+          <%= f.check_box :divider_below %>          
+          &nbsp; Yes
+        </div>
+      </div>
+      
+    </div>
+    <div class="clear box-bot"></div>
+  </div>
+
+  <div class="actions no-margin">
+    <%= f.submit 'Save', :class => :button %>
+  </div>
+  
+<% end %>
+
+<script type="text/javascript">
+  $('.simple_color').simpleColor({
+			cellWidth: 9,
+			cellHeight: 9,
+			border: '1px solid #333333',
+			buttonClass: 'btn-color'
+	});
+	
+	$('input#alert_button').click( function() {
+		alert($('input.simple_color')[0].value)
+	});
+</script>

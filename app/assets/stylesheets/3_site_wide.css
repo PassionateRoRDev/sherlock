@@ -9,9 +9,25 @@ body {
     position: relative;
 }
 
+
 @font-face {
-    font-family: "DIN-Bold";
-    src: url(DIN-Bold.TTF);
+    font-family: 'DIN-Bold';
+    src: url('DIN-Bold.eot');
+    src: url('DIN-Bold.eot?#iefix') format('embedded-opentype'),        
+         url('DIN-Bold.TTF') format('truetype');         
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'DINBoldRegular';
+    src: url('din-bold-webfont.eot');
+    src: url('din-bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('din-bold-webfont.woff') format('woff'),
+         url('din-bold-webfont.ttf') format('truetype'),
+         url('din-bold-webfont.svg#DINBoldRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
 }
 
 .main-top {
@@ -294,10 +310,13 @@ ol.cases h2 {
 .inbox-hd {
     background: url(head-bg.jpg) no-repeat scroll 0 0 transparent;
     color: #FFFFFF;    
+    /*
     font-family: "DIN-Bold";
+    */
+    font-family: 'DINBoldRegular';
     font-size: 24px;
     height: 35px;
-    line-height: 37px;    
+    line-height: 34px;
     padding-left: 12px;
     margin-bottom: 26px;
 }
@@ -466,3 +485,86 @@ h4.label {
     width:100%;
     height:35px;
 }
+
+input.link {
+    border: none;
+    color: white;
+    /*
+    background: url(input_link_bg.png) repeat-x;
+    */
+    background: transparent;
+    cursor: pointer;
+    height: 20px;
+}
+
+.form-letterhead {
+    width: 810px;
+}
+
+.box {
+    margin-bottom: 2em;
+    float: left;
+    width: 810px;
+}
+
+.box .heading {
+    height: 36px;
+}
+
+.heading .head-bg-left {
+    float: left;
+    width: 6px;
+    height: 36px;
+    background: url(head-tab-start.jpg) no-repeat;
+}
+
+.heading .head-bg {
+    background: url(head-tab-bg.jpg) repeat-x scroll 0 0 transparent;
+    color: #FFFFFF;
+    float: left;    
+    font-family: 'DINBoldRegular';
+    font-size: 20px;
+    height: 36px;
+    line-height: 36px;
+    padding-left: 10px;
+    width: 788px;
+}
+
+.heading .head-bg-right {
+    float: left;
+    width: 6px;
+    height: 36px;
+    background: url(head-tab-end.jpg) no-repeat;
+}
+
+.box-cont {
+    border-left: 1px solid #AEADAD;
+    border-right: 1px solid #AEADAD;    
+    font-family: Arial,Helvetica,sans-serif;        
+    width: 808px;
+    float: left;
+}
+
+.box-bot {
+    float: left;
+    background: url(box-line-bot.jpg) no-repeat scroll 0 0 transparent;
+    height: 7px;
+    width: 810px;       
+}
+
+.simpleColorContainer {    
+}
+
+.left {
+    float: left;
+}
+
+.simpleColorDisplay {
+    float: left;
+    margin-right: 5px;
+}
+
+.box .rightbox label {    
+    line-height: 14px;
+}
+

@@ -3,6 +3,10 @@ module FileAsset
   def filepath_for_type(type)
     filepath_for_type_and_filename(type, self.path)
   end
+  
+  def user_id
+    self.block.case.user_id
+  end
 
   def filepath_for_type_and_filename(type, filename)
     author_id = self.block.case.author_id

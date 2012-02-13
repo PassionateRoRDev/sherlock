@@ -1,15 +1,16 @@
 Sherlock::Application.routes.draw do
-
-  get "case/new"
-
+  
   devise_for :users
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
-
+  
+  resources :letterheads
+  
   resources :cases do
     resources :html_details
     resources :pictures
     resources :videos
     resources :invitations
+    resources :footers
   end
 
   resource :account, :only => [:show, :update]

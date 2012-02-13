@@ -20,18 +20,9 @@ class PicturesController < ApplicationController
   end
   
   def create
-    
-    logger.debug("Create picture called")
-    logger.debug(params[:upload])    
-    
+           
     image = params[:upload] ? params[:upload]['image'] : nil
-    
-    logger.debug('Image:')
-    logger.debug(image)
-    
-    logger.debug('Picture:')
-    logger.debug(params[:picture])
-    
+            
     if image          
       params[:picture][:original_filename] = image.original_filename
       params[:picture][:content_type] = image.content_type    
@@ -66,14 +57,13 @@ class PicturesController < ApplicationController
     @picture = @case.pictures.find_by_id(params[:id])    
     redirect_to cases_path unless @picture
     
-    old_path = @picture.path
-    
     respond_to do |format|
       if @picture.update_attributes(params[:picture])                        
+        params[:upload] ||= {}
         image = params[:upload]['image']
         if image
           logger.debug("Deleting the previous file")
-          @picture.delete_file_for_path(old_path)
+          @picture.delete_file
           @picture.path = Picture.store(current_user, image)
           @picture.save
         end

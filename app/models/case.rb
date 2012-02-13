@@ -9,6 +9,8 @@ class Case < ActiveRecord::Base
   has_many :pictures, :through => :blocks
   has_many :videos, :through => :blocks
   
+  has_one :footer
+  
   validates :title, :presence => true
   after_create :author_is_a_viewer
 
@@ -18,7 +20,7 @@ class Case < ActiveRecord::Base
   
   def as_json(options = {})  
     
-    except = [:author_id, :client_name, :id, :number, :updated_at]
+    except = [:author_id, :client_name, :id, :footer, :number, :updated_at]
     include = []    
     result = super(:include => include, :except => except)        
     result['blocks'] = self.blocks.map { |block| block.as_json }    

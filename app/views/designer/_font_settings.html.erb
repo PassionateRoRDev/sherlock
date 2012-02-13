@@ -1,0 +1,24 @@
+<div class="set-one">
+  <div class="leftbox">Typeface</div>        
+    <div class="rightbox">
+        <div class="line">
+          <div class="lineleft">Font</div>
+          <div class="styled-select1">                  
+            <%= f.select :font_face, font_face_options, 
+                :class => :listtxt %>                                    
+          </div>
+        </div>
+        <div class="line">
+          <div class="lineleft">Size </div>
+          <div class="styled-select2">
+            <%= f.select :font_size, font_size_options, :class => :listtxt2 %>
+          </div>
+        </div>
+        <div class="linelast">
+          <div class="lineleft"> Color </div>
+          <div class="lineright">
+            <%= f.text_field :font_color, :class => :simple_color %>                  
+          </div>
+        </div>
+      </div>        
+</div>

@@ -26,4 +26,7 @@ class User < ActiveRecord::Base
     end
   end
 
+  has_one :letterhead
+  
 end
+

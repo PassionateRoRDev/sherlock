@@ -1,0 +1,144 @@
+
+<div class="form-letterhead form-center">
+
+<%= form_for(@letterhead, 
+             :html => { :enctype => 'multipart/form-data' }) do |f| %>
+  <% if @letterhead.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@letterhead.errors.count, "error") %> 
+        prohibited this letterhead from being saved:</h2>
+
+      <ul>
+      <% @letterhead.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="box">
+    
+    <%= render 'designer/header', :title => 'Set Your Page Default' %>    
+    
+    <div class="box-cont">
+      
+      <div style="margin: 22px 32px 15px;">
+      
+      <div class="box-line">
+        <%= f.radio_button(:all_pages, true) %>
+        <%= f.label :all_pages_true, 'Set all pages to have this Header', 
+                    :class => :inline %>
+      </div>
+      <div class="box-line">
+        <%= f.radio_button(:all_pages, false) %>
+        <%= f.label :all_pages_false, 'Set first page Only to have Header', 
+                    :class => :inline %>    
+      </div>
+        
+      <%= render 'designer/is_link', :label => 'Header', :f => f %>
+            
+      <div class="box-line alignment" style="margin-top:0.5em;">
+        
+        <strong>Align</strong> this Header on your pages:
+        
+        <%= f.radio_button(:alignment, 'left') %>
+        <%= f.label :alignment_left, 'Left', :class => :inline %>
+        
+        <%= f.radio_button(:alignment, 'center') %>
+        <%= f.label :alignment_center, 'Centered', :class => :inline %>
+        
+        <%= f.radio_button(:alignment, 'right') %>
+        <%= f.label :alignment_right, 'Right', :class => :inline %>
+                        
+      </div>
+        
+      </div>
+    </div>  
+    <div class="box-bot"></div>  
+  </div>
+  
+  <div class="box">
+    
+    <%= render 'designer/header', :title => 'Build Your Header' %>    
+    
+    <div class="box-cont">
+      
+      <%= render 'designer/background', :f => f %>
+      <%= render 'designer/border', :f => f %>
+      <%= render 'designer/font_settings', :f => f %>            
+      <%= render 'designer/divider_above', :f => f %>        
+      <%= render 'designer/text', :label => :Header, :f => f %>
+      
+      <div class="set-two">
+            <div class="leftbox">Logo</div>
+            <div class="rightbox">
+
+              <!--
+              <div class="line">
+                <div class="lineleft2">Choose Graphics </div>
+                <div class="styled-select1">
+                  <select class="listtxt" name="">
+                    <option>None</option>
+                    <option>Option 1</option>
+                    <option>Option 2</option>
+
+                    <option>Option 3</option>
+                  </select>
+                </div>
+              </div>
+              -->
+              <div class="line">
+                <div class="lineleft2">Alignment </div>
+                <div class="styled-select1">
+                  <%= f.select :logo_alignment, logo_align_options, 
+                               :class => :listtxt %>                  
+                </div>
+              </div>
+
+              <div class="linelast">
+                <div class="lineleft3">
+                  <div class="lineleft-txt">Upload an image</div>
+                  <div class="lineleft-txt1">For best results upload a 900 x 630 JPG or PNG.</div>
+                  <div class="lineleft-txt2">                    
+                    
+                    <%= file_field 'upload', 'logo' %>
+                    
+                    <div class="textfield1" style="float:left;">
+                      <input class="txtfield" name="" type="text" />
+                    </div>
+                    <div class="btn" style="float:right;">
+                      <a href="#" class="button">Browse</a>
+                    </div>                   
+                  </div>
+                </div>
+                <div class="rightbox2">
+                  <%= image_tag 'letterhead_img.jpg' %>                  
+                </div>
+              </div>
+            </div>
+          </div>        
+      
+    </div>
+    <div class="clear box-bot"></div>
+  </div>
+  
+  <div class="actions no-margin">
+    <%= f.submit 'Save', :class => :button %>
+  </div>
+        
+<% end %>      
+  
+</div>
+
+<script type="text/javascript">
+      
+  $('.simple_color').simpleColor({
+    cellWidth: 9,
+    cellHeight: 9,
+    border: '1px solid #333333',
+    buttonClass: 'btn-color'
+  });
+  $('input#alert_button').click( function() {
+    alert($('input.simple_color')[0].value)
+  });
+</script>

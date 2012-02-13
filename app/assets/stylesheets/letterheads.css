@@ -1,0 +1,211 @@
+.color-wrapper {
+    float: left;
+    width: 350px;
+    margin-left: 5px;   
+}
+
+.leftbox {
+    color: #595A5B;
+    float: left;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 16px;
+    height: auto;
+    width: 144px;
+}
+
+.rightbox {
+    color: #67696A;
+    float: left;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 14px;
+    height: auto;
+    width: 632px;
+}
+
+.rightbox2 {
+    float: left;
+    height: auto;
+    padding-left: 10px;
+    width: 187px;
+}
+
+.rightbox, .rightbox label {
+    font-size: 14px;   
+    color: #67696A;        
+}
+
+.line {
+    float: left;
+    height: auto;
+    padding-bottom: 12px;
+    width: 632px;
+}
+
+.set-one {
+    background-color: #E8E6E6;
+    float: left;
+    height: auto;
+    padding: 15px 0 15px 32px;
+    width: 776px;
+}
+
+.set-two {
+    float: left;
+    height: auto;
+    padding: 10px 0 10px 32px;
+    width: 776px;
+}
+
+.box-line {
+    color: #67696A;
+    font-size: 16px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.box-line label {
+    color: #67696A;
+    margin-left: 5px;
+}
+
+.box-line.box-line-link label {
+    margin-left: 22px;
+}
+
+.box-line.alignment label {
+    margin-left: 0px;
+    margin-right: 1em;
+}
+
+.box-line.alignment input {
+    margin-left: 5px;
+}
+
+.lineleft {
+    float: left;
+    height: auto;
+    line-height: 20px;
+    width: 40px;
+}
+
+.lineleft1 {
+    float: left;
+    height: auto;
+    width: 110px;
+}
+
+.lineleft2 {
+    float: left;
+    height: auto;
+    width: 130px;
+}
+
+.lineleft4 {
+    float: left;
+    height: auto;
+    padding-left: 25px;
+    width: 45px;
+}
+
+.lineright {
+    float: left;
+    height: auto;
+    width: 350px;
+}
+
+.areatxt {
+    color: #666666;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 12px;
+    height: 70px;
+    padding: 5px;
+    width: 400px;
+}
+
+.styled-select1 {
+    background: url(dropdown1.jpg) no-repeat scroll 0 0 transparent;
+    height: 20px;
+    overflow: hidden;
+    width: 162px;
+}
+
+.styled-select2 {
+    background: url(dropdown2.jpg) no-repeat scroll 0 0 transparent;
+    height: 20px;
+    overflow: hidden;
+    width: 72px;
+}
+
+.styled-select3 {
+    background: url(dropdown2.jpg) no-repeat scroll 0 0 transparent;
+    float: left;
+    height: 20px;
+    overflow: hidden;
+    width: 72px;
+}
+
+.styled-select1 select {
+    background: none repeat scroll 0 0 transparent;
+    border: medium none;
+    color: #67696A;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 13px;
+    height: 20px;
+    width: 200px;
+}
+
+.styled-select2 select {
+    background: none repeat scroll 0 0 transparent;
+    border: medium none;
+    color: #67696A;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 13px;
+    height: 20px;
+    width: 90px;
+}
+
+.styled-select3 select {
+    background: none repeat scroll 0 0 transparent;
+    border: medium none;
+    color: #67696A;
+    float: left;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 13px;
+    height: 20px;
+    width: 90px;
+}
+
+.linelast {
+    float: left;
+    height: auto;
+    width: 632px;
+}
+
+.lineleft-txt {
+    color: #525252;
+    float: left;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 20px;
+    height: 30px;
+    text-align: right;
+    width: 350px;
+}
+
+.lineleft-txt1 {
+    color: #2F2F2F;
+    float: left;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 14px;
+    height: auto;
+    padding-bottom: 8px;
+    padding-top: 40px;
+    width: 350px;
+}
+
+.lineleft-txt2 {
+    float: left;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 13px;
+    height: auto;
+    padding-bottom: 10px;
+    width: 350px;
+}

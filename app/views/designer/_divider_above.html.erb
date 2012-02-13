@@ -1,0 +1,30 @@
+<div class="set-two">
+    <div class="leftbox">Divider Above?</div>
+    <div class="rightbox">
+      <div class="line">
+        <div class="lineleft1">
+          <%= f.check_box :divider_above %>
+          &nbsp;Yes                  
+          <div class="right" style="margin-right:5px;">
+            <%= f.label :divider_size, 'Size', :class => :inline %>
+          </div>
+        </div>
+        <div class="styled-select3">                  
+          <%= f.select :divider_size, divider_size_options, 
+              :class => :listtxt2 %>                  
+        </div>
+        <div class="lineleft4">Width</div>
+        <div class="styled-select3">
+          <%= f.select :divider_width, divider_width_options, 
+              :class => :listtxt2 %>
+        </div>
+      </div>
+      <div class="linelast">
+        <div class="lineleft"> Color </div>
+        <div class="lineright">
+          <%= f.text_field :divider_color, :class => :simple_color %>                  
+        </div>
+      </div>
+
+    </div>
+</div>
