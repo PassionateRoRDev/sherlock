@@ -146,8 +146,8 @@ label {
     padding-left: 150px;
 }
 
-.field, .controls {
-  margin-top: 1.5em;
+.controls {  
+  margin-top: 1.5em;  
 }
 
 .controls {
@@ -164,6 +164,13 @@ div.hidden {
 
 .errors-list li, #error_explanation li {
     list-style-type: disc;
+}
+
+.error_message {
+    float:left;
+    color: red;
+    padding-left: 0.5em;
+    line-height: 28px;
 }
 
 .required label:before{
@@ -369,7 +376,7 @@ ol.cases h2 {
 
 .boxtxt, .boxfield {
     float: left;
-    height: 28px;
+    height: 38px;   
 }
 
 .boxtxt {
