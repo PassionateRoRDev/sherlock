@@ -37,6 +37,12 @@ describe User do
     author.can_view?( great_am_tale ).should == true
   end
 
+  it 'will not see duplicate cases when a viewer and an author.' do
+    author = Factory.create(:user)
+    casework = Factory.create(:case, :author => author, :viewers => [author])
+    casework.reload.viewers.should include author
+    author.reload.should have(1).cases
+  end
   it 'has a list of authored cases' do
     c = Factory.create(:case)
     c.author.authored_cases.should include(c)
