@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :company_name
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :company_name, :admin
  
   has_many :authored_cases, :class_name => 'Case', :foreign_key => 'author_id' 
   has_and_belongs_to_many :viewable_cases, :join_table => 'viewers', :foreign_key => 'viewer_id', :association_foreign_key => 'case_id', :class_name => 'Case'
