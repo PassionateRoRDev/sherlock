@@ -61,23 +61,28 @@
     <% end %>
     
     <script type="text/javascript">
-    $('.datepicker').datepicker({
-      beforeShow: function(input, inst) {
-        if ($(input).hasClass('hinted')) {
-          $(input).removeClass('hinted').val('');
-        }        
-      },
-      onClose : function(dateText, inst) {
-        var input = this;
-        if ($(input).hasClass('hint')) {
-          if (dateText == '') {
-            $(input).val($(input).attr('title')).addClass('hinted');
-          } else {
-            //$(input).val(dateText);
+    $(function() {
+      $('.datepicker').datepicker({
+        beforeShow: function(input, inst) {
+          
+          // activate the picker's border color
+          $('#ui-datepicker-div').css('border-color', '#aaaaaa');
+          
+          if ($(input).hasClass('hinted')) {
+            $(input).removeClass('hinted').val('');
+          }        
+        },
+        onClose : function(dateText, inst) {
+          var input = this;
+          if ($(input).hasClass('hint')) {
+            if (dateText == '') {
+              $(input).val($(input).attr('title')).addClass('hinted');
+            } else {
+              //$(input).val(dateText);
+            }
           }
         }
-      }
-    });    
-    </script>
-    
+      });    
+    });
+    </script>    
 </div>

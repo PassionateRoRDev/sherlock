@@ -147,10 +147,8 @@ label {
 }
 
 .controls {  
-  margin-top: 1.5em;  
-}
-
-.controls {
+  clear: both;
+  margin-top: 1.5em;
   margin-left: 130px;
 }
 
@@ -573,5 +571,11 @@ input.link {
 
 .box .rightbox label {    
     line-height: 14px;
+}
+
+/* reset the picker's border color to eliminate the weird initial effect 
+   (small rectangle shows up) */
+#ui-datepicker-div {
+    border-color: transparent;
 }
 
