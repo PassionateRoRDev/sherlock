@@ -29,7 +29,11 @@ class FootersController < ApplicationController
   # GET /footers/new.json
   def new
     
-    @footer = Footer.new(:all_pages => true, :case => @case)  
+    @footer = Footer.new(
+      :all_pages => true, 
+      :case => @case, 
+      :font_color => :black
+    )  
 
     respond_to do |format|
       format.html # new.html.erb
