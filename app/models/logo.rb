@@ -19,7 +19,7 @@ class Logo < ActiveRecord::Base
   def author_id
     self.user.id
   end  
-  
+
   def dims
     File.exists?(full_filepath) ? Dimensions.dimensions(full_filepath) : nil  
   end  

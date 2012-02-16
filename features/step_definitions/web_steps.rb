@@ -50,7 +50,7 @@ When /^I create a new case with title "([^"]*)" and summary "([^"]*)"$/ do |titl
   visit new_case_path
   fill_in "Title", :with => title
   fill_in "Summary", :with => summary
-  click_button("Save")        
+  click_button("Save")       
 end
 
 When /^I create a picture block in "([^"]*)" with title "([^"]*)" and file "([^"]*)"$/ do 

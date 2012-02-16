@@ -101,7 +101,18 @@
                   <div class="lineleft-txt1">For best results upload a 900 x 630 JPG or PNG.</div>
                   <div class="lineleft-txt2">                    
                     
+                    <label for="upload_logo">Select Image :</label>                    
                     <%= file_field 'upload', 'logo' %>
+                    
+                    <% if f.object.logo %>
+                    
+                      <%= link_to 'Remove Logo', f.object.logo, 
+                          :confirm => 'Are you sure you want to remove the logo?', 
+                          :class  => 'link-remove-logo',
+                          :remote => true,
+                          :method => :delete %>
+                    
+                    <% end %>
                     
                     <div class="textfield1" style="float:left;">
                       <input class="txtfield" name="" type="text" />
@@ -112,13 +123,13 @@
                   </div>
                 </div>
                 <div class="rightbox2">
-                  <%= image_tag 'letterhead_img.jpg' %>                  
+                  <div class="image-wrapper">                    
+                    <% if f.object.logo %>                    
+                      <%= image_tag_constrained(f.object.logo, [170, 120]) %>                      
+                    <% end %>                    
+                  </div>
                 </div>
-              </div>
-              
-              <% if f.object.logo %>
-                <img src="<%= url_for file_path('logos', f.object.logo.path) %>"/>              
-              <% end %>
+              </div>                            
               
             </div>
           </div>        

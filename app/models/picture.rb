@@ -10,6 +10,24 @@ class Picture < ActiveRecord::Base
   
   before_destroy :delete_file
   
+  def self.scale_to_bounds(dims, max_dims)
+    
+    ratio = (0.0 + dims[0]) / dims[1]
+    
+    if (dims[0] > max_dims[0])
+      dims[0] = max_dims[0]
+      dims[1] = dims[0] / ratio
+    end
+    
+    if dims[1] > max_dims[1]
+      dims[1] = max_dims[1]
+      dims[0] = dims[1] * ratio
+    end
+    
+    dims
+    
+  end
+  
   def self.store(author, upload_info)    
     FileAsset::store_for_type(author, upload_info, 'pictures')            
   end  

@@ -18,5 +18,5 @@ end
 
 Then /^there should be (\d+) picture files in the system$/ do |picture_files_count|
   files_root = APP_CONFIG['files_path']
-  Dir[files_root + '*/pictures/*'].count.should == 0
+  Dir[files_root + '*/pictures/*'].count.should == picture_files_count.to_i
 end

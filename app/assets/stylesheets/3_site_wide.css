@@ -579,3 +579,9 @@ input.link {
     border-color: transparent;
 }
 
+.image-wrapper {
+    position: relative;
+    width: 186px;
+    height: 127px;
+    background:url(letterhead_img.jpg);
+}

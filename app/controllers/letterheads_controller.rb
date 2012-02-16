@@ -27,6 +27,11 @@ class LetterheadsController < ApplicationController
   # GET /letterheads/new
   # GET /letterheads/new.json
   def new
+    
+    if current_user.letterhead
+      return redirect_to edit_letterhead_path(current_user.letterhead) 
+    end
+    
     @letterhead = Letterhead.new(
       :all_pages  => true, 
       :font_color => :black,

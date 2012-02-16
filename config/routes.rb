@@ -4,6 +4,7 @@ Sherlock::Application.routes.draw do
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
   
   resources :letterheads
+  resources :logos
   
   resources :cases do
     resources :html_details
