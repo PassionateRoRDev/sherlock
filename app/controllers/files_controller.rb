@@ -24,7 +24,7 @@ class FilesController < ApplicationController
     when 'videos'
       asset = user.videos.find_by_path(filename)
     when 'logos'
-      asset = user.logos.select { |logo| logo.path == filename }.first
+      asset = user.logos.find_by_path(filename)
     end
     
     if asset    

@@ -9,7 +9,7 @@ module LetterheadHelper
   end
   
   def font_size_options   
-    [10, 12, 14, 16].map do |size|
+    [10, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26].map do |size|
       ["#{size} px", size]
     end        
   end

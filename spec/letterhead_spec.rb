@@ -1,15 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
 describe Letterhead do
-  
-  it 'Should return a correct author_id' do
-    user = User.new() { |u| u.id = 1}
-    letterhead = Letterhead.new(
-      :user => user
-    )
-    letterhead.author_id.should == user.id
-  end
-  
+    
   it 'JSON should not return created_at' do
     user = User.new() { |u| u.id = 1}
     letterhead = Letterhead.new(
@@ -61,11 +53,13 @@ describe Letterhead do
     user = User.new() { |u| u.id = 1}
     letterhead = Letterhead.new(
       :user           => user,
-      :logo_path      => 'logo.png',
+      :logo           => Logo.new(:path => 'logo.png', :user => user),
       :logo_alignment => :right      
-    )    
+    )
     
-    decoded = ActiveSupport::JSON.decode(letterhead.to_json(:camelize => true))    
+    options = { :camelize => true, :include => [:logo] }
+    
+    decoded = ActiveSupport::JSON.decode(letterhead.to_json(options))    
     decoded['logo']['path'].should == 'logo.png'
     decoded['logo']['align'].should == 'right'
   end

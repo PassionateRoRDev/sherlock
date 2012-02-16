@@ -116,8 +116,8 @@
                 </div>
               </div>
               
-              <% if f.object.logo_path %>
-                <img src="<%= url_for file_path('logos', f.object.logo_path) %>"/>              
+              <% if f.object.logo %>
+                <img src="<%= url_for file_path('logos', f.object.logo.path) %>"/>              
               <% end %>
               
             </div>

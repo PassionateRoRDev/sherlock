@@ -13,6 +13,9 @@ class User < ActiveRecord::Base
   
   has_many :pictures, :through => :blocks
   has_many :videos, :through => :blocks
+    
+  has_one :letterhead, :dependent => :destroy
+  has_many :logos, :dependent => :destroy
   
   def find_case_by_id(case_id)
     authored_cases.find_by_id(case_id) || viewable_cases.find_by_id(case_id)
@@ -21,11 +24,7 @@ class User < ActiveRecord::Base
   def cases
     authored_cases + viewable_cases
   end
-  
-  def logos
-    (letterhead && letterhead.logo_path) ? [letterhead.logo] : []
-  end
-
+    
   def invited?
     ! self.invitation_token.blank?  
   end
@@ -37,9 +36,7 @@ class User < ActiveRecord::Base
     else
       false
     end
-  end
-
-  has_one :letterhead
+  end 
   
 end
 
