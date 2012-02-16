@@ -3,8 +3,9 @@
 =form_for @account, :url => account_path do |form|
   .field
     =form.label :company_name
-    =form.text_field :company_name
+    .boxfield
+      =form.text_field :company_name, :class => 'txtfield txtfield-wide'
 
   .controls
-    =form.submit :class => 'button'
+    =form.submit 'Update', :class => 'button'
 
