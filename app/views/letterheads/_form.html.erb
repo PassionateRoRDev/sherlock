@@ -99,11 +99,19 @@
                 <div class="lineleft3">
                   <div class="lineleft-txt">Upload an image</div>
                   <div class="lineleft-txt1">For best results upload a 900 x 630 JPG or PNG.</div>
-                  <div class="lineleft-txt2">                    
+                  <div class="lineleft-txt2">
                     
-                    <label for="upload_logo">Select Image :</label>                    
+                    <div style="margin-top:4em;">
+                    
+                    <label for="upload_logo" 
+                           style="line-height:28px;width:100px;">Select Image :</label>                    
                     <span class="btn fileinput-button">
-                      <%= file_field 'upload', 'logo' %>                      
+                      <%= file_field 'upload', 'logo', 
+                          :title => 'Select image file to be uploaded' %>                      
+                      <span>
+                        <i class="icon-plus icon-white"></i>
+                        Browse...
+                      </span>
                     </span>
                     
                     <% if f.object.logo %>
@@ -115,13 +123,9 @@
                           :method => :delete %>
                     
                     <% end %>
-                    
-                    <div class="textfield1" style="float:left;">
-                      <input class="txtfield" name="" type="text" />
+                      
                     </div>
-                    <div class="btn" style="float:right;">
-                      <a href="#" class="button">Browse</a>
-                    </div>                   
+                                        
                   </div>
                 </div>
                 <div class="rightbox2">
