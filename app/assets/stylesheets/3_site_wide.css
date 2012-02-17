@@ -56,7 +56,7 @@ h1 {
     margin-bottom: 17px;
 }
 
-h1 {
+h1 {    
     margin-bottom: 12px;
 }
 
@@ -591,4 +591,19 @@ input.link {
     width: 186px;
     height: 127px;
     background:url(letterhead_img.jpg);
+}
+
+.breadcrumb {
+    background-color: #FBFBFB;
+    background-image: -moz-linear-gradient(center top , #FFFFFF, #F5F5F5);
+    background-repeat: repeat-x;
+    border: 1px solid #DDDDDD;
+    border-radius: 3px 3px 3px 3px;
+    box-shadow: 0 1px 0 #FFFFFF inset;
+    margin: 10px 0 0 0;
+    padding: 7px 14px;
+}
+
+.breadcrumb a {
+    text-decoration: none;
 }

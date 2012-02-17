@@ -102,7 +102,9 @@
                   <div class="lineleft-txt2">                    
                     
                     <label for="upload_logo">Select Image :</label>                    
-                    <%= file_field 'upload', 'logo' %>
+                    <span class="btn fileinput-button">
+                      <%= file_field 'upload', 'logo' %>                      
+                    </span>
                     
                     <% if f.object.logo %>
                     

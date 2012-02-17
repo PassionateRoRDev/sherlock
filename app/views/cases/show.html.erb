@@ -1,5 +1,9 @@
+<div class="breadcrumb">
+  <%= link_to 'Dashboard', root_path %> /
+  <%= link_to 'My Cases', cases_path %> / <%= @case.title %>
+</div>
+
 <h1 style="position:relative;">
-  <%= link_to 'My Cases', cases_path %> /
   <%= @case.title %>
   
   <div style="position:absolute;bottom:8px;right:0;">
