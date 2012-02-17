@@ -74,22 +74,32 @@ class Video < ActiveRecord::Base
     FileAsset::store_for_type(author, upload_info, 'videos')                
   end
   
+  def path_for_format(format)
+    self.path.sub(/([^.]+)$/, format.to_s)
+  end
+  
   def flv_path
-    self.path.sub(/([^.]+)$/, 'flv')
+    path_for_format(:flv)
   end
   
-  def full_flv_path
-    filepath_for_type_and_filename('videos', flv_path)        
+  def m4v_path
+    path_for_format(:m4v)
   end
   
-  def recode_to_flv    
-    unless self.path == flv_path    
-      video_path = filepath_for_type_and_filename('videos', self.path)
-      new_video_path = full_flv_path
-      command = "ffmpeg -i #{video_path} -deinterlace -ar 44100 -r 25 -qmin 3 -qmax 6 #{new_video_path}"
-      Rails::logger.debug("Recode command: " + command)
-      `#{command}`      
-    end    
+  def full_path_for_format(format)
+    filepath_for_type_and_filename('videos', path_for_format(format))        
+  end
+  
+  def recode_to(formats)    
+    video_path = filepath_for_type_and_filename('videos', self.path)
+    formats.each do |format|      
+      unless self.path == path_for_format(format)        
+        new_video_path = full_path_for_format(format)
+        command = "ffmpeg -i #{video_path} -deinterlace -ar 44100 -y -r 25 -qmin 3 -qmax 6 #{new_video_path}"
+        Rails::logger.debug("Recode command: " + command)
+        `#{command}`      
+      end
+    end
   end
   
   def rename_thumbnail
@@ -126,9 +136,9 @@ class Video < ActiveRecord::Base
   end
   
   def delete_file
-    delete_file_for_type(file_type)    
-    if flv_path 
-      full_path = full_flv_path
+    delete_file_for_type(file_type)
+    [:flv, :m4v].each do |format|        
+      full_path = full_path_for_format(format)
       File.unlink(full_path) if File.exists?(full_path)
     end
   end
