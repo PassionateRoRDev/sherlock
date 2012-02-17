@@ -1,8 +1,8 @@
-<h1>
+<h1 style="position:relative;">
   <%= link_to 'My Cases', cases_path %> /
   <%= @case.title %>
   
-  <div style="float:right;">
+  <div style="position:absolute;bottom:8px;right:0;">
     <small>
     <%= link_to 'Create New Case', new_case_path %> |
     <%= link_to 'Preview', case_preview_path(@case), :class => 'link-preview' %>    |
