@@ -33,9 +33,10 @@ class LetterheadsController < ApplicationController
     end
     
     @letterhead = Letterhead.new(
-      :all_pages  => true, 
+      :all_pages  => true,      
       :font_color => :black,
-      :font_size  => 20
+      :font_size  => 20,
+      :divider_color  => :black
     )
 
     respond_to do |format|

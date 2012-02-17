@@ -32,7 +32,8 @@ class FootersController < ApplicationController
     @footer = Footer.new(
       :all_pages => true, 
       :case => @case, 
-      :font_color => :black
+      :font_color => :black,
+      :divider_color  => :black
     )  
 
     respond_to do |format|
