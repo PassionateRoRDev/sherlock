@@ -115,6 +115,10 @@ label.vertical {
     width: auto;
 }
 
+.field {
+    margin-bottom: 1em;
+}
+
 .field, .actions {
     clear: both;
 }
@@ -309,7 +313,7 @@ ol.cases h2 {
 
 .midleft {
     float: left;    
-    width: 348px;
+    width: 350px;    
 }
 
 .midright {
@@ -378,12 +382,9 @@ ol.cases h2 {
     padding-bottom: 13px;    
 }
 
-.boxtxt, .boxfield {
+.boxtxt {
     float: left;
     height: 38px;   
-}
-
-.boxtxt {
     color: #397A89;    
     font-family: Arial,Helvetica,sans-serif;
     font-size: 16px;    
@@ -392,7 +393,7 @@ ol.cases h2 {
 }
 
 .boxfield {        
-    width: 218px;
+    margin-left: 130px;
 }
 
 .txtfield {
