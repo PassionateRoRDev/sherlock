@@ -21,10 +21,12 @@
   <%= render 'options' %>
 </div>
 
-<div style="clear:both;padding-top:1em;position:relative;">
-  <div class="inbox-hd" style="">Title &amp; Summary</div>
-  <div style="position:absolute;left:355px;top:23px;">
-    <%= link_to 'Edit', edit_case_path(@case) %>
+<div style="clear:both;padding-top:2em;">
+  <div style="position:relative;">
+    <div class="inbox-hd">Title &amp; Summary</div>
+    <div style="position:absolute;left:355px;top:10px;">
+      <%= link_to 'Edit', edit_case_path(@case) %>
+    </div>
   </div>
 </div>
 
