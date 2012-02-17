@@ -77,8 +77,13 @@ ol li {
 }
 
 #top-user-links {
-    font-weight: bold;
+    font-weight: bold;           
+    background-color:green;
+}
+
+#top-user-links .links-list {
     float: right;
+    height: 1.2em;
 }
 
 input, textarea {
@@ -326,10 +331,11 @@ ol.cases h2 {
     margin-bottom: 26px;
 }
 
-.head {
-    float: right;
-    height: 37px;
-    margin-top: 15px;
+.head {    
+    position: absolute;
+    right: 0;
+    height: 37px;    
+    top: 35px;
 }
 
 .headtxt {
