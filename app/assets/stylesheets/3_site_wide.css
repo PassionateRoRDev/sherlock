@@ -435,8 +435,8 @@ input.button {
     cursor: pointer;
     width: 94px;
     height: 28px;
-    border: none;
-    background-image:url(btn.jpg);
+    border: none;   
+    background:url(btn.jpg);    
     font-size: 14px;
     color: #fff;
 }
