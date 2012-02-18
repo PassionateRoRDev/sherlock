@@ -1,0 +1,41 @@
+<div id="header" style="margin-top:5px;border:0px solid black;padding:2px;">            
+  
+  <% if @letterhead.logo %>  
+    <% if @letterhead.is_link %>
+      <a href="<%= @letterhead.link %>"
+         title="<%= @letterhead.link %>"
+         style="float:<%= @letterhead.logo_alignment %>;">
+    <% end %>
+      <img style="float:<%= @letterhead.logo_alignment %>;"
+           src="<%= url_for file_path('logos', @letterhead.logo.path) %>"
+           height="<%= @letterhead.logo.height_for_display(80) %>"/>        
+    <% if @letterhead.is_link %>
+      </a>
+    <% end %>
+  <% end %>
+  <div style="float:<%= @letterhead.alignment %>;
+              text-align:<%= @letterhead.text_align %>; 
+              font-size:<%= @letterhead.font_size %>px;
+              font-weight:bold;
+              color:<%= @letterhead.font_color %>;">            
+    
+    <% if @letterhead.is_link %>
+      <a href="<%= @letterhead.link %>"
+         title="<%= @letterhead.link %>"
+         style="color:<%= @letterhead.font_color %>;">
+    <% end %>
+      <%= @letterhead.contents.gsub(/(\r\n)|(\r)|(\n)/, '<br/>').html_safe %>            
+    <% if @letterhead.is_link %>    
+      </a>
+    <% end %>
+  </div>
+  
+  <% if @letterhead.divider_above %>  
+    <hr style="height:<%= @letterhead.divider_size %>px;
+               background-color:<%= @letterhead.divider_color %>;
+               width:<%= @letterhead.divider_width %>%;
+               margin:auto;"/>
+  <% end %>
+</div>
+
+

@@ -37,7 +37,8 @@ div.jp-audio {
 	width:201px;
 	padding:20px;
 }
-
+
+
 div.jp-video-270p {
 	width:480px;
 }
@@ -476,7 +477,8 @@ div.jp-video .jp-volume-bar {
 .jp-video .jp-title ul {
 	margin: 0 20px 10px;
 }
-
+
+
 .jp-video .jp-playlist ul {
 	margin: 0 20px;
 }
@@ -496,7 +498,8 @@ div.jp-video .jp-volume-bar {
 	padding:0;
 	text-align:center;
 }
-
+
+
 /* Note that the first-child (IE6) and last-child (IE6/7/8) selectors do not work on IE */
 
 div.jp-type-playlist div.jp-playlist li:first-child {
@@ -592,9 +595,8 @@ a.jp-video-play-icon {
 	margin-top:-50px;
 	left:50%;
 	top:50%;
-
-	background: url("jplayer.pink.flag.video.play.png") 0 0 no-repeat;
-	text-indent:-9999px;
+        background: url("jplayer.pink.flag.video.play.png") 0 0 no-repeat;        
+        text-indent:-9999px;
 }
 div.jp-video-play:hover a.jp-video-play-icon {
 	background: url("jplayer.pink.flag.video.play.png") 0 -100px no-repeat;

@@ -8,14 +8,36 @@
     h4 {
       margin-top: 0.5em;
     }
-    .picture-block {
+    
+    div#header hr, div#footer hr {            
+      border: none;
+      clear: both;
+      background-color: black;
+    }
+    
+    .picture-block, .video-block {
       page-break-inside: avoid;
     }
+    
+    .video-block {
+      margin: 1em 0;
+    }
+    
+    h1 {
+      clear: both;
+    }
+    
   </style>
+  <link href="/assets/jplayer.pink.flag.css" media="screen" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
-  
+
+<script src="/assets/jquery.js?body=1" type="text/javascript"></script>
+<script type="text/javascript" src="/javascript/jquery.jplayer.min.js"></script>
+
+<%= render 'letterheads/show' if @letterhead %>
+
 <h1><%= @case.title %></h1>
 
 <h2>Summary</h2>
