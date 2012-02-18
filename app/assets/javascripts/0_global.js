@@ -97,6 +97,11 @@ SHERLOCK.utils.initializeAutoHintFields = function() {
 
 $(function() {
     SHERLOCK.utils.initializeAutoHintFields();
+    
+    $('.styled-select-rounded-x select').change(function() {
+      this.blur();
+    });
+    
 });
 
 
