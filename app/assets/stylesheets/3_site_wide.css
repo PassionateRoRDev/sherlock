@@ -133,13 +133,8 @@ label.vertical {
     width: 500px;
 }
 
-label {
-    width: 130px;
+label {    
     line-height: 28px;
-}
-
-.actions, .field-right {
-    padding-left: 130px;
 }
 
 .actions.no-margin {
@@ -157,8 +152,7 @@ label {
 
 .controls {  
   clear: both;
-  margin-top: 1.5em;
-  margin-left: 130px;
+  margin-top: 1.5em;  
 }
 
 span.hidden {
@@ -313,7 +307,7 @@ ol.cases h2 {
 
 .midleft {
     float: left;    
-    width: 350px;    
+    width: 49%;    
 }
 
 .midright {
@@ -387,13 +381,32 @@ ol.cases h2 {
     height: 38px;   
     color: #397A89;    
     font-family: Arial,Helvetica,sans-serif;
-    font-size: 16px;    
-    width: 130px;
+    font-size: 16px;        
     line-height: 28px;
 }
 
-.boxfield {        
+label, .boxtxt {
+    width: 130px;
+}
+
+.controls, .boxfield {
     margin-left: 130px;
+}
+
+.actions, .field-right {
+    padding-left: 130px;
+}
+
+.labels-x label, .labels-x .boxtxt {
+    width: 160px;
+}
+
+.labels-x .controls, .labels-x .boxfield {
+    margin-left: 160px;
+}
+
+.labels-x .actions, .labels-x .field-right {
+    padding-left: 160px;
 }
 
 .txtfield {
@@ -566,6 +579,10 @@ input.link {
 }
 
 .simpleColorContainer {    
+}
+
+.clear {
+  clear: both;
 }
 
 .left {

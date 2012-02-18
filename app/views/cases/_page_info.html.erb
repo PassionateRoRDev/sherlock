@@ -1,12 +1,12 @@
 <div class="midleft" style="position:relative;">
             
+    <%= form_for caze do |f| %>
+  
     <div class="inbox-hd">
       Page Information
-    </div>   
-  
-    <%= form_for caze do |f| %>
+    </div>    
 
-      <div style="position:absolute;top:8px;right: 10px;">
+      <div style="position:absolute;top:8px;left: 300px;">
         <%= f.submit 'Save', :class => 'link', :title => 'Save Changes' %>
       </div>
             

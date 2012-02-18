@@ -1,11 +1,67 @@
 %h1 Your Account
 
-=form_for @account, :url => account_path do |form|
-  .field
-    =form.label :company_name
-    .boxfield
-      =form.text_field :company_name, :class => 'txtfield txtfield-wide'
 
-  .controls
-    =form.submit 'Update', :class => 'button'
+
+=form_for @account, :url => account_path do |form|
+  .field.labels-x
+    =form.label :company_name, 'PI Company Name :'
+    .boxfield
+      =form.text_field :company_name, :class => 'txtfield'
+
+  %h2 ACCOUNT INFO
+
+  .midleft.labels-x
+    .field  
+      %label First Name :
+      .boxfield
+        %input.txtfield
+    .field  
+      %label Address :
+      .boxfield
+        %input.txtfield
+    .field  
+      %label State :
+      .boxfield
+        %input.txtfield
+    .field  
+      %label Zip :
+      .boxfield
+        %input.txtfield
+
+  .midright
+    .field  
+      %label Last Name :
+      .boxfield
+        %input.txtfield
+    .field  
+      %label City :
+      .boxfield
+        %input.txtfield
+    .field  
+      %label Country :
+      .boxfield
+        %input.txtfield
+    .field  
+      %label Phone Number :
+      .boxfield
+        %input.txtfield
+
+  %h2.clear PASSWORD
+
+  .midleft.labels-x
+    .field  
+      %label Password :
+      .boxfield
+        %input.txtfield  
+    .field
+      %label Confirm Password :
+      .boxfield
+        %input.txtfield  
+    
+
+  %h2.clear PERMISSIONS
+
+  .labels-x
+    .controls
+      =form.submit 'Update', :class => 'button'
 
