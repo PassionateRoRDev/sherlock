@@ -95,7 +95,11 @@ class Video < ActiveRecord::Base
     formats.each do |format|      
       unless self.path == path_for_format(format)        
         new_video_path = full_path_for_format(format)
-        command = "ffmpeg -i #{video_path} -deinterlace -ar 44100 -y -r 25 -qmin 3 -qmax 6 #{new_video_path}"
+        extra_flags = ''
+        if format == :m4v
+          extra_flags += ' -vprofile baseline'
+        end
+        command = "ffmpeg -i #{video_path} #{extra_flags} -strict experimental -deinterlace -ar 44100 -y -r 25 -qmin 3 -qmax 6 #{new_video_path}"
         Rails::logger.debug("Recode command: " + command)
         `#{command}`      
       end
