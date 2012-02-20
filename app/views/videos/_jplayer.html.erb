@@ -1,9 +1,13 @@
-<div id="jp_container_<%= video.id %>" class="jp-video jp-video-270p">
+
+<div id="jp_container_<%= video.id %>" class="jp-video" 
+     style="width:<%= video.online_dims[0] %>px;position:relative;">
   <div class="jp-type-single">
     <div class="jp-jplayer"></div>
     <div class="jp-gui">
       <div class="jp-video-play">
-              <a href="javascript:;" class="jp-video-play-icon" tabindex="1">play</a>
+        <a href="javascript:;" class="jp-video-play-icon" 
+           style="margin-top:0;position:absolute;top:<%= video.online_dims[1] / 2 - 50 %>px;"
+           tabindex="1">play</a>
       </div>
                 <div class="jp-interface">
 
@@ -59,8 +63,7 @@ $(function() {
   $(".jp-jplayer", ancestor).jPlayer({
     cssSelectorAncestor: ancestor,
     ready: function () {
-      $(this).jPlayer("setMedia", {
-              
+      $(this).jPlayer("setMedia", {              
               //m4v: "http://www.jplayer.org/video/m4v/Big_Buck_Bunny_Trailer.m4v",   
               //ogv: "http://www.jplayer.org/video/ogv/Big_Buck_Bunny_Trailer.ogv",
               //webmv: "http://www.jplayer.org/video/webm/Big_Buck_Bunny_Trailer.webm",
@@ -71,6 +74,11 @@ $(function() {
               poster: '<%= file_path('videos', video.thumbnail) %>'
       });
     },        
+    size: {
+      width: '<%= video.online_dims[0] %>px',
+      height: '<%= video.online_dims[1] %>px',
+      cssClass: 'sherlock-jplayer'
+    },    
     swfPath: "/javascript/",
     //supplied: "webmv, ogv, m4v"
     //supplied: 'flv, m4v, ogv'

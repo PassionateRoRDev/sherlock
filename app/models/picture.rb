@@ -19,12 +19,12 @@ class Picture < ActiveRecord::Base
       dims[1] = dims[0] / ratio
     end
     
-    if dims[1] > max_dims[1]
+    if (dims[1] > max_dims[1]) && (max_dims[1] > 0)
       dims[1] = max_dims[1]
       dims[0] = dims[1] * ratio
     end
     
-    dims
+    [ dims[0].round, dims[1].round ]
     
   end
   
@@ -49,6 +49,11 @@ class Picture < ActiveRecord::Base
     options[:except] += [:original_filename, :content_type]
     result = super(options)        
     result['caption'] = result['title']
+    
+    dims = Dimensions.dimensions(full_filepath)
+    result['width'] = dims[0]
+    result['height'] = dims[1]
+    
     result
   end 
  

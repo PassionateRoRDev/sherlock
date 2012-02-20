@@ -18,27 +18,43 @@ class Video < ActiveRecord::Base
     self.thumbnail_pos.blank? ? :manual : :auto
   end
   
+  def width_for_display(max_width)    
+    width > max_width ? max_width : width
+  end  
+  
+  def online_dims
+    max_width = 750
+    min_width = 450
+    result = Picture.scale_to_bounds([width, height], [max_width, 0])
+    ratio = (0.0 + result[1]) / result[0]
+    if result[0] < min_width
+      result[0] = min_width
+      result[1] = (ratio * result[0]).round
+    end
+    result
+  end
+  
   def self.store_thumbnail(author_id, video_filename, thumbnail_upload)
     
     thumbnail_upload.original_filename =~ /([^.]+)$/
     thumbnail_ext = $1
     thumbnail_filename = video_filename.sub(/([^.]+)$/, thumbnail_ext)
     #Rails::logger.debug('Thumbnail filename will be: ' + thumbnail_filename)
-    full_thumbnail_path = FileAsset::dir_for_author(author_id, 'videos') + 
+    full_thumb_path = FileAsset::dir_for_author(author_id, 'videos') + 
                           '/' + thumbnail_filename
-    #Rails::logger.debug('Saving video thumbnail at ' + full_thumbnail_path)
-    File.open(full_thumbnail_path, 'wb') {|f| f.write(thumbnail_upload.read) }
+    #Rails::logger.debug('Saving video thumbnail at ' + full_thumb_path)
+    File.open(full_thumb_path, 'wb') {|f| f.write(thumbnail_upload.read) }
     
-    thumbnail_dims = Dimensions.dimensions(full_thumbnail_path)
+    thumbnail_dims = Dimensions.dimensions(full_thumb_path)
     
     {
       :filename => thumbnail_filename,
-      :path     => full_thumbnail_path,
+      :path     => full_thumb_path,
       :width    => thumbnail_dims[0],
       :height   => thumbnail_dims[1]
     }
   end
-  
+    
   def self.extract_thumbnail_from_movie(author_id, video_filename, thumb_timecode)
     
     Rails::logger.debug("extract_thumbnail_from_movie: " + author_id.to_s + ", " + video_filename)
@@ -47,23 +63,23 @@ class Video < ActiveRecord::Base
     thumbnail_ext = 'png'
     thumbnail_filename = video_filename.sub(/([^.]+)$/, thumbnail_ext)
     
-    full_thumbnail_path = dir + thumbnail_filename      
+    full_thumb_path = dir + thumbnail_filename      
     full_video_path = dir + video_filename
     
     timecode = thumb_timecode || 1
     
     command = "ffmpeg -vframes 1 -i #{full_video_path} -ss #{timecode} " +
-              " -f image2 #{full_thumbnail_path} 2>/dev/null"
+              " -f image2 #{full_thumb_path} 2>/dev/null"
     
     Rails::logger.debug("Command is: " + command)
     result = `#{command}`
     Rails::logger.debug("Result of the command: " + result)    
     
-    thumbnail_dims = Dimensions.dimensions(full_thumbnail_path)
+    thumbnail_dims = Dimensions.dimensions(full_thumb_path)
     
     {
       :filename => thumbnail_filename,
-      :path     => full_thumbnail_path,
+      :path     => full_thumb_path,
       :width    => thumbnail_dims[0],
       :height   => thumbnail_dims[1]
     }    
@@ -73,6 +89,10 @@ class Video < ActiveRecord::Base
   def self.store(author, upload_info)        
     FileAsset::store_for_type(author, upload_info, 'videos')                
   end
+  
+  def full_thumbnail_path
+    filepath_for_type_and_filename(file_type, thumbnail)    
+  end  
   
   def path_for_format(format)
     self.path.sub(/([^.]+)$/, format.to_s)
