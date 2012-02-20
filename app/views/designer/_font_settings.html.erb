@@ -3,22 +3,43 @@
     <div class="rightbox">
         <div class="line">
           <div class="lineleft">Font</div>
-          <div class="styled-select1">                  
+          <div class="styled-select1 font-face">   
             <%= f.select :font_face, font_face_options, 
                 :class => :listtxt %>                                    
           </div>
         </div>
         <div class="line">
           <div class="lineleft">Size </div>
-          <div class="styled-select2">
+          <div class="styled-select2 font-size">
             <%= f.select :font_size, font_size_options, :class => :listtxt2 %>
           </div>
         </div>
         <div class="linelast">
           <div class="lineleft"> Color </div>
-          <div class="lineright">
+          <div class="lineright font-color">
             <%= f.text_field :font_color, :class => :simple_color %>                  
           </div>
         </div>
       </div>        
 </div>
+
+<script type="text/javascript">
+  $(function() {
+    $('.font-color .simple_color').change(function() {
+      //var color = $(this).val();
+      //alert(color);
+    });
+    $('.font-size select').change(function() {
+      var size = $(this).val();
+      var parent = $(this).parents('.box-cont:first');
+      var textarea = $('textarea', parent);
+      textarea.css('font-size', size + 'px');
+    });
+    $('.font-face select').change(function() {
+      var font_face = $(this).val();
+      var parent = $(this).parents('.box-cont:first');
+      var textarea = $('textarea', parent);
+      textarea.css('font-family', font_face);
+    });
+  });
+</script>

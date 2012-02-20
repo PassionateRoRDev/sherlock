@@ -12,7 +12,11 @@ class Letterhead < ActiveRecord::Base
   def is_link
     self.link.to_s != ''
   end
-      
+
+  def lines_count
+    self.contents.to_s.lines.count
+  end
+  
   def as_json(options = {})
 
     result = super(options)
@@ -21,7 +25,7 @@ class Letterhead < ActiveRecord::Base
     
     if options[:camelize]      
       result.keys.each { |k| result[k.to_s.camelize(:lower)] = result[k] }      
-    end
+    end        
     
     if divider_above
       result[:divider] = {
