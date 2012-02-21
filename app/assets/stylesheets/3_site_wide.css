@@ -1,5 +1,6 @@
 body {
     text-align: center;
+    margin-top: 40px;
 }
 
 .container {
@@ -241,7 +242,7 @@ textarea.rich {
 .flash-messages .msg, #error_explanation {
     border: 2px solid #DDDDDD;
     margin-bottom: 1em;
-    padding: 0.8em;
+    padding: 0.6em 0.8em;
 }
 
 #error_explanation {
@@ -683,4 +684,12 @@ input.link {
 
 .icon-plus {
     background-position: -408px -96px;
+}
+
+.container-upper .topbar {
+    top:0px;    
+    width: 960px;
+    position: fixed !important;    
+    bottom: auto !important;
+    z-index: 100;
 }

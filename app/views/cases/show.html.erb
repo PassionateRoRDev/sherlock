@@ -45,9 +45,10 @@
 <script type="text/javascript" src="/javascript/jquery.jplayer.min.js"></script>
 
 <div class="blocks-area">
+    
   <% if @case.blocks.empty? %>
     <h3 class="no-blocks-msg">This case doesn't have any blocks yet</h3>
-  <% else %>
+  <% else %>        
     <%= render @case.blocks %>
   <% end %>
     

@@ -86,7 +86,7 @@ class PicturesController < ApplicationController
   private
   
   def resolve_case
-    resolve_case_using_param(:case_id)    
+    resolve_case_using_param(:case_id)
   end
   
 end
