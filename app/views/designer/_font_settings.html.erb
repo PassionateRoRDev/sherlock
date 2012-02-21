@@ -41,5 +41,11 @@
       var textarea = $('textarea', parent);
       textarea.css('font-family', font_face);
     });
+    $('.font-color .simple_color').change(function() {
+      var color = $(this).val();
+      var parent = $(this).parents('.box-cont:first');
+      var textarea = $('textarea', parent);
+      textarea.css('color', color);
+    });
   });
 </script>
