@@ -38,7 +38,7 @@ class Picture < ActiveRecord::Base
     
   def width_for_display(max_width)    
     dims = Dimensions.dimensions(full_filepath)
-    dims[0] > max_width ? max_width : dims[0]    
+    dims ? (dims[0] > max_width ? max_width : dims[0]) : 0
   end
     
   def delete_file
