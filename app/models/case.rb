@@ -12,7 +12,7 @@ class Case < ActiveRecord::Base
   has_one :footer
   
   validates :title, :presence => true
-  after_create :author_is_a_viewer
+  #after_create :author_is_a_viewer
 
   def author_is_a_viewer
     self.viewers << self.author

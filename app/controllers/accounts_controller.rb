@@ -11,7 +11,7 @@ class AccountsController < ApplicationController
 
     if( @account.update_attributes( params[:user] ))
       notice = "Information Updated"
-      redirect_to root_path
+      redirect_to root_path, :notice => notice
     else
       render :action => 'show'
     end

@@ -22,7 +22,7 @@ class User < ActiveRecord::Base
   end
   
   def cases
-    authored_cases + viewable_cases
+    (authored_cases + viewable_cases).uniq
   end
     
   def invited?

@@ -687,7 +687,7 @@ input.link {
 }
 
 .container-upper .topbar {
-    top:0px;    
+    top:2px;    
     width: 960px;
     position: fixed !important;    
     bottom: auto !important;

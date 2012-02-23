@@ -31,13 +31,14 @@
         if (container.html() == '') {
           var post_url = '<%= case_pictures_url(@case) %>';          
           var token = $('meta[name=csrf-token]').attr('content');
-          var code = '<applet archive="<%= root_url %>/SherlockScreen.jar?v=' + new Date().valueOf() + '" ' +
+          var code = '<applet archive="<%= root_url %>SherlockScreen.jar?v=' + new Date().valueOf() + '" ' +
             'code="sherlockscreen.SherlockScreen.class" ' +
             'width="300" height="60" MAYSCRIPT>' +        
             '<param name="token" value="' + token + '"/>' +
             '<param name="cookie" value="<%= @cookie %>"/>' +
             '<param name="insert_before_id" value="<%= @insert_before_id %>"/>' +
             '<param name="post_url" value="' + post_url + '"/>'+
+            '<param name="editor_url" value="<%= root_url %>SherlockEditor.jar"/>'+
             '</applet>';      
           container.html(code);        
           container.show();
