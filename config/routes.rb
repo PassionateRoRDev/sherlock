@@ -18,6 +18,8 @@ Sherlock::Application.routes.draw do
  
   get 'cases/preview/:id' => 'cases#preview', :as => :case_preview
   
+  get 'pricing' => 'home#pricing', :as => :pricing
+  
   resources :blocks
   
   match 'files/:type/:filename' => 'files#show',
