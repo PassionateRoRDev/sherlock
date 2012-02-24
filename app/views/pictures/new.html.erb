@@ -25,8 +25,30 @@
     }
   
     $(function() {
-      $('#btn-screen-capture').click(function() {
-                
+      
+      var url_base_redirect = '<%= url_for case_pictures_path(@case) %>';
+      var url_check = '<%= url_for case_picture_path(@case, @picture.unique_code, :format => :js) %>';
+      var settings = {
+        cache: false,
+        dataType: 'json',
+        success: function(data) {     
+          if (data) {
+            var url_redirect = url_base_redirect + '/' + data.id + '/edit';
+            location.href = url_redirect;            
+          } else {
+            setTimeout(checkImage, 2000);
+          }
+        }
+      };
+      
+      function checkImage()
+      {
+        $.ajax(url_check, settings);
+      }
+      
+      checkImage();
+      
+      $('#btn-screen-capture').click(function() {                
         var container = $('#appletContainer');
         if (container.html() == '') {
           var post_url = '<%= case_pictures_url(@case) %>';          
@@ -35,6 +57,7 @@
             'code="sherlockscreen.SherlockScreen.class" ' +
             'width="300" height="60" MAYSCRIPT>' +        
             '<param name="token" value="' + token + '"/>' +
+            '<param name="unique_code" value="<%= @picture.unique_code %>"/>' +
             '<param name="cookie" value="<%= @cookie %>"/>' +
             '<param name="insert_before_id" value="<%= @insert_before_id %>"/>' +
             '<param name="post_url" value="' + post_url + '"/>'+            
