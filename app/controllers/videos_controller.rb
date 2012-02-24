@@ -68,7 +68,7 @@ class VideosController < ApplicationController
     
     respond_to do |format|
       if (@video.save) 
-        @video.recode_to_flv
+        @video.recode_to [:flv, :m4v]        
         format.html { redirect_to(@case, :notice => 'Video block has been added') }
       else  
         format.html { render :action => 'new' }
@@ -103,7 +103,7 @@ class VideosController < ApplicationController
           @video.delete_file
           @video.path = video_filename
           @video.rename_thumbnail if @video.thumbnail
-          @video.recode_to_flv
+          @video.recode_to [:flv, :m4v]   
           @video.save
         end
         

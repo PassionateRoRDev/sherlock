@@ -2,14 +2,30 @@
   <div class="leftbox"><%= label %> Text</div>
   <div class="rightbox">
     <div class="line">
-      <%= f.text_area :contents, :class => :areatxt %>            
+      <%= f.text_area :contents, :class => :areatxt, 
+        :style => 'text-align:' + f.object.text_align + ';' +
+                  'height:' + ( (f.object.font_size + 7) * f.object.lines_count).to_s + 'px;' +
+                  'font-size:' + f.object.font_size.to_s + 'px;' +
+                  'font-family:' + f.object.font_face + ';' + 
+                  'background-color:' + f.object.bgcolor + ';' +
+                  'color:' + f.object.font_color + ';' %>            
     </div>
-
     <div class="linelast">
       <div class="lineleft2">Align Text </div>
-      <div class="styled-select2">
-        <%= f.select :text_align, text_align_options, :class => :listtxt2 %>              
+      <div class="styled-select2 text-align">
+        <%= f.select :text_align, text_align_options, :class => :listtxt2 %>        
       </div>
     </div>
   </div>
 </div>
+
+<script type="text/javascript">
+$(function() {  
+    $('.text-align select').change(function() {
+      var parent = $(this).parents('.set-one:first');
+      var alignment = $(this).val();
+      var textarea = $('textarea', parent);
+      textarea.css('text-align', alignment);
+  });
+});
+</script>

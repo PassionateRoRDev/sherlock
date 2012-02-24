@@ -21,10 +21,8 @@
   <% end %>
     
   <%= link_to 'Delete', block, 
-               :confirm => 'Are you sure you want to remove this block?', 
-               :method => :delete if false %>
-    <%= link_to 'Delete', block, 
-               :confirm => 'Are you sure you want to remove this block?', 
+               :confirm => 'Are you sure you want to remove this block?',
+               :class  => 'remote-block-delete',
                :remote => true,
                :method => :delete %>
   </div>

@@ -8,7 +8,7 @@
     s1.addParam("allowfullscreen","false");
     s1.addVariable("width", width);
     s1.addVariable("height", height);
-    s1.addVariable("file","<%= file_path('videos', video.flv_path) %>");        
+    s1.addVariable("file","<%= file_path('videos', video.flv_path) %>");
     s1.write("video-container-<%= video.id %>");
   });
 </script>

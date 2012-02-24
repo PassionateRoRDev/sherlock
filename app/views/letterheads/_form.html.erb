@@ -99,26 +99,43 @@
                 <div class="lineleft3">
                   <div class="lineleft-txt">Upload an image</div>
                   <div class="lineleft-txt1">For best results upload a 900 x 630 JPG or PNG.</div>
-                  <div class="lineleft-txt2">                    
+                  <div class="lineleft-txt2">
                     
-                    <%= file_field 'upload', 'logo' %>
+                    <div style="margin-top:4em;">
                     
-                    <div class="textfield1" style="float:left;">
-                      <input class="txtfield" name="" type="text" />
+                    <label for="upload_logo" 
+                           style="line-height:28px;width:100px;">Select Image :</label>                    
+                    <span class="btn fileinput-button">
+                      <%= file_field 'upload', 'logo', 
+                          :title => 'Select image file to be uploaded' %>                      
+                      <span>
+                        <i class="icon-plus icon-white"></i>
+                        Browse...
+                      </span>
+                    </span>
+                    
+                    <% if f.object.logo %>
+                    
+                      <%= link_to 'Remove Logo', f.object.logo, 
+                          :confirm => 'Are you sure you want to remove the logo?', 
+                          :class  => 'link-remove-logo',
+                          :remote => true,
+                          :method => :delete %>
+                    
+                    <% end %>
+                      
                     </div>
-                    <div class="btn" style="float:right;">
-                      <a href="#" class="button">Browse</a>
-                    </div>                   
+                                        
                   </div>
                 </div>
                 <div class="rightbox2">
-                  <%= image_tag 'letterhead_img.jpg' %>                  
+                  <div class="image-wrapper">                    
+                    <% if f.object.logo %>                    
+                      <%= image_tag_constrained(f.object.logo, [170, 120]) %>
+                    <% end %>                    
+                  </div>
                 </div>
-              </div>
-              
-              <% if f.object.logo_path %>
-                <img src="<%= url_for file_path('logos', f.object.logo_path) %>"/>              
-              <% end %>
+              </div>                            
               
             </div>
           </div>        

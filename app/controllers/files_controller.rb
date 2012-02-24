@@ -12,6 +12,9 @@ class FilesController < ApplicationController
     
     user = current_user
     path = "#{Rails.root}/files/#{user.id}/#{type}/" + filename
+    
+    logger.debug("Path: " + path)
+    
     return redirect_to root_path unless File.exists?(path)
     
     options = {}
@@ -23,14 +26,35 @@ class FilesController < ApplicationController
       asset = user.pictures.find_by_path(filename)
     when 'videos'
       asset = user.videos.find_by_path(filename)
+      unless asset
+        # try based on the file extension
+        filename =~ /([^.]+)$/
+        Rails::logger.debug('Extension:')
+        Rails::logger.debug($1)
+        case $1
+        when 'ogv'
+          options[:content_type] = 'video/ogg'
+          options[:disposition] = 'inline'        
+        when 'flv'
+          options[:content_type] = 'video/x-flv'
+          options[:disposition] = 'inline'
+        when 'm4v'
+          options[:content_type] = 'video/mp4'
+          #options[:disposition] = 'inline'
+        when 'mp4'
+          options[:content_type] = 'video/mp4'        
+        end    
+      end
     when 'logos'
-      asset = user.logos.select { |logo| logo.path == filename }.first
+      asset = user.logos.find_by_path(filename)
     end
     
     if asset    
       options[:content_type]  = asset.content_type if asset && asset.content_type
       options[:disposition]   = 'inline'
     end
+    
+    Rails::logger.debug(options)
     
     send_file(path, options)
         

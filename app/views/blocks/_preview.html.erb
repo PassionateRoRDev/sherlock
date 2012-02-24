@@ -15,10 +15,13 @@
 
 <% if block.video %>
   <div class="video-block">
+    <%= render 'videos/jplayer', :video => block.video %>
+    <!--
     <img src="<%= url_for file_path('videos', block.video.thumbnail) %>"
          title="<%= block.video.title %>"
          width="<%= block.video.width %>"
          height="<%= block.video.height %>"/>
     <h4>Video: <%= block.video.title %></h4>
+    -->
   </div>
 <% end %>

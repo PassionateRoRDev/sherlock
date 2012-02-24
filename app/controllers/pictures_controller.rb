@@ -6,13 +6,13 @@ class PicturesController < ApplicationController
   # Note: we may want to remove it, if this controller will also be
   #       used to upload pictures unlinked with any blocks/cases
   #
-  before_filter :resolve_case, :only => [ :new, :edit, :update, :create ]
+  before_filter :resolve_case, :only => [ :new, :edit, :show, :update, :create ]
   
   def new
     
     block = Block.new
     block.case = @case
-    @picture  = Picture.new(:block => block)    
+    @picture  = Picture.generate(block)         
     @insert_before_id = params[:insert_before_id].to_i
     
     @cookie = cookies['_sherlock_session']
@@ -52,6 +52,13 @@ class PicturesController < ApplicationController
     
   end
   
+  def show
+    @picture = @case.pictures.find_by_unique_code(params[:id])
+    respond_to do |format|
+      format.js { render :json => @picture }
+    end
+  end
+  
   def update
     
     @picture = @case.pictures.find_by_id(params[:id])    
@@ -86,7 +93,7 @@ class PicturesController < ApplicationController
   private
   
   def resolve_case
-    resolve_case_using_param(:case_id)    
+    resolve_case_using_param(:case_id)
   end
   
 end

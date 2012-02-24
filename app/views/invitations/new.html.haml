@@ -3,15 +3,16 @@
 =form_for @invitation, :url => case_invitations_path( @invitation.case_id ) do |form|
   .field.email.required
     =form.label :email, 'Client Email'
-    =form.text_field :email
+    .boxfield
+      =form.text_field :email, :class => :txtfield
     -unless form.object.errors[:email].empty?
       .error_message
         =form.object.errors[:email].join(', ')
 
-
   .field.name.required
     =form.label :name, 'Client Name'
-    =form.text_field :name
+    .boxfield
+      =form.text_field :name, :class => :txtfield
     -unless form.object.errors[:name].empty?
       .error_message
         =form.object.errors[:name].join(', ')

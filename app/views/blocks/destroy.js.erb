@@ -3,5 +3,6 @@ var prev = block.prev();
 if (prev.hasClass('form-insert-block-wrapper')) {  
   prev.remove();
 }
+SHERLOCK.utils.hideAjaxLoading();
 block.fadeOut("slow", function() { $(this).remove(); });
 SHERLOCK.utils.flashMessage('notice', 'Block has been removed');

@@ -128,21 +128,6 @@
     width: 162px;
 }
 
-.styled-select2 {
-    background: url(dropdown2.jpg) no-repeat scroll 0 0 transparent;
-    height: 20px;
-    overflow: hidden;
-    width: 72px;
-}
-
-.styled-select3 {
-    background: url(dropdown2.jpg) no-repeat scroll 0 0 transparent;
-    float: left;
-    height: 20px;
-    overflow: hidden;
-    width: 72px;
-}
-
 .styled-select1 select {
     background: none repeat scroll 0 0 transparent;
     border: medium none;
@@ -153,6 +138,13 @@
     width: 200px;
 }
 
+.styled-select2 {
+    background: url(dropdown2.jpg) no-repeat scroll 0 0 transparent;
+    height: 20px;
+    overflow: hidden;
+    width: 72px;
+}
+
 .styled-select2 select {
     background: none repeat scroll 0 0 transparent;
     border: medium none;
@@ -161,6 +153,14 @@
     font-size: 13px;
     height: 20px;
     width: 90px;
+}
+
+.styled-select3 {
+    background: url(dropdown2.jpg) no-repeat scroll 0 0 transparent;
+    float: left;
+    height: 20px;
+    overflow: hidden;
+    width: 72px;
 }
 
 .styled-select3 select {

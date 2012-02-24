@@ -1,8 +1,12 @@
-<h1>
-  <%= link_to 'My Cases', cases_path %> /
+<div class="breadcrumb">
+  <%= link_to 'Dashboard', root_path %> /
+  <%= link_to 'My Cases', cases_path %> / <%= @case.title %>
+</div>
+
+<h1 style="position:relative;">
   <%= @case.title %>
   
-  <div style="float:right;">
+  <div style="position:absolute;bottom:8px;right:0;">
     <small>
     <%= link_to 'Create New Case', new_case_path %> |
     <%= link_to 'Preview', case_preview_path(@case), :class => 'link-preview' %>    |
@@ -21,10 +25,12 @@
   <%= render 'options' %>
 </div>
 
-<div style="clear:both;padding-top:1em;position:relative;">
-  <div class="inbox-hd" style="">Title &amp; Summary</div>
-  <div style="position:absolute;left:355px;top:23px;">
-    <%= link_to 'Edit', edit_case_path(@case) %>
+<div style="clear:both;padding-top:2em;">
+  <div style="position:relative;">
+    <div class="inbox-hd">Title &amp; Summary</div>
+    <div style="position:absolute;left:355px;top:10px;">
+      <%= link_to 'Edit', edit_case_path(@case) %>
+    </div>
   </div>
 </div>
 
@@ -36,13 +42,13 @@
 
 <div class="inbox-hd" style="margin-top:1em;">Blocks</div>
 
-<script type="text/javascript" 
-        src="<%= url_for root_url %>javascript/swfobject.js"></script>
+<script type="text/javascript" src="/javascript/jquery.jplayer.min.js"></script>
 
 <div class="blocks-area">
+    
   <% if @case.blocks.empty? %>
     <h3 class="no-blocks-msg">This case doesn't have any blocks yet</h3>
-  <% else %>
+  <% else %>        
     <%= render @case.blocks %>
   <% end %>
     

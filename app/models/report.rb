@@ -17,7 +17,8 @@ class Report
     
     header_options = {
       :camelize => true,
-      :except => [:id, :user_id, :created_at, :updated_at]
+      :except => [:id, :user_id, :created_at, :updated_at],
+      :include  => [:logo]
     }
     footer_options = {
       :camelize => true,
@@ -37,15 +38,7 @@ class Report
       'case'          => self.case.as_json(options)
     }
   end
-  
-  def postprocess_header_json(json)
-    if json && json[:logo]
-      dims = Dimensions.dimensions(full_filepath)
-      json[:logo][:width]   = dims[0]
-      json[:logo][:height]  = dims[1]
-    end
-  end
-  
+    
   def write_json
     dir = reports_root
     FileUtils.mkdir_p(dir) unless File.directory?(dir)

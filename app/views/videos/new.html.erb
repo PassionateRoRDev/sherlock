@@ -1,8 +1,11 @@
-<h1>
-  <%= link_to 'My Cases', cases_path %> &gt; 
-  <%= link_to @case.title, @case %> &gt;
+<div class="breadcrumb">
+  <%= link_to 'Dashboard', root_path %> /
+  <%= link_to 'My Cases', cases_path %> / 
+  <%= link_to @case.title, @case %> /
   Create a Video Block
-</h1>
+</div>
+
+<h1>Create a Video Block</h1>
 
 <%= render 'form' %>
 

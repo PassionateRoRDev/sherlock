@@ -4,6 +4,7 @@ Sherlock::Application.routes.draw do
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
   
   resources :letterheads
+  resources :logos
   
   resources :cases do
     resources :html_details
@@ -16,6 +17,8 @@ Sherlock::Application.routes.draw do
   resource :account, :only => [:show, :update]
  
   get 'cases/preview/:id' => 'cases#preview', :as => :case_preview
+  
+  get 'pricing' => 'home#pricing', :as => :pricing
   
   resources :blocks
   

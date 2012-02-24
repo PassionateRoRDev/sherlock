@@ -2,4 +2,5 @@ var editable = $('.injected-form').parents('.block-editable-wrapper:first');
 SHERLOCK.cases.removeInjectedForm();
 var updatedHTML = '<%= escape_javascript(render('blocks/editable', :block => @block)) %>';
 editable.html(updatedHTML);
+SHERLOCK.utils.hideAjaxLoading();
 SHERLOCK.utils.flashMessage('notice', 'Text Block has been updated');

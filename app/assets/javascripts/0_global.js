@@ -14,7 +14,39 @@ SHERLOCK.utils.flashMessage = function(clazz, txt) {
         m = $('<div>').addClass('msg').addClass(clazz);
         msgs.append(m);
     }
-    m.html(txt);    
+    m.html(txt);
+    setTimeout(SHERLOCK.utils.hideFlashMessages, 5000);
+};
+
+SHERLOCK.utils.showAjaxError = function() {
+  SHERLOCK.utils.hideAjaxLoading();
+  alert('Request failed, please try again');
+};
+
+SHERLOCK.utils.formAjaxify = function(form) {
+  form.bind('ajax:before', function() {
+    var f = this;
+    // manually copy over TinyMCE contents into the textarea(s)
+    if (tinyMCE) {
+      $('textarea.rich', f).each(function() {
+        var id = $(this).attr('id');
+        if (id) {
+          var ed = tinyMCE.get(id);          
+          if (ed) {            
+            $(this).val(ed.getContent());
+          }
+        }
+      });    
+    }
+    SHERLOCK.utils.showAjaxLoading();
+  });
+  form.bind('ajax:complete', function(e) {    
+  });
+  form.bind('ajax:error', SHERLOCK.utils.showAjaxError);
+};
+
+SHERLOCK.utils.hideFlashMessages = function() {
+    $('.flash-messages .msg').remove();        
 };
 
 SHERLOCK.focusOnField = function(element) {
@@ -50,11 +82,25 @@ SHERLOCK.utils.cookie = function(cookieName) {
 }
 
 SHERLOCK.utils.focusTinyMCE = function(eltId) {
-    if (tinyMCE) {
+    if (tinyMCE) {       
         setTimeout(function() {       
             tinyMCE.execCommand('mceFocus', false, eltId);
-        }, 500);                
+        }, 1000);                
     }
+};
+
+SHERLOCK.utils.showAjaxLoading = function() {
+  var msg = 'Please wait';  
+  $.blockUI({
+    fadeIn: 0,    
+    message: '<div id="ajax-loading"><div>' + msg + '...</div></div>'          
+  });        
+};
+
+SHERLOCK.utils.hideAjaxLoading = function() {
+  $.unblockUI({
+    fadeOut: 0
+  });
 };
 
 SHERLOCK.utils.hintFieldOnBlur = function(inst) {    
@@ -96,7 +142,24 @@ SHERLOCK.utils.initializeAutoHintFields = function() {
 };
 
 $(function() {
+  
+    $.rails.ajax = function(options) {      
+      if (!options.timeout) {
+        options.timeout = 1000 * 10;
+      }      
+      return $.ajax(options);
+    };
+
     SHERLOCK.utils.initializeAutoHintFields();
+    
+    $('.styled-select-rounded-x select').change(function() {
+      this.blur();
+    });
+    
+    $('.styled-select select').change(function() {
+      this.blur();
+    });
+    
 });
 
 

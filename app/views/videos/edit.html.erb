@@ -1,9 +1,13 @@
-<h1>
-  <%= link_to 'My Cases', cases_path %> &gt; 
-  <%= link_to @case.title, @case %> &gt;
-  Edit Video Block
-</h1>
+<script type="text/javascript" src="/javascript/jquery.jplayer.min.js"></script>
 
+<div class="breadcrumb">
+  <%= link_to 'Dashboard', root_path %> /
+  <%= link_to 'My Cases', cases_path %> / 
+  <%= link_to @case.title, @case %> /
+  Edit Video Block  
+</div>
+
+<h1>Edit Video Block</h1>
 
 <script type="text/javascript" 
         src="<%= url_for root_url %>javascript/swfobject.js"></script>

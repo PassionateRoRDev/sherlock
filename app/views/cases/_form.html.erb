@@ -10,8 +10,8 @@
     </div>
   </div>
 
-  <div>    
-      <%= f.label :summary, 'Summary :' %>
+  <div class="field">    
+      <%= f.label :summary, 'Summary :', :class => :inline %>
       <div class="summary">
         <%= f.text_area :summary, :rows => 10 %>
       </div>
@@ -22,7 +22,7 @@
     <% if @case.id %>
       <%= link_to 'Cancel', @case %>
     <% end %>
-  </div>
+  </div>  
 
 <% end %>
   

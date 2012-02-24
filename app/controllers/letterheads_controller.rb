@@ -27,7 +27,17 @@ class LetterheadsController < ApplicationController
   # GET /letterheads/new
   # GET /letterheads/new.json
   def new
-    @letterhead = Letterhead.new
+    
+    if current_user.letterhead
+      return redirect_to edit_letterhead_path(current_user.letterhead) 
+    end
+    
+    @letterhead = Letterhead.new(
+      :all_pages  => true,      
+      :font_color => :black,
+      :font_size  => 20,
+      :divider_color  => :black
+    )
 
     respond_to do |format|
       format.html # new.html.erb
@@ -46,9 +56,12 @@ class LetterheadsController < ApplicationController
     params[:upload] ||= {}
     image = params[:upload]['logo']
     if image
-      params[:letterhead][:logo_content_type] = image.content_type    
-      file_path = Letterhead.store_logo(current_user, image)
-      params[:letterhead][:logo_path] = file_path
+      file_path = Logo.store(current_user, image)
+      params[:letterhead][:logo] = Logo.new(
+          :user         => current_user,
+          :content_type => image.content_type,
+          :path         => file_path
+      )                  
     end      
     
     @letterhead = Letterhead.new(params[:letterhead])
@@ -64,27 +77,17 @@ class LetterheadsController < ApplicationController
       end
     end
   end
-
+    
   # PUT /letterheads/1
   # PUT /letterheads/1.json
   def update
     
-    content_type = nil
-    params[:upload] ||= {}
-    image = params[:upload]['logo']
-    if image
-      content_type = image.content_type      
-    end
-    
     respond_to do |format|
       if @letterhead.update_attributes(params[:letterhead])
-        
-        if image
-          @letterhead.delete_logo
-          @letterhead.logo_path = Letterhead.store_logo(current_user, image)
-          @letterhead.logo_content_type = content_type
-          @letterhead.save
-        end
+    
+        params[:upload] ||= {}
+        image = params[:upload]['logo']        
+        update_logo(image) if image          
         
         format.html { redirect_to edit_letterhead_path(@letterhead), 
                       notice: 'Letterhead was successfully updated.' }
@@ -114,5 +117,16 @@ class LetterheadsController < ApplicationController
     @letterhead = current_user.letterhead || redirect_to(cases_path)
   end
   
+  def update_logo(image)
+    logo = @letterhead.logo
+    if logo
+      logo.delete_file
+    else
+      logo = Logo.new(:letterhead => @letterhead, :user => @letterhead.user)
+    end    
+    logo.path = Logo.store(current_user, image)
+    logo.content_type = image.content_type
+    logo.save
+  end
   
 end

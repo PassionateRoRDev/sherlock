@@ -1,15 +1,17 @@
 <div class="midleft" style="position:relative;">
             
+    <%= form_for caze do |f| %>
+  
     <div class="inbox-hd">
       Page Information
-    </div>   
-  
-    <%= form_for caze do |f| %>
+    </div>    
 
-      <div style="position:absolute;top:8px;right: 10px;">
+      <!--
+      <div style="position:absolute;top:8px;left: 300px;">
         <%= f.submit 'Save', :class => 'link', :title => 'Save Changes' %>
       </div>
-            
+      -->  
+      
       <div class="field">
         <%= f.label :client_name, 'Client Name :' %>
         <div class="boxfield">
@@ -57,27 +59,36 @@
                  title="optional"/>
         </div>
       </div>
+  
+    <div class="actions">
+      <%= f.submit 'Save', :class => 'button', :title => 'Save Page Information' %>
+    </div>
     
     <% end %>
     
     <script type="text/javascript">
-    $('.datepicker').datepicker({
-      beforeShow: function(input, inst) {
-        if ($(input).hasClass('hinted')) {
-          $(input).removeClass('hinted').val('');
-        }        
-      },
-      onClose : function(dateText, inst) {
-        var input = this;
-        if ($(input).hasClass('hint')) {
-          if (dateText == '') {
-            $(input).val($(input).attr('title')).addClass('hinted');
-          } else {
-            //$(input).val(dateText);
+    $(function() {
+      $('.datepicker').datepicker({
+        beforeShow: function(input, inst) {
+          
+          // activate the picker's border color
+          $('#ui-datepicker-div').css('border-color', '#aaaaaa');
+          
+          if ($(input).hasClass('hinted')) {
+            $(input).removeClass('hinted').val('');
+          }        
+        },
+        onClose : function(dateText, inst) {
+          var input = this;
+          if ($(input).hasClass('hint')) {
+            if (dateText == '') {
+              $(input).val($(input).attr('title')).addClass('hinted');
+            } else {
+              //$(input).val(dateText);
+            }
           }
         }
-      }
-    });    
-    </script>
-    
+      });    
+    });
+    </script>    
 </div>

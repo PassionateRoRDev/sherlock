@@ -27,17 +27,24 @@
             border: none;
             margin: auto;
             clear: both;
-        }                        
-          
-        @page {
+        }
+        
+        div#header a, div#footer a {
+            text-decoration: none;
+        }
+        
+        {PAGE_HEADER_SELECTOR} {
             {PAGE_MARGIN_TOP}
             @top-center { 
                 content: element(header);                
             } 
+        }
+        
+        {PAGE_FOOTER_SELECTOR} {            
             @bottom-center { 
                 content: element(footer);
             }
-        }  
+        }                     
         
         </style>
     </head>

@@ -2,24 +2,9 @@ class Letterhead < ActiveRecord::Base
   
   belongs_to :user
   
-  before_destroy :delete_logo
+  has_one :logo
   
-  include FileAsset  
-  
-  def logo    
-    Logo.new(
-      :path         => self.logo_path,
-      :content_type => self.logo_content_type
-    )
-  end
-  
-  def self.store_logo(user, upload_info)    
-    FileAsset::store_for_type(user, upload_info, 'logos')            
-  end
-  
-  def file_type
-    'logos'
-  end
+  accepts_nested_attributes_for :logo
   
   def is_link=(is)    
   end
@@ -27,20 +12,11 @@ class Letterhead < ActiveRecord::Base
   def is_link
     self.link.to_s != ''
   end
-  
-  def path
-    logo_path
-  end
-  
-  # Overrides author_id from FileAsset
-  def author_id
-    self.user.id
-  end
-  
-  def delete_logo
-    delete_file_for_type(file_type)  
-  end
 
+  def lines_count
+    self.contents.to_s.lines.count
+  end
+  
   def as_json(options = {})
 
     result = super(options)
@@ -49,7 +25,7 @@ class Letterhead < ActiveRecord::Base
     
     if options[:camelize]      
       result.keys.each { |k| result[k.to_s.camelize(:lower)] = result[k] }      
-    end
+    end        
     
     if divider_above
       result[:divider] = {
@@ -59,15 +35,15 @@ class Letterhead < ActiveRecord::Base
       }
     end
     
-    if logo_path.present?      
-      dims = File.exists?(full_filepath) ? Dimensions.dimensions(full_filepath) : nil
-      result[:logo] = {
-        :align  => logo_alignment,
-        :path   => logo_path,
-        :width  => dims ? dims[0] : 0,
-        :height => dims ? dims[1] : 1        
-      }
+    if logo
+      dims = logo.dims            
+      result['logo'][:width]  = dims ? dims[0] : 0
+      result['logo'][:height] = dims ? dims[1] : 0      
+      result['logo'][:align] = logo_alignment        
     end
+    
+    Rails::logger.debug('RESULT:')
+    Rails::logger.debug(result)
     
     result
   end

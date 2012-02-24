@@ -2,6 +2,10 @@ class Footer < ActiveRecord::Base
 
   belongs_to :case
 
+  def lines_count
+    self.contents.to_s.lines.count
+  end
+  
   def as_json(options = {})    
     
     result = super(options)

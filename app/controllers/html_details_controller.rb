@@ -23,10 +23,12 @@ class HtmlDetailsController < ApplicationController
     
     respond_to do |format|
       if (@detail.save)        
-        @block = @detail.block        
+        @block = @detail.block
+        logger.debug("Detail saved")
         format.html { redirect_to(@case, :notice => 'New Text Block has been created') }
         format.js
       else  
+        logger.debug("Detail not saved")
         format.html { render :action => 'new' }
       end
     end        
@@ -57,9 +59,7 @@ class HtmlDetailsController < ApplicationController
   private
   
   def resolve_case
-    
-    @case = current_user.cases.find_by_id(params[:case_id]) || 
-      redirect_to(cases_path)      
+    resolve_case_using_param(:case_id)    
   end
   
 end

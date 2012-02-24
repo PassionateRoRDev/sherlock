@@ -21,7 +21,7 @@
   <div class="field-right">
 
     <div style="margin-top:1em;">
-      <%= render 'videos/player', :video => @video %>
+      <%= render 'videos/jplayer', :video => @video %>
     </div>
 
     <div style="margin:1em 0;" id="video-change-block">
@@ -51,7 +51,9 @@
 <h4 class="label">Thumbnail :</h4>
 <div class="field-right">  
   <% if @video.thumbnail %>  
-    <img src="<%= url_for file_path('videos', @video.thumbnail) %>"/> 
+    <img src="<%= url_for file_path('videos', @video.thumbnail) %>"
+         width="<%= @video.online_dims[0] %>"
+         /> 
   <% end %>  
 </div>
 

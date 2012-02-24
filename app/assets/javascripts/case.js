@@ -1,7 +1,7 @@
 
 var SHERLOCK = SHERLOCK || {};
 
-SHERLOCK.ajaxHtmlDo = function(url, success) {
+SHERLOCK.ajaxHtmlDo = function(url, success) {    
     var options = {
         url: url,
         cache: false,
@@ -18,7 +18,7 @@ SHERLOCK.cases.removeInjectedForm = function() {
     f.hide();
     var textarea = $('textarea', f);
     SHERLOCK.utils.removeTinyMCE(textarea.attr('id'));
-    f.remove();
+    f.remove();        
     
     // deselect block type from the lists:
     $('.form-insert-block select').each(function() {
@@ -39,16 +39,28 @@ SHERLOCK.cases.insertBlockBefore = function(insertBefore) {
             url += ('?insert_before_id=' + blockId);            
         }                
         
-        SHERLOCK.ajaxHtmlDo(url, function(responseText, textStatus, XMLHttpRequest) {                        
+        SHERLOCK.utils.showAjaxLoading();
+                
+        SHERLOCK.ajaxHtmlDo(url, function(responseText, textStatus, XMLHttpRequest) {
             var newBlock = $('.blocks-area .new-block');
-            insertBefore.before(newBlock);
+            insertBefore.before(newBlock);            
             newBlock.html(responseText);
-
-            var f = $('.injected-form-new', newBlock);
+            
+            $('.no-blocks-msg').hide();
+            
+            SHERLOCK.utils.hideAjaxLoading();
+            
+            var f = $('.injected-form', newBlock);
             var textarea = $('textarea', f);
+            var form = $('form', f); 
+            SHERLOCK.utils.formAjaxify(form);      
 
-            $('.link-cancel', newBlock).click(
-                SHERLOCK.cases.removeInjectedForm);                                 
+            $('.link-cancel', newBlock).click(function(e) {
+              $('.no-blocks-msg').show();
+              SHERLOCK.cases.removeInjectedForm();
+              return false;
+            });
+                
             SHERLOCK.utils.focusTinyMCE(textarea.attr('id'));                
         });
     }
@@ -56,7 +68,11 @@ SHERLOCK.cases.insertBlockBefore = function(insertBefore) {
 
 $(function() {        
     
-    $('.form-insert-block').submit(function(e) {        
+    $('.remote-block-delete').live('ajax:before', function() {
+      SHERLOCK.utils.showAjaxLoading();
+    });     
+    
+    $('.form-insert-block').live('submit', function(e) {        
         var t = $('select', this).val();
         var wrapper = 
             $(this).parents('.form-insert-block-wrapper:first');
@@ -98,10 +114,18 @@ $(function() {
         var block = $(this).parents('.block:first');
         var exists  = $('.injected-form', block);
         if (!exists.length) {
+            SHERLOCK.utils.showAjaxLoading();
+          
             SHERLOCK.ajaxHtmlDo(url, function(responseText, textStatus, XMLHttpRequest) {
                 var editable = $('.block-editable', block);
                 editable.hide();
                 editable.after(responseText);
+                
+                SHERLOCK.utils.hideAjaxLoading();
+                
+                var form = $('form', '.injected-form');
+                SHERLOCK.utils.formAjaxify(form);                
+                
                 $('.link-cancel', block).click(function() {
                     SHERLOCK.cases.removeInjectedForm();
                     editable.show();

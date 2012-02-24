@@ -1,5 +1,6 @@
 body {
     text-align: center;
+    margin-top: 40px;
 }
 
 .container {
@@ -56,7 +57,7 @@ h1 {
     margin-bottom: 17px;
 }
 
-h1 {
+h1 {    
     margin-bottom: 12px;
 }
 
@@ -77,8 +78,13 @@ ol li {
 }
 
 #top-user-links {
-    font-weight: bold;
+    font-weight: bold;           
+    background-color:green;
+}
+
+#top-user-links .links-list {
     float: right;
+    height: 1.2em;
 }
 
 input, textarea {
@@ -110,6 +116,10 @@ label.vertical {
     width: auto;
 }
 
+.field {
+    margin-bottom: 1em;
+}
+
 .field, .actions {
     clear: both;
 }
@@ -124,13 +134,8 @@ label.vertical {
     width: 500px;
 }
 
-label {
-    width: 130px;
+label {    
     line-height: 28px;
-}
-
-.actions, .field-right {
-    padding-left: 130px;
 }
 
 .actions.no-margin {
@@ -146,12 +151,9 @@ label {
     padding-left: 150px;
 }
 
-.field, .controls {
-  margin-top: 1.5em;
-}
-
-.controls {
-  margin-left: 130px;
+.controls {  
+  clear: both;
+  margin-top: 1.5em;  
 }
 
 span.hidden {
@@ -164,6 +166,13 @@ div.hidden {
 
 .errors-list li, #error_explanation li {
     list-style-type: disc;
+}
+
+.error_message {
+    float:left;
+    color: red;
+    padding-left: 0.5em;
+    line-height: 28px;
 }
 
 .required label:before{
@@ -233,7 +242,7 @@ textarea.rich {
 .flash-messages .msg, #error_explanation {
     border: 2px solid #DDDDDD;
     margin-bottom: 1em;
-    padding: 0.8em;
+    padding: 0.6em 0.8em;
 }
 
 #error_explanation {
@@ -299,7 +308,7 @@ ol.cases h2 {
 
 .midleft {
     float: left;    
-    width: 348px;
+    width: 49%;    
 }
 
 .midright {
@@ -321,10 +330,11 @@ ol.cases h2 {
     margin-bottom: 26px;
 }
 
-.head {
-    float: right;
-    height: 37px;
-    margin-top: 15px;
+.head {    
+    position: absolute;
+    right: 0;
+    height: 37px;    
+    top: 35px;
 }
 
 .headtxt {
@@ -367,21 +377,37 @@ ol.cases h2 {
     padding-bottom: 13px;    
 }
 
-.boxtxt, .boxfield {
-    float: left;
-    height: 28px;
-}
-
 .boxtxt {
+    float: left;
+    height: 38px;   
     color: #397A89;    
     font-family: Arial,Helvetica,sans-serif;
-    font-size: 16px;    
-    width: 130px;
+    font-size: 16px;        
     line-height: 28px;
 }
 
-.boxfield {        
-    width: 218px;
+label, .boxtxt {
+    width: 130px;
+}
+
+.controls, .boxfield {
+    margin-left: 130px;
+}
+
+.actions, .field-right {
+    padding-left: 130px;
+}
+
+.labels-x label, .labels-x .boxtxt {
+    width: 160px;
+}
+
+.labels-x .controls, .labels-x .boxfield {
+    margin-left: 160px;
+}
+
+.labels-x .actions, .labels-x .field-right {
+    padding-left: 160px;
 }
 
 .txtfield {
@@ -423,12 +449,13 @@ input.button {
     cursor: pointer;
     width: 94px;
     height: 28px;
-    border: none;
-    background-image:url(btn.jpg);
+    border: none;   
+    background:url(btn.jpg);    
     font-size: 14px;
     color: #fff;
 }
 
+span.btn,
 a.button {    
     text-decoration: none;
     display: block;
@@ -473,11 +500,29 @@ h4.label {
 
 .styled-select select {
     background: none repeat scroll 0 0 transparent;
-    border: medium none;
+    border: medium none;    
     color: #6D6D6D;
     font-family: Arial,Helvetica,sans-serif;
     font-size: 14px;    
     width: 410px;
+}
+
+.styled-select-rounded-x {
+    background: url(dropdown-218.png) no-repeat scroll 0 0 transparent;
+    height: 28px;
+    overflow: hidden;
+    width: 218px;
+    padding-top: 4px;    
+    padding-left: 5px;    
+}
+
+.styled-select-rounded-x select {
+    background: none repeat scroll 0 0 transparent;
+    border: medium none;    
+    color: #6D6D6D;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 14px;    
+    width: 233px;    
 }
 
 .form-insert-block-wrapper {
@@ -555,6 +600,10 @@ input.link {
 .simpleColorContainer {    
 }
 
+.clear {
+  clear: both;
+}
+
 .left {
     float: left;
 }
@@ -568,3 +617,79 @@ input.link {
     line-height: 14px;
 }
 
+/* reset the picker's border color to eliminate the weird initial effect 
+   (small rectangle shows up) */
+#ui-datepicker-div {
+    border-color: transparent;
+}
+
+.image-wrapper {
+    position: relative;
+    width: 186px;
+    height: 127px;
+    background:url(letterhead_img.jpg);
+}
+
+.breadcrumb {
+    background-color: #FBFBFB;
+    background-image: -moz-linear-gradient(center top , #FFFFFF, #F5F5F5);
+    background-repeat: repeat-x;
+    border: 1px solid #DDDDDD;
+    border-radius: 3px 3px 3px 3px;
+    box-shadow: 0 1px 0 #FFFFFF inset;
+    margin: 10px 0 0 0;
+    padding: 7px 14px;
+}
+
+.breadcrumb a {
+    text-decoration: none;
+}
+
+.fileinput-button {
+  position: relative;
+  overflow: hidden;
+  float: left;
+  margin-right: 4px;
+}
+
+.fileinput-button input {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0;
+  border: solid transparent;
+  border-width: 0 0 100px 200px;
+  opacity: 0;
+  filter: alpha(opacity=0);
+  -moz-transform: translate(-300px, 0) scale(4);
+  direction: ltr;
+  cursor: pointer;
+}
+
+.icon {
+    width: 14px;
+    height: 14px;
+    background-repeat: no-repeat;    
+    background-image: url(glyphicons-halflings.png);
+}
+
+.icon-white {
+    background-image: url(glyphicons-halflings-white.png);
+    
+}
+
+.icon-trash {
+    background-position: -456px 0;
+}
+
+.icon-plus {
+    background-position: -408px -96px;
+}
+
+.container-upper .topbar {
+    top:2px;    
+    width: 960px;
+    position: fixed !important;    
+    bottom: auto !important;
+    z-index: 100;
+}
