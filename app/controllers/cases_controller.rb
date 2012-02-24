@@ -30,7 +30,7 @@ class CasesController < ApplicationController
   
   def show        
     respond_to do |format|
-      format.xml { render :xml => @case }
+      #format.xml { render :xml => @case }
       format.html      
       format.pdf { render_pdf2(@case) }
       format.js { render :json => @case }
