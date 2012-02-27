@@ -1,6 +1,8 @@
 # RailsAdmin config file. Generated on January 18, 2012 11:51
 # See github.com/sferik/rails_admin for more informations
 
+class RailsAdmin::AccessDenied < Exception; end;
+
 RailsAdmin.config do |config|
 
   # If your default_local is different from :en, uncomment the following 2 lines and set your default locale here:
@@ -8,7 +10,11 @@ RailsAdmin.config do |config|
   # I18n.default_locale = :de
 
   config.current_user_method { current_user } # auto-generated
-  
+
+  config.authorize_with do 
+    raise RailsAdmin::AccessDenied unless current_user.try(:admin?)
+  end
+
   # If you want to track changes on your models:
   # config.audit_with :history, User
   
