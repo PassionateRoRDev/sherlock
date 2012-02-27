@@ -68,8 +68,6 @@ class Picture < ActiveRecord::Base
     result
   end
   
-  private 
-  
   def self.generate_unique_code
     len = 10
     code = ''
@@ -78,6 +76,8 @@ class Picture < ActiveRecord::Base
     end
     code    
   end
+  
+  private
   
   def self.generate_random_code(len)
     (0...len).map{ ('a'..'z').to_a[rand(26)] }.join
