@@ -8,8 +8,7 @@
 <h1>Create a Picture Block</h1>
 
 <%= render 'form' %>
-
-<div id="appletContainer" style="display:none;height:60px;"></div>
+<%= render 'applet_container' %>
 
 <script type="text/javascript">
   $(function() {
@@ -17,55 +16,3 @@
   });
 </script>
 
-<script type="text/javascript">
-  
-    function captureDone()
-    {
-      alert('Capture done!');
-    }
-  
-    $(function() {
-      
-      var url_base_redirect = '<%= url_for case_pictures_path(@case) %>';
-      var url_check = '<%= url_for case_picture_path(@case, @picture.unique_code, :format => :js) %>';
-      var settings = {
-        cache: false,
-        dataType: 'json',
-        success: function(data) {     
-          if (data) {
-            var url_redirect = url_base_redirect + '/' + data.id + '/edit';
-            location.href = url_redirect;            
-          } else {
-            setTimeout(checkImage, 2000);
-          }
-        }
-      };
-      
-      function checkImage()
-      {
-        $.ajax(url_check, settings);
-      }
-      
-      checkImage();
-      
-      $('#btn-screen-capture').click(function() {                
-        var container = $('#appletContainer');
-        if (container.html() == '') {
-          var post_url = '<%= case_pictures_url(@case) %>';          
-          var token = $('meta[name=csrf-token]').attr('content');
-          var code = '<applet archive="<%= root_url %>SherlockScreen.jar?v=' + new Date().valueOf() + '" ' +
-            'code="sherlockscreen.SherlockScreen.class" ' +
-            'width="300" height="60" MAYSCRIPT>' +        
-            '<param name="token" value="' + token + '"/>' +
-            '<param name="unique_code" value="<%= @picture.unique_code %>"/>' +
-            '<param name="cookie" value="<%= @cookie %>"/>' +
-            '<param name="insert_before_id" value="<%= @insert_before_id %>"/>' +
-            '<param name="post_url" value="' + post_url + '"/>'+            
-            '<param name="editor_url" value="<%= root_url %>SherlockEditor.jar"/>'+            
-            '</applet>';      
-          container.html(code);        
-          container.show();
-         }
-      });      
-    });        
-    </script>

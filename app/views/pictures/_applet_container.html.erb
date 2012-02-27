@@ -1,0 +1,71 @@
+
+<div id="appletContainer" style="display:none;height:60px;"></div>
+
+<script type="text/javascript">
+  
+    $(function() {      
+      
+      function normalizeDate(s)
+      {
+        s = ('' + s).replace(/[^0-9]/g, '');
+        return s;
+      }
+      
+      var pic_path = '<%= url_for file_path('pictures', 'DUMMY') %>';      
+      
+      var picture_id = <%= @picture.id.to_i %>;
+      var url_base_redirect = '<%= url_for case_pictures_path(@case) %>';
+      var url_check = '<%= url_for case_picture_path(@case, @picture.unique_code, :format => :js) %>';
+      var updated_at = normalizeDate('<%= @picture.updated_at %>');
+      var settings = {
+        cache: false,
+        dataType: 'json',
+        success: function(data) {
+          if (data && (normalizeDate(data.updated_at) != updated_at)) {
+            
+            if (picture_id) {
+              pic_path = pic_path.replace(/DUMMY$/, data.path);
+            } else {              
+            }
+            var url_redirect = url_base_redirect + '/' + data.id + '/edit';
+            location.href = url_redirect;            
+          } else {
+            setTimeout(checkImage, 2000);
+          }
+        }
+      };
+      
+      function checkImage()
+      {
+        $.ajax(url_check, settings);
+      }
+      
+      $('#btn-screen-capture').click(function() {           
+        var container = $('#appletContainer');
+        if (container.html() == '') {
+          <% if @picture.id %>
+          var post_url = '<%= case_picture_url(@case, @picture) %>';
+          <% else %>
+          var post_url = '<%= case_pictures_url(@case) %>';
+          <% end %>
+          var token = $('meta[name=csrf-token]').attr('content');
+          var code = '<applet archive="<%= root_url %>SherlockScreen.jar?v=' + new Date().valueOf() + '" ' +
+            'code="sherlockscreen.SherlockScreen.class" ' +
+            'width="300" height="60" MAYSCRIPT>' +        
+            '<param name="token" value="' + token + '"/>' +
+            '<param name="unique_code" value="<%= @picture.unique_code %>"/>' +
+            '<param name="cookie" value="<%= @cookie %>"/>' +            
+            '<param name="insert_before_id" value="<%= @insert_before_id %>"/>' +
+            '<param name="post_url" value="' + post_url + '"/>'+            
+            '<param name="editor_url" value="<%= root_url %>SherlockEditor.jar"/>'+            
+            '<param name="picture_id" value="<%= @picture.id.to_i %>"/>' +
+            '</applet>';      
+          container.html(code);        
+          container.show();
+          
+          checkImage();
+          
+         }
+      });      
+    });        
+</script>

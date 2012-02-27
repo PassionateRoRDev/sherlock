@@ -47,7 +47,9 @@ class PicturesController < ApplicationController
   end
   
   def edit
+    @insert_before_id = 0
     @picture = @case.pictures.find_by_id(params[:id])
+    @cookie = cookies['_sherlock_session']
     redirect_to cases_path unless @picture
     
   end
