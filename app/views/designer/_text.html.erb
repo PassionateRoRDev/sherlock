@@ -4,7 +4,7 @@
     <div class="line">
       <%= f.text_area :contents, :class => :areatxt, 
         :style => 'text-align:' + f.object.text_align + ';' +
-                  'height:' + ( (f.object.font_size * 1.4) * (f.object.lines_count + 1)).to_s + 'px;' +
+                  'height:' +  initial_text_size(f.object).to_s + 'px;' +
                   'font-size:' + f.object.font_size.to_s + 'px;' +
                   'font-family:' + f.object.font_face.to_s + ';' + 
                   'background-color:' + f.object.bgcolor.to_s + ';' +
