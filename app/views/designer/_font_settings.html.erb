@@ -30,10 +30,20 @@
       //alert(color);
     });
     $('.font-size select').change(function() {
-      var size = $(this).val();
+      var size = parseInt($(this).val());
       var parent = $(this).parents('.box-cont:first');
       var textarea = $('textarea', parent);
-      textarea.css('font-size', size + 'px');
+      var lines = $(textarea).text().split("\n").length;
+      var factor = 1.4;
+      var lineHeight = size * factor;
+      var height = Math.round(lineHeight * (lines + 1));
+      textarea.css({
+       'font-size': size + 'px',
+       'height': height + 'px'
+      });
+      textarea.autoResize({
+        extraSpace: Math.round(lineHeight)
+      });
     });
     $('.font-face select').change(function() {
       var font_face = $(this).val();

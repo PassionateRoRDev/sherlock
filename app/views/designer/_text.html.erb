@@ -4,11 +4,11 @@
     <div class="line">
       <%= f.text_area :contents, :class => :areatxt, 
         :style => 'text-align:' + f.object.text_align + ';' +
-                  'height:' + ( (f.object.font_size + 7) * f.object.lines_count).to_s + 'px;' +
+                  'height:' + ( (f.object.font_size * 1.4) * (f.object.lines_count + 1)).to_s + 'px;' +
                   'font-size:' + f.object.font_size.to_s + 'px;' +
-                  'font-family:' + f.object.font_face + ';' + 
-                  'background-color:' + f.object.bgcolor + ';' +
-                  'color:' + f.object.font_color + ';' %>            
+                  'font-family:' + f.object.font_face.to_s + ';' + 
+                  'background-color:' + f.object.bgcolor.to_s + ';' +
+                  'color:' + f.object.font_color.to_s + ';' %>            
     </div>
     <div class="linelast">
       <div class="lineleft2">Align Text </div>
@@ -20,12 +20,16 @@
 </div>
 
 <script type="text/javascript">
-$(function() {  
+$(function() {    
+    var textarea = $('#<%= name %>_contents');    
+    $('textarea').autoResize({
+      extraSpace: <%= (f.object.font_size * 1.4).to_i %>
+    });    
     $('.text-align select').change(function() {
       var parent = $(this).parents('.set-one:first');
       var alignment = $(this).val();
-      var textarea = $('textarea', parent);
-      textarea.css('text-align', alignment);
+      textarea = $('textarea', parent);
+      textarea.css('text-align', alignment);      
   });
 });
 </script>

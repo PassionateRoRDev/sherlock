@@ -32,7 +32,10 @@ class FootersController < ApplicationController
     @footer = Footer.new(
       :all_pages => true, 
       :case => @case, 
+      :font_size => 15,
+      :font_face => :arial,
       :font_color => :black,
+      :bgcolor  => :white,
       :divider_color  => :black
     )  
 
