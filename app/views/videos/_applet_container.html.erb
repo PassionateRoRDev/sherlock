@@ -23,7 +23,7 @@
         success: function(data) {
           if (data && (normalizeDate(data.updated_at) != updated_at)) {
             
-            if (picture_id) {
+            if (video_id) {
               video_path = video_path.replace(/DUMMY$/, data.path);
             } else {              
             }
@@ -64,7 +64,7 @@
           container.html(code);        
           container.show();
           
-          checkImage();
+          checkVideo();
           
          }
       });      

@@ -36,6 +36,10 @@ class VideosController < ApplicationController
       params[:video][:content_type]      = video.content_type    
 
       video_filename = Video.store(current_user, video)
+      
+      video_filename = Video.encode(current_user.id, video_filename) if
+        video_filename.end_with?('zip')
+      
       params[:video][:path] = video_filename
 
       # store thumbnail or automatically generate a new one:
@@ -108,7 +112,11 @@ class VideosController < ApplicationController
       if @video.update_attributes(params[:video])
         video = params[:upload] ? params[:upload]['video'] : nil
         if video
-          video_filename = Video.store(current_user, video)                    
+          video_filename = Video.store(current_user, video)
+          
+          video_filename = Video.encode(current_user.id, video_filename) if
+            video_filename.end_with?('zip')      
+          
           @video.delete_file
           @video.path = video_filename
           @video.rename_thumbnail if @video.thumbnail

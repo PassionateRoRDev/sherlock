@@ -1,4 +1,5 @@
 require 'digest/md5'
+require 'zip/zip'
 
 class Video < ActiveRecord::Base
   
@@ -67,8 +68,10 @@ class Video < ActiveRecord::Base
     
     Rails::logger.debug("extract_thumbnail_from_movie: " + author_id.to_s + ", " + video_filename)
     
+    is_zip = video_filename.end_with?('zip')
+    
     dir = FileAsset::dir_for_author(author_id, 'videos') + '/'
-    thumbnail_ext = 'png'
+    thumbnail_ext     = is_zip ? 'jpg' : 'png'    
     thumbnail_filename = video_filename.sub(/([^.]+)$/, thumbnail_ext)
     
     full_thumb_path = dir + thumbnail_filename      
@@ -76,12 +79,23 @@ class Video < ActiveRecord::Base
     
     timecode = thumb_timecode || 1
     
-    command = "ffmpeg -vframes 1 -i #{full_video_path} -ss #{timecode} " +
+    if is_zip
+      Rails::logger.debug("Opening the zip file")
+      Zip::ZipFile.open(full_video_path) do |zip_file|
+        zip_file.each do |frame|
+          Rails::logger.debug("Extracting frame to #{full_thumb_path}")
+          zip_file.extract(frame, full_thumb_path)
+          break
+        end                
+      end
+    else
+      command = "ffmpeg -vframes 1 -i #{full_video_path} -ss #{timecode} " +
               " -f image2 #{full_thumb_path} 2>/dev/null"
     
-    Rails::logger.debug("Command is: " + command)
-    result = `#{command}`
-    Rails::logger.debug("Result of the command: " + result)    
+      Rails::logger.debug("Command is: " + command)
+      result = `#{command}`
+      Rails::logger.debug("Result of the command: " + result)
+    end            
     
     thumbnail_dims = Dimensions.dimensions(full_thumb_path)
     
@@ -96,6 +110,42 @@ class Video < ActiveRecord::Base
   
   def self.store(author, upload_info)        
     FileAsset::store_for_type(author, upload_info, 'videos')                
+  end
+  
+  def self.encode(author_id, zip_filename)
+    
+    Rails::logger.debug("Encoding: zip_filename = " + zip_filename)
+    author_videos_dir = FileAsset::dir_for_author(author_id, 'videos')
+    
+    full_zip_path = author_videos_dir + '/' + zip_filename
+    
+    Rails::logger.debug("Full zip path = " + full_zip_path)
+    destination = full_zip_path + '_frames'
+    Rails::logger.debug("Destination = " + destination)
+    FileUtils.mkdir_p(destination) unless File.directory?(destination)
+    
+    Zip::ZipFile.open(full_zip_path) do |zip_file|
+      zip_file.each do |f|
+        f_path = File.join(destination, f.name)     
+        zip_file.extract(f, f_path)
+      end
+    end
+    
+    video_filename = zip_filename.sub(/([^.]+)$/, 'mp4')
+    video_full_path = author_videos_dir + '/' + video_filename
+    
+    command = "ffmpeg -r 15 -b 1800 -i #{destination}/%06d.jpg #{video_full_path}"
+    Rails::logger.debug("Command: #{command}")
+    
+    result = `#{command}`
+    Rails::logger.debug("Result of the command: " + result)
+    
+    # remove the zip & frame images (whole dir)
+    File.unlink(full_zip_path)
+    FileUtils.rm_rf(destination)
+    
+    video_filename
+  
   end
   
   def full_thumbnail_path
