@@ -10,6 +10,14 @@ class Video < ActiveRecord::Base
   before_destroy :delete_file
   before_destroy :delete_thumbnail
   
+  def self.generate(block)
+    Video.new(
+      :block          => block,
+      :unique_code    => generate_unique_code,
+      :thumbnail_pos  => '00:00:01'
+    )
+  end
+  
   def file_type
     'videos'
   end
@@ -171,12 +179,28 @@ class Video < ActiveRecord::Base
     content_type ? content_type.split('/').last : ''    
   end
   
-  def as_json(options = {})    
+  def as_json(options = {})
+    options[:except] ||= []
     options[:except] += [:original_filename]
     result = super(options)        
     result['caption'] = result['title']
     result['type']    = type_from_content_type(self.content_type)
     result
   end 
+  
+  def self.generate_unique_code
+    len = 10
+    code = ''
+    until code.present? && (!Picture.find_by_unique_code(code))
+      code = generate_random_code(len)
+    end
+    code    
+  end
+  
+  private
+  
+  def self.generate_random_code(len)
+    (0...len).map{ ('a'..'z').to_a[rand(26)] }.join
+  end
   
 end

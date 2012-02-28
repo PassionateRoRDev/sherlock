@@ -12,9 +12,8 @@ class PicturesController < ApplicationController
     
     block = Block.new
     block.case = @case
-    @picture  = Picture.generate(block)         
-    @insert_before_id = params[:insert_before_id].to_i
-    
+    @picture  = Picture.generate(block)
+    @insert_before_id = params[:insert_before_id].to_i    
     @cookie = cookies['_sherlock_session']
     
   end

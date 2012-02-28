@@ -50,20 +50,20 @@
   <% end %>
 
     <div class="field" style="margin-bottom:5px;">
-      <label for="upload_image">Select Image :</label>
-      <%= file_field 'upload', 'image' %>
-    </div>
-            
-    <% if @picture.id %>
-      <div class="actions" style="margin-top:0em;">
-        
-        <div style="width:218px;text-align:center;font-weight:bold;">OR</div>
-        
+      <label for="upload_image">Select Image :</label>      
+      <span class="btn fileinput-button">
+      <%= file_field 'upload', 'image', 
+          :title => 'Select image file to be uploaded' %>                      
+          <span>
+            <i class="icon-plus icon-white"></i>
+            Browse...
+          </span>
+      </span>
+      <strong>OR&nbsp;&nbsp;</strong>        
         <input type="button" value="Screen Capture" 
                id="btn-screen-capture"
-               class="button button-wide"/>
-      </div>
-    <% end %>
+               class="button button-wide"/>            
+    </div>                
       
   <% if @picture.id %>
     </div>
@@ -73,11 +73,6 @@
   <%= f.submit 'Save', :class => :button %>
   <% if @picture.id %>
     <%= link_to 'Cancel', @case %>
-  <% end %>
-  <% unless @picture.id %>
-    <input type="button" value="Screen Capture" 
-           id="btn-screen-capture"
-           class="button button-wide"/>
   <% end %>  
 </div>
 

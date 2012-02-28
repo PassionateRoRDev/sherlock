@@ -40,7 +40,20 @@
 
   <div>
     <label for="upload_video">Select Video :</label>
-    <%= file_field 'upload', 'video' %>        
+    
+    <span class="btn fileinput-button">
+      <%= file_field 'upload', 'video', 
+          :title => 'Select video file to be uploaded' %>                      
+          <span>
+            <i class="icon-plus icon-white"></i>
+            Browse...
+          </span>
+    </span>
+    
+    <strong>OR&nbsp;&nbsp;</strong>    
+    <input type="button" value="Record Screencast" 
+           id="btn-screen-capture"
+           class="button button-wide"/>
   </div>      
     
   <% if @video.id %>

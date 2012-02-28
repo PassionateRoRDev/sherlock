@@ -6,14 +6,15 @@ class VideosController < ApplicationController
   # Note: we may want to remove it, if this controller will also be
   #       used to upload videos unlinked with any blocks/cases
   #
-  before_filter :resolve_case, :only => [ :new, :edit, :update, :create ]
+  before_filter :resolve_case, :only => [ :new, :edit, :show, :update, :create ]
   
   def new
     
     block = Block.new
-    block.case = @case
-    @video  = Video.new(:block => block, :thumbnail_pos => '00:00:01')    
-    @insert_before_id = params[:insert_before_id].to_i
+    block.case = @case    
+    @video  = Video.generate(block)            
+    @insert_before_id = params[:insert_before_id].to_i    
+    @cookie = cookies['_sherlock_session']
   end
   
   def create
@@ -77,10 +78,18 @@ class VideosController < ApplicationController
     
   end
   
+  def show
+    @video = @case.videos.find_by_unique_code(params[:id])
+    respond_to do |format|
+      format.js { render :json => @video }
+    end
+  end
+  
   def edit
-    @video = @case.videos.find_by_id(params[:id])
-    redirect_to cases_path unless @video
-    
+    @insert_before_id = 0
+    @video = @case.videos.find_by_id(params[:id])        
+    @cookie = cookies['_sherlock_session']
+    redirect_to cases_path unless @video    
   end
   
   def update

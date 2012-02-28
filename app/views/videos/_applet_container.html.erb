@@ -11,12 +11,12 @@
         return s;
       }
       
-      var pic_path = '<%= url_for file_path('pictures', 'DUMMY') %>';      
+      var video_path = '<%= url_for file_path('videos', 'DUMMY') %>';      
       
-      var picture_id = <%= @picture.id.to_i %>;
-      var url_base_redirect = '<%= url_for case_pictures_path(@case) %>';
-      var url_check = '<%= url_for case_picture_path(@case, @picture.unique_code, :format => :js) %>';
-      var updated_at = normalizeDate('<%= @picture.updated_at %>');
+      var video_id = <%= @video.id.to_i %>;
+      var url_base_redirect = '<%= url_for case_videos_path(@case) %>';
+      var url_check = '<%= url_for case_video_path(@case, @video.unique_code, :format => :js) %>';
+      var updated_at = normalizeDate('<%= @video.updated_at %>');
       var settings = {
         cache: false,
         dataType: 'json',
@@ -24,18 +24,18 @@
           if (data && (normalizeDate(data.updated_at) != updated_at)) {
             
             if (picture_id) {
-              pic_path = pic_path.replace(/DUMMY$/, data.path);
+              video_path = video_path.replace(/DUMMY$/, data.path);
             } else {              
             }
             var url_redirect = url_base_redirect + '/' + data.id + '/edit';
             location.href = url_redirect;            
           } else {
-            setTimeout(checkImage, 2000);
+            setTimeout(checkVideo, 2000);
           }
         }
       };
       
-      function checkImage()
+      function checkVideo()
       {
         $.ajax(url_check, settings);
       }
@@ -43,23 +43,23 @@
       $('#btn-screen-capture').click(function() {           
         var container = $('#appletContainer');
         if (container.html() == '') {
-          <% if @picture.id %>
-          var post_url = '<%= case_picture_url(@case, @picture) %>';
+          <% if @video.id %>
+          var post_url = '<%= case_video_url(@case, @video) %>';
           <% else %>
-          var post_url = '<%= case_pictures_url(@case) %>';
+          var post_url = '<%= case_videos_url(@case) %>';
           <% end %>
           var token = $('meta[name=csrf-token]').attr('content');
           var code = '<applet archive="<%= root_url %>SherlockScreen.jar?v=' + new Date().valueOf() + '" ' +
             'code="sherlockscreen.SherlockScreen.class" ' +
             'width="300" height="60" MAYSCRIPT>' +        
-            '<param name="type" value="picture"/>' +
+            '<param name="type" value="video"/>' +
             '<param name="token" value="' + token + '"/>' +
-            '<param name="unique_code" value="<%= @picture.unique_code %>"/>' +
+            '<param name="unique_code" value="<%= @video.unique_code %>"/>' +
             '<param name="cookie" value="<%= @cookie %>"/>' +            
             '<param name="insert_before_id" value="<%= @insert_before_id %>"/>' +
             '<param name="post_url" value="' + post_url + '"/>'+            
             '<param name="editor_url" value="<%= root_url %>SherlockEditor.jar"/>'+            
-            '<param name="picture_id" value="<%= @picture.id.to_i %>"/>' +
+            '<param name="video_id" value="<%= @video.id.to_i %>"/>' +
             '</applet>';      
           container.html(code);        
           container.show();
