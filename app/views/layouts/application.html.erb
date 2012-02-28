@@ -12,6 +12,9 @@
   <%= csrf_meta_tags %>
 </head>
 <body class="c-<%= controller_name %> a-<%= action_name %>">  
+    
+  <img src='/assets/loading_32_140.gif' style="display:none;"/>  
+  
   <div class="container container-upper" style="position:relative;">    
     <%= render('shared/flash', :flash => flash) %>
   </div>  
