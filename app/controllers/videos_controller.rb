@@ -37,7 +37,7 @@ class VideosController < ApplicationController
 
       video_filename = Video.store(current_user, video)
       
-      video_filename = Video.encode(current_user.id, video_filename) if
+      video_filename, video.content_type = Video.encode(current_user.id, video_filename) if
         video_filename.end_with?('zip')
       
       params[:video][:path] = video_filename
@@ -113,8 +113,7 @@ class VideosController < ApplicationController
         video = params[:upload] ? params[:upload]['video'] : nil
         if video
           video_filename = Video.store(current_user, video)
-          
-          video_filename = Video.encode(current_user.id, video_filename) if
+          video_filename, video.content_type = Video.encode(current_user.id, video_filename) if
             video_filename.end_with?('zip')      
           
           @video.delete_file

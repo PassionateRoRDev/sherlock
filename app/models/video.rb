@@ -144,7 +144,7 @@ class Video < ActiveRecord::Base
     File.unlink(full_zip_path)
     FileUtils.rm_rf(destination)
     
-    video_filename
+    [video_filename, 'video/mp4']
   
   end
   
