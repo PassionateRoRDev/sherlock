@@ -55,7 +55,7 @@ class LogosController < ApplicationController
     
     respond_to do |format|
       if @logo.save
-        format.html { redirect_to root_path, notice: 'Logo was successfully created.' }
+        format.html { redirect_to dashboard_path, notice: 'Logo was successfully created.' }
         format.json { render json: @logo, status: :created, location: @logo }
       else
         format.html { render action: "new" }

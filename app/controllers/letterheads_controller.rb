@@ -69,7 +69,7 @@ class LetterheadsController < ApplicationController
     
     respond_to do |format|
       if @letterhead.save
-        format.html { redirect_to root_path, notice: 'Letterhead was successfully created.' }
+        format.html { redirect_to dashboard_path, notice: 'Letterhead was successfully created.' }
         format.json { render json: @letterhead, status: :created, location: @letterhead }
       else
         format.html { render action: "new" }
