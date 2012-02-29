@@ -18,7 +18,7 @@ body {
 }
 @font-face {
 	font-family: 'Bookman Old Style';
-	src: url(BOOKOS.ttf);
+	src: url(BOOKOS.TTF);
 }
 @font-face {
 	font-family: "Candara";
@@ -26,7 +26,7 @@ body {
 }
 @font-face {
 	font-family: "Century Gothic";
-	src: url(GOTHIC.ttf);
+	src: url(GOTHIC.TTF);
 }
 .fl {
 	opacity:1
