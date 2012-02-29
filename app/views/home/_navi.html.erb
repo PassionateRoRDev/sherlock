@@ -1,0 +1,17 @@
+<div class="head">
+    <div class="navi">
+      <a href="<%= root_path %>">Home</a>|<a 
+        href="<%= tour_path %>">Take a Tour</a>|<a 
+        href="<%= pricing_path %>">Plans &amp; Pricing</a>|<a 
+        href="<%= customers_path %>">Our Customers</a>|<a 
+        href="<%= help_path %>">Help & Support</a></div>
+    <div class="navi2">
+      <% if signed_in? %>
+        <a href="<%= dashboard_path %>">Dashboard</a> | 
+        <%= link_to 'Logout', destroy_user_session_path, :method => :delete %>
+      <% else %>
+        <a href="<%= new_user_session_path %>">LogIn</a> | 
+        <a href="<%= new_user_registration_path %>">SignUp</a>
+      <% end %>
+    </div>
+  </div>

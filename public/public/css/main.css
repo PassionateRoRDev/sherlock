@@ -49,8 +49,7 @@ filter: progid:DXImageTransform.Microsoft.Alpha(opacity=80);
 	font-size:18px;
 }
 .navi {
-	float:left;
-	width:550px;
+	float:left;	
 	height:58px;
 	line-height:58px;
 	color:#FFF;
@@ -65,7 +64,10 @@ filter: progid:DXImageTransform.Microsoft.Alpha(opacity=80);
 }
 .navi2 {
 	float:right;
+        text-align: right;
+        /*
 	width:150px;
+        */
 	height:58px;
 	color:#9b9e9e;
 	line-height:58px;
@@ -82,6 +84,95 @@ filter: progid:DXImageTransform.Microsoft.Alpha(opacity=80);
 	width:100%;
 	height:631px;
 	background:url(../images/bg.jpg) repeat-x;
+}
+#landing {
+	width:100%;
+	height:auto;
+}
+.landing-txt {
+	margin:auto;
+	width:1000px;
+	height:auto;
+	font-family: 'Bookman Old Style';
+	font-size:31px;
+	color:#2d2d2d;
+	line-height:40px;
+	text-align:center;
+	padding:34px 0;
+}
+.landing-txt2 {
+	color:#34818f;
+	font-size:23px;
+	font-family:"Century Gothic";
+}
+#midsection {
+	margin:auto;
+	width:1000px;
+	height:auto;
+}
+.mid-one {
+	float:left;
+	width:313px;
+	height:auto;
+}
+.logoimg {
+	float:left;
+	width:313px;
+	height:auto;
+}
+.plansbtn {
+	float:left;
+	width:313px;
+	height:auto;
+	padding:14px 0 56px 0;
+	text-align:center;
+}
+.mid-two {
+	float:left;
+	width:366px;
+	height:auto;
+	font-size:17px;
+	font-family:"Century Gothic";
+	color:#1c86a9;
+	padding:42px 0 0 22px;
+}
+.boxone {
+	float:left;
+	width:366px;
+	height:auto;
+}
+.boxtwo {
+	float:left;
+	width:366px;
+	height:auto;
+	padding:30px 0;
+}
+.btn {
+	float:left;
+	width:25px;
+	height:22px;
+	padding-right:5px;
+}
+.mid-three {
+	float:left;
+	width:298px;
+	height:auto;
+	padding-top:26px;
+	text-align:center;
+}
+.reportimg {
+	float:left;
+	width:298px;
+	height:auto;
+}
+.reporttxt {
+	float:left;
+	width:298px;
+	height:auto;
+	padding-top:22px;
+	font-size:14px;
+	font-family:"Century Gothic";
+	color:#537918;
 }
 .pricing-txt {
 	margin:auto;
@@ -197,6 +288,16 @@ filter: progid:DXImageTransform.Microsoft.Alpha(opacity=80);
 .txt:hover {
 	text-decoration:none;
 }
+
+#link-signup-big {
+  color: #64881e; 
+  font-size: 33px;
+}
+
+#link-signup-big:hover {
+  text-decoration: none;
+}
+
 .inbox {
 	float:left;
 	width:1000px;
@@ -232,7 +333,7 @@ filter: progid:DXImageTransform.Microsoft.Alpha(opacity=80);
 	color:#262626;
 	text-align:center;
 	padding:25px 0;
-	line-height:25px;
+	line-height:26px;
 }
 #footer {
 	width:100%;

@@ -1,23 +1,86 @@
-<h1>Dashboard</h1>
 
-<h2>Cases</h2>
-
-<div style="margin-top:1em;">
-You have
-<% if @cases.empty? %>
-no cases
-<% else %>
-    <%= link_to(pluralize(@cases.count, 'case'), cases_path) %>
-<% end %>
-created
-|
-<%= link_to 'Create a new Case', new_case_path %>
-
-<h2>Letterhead</h2>
-
-<% if current_user.letterhead %>
-  <%= link_to 'Edit Letterhead', edit_letterhead_path(current_user.letterhead) %>
-<% else %>
-  <%= link_to 'Create Letterhead', new_letterhead_path %>
-<% end %>
-
+<div id="landing">
+  <div class="landing-txt">“Reports write themselves with SherlockDocs”<br />
+    <font class="landing-txt2">The better way to get reports done</font></div>
+</div>
+<div class="clr"></div>
+<div id="midsection">
+  <div class="mid-one">
+    <div class="logoimg"><img src="/public/images/logo-landingpage.jpg" width="313" height="189" /></div>
+    <div class="plansbtn"><a class="fl" 
+      href="<%= pricing_path %>"><img src="/public/images/plans-and-pricing.jpg" width="273" height="44" alt="" border="0" /></a></div>
+  </div>
+  <div class="mid-two">
+    <div class="boxone">
+      <div class="btn"><img src="/public/images/1.jpg" width="25" height="22" /></div>
+      Write or import some notes on your case</div>
+    <div class="boxtwo">
+      <div class="btn"><img src="/public/images/2.jpg" width="25" height="22" /></div>
+      Capture or upload images, video, GPS<br />
+      reports right off your screen. </div>
+    <div class="boxone">
+      <div class="btn"><img src="/public/images/3.jpg" width="25" height="22" /></div>
+      Publish a PDF with video embedded <br />
+      right in it and share with clients or on<br />
+      your ipad with Courts </div>
+  </div>
+  <div class="mid-three">
+    <div class="reportimg"><img src="/public/images/report.jpg" width="177" height="193" /></div>
+    <div class="reporttxt">this report was made in minutes not hours</div>
+  </div>
+</div>
+<div class="clr"></div>
+<div id="midbox">
+  <div class="midbox"> SherlockDocs is so simple that you can't do anything wrong.<br />
+    SherlockDocs is addictively easy-to-use. </div>
+  <div class="midwrapper">
+    <div class="bottomtxt"><font style="color:#ff6f1d;">SherlockDocs</font> takes the pain out of dealing with video, images and text<br />
+      the average PI is used to taking hours to create reports but <font style="color:#4289ca;">can now do it in minutes</font></div>
+    <div class="contract-btn"><a href="#"><img src="/public/images/view-tour.jpg" width="122" height="34" alt="" border="0" /></a> &nbsp; <a href="#"><img src="/public/images/free-trial.jpg" width="250" height="34" alt="" border="0"/></a><br />
+      <a class="txt" href="#">SherlockDocs starts at $9.99/month</a> </div>
+  </div>
+</div>
+<div class="clr"></div>
+<div id="footer">
+  <div class="footer">
+    <div class="footer-one">
+      <div class="footer-box">
+        <div class="heading">Features and Services</div>
+        <div class="p-txt"> Pellentesque habitant morbi<br />
+          Ut accumsan ultricies elit<br />
+          Aliquam vehicula mi at mauris<br />
+          Vivamus sollicitudin metus eget<br />
+          Etiam est nunc, venenatis<br />
+          Phasellus pellentesque aliquam</div>
+      </div>
+      <div class="footer-box2">
+        <div class="heading">Find us Elsewhere</div>
+        <div class="iconbox">
+          <div class="icon-txt">RSS Submit</div>
+          <div class="icon-img"><a class="fl" href="#"><img src="/public/images/rss.jpg" width="25" height="25" alt="" border="0" /></a></div>
+        </div>
+        <div class="icon-part"><img src="/public/images/divi.png" width="212" height="1" /></div>
+        <div class="iconbox">
+          <div class="icon-txt">Follow us on facebook</div>
+          <div class="icon-img"><a class="fl" href="#"><img src="/public/images/facebook.jpg" width="25" height="25" alt="" border="0" /></a></div>
+        </div>
+        <div class="icon-part"><img src="/public/images/divi.png" width="212" height="1" /></div>
+        <div class="iconbox">
+          <div class="icon-txt">Follow us on twitter</div>
+          <div class="icon-img"><a class="fl" href="#"><img src="/public/images/twitter.jpg" width="25" height="25" alt="" border="0" /></a></div>
+        </div>
+        <div class="icon-part"><img src="/public/images/divi.png" width="212" height="1" /></div>
+      </div>
+      <div class="footer-box3">
+        <div class="heading">Newsletter Sign Up!</div>
+        <div class="p-txt"> We have new updates every week, <br />
+          so stay in touch!</div>
+        <div class="fields">
+          <input class="txtfield" name="" type="text" />
+          &nbsp; <a href="#"><img src="/public/images/signup.jpg" width="76" height="26" alt="" border="0" /></a> </div>
+        <div class="p-txt"> <a class="atxt" href="#">Unsubscribe</a></div>
+      </div>
+    </div>
+    <div class="copyright">Copyright © SherlockDocs. All Rights Reserved.</div>
+  </div>
+</div>

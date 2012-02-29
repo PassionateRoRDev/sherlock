@@ -1,19 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Plans and Pricing</title>
-<link href="/pricing/css/main.css" rel="stylesheet" type="text/css" />
-</head>
 
-<body>
-<div id="header">
-  <div class="head">
-    <div class="navi"><a href="#">Home</a>|<a href="#">Take a Tour</a>|<a href="#">Our Customers</a>|<a href="#">Help & Support</a></div>
-    <div class="navi2"><a href="#">LogIn</a> | <a href="#">SignUp</a></div>
-  </div>
-</div>
-<div class="clr"></div>
 <div id="pricing">
   <div class="pricing-txt">CheckOut SherlockDocs Plans & Pricing<br />
     <font style="color:#64881e;">30-day Free Trial on All Accounts.</font></div>
@@ -25,16 +10,16 @@
           <font style="font-size:23px;">$99</font><br />
           per month<br />
         </p>
-        <font style="color:#000; font-size:17px; text-align:center;">"for unlimited reports"</font> <a class="fl" href="#"><img 
-            style="margin-top:10px;" src="/pricing/images/choose-plan2.jpg" width="156" height="56" alt="" border="0" /></a></div>
+        <font style="color:#000; font-size:17px; text-align:center;">"for unlimited reports"</font> 
+        <a class="fl" href="<%= new_user_registration_path %>"><img style="margin-top:10px;" src="/public/images/choose-plan2.jpg" width="156" height="56" alt="" border="0" /></a></div>
       <div class="premium-plan">
         <p><font style="font-family:'Bookman Old Style'; font-size:40px;">Premium</font><br />
           Only<br />
           <font style="font-size:18px;">$14.99</font><br />
           per month<br />
         </p>
-        <font style="color:#000; font-size:17px; text-align:center;">“plus $4.99 per report”</font> <a class="fl" href="#"><img style=" margin-top:10px;" 
-              src="/pricing/images/choose-plan1.jpg" width="171" height="61" alt="" border="0" /></a></div>
+        <font style="color:#000; font-size:17px; text-align:center;">“plus $4.99 per report”</font> 
+        <a class="fl" href="<%= new_user_registration_path %>"><img style=" margin-top:10px;" src="/public/images/choose-plan1.jpg" width="171" height="61" alt="" border="0" /></a></div>
       <div class="basic-plan">
         <p><font style="font-family:'Bookman Old Style'; font-size:37px;">Basic</font><br />
           Only<br />
@@ -42,13 +27,14 @@
           per month<br />
         </p>
         <br />
-        <a class="fl" href="#">
-          <img style="margin-top:10px;" src="/pricing/images/choose-plan3.jpg" 
-               width="156" height="56" alt="" border="0" />
-        </a></div>
+        <a class="fl" 
+           href="<%= new_user_registration_path %>"><img style="margin-top:10px;" src="/public/images/choose-plan3.jpg" width="156" height="56" alt="" border="0" /></a></div>
     </div>
   </div>
-  <div class="pricing-txt2"><font style="color:#64881e; font-size:33px;">Sign up in 60 seconds.</font><br />
+  <div class="pricing-txt2"><a 
+      id="link-signup-big"
+      href="<%= new_user_registration_path %>"
+      title="Sign up in 60 seconds">Sign up in 60 seconds.</a><br />
     Upgrade, downgrade, or cancel anytime.</div>
 </div>
 <div class="clr"></div>
@@ -56,10 +42,11 @@
   <div class="midbox"> SherlockDocs is so simple that you can't do anything wrong.<br />
     SherlockDocs is addictively easy-to-use. </div>
   <div class="midwrapper">
-    <div class="contract-btn"><img src="/pricing/images/contract-btn.jpg" width="247" height="34" /><br />
-      <a class="txt" href="#">SherlockDocs starts at $9.99/month</a> </div>
+    <div class="contract-btn"><img src="/public/images/contract-btn.jpg" width="247" height="34" /><br />
+      <a class="txt" 
+         href="<%= new_user_registration_path %>">SherlockDocs starts at $9.99/month</a> </div>
     <div class="inbox">
-      <div class="inbox-part"><img src="/pricing/images/inbox-start-bg.jpg" width="1000" height="10" /></div>
+      <div class="inbox-part"><img src="/public/images/inbox-start-bg.jpg" width="1000" height="10" /></div>
       <div class="inbox-body">
         <div class="sub-box"><span style="color:#06758d;">How does the 30-day free trial work?</span><br />
           Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nam cursus. Morbi ut mi. Nullam enim leo, egestas id, condimentum at, laoreet mattis, massa. Sed eleifend nonummy diam. Praesent mauris ante, elementum et, bibendum at, posuere sit amet, nibh. Duis tincidunt lectus quis dui viverra vestibulum. <br />
@@ -78,8 +65,7 @@
           <span style="color:#06758d;">What types of payment do you accept?</span><br />
           Morbi magna magna, tincidunt a, mattis non, imperdiet vitae, tellus. Sed odio est, auctor ac, sollicitudin in, consequat vitae, orci. Fusce id felis. Vivamus sollicitudin metus eget eros. elementum et, bibendum at, posuere sit amet, nibh. Duis tincidunt lectus quis dui viverra vestibulum. </div>
       </div>
-      <div class="inbox-part"><img 
-          src="/pricing/images/inbox-end-bg.jpg" width="1000" height="10" /></div>
+      <div class="inbox-part"><img src="/public/images/inbox-end-bg.jpg" width="1000" height="10" /></div>
     </div>
     <div class="bottomtxt">SherlockDocs focus on <font style="color:#e75c0d;">simplicity,</font> <font style="color:#67911c;">clarity,</font> and <font style="color:#2670b0;">ease of use</font> make it truly unique.<br />
       You’ll love using SherlockDocs.</div>
@@ -102,25 +88,19 @@
         <div class="heading">Find us Elsewhere</div>
         <div class="iconbox">
           <div class="icon-txt">RSS Submit</div>
-          <div class="icon-img"><a class="fl" href="#"><img 
-                src="/pricing/images/rss.jpg" width="25" height="25" alt="" border="0" /></a></div>
+          <div class="icon-img"><a class="fl" href="#"><img src="/public/images/rss.jpg" width="25" height="25" alt="" border="0" /></a></div>
         </div>
-        <div class="icon-part"><img 
-            src="/pricing/images/divi.png" width="212" height="1" /></div>
+        <div class="icon-part"><img src="/public/images/divi.png" width="212" height="1" /></div>
         <div class="iconbox">
           <div class="icon-txt">Follow us on facebook</div>
-          <div class="icon-img"><a class="fl" href="#"><img 
-                src="/pricing/images/facebook.jpg" width="25" height="25" alt="" border="0" /></a></div>
+          <div class="icon-img"><a class="fl" href="#"><img src="/public/images/facebook.jpg" width="25" height="25" alt="" border="0" /></a></div>
         </div>
-        <div class="icon-part"><img 
-            src="/pricing/images/divi.png" width="212" height="1" /></div>
+        <div class="icon-part"><img src="/public/images/divi.png" width="212" height="1" /></div>
         <div class="iconbox">
           <div class="icon-txt">Follow us on twitter</div>
-          <div class="icon-img"><a class="fl" href="#"><img 
-                src="/pricing/images/twitter.jpg" width="25" height="25" alt="" border="0" /></a></div>
+          <div class="icon-img"><a class="fl" href="#"><img src="/public/images/twitter.jpg" width="25" height="25" alt="" border="0" /></a></div>
         </div>
-        <div class="icon-part"><img 
-            src="/pricing/images/divi.png" width="212" height="1" /></div>
+        <div class="icon-part"><img src="/public/images/divi.png" width="212" height="1" /></div>
       </div>
       <div class="footer-box3">
         <div class="heading">Newsletter Sign Up!</div>
@@ -128,12 +108,11 @@
           so stay in touch!</div>
         <div class="fields">
           <input class="txtfield" name="" type="text" />
-          &nbsp; <a href="#"><img src="/pricing/images/signup.jpg" width="76" height="26" alt="" border="0" /></a> </div>
+          &nbsp; <a href="#"><img src="/public/images/signup.jpg" width="76" height="26" alt="" border="0" /></a> </div>
         <div class="p-txt"> <a class="atxt" href="#">Unsubscribe</a></div>
       </div>
     </div>
-    <div class="copyright">Copywright © SherlockDocs.All Rights Reserved.</div>
+    <div class="copyright">Copyright © SherlockDocs. All Rights Reserved.</div>
   </div>
 </div>
-</body>
-</html>
+

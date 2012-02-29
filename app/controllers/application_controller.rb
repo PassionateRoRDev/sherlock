@@ -2,10 +2,15 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   rescue_from RailsAdmin::AccessDenied do |exception|
-    redirect_to main_app.root_path, :alert => 'You are not authorized to view that page.'
+    redirect_to main_app.dashboard_path, 
+      :alert => 'You are not authorized to view that page.'
   end
   
   protected
+  
+  def after_sign_in_path_for(resource)
+    dashboard_path
+  end
   
   def resolve_case_using_param(param)
     @case = current_user.find_case_by_id(params[param]) || redirect_to(cases_path)    

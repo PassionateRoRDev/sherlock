@@ -18,7 +18,12 @@ Sherlock::Application.routes.draw do
  
   get 'cases/preview/:id' => 'cases#preview', :as => :case_preview
   
-  get 'pricing' => 'home#pricing', :as => :pricing
+  get 'dashboard' => 'home#dashboard',  :as => :dashboard
+  
+  get 'pricing'   => 'home#pricing',    :as => :pricing
+  get 'tour'      => 'home#tour',       :as => :tour
+  get 'help'      => 'home#help',       :as => :help
+  get 'customers' => 'home#customers',  :as => :customers
   
   resources :blocks
   

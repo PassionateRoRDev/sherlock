@@ -1,0 +1,23 @@
+<h1>Dashboard</h1>
+
+<h2>Cases</h2>
+
+<div style="margin-top:1em;">
+You have
+<% if @cases.empty? %>
+no cases
+<% else %>
+    <%= link_to(pluralize(@cases.count, 'case'), cases_path) %>
+<% end %>
+created
+|
+<%= link_to 'Create a new Case', new_case_path %>
+
+<h2>Letterhead</h2>
+
+<% if current_user.letterhead %>
+  <%= link_to 'Edit Letterhead', edit_letterhead_path(current_user.letterhead) %>
+<% else %>
+  <%= link_to 'Create Letterhead', new_letterhead_path %>
+<% end %>
+

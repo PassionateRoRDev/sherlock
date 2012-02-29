@@ -1,7 +1,7 @@
 <div id="top-user-links">
   <div class="links-list">
-  <% if signed_in? %>    
-    <%= link_to 'Home', root_path %> | 
+  <% if signed_in? %> 
+    <%= link_to 'Dashboard', dashboard_path %> | 
     <%= link_to 'Account', account_path %> | 
     <%= link_to 'My Cases', cases_path %> |    
     <%- if current_user.admin? %>
