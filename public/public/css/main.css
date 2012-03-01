@@ -336,7 +336,7 @@ filter: progid:DXImageTransform.Microsoft.Alpha(opacity=80);
 	line-height:26px;
 }
 #footer {
-	width:100%;
+	clear: both;
 	height:276px;
 	background:url(../images/footer.jpg) repeat-x;
 }
