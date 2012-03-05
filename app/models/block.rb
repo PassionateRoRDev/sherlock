@@ -45,6 +45,13 @@ class Block < ActiveRecord::Base
     end
     if self.video
       result['video'] = self.video.as_json(options)
+      
+      # apply AVI for the PDF format:
+      if result['video']
+        result['video']['path'] = self.video.flv_path 
+        result['video']['content_type'] = 'video/avi'
+      end
+      
     end
     if self.picture
       result['picture'] = self.picture.as_json(options)

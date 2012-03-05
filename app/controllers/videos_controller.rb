@@ -37,9 +37,18 @@ class VideosController < ApplicationController
 
       video_filename = Video.store(current_user, video)
       
-      video_filename, params[:video][:content_type] = Video.encode(current_user.id, video_filename) if
-        video_filename.end_with?('zip')
+      start_time = params[:start_time].to_i
+      end_time   = params[:end_time].to_i
       
+      if video_filename.end_with?('zip')
+        encoding_info = Video.encode(
+          current_user.id, video_filename, start_time, end_time)
+        video_filename = encoding_info.filename
+        params[:video][:content_type] = encoding_info.content_type
+        params[:video][:fps] = encoding_info.fps
+        params[:video][:duration] = encoding_info.duration      
+      end
+              
       params[:video][:path] = video_filename
 
       # store thumbnail or automatically generate a new one:
@@ -73,7 +82,7 @@ class VideosController < ApplicationController
     
     respond_to do |format|
       if (@video.save) 
-        @video.recode_to [:flv, :m4v]        
+        @video.recode_to_formats
         format.html { redirect_to(@case, :notice => 'Video block has been added') }
       else  
         format.html { render :action => 'new' }
@@ -112,14 +121,25 @@ class VideosController < ApplicationController
       if @video.update_attributes(params[:video])
         video = params[:upload] ? params[:upload]['video'] : nil
         if video
-          video_filename = Video.store(current_user, video)
-          video_filename, video.content_type = Video.encode(current_user.id, video_filename) if
-            video_filename.end_with?('zip')      
           
+          start_time = params[:start_time].to_i
+          end_time   = params[:end_time].to_i
+                
+          video_filename = Video.store(current_user, video)
+          
+          if video_filename.end_with?('zip')
+            encoding_info = Video.encode(
+              current_user.id, video_filename, start_time, end_time)
+            video_filename = encoding_info.filename
+            video.content_type = encoding_info.content_type
+            video.fps = encoding_info.fps      
+            video.duration = encoding_info.duration
+          end
+                    
           @video.delete_file
           @video.path = video_filename
           @video.rename_thumbnail if @video.thumbnail
-          @video.recode_to [:flv, :m4v]   
+          @video.recode_to_formats
           @video.save
         end
         

@@ -90,11 +90,11 @@ class Video < ActiveRecord::Base
       end
     else
       command = "ffmpeg -vframes 1 -i #{full_video_path} -ss #{timecode} " +
-              " -f image2 #{full_thumb_path} 2>/dev/null"
+              " -f image2 #{full_thumb_path} 2>&1"
     
       Rails::logger.debug("Command is: " + command)
       result = `#{command}`
-      Rails::logger.debug("Result of the command: " + result)
+      Rails::logger.debug("Result of the thumbnail command: " + result)
     end            
     
     thumbnail_dims = Dimensions.dimensions(full_thumb_path)
@@ -112,7 +112,12 @@ class Video < ActiveRecord::Base
     FileAsset::store_for_type(author, upload_info, 'videos')                
   end
   
-  def self.encode(author_id, zip_filename)
+  def self.calculate_fps(frames_count, duration_miliseconds)    
+    Rails.logger.debug("Frames count: #{frames_count}, duration: #{duration_miliseconds}")
+    (frames_count == 0) ? 15 : sprintf('%.04f', (frames_count * 1000.0) / duration_miliseconds)
+  end
+  
+  def self.encode(author_id, zip_filename, capture_start, capture_end)
     
     Rails::logger.debug("Encoding: zip_filename = " + zip_filename)
     author_videos_dir = FileAsset::dir_for_author(author_id, 'videos')
@@ -124,17 +129,39 @@ class Video < ActiveRecord::Base
     Rails::logger.debug("Destination = " + destination)
     FileUtils.mkdir_p(destination) unless File.directory?(destination)
     
+    frames_count = 0
     Zip::ZipFile.open(full_zip_path) do |zip_file|
       zip_file.each do |f|
         f_path = File.join(destination, f.name)     
         zip_file.extract(f, f_path)
+        frames_count += 1
       end
     end
     
-    video_filename = zip_filename.sub(/([^.]+)$/, 'mp4')
+    video_duration = capture_end - capture_start
+    
+    Rails::logger.debug("Total frames count: #{frames_count}")
+    fps = calculate_fps(frames_count, video_duration)
+    
+    Rails::logger.debug("Fps = #{fps}")
+    
+    content_type = 'video/mp4'
+    ext = 'mp4'
+    
+    #content_type = 'video/x-flv'
+    #ext = 'flv'
+    
+    #content_type = 'video/avi'
+    #ext = 'avi'
+    
+    video_filename = zip_filename.sub(/([^.]+)$/, ext)
     video_full_path = author_videos_dir + '/' + video_filename
     
-    command = "ffmpeg -r 15 -b 1800 -i #{destination}/%06d.jpg #{video_full_path}"
+    options = ''
+    
+    options = '-ar 44100 -qmax 30' if ext == 'flv'
+    
+    command = "ffmpeg -r #{fps} -b 1800 -i #{destination}/%06d.jpg #{options} #{video_full_path} 2>&1"
     Rails::logger.debug("Command: #{command}")
     
     result = `#{command}`
@@ -142,9 +169,15 @@ class Video < ActiveRecord::Base
     
     # remove the zip & frame images (whole dir)
     File.unlink(full_zip_path)
-    FileUtils.rm_rf(destination)
+    #FileUtils.rm_rf(destination)
+        
+    info = EncodingInfo.new
+    info.filename = video_filename
+    info.content_type = content_type
+    info.fps = fps
+    info.duration = video_duration
     
-    [video_filename, 'video/mp4']
+    info
   
   end
   
@@ -164,8 +197,17 @@ class Video < ActiveRecord::Base
     path_for_format(:m4v)
   end
   
+  def avi_path
+    path_for_format(:avi)
+  end
+  
   def full_path_for_format(format)
     filepath_for_type_and_filename('videos', path_for_format(format))        
+  end
+  
+  def recode_to_formats
+    #recode_to [:flv, :m4v, :avi]   
+    recode_to [:flv, :avi]
   end
   
   def recode_to(formats)    
@@ -177,9 +219,10 @@ class Video < ActiveRecord::Base
         if format == :m4v
           extra_flags += ' -vprofile baseline'
         end
-        command = "ffmpeg -i #{video_path} #{extra_flags} -strict experimental -deinterlace -ar 44100 -y -r 25 -qmin 3 -qmax 6 #{new_video_path}"
+        command = "ffmpeg -i #{video_path} #{extra_flags} -strict experimental -deinterlace -ar 44100 -y -r 25 -qmin 3 -qmax 6 #{new_video_path} 2>&1"
         Rails::logger.debug("Recode command: " + command)
-        `#{command}`      
+        result = `#{command}`      
+        Rails::logger.debug("Recode result: " + result)
       end
     end
   end
@@ -219,7 +262,7 @@ class Video < ActiveRecord::Base
   
   def delete_file
     delete_file_for_type(file_type)
-    [:flv, :m4v].each do |format|        
+    [:flv, :m4v, :avi, :mpg].each do |format|        
       full_path = full_path_for_format(format)
       File.unlink(full_path) if File.exists?(full_path)
     end

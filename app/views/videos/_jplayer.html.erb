@@ -69,7 +69,7 @@ $(function() {
               //webmv: "http://www.jplayer.org/video/webm/Big_Buck_Bunny_Trailer.webm",
               //poster: "http://www.jplayer.org/video/poster/Big_Buck_Bunny_Trailer_480x270.png"              
               flv : '<%= file_path('videos', video.flv_path) %>',
-              m4v : '<%= file_path('videos', video.m4v_path) %>',
+              //m4v : '<%= file_path('videos', video.m4v_path) %>',
               //ogv : '/files/videos/bb2702a6d21685d193b7803dc93eaa7d-sample_video.ogv',
               poster: '<%= file_path('videos', video.thumbnail) %>'
       });
@@ -82,7 +82,8 @@ $(function() {
     swfPath: "/javascript/",
     //supplied: "webmv, ogv, m4v"
     //supplied: 'flv, m4v, ogv'
-    supplied: 'flv, m4v'
+    //supplied: 'flv, m4v'
+    supplied: 'flv'
   });
 });
 
