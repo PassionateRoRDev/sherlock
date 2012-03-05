@@ -32,11 +32,15 @@ class Block < ActiveRecord::Base
   
   def as_json(options = {})    
     
+    Rails::logger.debug("as_json: options")
+    Rails::logger.debug(options)
+    
     include = []
     except = [:created_at, :updated_at, :id, :case_id]    
     result = super(:include => include, :except => except)
     
     options = {
+      :for_pdf => options ? options[:for_pdf] : false,
       :except => [:id, :block_id, :updated_at, :created_at]
     }        
     
@@ -44,14 +48,7 @@ class Block < ActiveRecord::Base
       result['htmlDetail'] = self.html_detail.as_json(options)
     end
     if self.video
-      result['video'] = self.video.as_json(options)
-      
-      # apply AVI for the PDF format:
-      if result['video']
-        result['video']['path'] = self.video.flv_path 
-        result['video']['content_type'] = 'video/avi'
-      end
-      
+      result['video'] = self.video.as_json(options)            
     end
     if self.picture
       result['picture'] = self.picture.as_json(options)

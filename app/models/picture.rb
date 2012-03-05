@@ -43,8 +43,12 @@ class Picture < ActiveRecord::Base
     'pictures'
   end
     
+  def dimensions
+    File.exists?(full_filepath) ? Dimensions.dimensions(full_filepath) : [0, 0]
+  end
+  
   def width_for_display(max_width)    
-    dims = Dimensions.dimensions(full_filepath)
+    dims = dimesions
     dims ? (dims[0] > max_width ? max_width : dims[0]) : 0
   end
     
@@ -61,7 +65,7 @@ class Picture < ActiveRecord::Base
         
     result['caption'] = result['title']
     
-    dims = Dimensions.dimensions(full_filepath)
+    dims = dimensions
     result['width'] = dims[0]
     result['height'] = dims[1]
     

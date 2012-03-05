@@ -117,6 +117,13 @@ class Video < ActiveRecord::Base
     (frames_count == 0) ? 15 : sprintf('%.04f', (frames_count * 1000.0) / duration_miliseconds)
   end
   
+  #
+  # For some reason encoding to mp4 produces the best results. We recode
+  # to other formats (mpg, flv) in the post-processing step. Also tests
+  # shown that it's not possible to encode .mpg with frame rates smaller
+  # than 19-20; but it's possible to RECODE to mpg from, say, mp4 where
+  # frame rate is 15-16.
+  #
   def self.encode(author_id, zip_filename, capture_start, capture_end)
     
     Rails::logger.debug("Encoding: zip_filename = " + zip_filename)
@@ -169,7 +176,7 @@ class Video < ActiveRecord::Base
     
     # remove the zip & frame images (whole dir)
     File.unlink(full_zip_path)
-    #FileUtils.rm_rf(destination)
+    FileUtils.rm_rf(destination)
         
     info = EncodingInfo.new
     info.filename = video_filename
@@ -201,13 +208,17 @@ class Video < ActiveRecord::Base
     path_for_format(:avi)
   end
   
+  def mpg_path
+    path_for_format(:mpg)
+  end
+  
   def full_path_for_format(format)
     filepath_for_type_and_filename('videos', path_for_format(format))        
   end
   
   def recode_to_formats
     #recode_to [:flv, :m4v, :avi]   
-    recode_to [:flv, :avi]
+    recode_to [:flv, :mpg]
   end
   
   def recode_to(formats)    
@@ -278,6 +289,13 @@ class Video < ActiveRecord::Base
     result = super(options)        
     result['caption'] = result['title']
     result['type']    = type_from_content_type(self.content_type)
+    
+    if options[:for_pdf]      
+      # apply MPG for the PDF format:      
+      result['path'] = self.mpg_path 
+      result['type'] = 'mpeg'      
+    end
+    
     result
   end 
   

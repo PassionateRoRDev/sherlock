@@ -24,7 +24,7 @@ class Report
       :camelize => true,
       :except => [:id, :case_id, :created_at, :updated_at]
     }
-    
+        
     {
       'title'         => self.title,
       'header'        => self.header.as_json(header_options),
@@ -39,12 +39,12 @@ class Report
     }
   end
     
-  def write_json
+  def write_json(options = {})
     dir = reports_root
     FileUtils.mkdir_p(dir) unless File.directory?(dir)
     
     json_path = reports_output_path.sub(/\.pdf$/, '.json')    
-    File.open(json_path, 'w') {|f| f.write(to_json) }
+    File.open(json_path, 'w') { |f| f.write(to_json(options)) }
     json_path
   end
   

@@ -5,7 +5,7 @@ module FileAsset
   end
   
   def author_id
-    self.block.case.author_id
+    self.block ? self.block.case.author_id : 0
   end
 
   def filepath_for_type_and_filename(type, filename)        

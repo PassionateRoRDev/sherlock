@@ -14,11 +14,11 @@ class Case < ActiveRecord::Base
   validates :title, :presence => true
   
   def as_json(options = {})  
-    
+        
     except = [:author_id, :client_name, :id, :footer, :number, :updated_at]
     include = []    
     result = super(:include => include, :except => except)        
-    result['blocks'] = self.blocks.map { |block| block.as_json }    
+    result['blocks'] = self.blocks.map { |block| block.as_json(options) }    
     result
   end
   

@@ -83,9 +83,13 @@ class CasesController < ApplicationController
     report.output_file = "report_#{the_case.id}.pdf"
     report.template = 'template.xhtml'
     
+    options = {
+      :for_pdf => true
+    }
+    
     logger.debug(report.to_json)
     
-    path = report.write_json
+    path = report.write_json(options)
     command = "java -jar #{Rails.root}/script/ReportGen.jar " + path + " 2>&1"
     logger.debug(command)
     result = `#{command}`

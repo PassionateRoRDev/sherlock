@@ -41,6 +41,7 @@ describe Report do
   end
   
   it 'JSON should have correct number of blocks' do
+    
     c = prepare_case
     
     c.blocks << Block.new(
@@ -50,7 +51,7 @@ describe Report do
       :picture =>  Picture.new(:title => 'Title of the picture', :path => 'picture1.png'))
     
     r = prepare_report(c)
-    
+        
     decoded = ActiveSupport::JSON.decode(r.to_json)
     decoded["case"]['blocks'].count.should == 2
   end
@@ -132,6 +133,37 @@ describe Report do
     decoded = ActiveSupport::JSON.decode(r.to_json)
     decoded["case"]['blocks'][1]['video']['width'].should == 300
     decoded["case"]['blocks'][1]['video']['height'].should == 200
+  end
+  
+  it 'Video block should return MPG as the format for the report' do
+    c = prepare_case
+    
+    c.blocks << Block.new(
+      :html_detail => HtmlDetail.new(:contents => 'Contents of the first HTML block'))
+    
+    c.blocks << Block.new(
+      :video => Video.new(
+        :title => 'Title of the video', 
+        :path => 'video1.avi',
+        :content_type => 'video/avi',
+        :thumbnail => 'thumbnail1.png',
+        :width  => 300,
+        :height => 200
+      )
+    )    
+    
+    r = prepare_report(c)
+    
+    options = {
+      :for_pdf => true
+    }    
+    
+    decoded = ActiveSupport::JSON.decode(r.to_json(options))
+    
+    video_block = decoded["case"]['blocks'][1]['video']
+    video_block['type'].should == 'mpeg'    
+    video_block['path'].should == 'video1.mpg'
+        
   end
   
 end
