@@ -48,7 +48,7 @@ class Picture < ActiveRecord::Base
   end
   
   def width_for_display(max_width)    
-    dims = dimesions
+    dims = dimensions
     dims ? (dims[0] > max_width ? max_width : dims[0]) : 0
   end
     
