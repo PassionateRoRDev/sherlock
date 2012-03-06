@@ -174,6 +174,21 @@ class Video < ActiveRecord::Base
     result = `#{command}`
     Rails::logger.debug("Result of the command: " + result)
     
+    # if the sound file exists, recode it to mp3:
+    if File.exists?("#{destination}/sound.aiff")
+      Rails::logger.debug("Encoding the sound into mp3")
+      command = "ffmpeg -i #{destination}/sound.aiff -f mp3 -acodec libmp3lame -ab 192000 -ar 44100 #{destination}/sound.mp3 2>&1"
+      result = `#{command}`
+      Rails::logger.debug("Result of AIFF -> MP3 command:")
+      Rails::logger.debug(result)
+      
+      Rails::logger.debug("Mixing the audio and video together:")
+      # mix the audio with the video:
+      #command = "ffmpeg -i #{video_full_path} -i #{destination}/sound.mp3 -acodec copy -vcodec copy #{video_full_path}.mixed"
+      #result = `#{command}`
+      #Rails::logger.debug(result)
+    end
+    
     # remove the zip & frame images (whole dir)
     File.unlink(full_zip_path)
     FileUtils.rm_rf(destination)
