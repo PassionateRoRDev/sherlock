@@ -152,8 +152,11 @@ class Video < ActiveRecord::Base
     
     Rails::logger.debug("Fps = #{fps}")
     
-    content_type = 'video/mp4'
-    ext = 'mp4'
+    #content_type = 'video/mp4'
+    #ext = 'mp4'
+    
+    content_type = 'video/quicktime'
+    ext = 'mov'
     
     #content_type = 'video/x-flv'
     #ext = 'flv'
@@ -164,30 +167,26 @@ class Video < ActiveRecord::Base
     video_filename = zip_filename.sub(/([^.]+)$/, ext)
     video_full_path = author_videos_dir + '/' + video_filename
     
-    options = ''
-    
-    options = '-ar 44100 -qmax 30' if ext == 'flv'
-    
-    command = "ffmpeg -r #{fps} -b 1800 -i #{destination}/%06d.jpg #{options} #{video_full_path} 2>&1"
-    Rails::logger.debug("Command: #{command}")
-    
-    result = `#{command}`
-    Rails::logger.debug("Result of the command: " + result)
-    
+    sound_options = ''
     # if the sound file exists, recode it to mp3:
     if File.exists?("#{destination}/sound.aiff")
       Rails::logger.debug("Encoding the sound into mp3")
       command = "ffmpeg -i #{destination}/sound.aiff -f mp3 -acodec libmp3lame -ab 192000 -ar 44100 #{destination}/sound.mp3 2>&1"
       result = `#{command}`
       Rails::logger.debug("Result of AIFF -> MP3 command:")
-      Rails::logger.debug(result)
-      
-      Rails::logger.debug("Mixing the audio and video together:")
-      # mix the audio with the video:
-      #command = "ffmpeg -i #{video_full_path} -i #{destination}/sound.mp3 -acodec copy -vcodec copy #{video_full_path}.mixed"
-      #result = `#{command}`
-      #Rails::logger.debug(result)
+      Rails::logger.debug(result)      
+      sound_options = "-i #{destination}/sound.mp3 -acodec copy"
     end
+    
+    options = ''
+    
+    options = '-ar 44100 -qmax 30' if ext == 'flv'
+    
+    command = "ffmpeg -r #{fps} -b 1800 -i #{destination}/%06d.jpg #{options} #{sound_options} -y #{video_full_path} 2>&1"
+    Rails::logger.debug("Command: #{command}")
+    
+    result = `#{command}`
+    Rails::logger.debug("Result of the command: " + result)        
     
     # remove the zip & frame images (whole dir)
     File.unlink(full_zip_path)
@@ -233,7 +232,7 @@ class Video < ActiveRecord::Base
   
   def recode_to_formats
     #recode_to [:flv, :m4v, :avi]   
-    recode_to [:flv, :mpg]
+    recode_to [:flv, :mpg, :mov]
   end
   
   def recode_to(formats)    
@@ -288,7 +287,7 @@ class Video < ActiveRecord::Base
   
   def delete_file
     delete_file_for_type(file_type)
-    [:flv, :m4v, :avi, :mpg].each do |format|        
+    [:flv, :m4v, :avi, :mpg, :swf, :mov].each do |format|        
       full_path = full_path_for_format(format)
       File.unlink(full_path) if File.exists?(full_path)
     end
