@@ -1,4 +1,9 @@
 var block = $('#block-<%= @block.id %>');
+<% if @blocks_count == 0 %>
+var no_blocks_msg = $('<h3/>').addClass('no-blocks-msg')
+                    .html("This case doesn't have any blocks yet");
+$('.blocks-area').prepend(no_blocks_msg);
+<% end %>
 var prev = block.prev();
 if (prev.hasClass('form-insert-block-wrapper')) {  
   prev.remove();

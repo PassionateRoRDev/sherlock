@@ -6,7 +6,8 @@ class BlocksController < ApplicationController
   def destroy
     
     c = @block.case  
-    @block.destroy    
+    @block.destroy
+    @blocks_count = c.blocks.count
     respond_to do |format|
       format.html { redirect_to(c, :notice => 'The block was successfully deleted') }
       format.js
