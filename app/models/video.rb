@@ -79,6 +79,8 @@ class Video < ActiveRecord::Base
     
     timecode = thumb_timecode || 1
     
+    ev = Event.create(:event_type => 'extract_thumbnail', :detail_s1 => video_filename)
+    
     if is_zip
       Rails::logger.debug("Opening the zip file")
       Zip::ZipFile.open(full_video_path) do |zip_file|
@@ -95,7 +97,9 @@ class Video < ActiveRecord::Base
       Rails::logger.debug("Command is: " + command)
       result = `#{command}`
       Rails::logger.debug("Result of the thumbnail command: " + result)
-    end            
+    end   
+    
+    ev.finish
     
     thumbnail_dims = Dimensions.dimensions(full_thumb_path)
     
@@ -136,6 +140,8 @@ class Video < ActiveRecord::Base
     Rails::logger.debug("Destination = " + destination)
     FileUtils.mkdir_p(destination) unless File.directory?(destination)
     
+    ev = Event.create(:event_type => 'unzip')
+    
     frames_count = 0
     Zip::ZipFile.open(full_zip_path) do |zip_file|
       zip_file.each do |f|
@@ -144,6 +150,8 @@ class Video < ActiveRecord::Base
         frames_count += 1
       end
     end
+    
+    ev.finish
     
     video_duration = capture_end - capture_start
     
@@ -170,12 +178,15 @@ class Video < ActiveRecord::Base
     sound_options = ''
     # if the sound file exists, recode it to mp3:
     if File.exists?("#{destination}/sound.aiff")
+      ev = Event.create(:event_type => 'convert_aiff')
       Rails::logger.debug("Encoding the sound into mp3")
       command = "ffmpeg -i #{destination}/sound.aiff -f mp3 -acodec libmp3lame -ab 192000 -ar 44100 #{destination}/sound.mp3 2>&1"
       result = `#{command}`
+      ev.finish
       Rails::logger.debug("Result of AIFF -> MP3 command:")
       Rails::logger.debug(result)      
       sound_options = "-i #{destination}/sound.mp3 -acodec copy"
+      
     end
     
     options = ''
@@ -185,7 +196,10 @@ class Video < ActiveRecord::Base
     command = "ffmpeg -r #{fps} -b 1800 -i #{destination}/%06d.jpg #{options} #{sound_options} -y #{video_full_path} 2>&1"
     Rails::logger.debug("Command: #{command}")
     
+    ev = Event.create(:event_type => 'video_encode_frames')
     result = `#{command}`
+    ev.finish
+    
     Rails::logger.debug("Result of the command: " + result)        
     
     # remove the zip & frame images (whole dir)
@@ -246,7 +260,13 @@ class Video < ActiveRecord::Base
         end
         command = "ffmpeg -i #{video_path} #{extra_flags} -strict experimental -deinterlace -ar 44100 -y -r 25 -qmin 3 -qmax 6 #{new_video_path} 2>&1"
         Rails::logger.debug("Recode command: " + command)
+        ev = Event.create(
+                  :event_type => 'video_recode', 
+                  :detail_s1 => format, 
+                  :detail_i1 => self.id
+        )
         result = `#{command}`      
+        ev.finish
         Rails::logger.debug("Recode result: " + result)
       end
     end
