@@ -14,6 +14,8 @@
   </div>  
 </div>
 
+<%= f.hidden_field :unique_code unless @video.id %>
+
 <% if @video.id %>
 
   <h4 class="label">Video :</h4>
