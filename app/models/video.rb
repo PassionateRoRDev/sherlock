@@ -140,7 +140,8 @@ class Video < ActiveRecord::Base
     Rails::logger.debug("Destination = " + destination)
     FileUtils.mkdir_p(destination) unless File.directory?(destination)
     
-    ev = Event.create(:event_type => 'unzip')
+    ev = Event.create(:event_type => 'unzip', 
+                      :detail_i1 => File.size(full_zip_path))
     
     frames_count = 0
     Zip::ZipFile.open(full_zip_path) do |zip_file|
