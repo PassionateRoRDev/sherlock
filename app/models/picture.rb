@@ -55,6 +55,17 @@ class Picture < ActiveRecord::Base
   def delete_file
     delete_file_for_type(file_type)  
   end
+
+  def self.populate_missing_codes
+    Picture.where(:unique_code => nil).each do |pic|
+      pic.unique_code = Picture.generate_unique_code
+      pic.save
+    end
+    Picture.where(:unique_code => '').each do |pic|
+      pic.unique_code = Picture.generate_unique_code
+      pic.save
+    end
+  end
   
   def as_json(options = {}) 
     

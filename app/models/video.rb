@@ -215,6 +215,17 @@ class Video < ActiveRecord::Base
     info
   
   end
+
+  def self.populate_missing_codes
+    Video.where(:unique_code => nil).each do |video|
+      video.unique_code = Video.generate_unique_code
+      video.save
+    end  
+    Video.where(:unique_code => '').each do |video|
+      video.unique_code = Video.generate_unique_code
+      video.save
+    end  
+  end
   
   def full_thumbnail_path
     filepath_for_type_and_filename(file_type, thumbnail)    
