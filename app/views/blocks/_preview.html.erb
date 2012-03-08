@@ -5,7 +5,8 @@
 <% end %>
 
 <% if block.picture %>
-  <div class="picture-block">
+  <div class="picture-block"
+       style="<%= picture_dynamic_style(block.picture) %>">
     <img src="<%= url_for file_path('pictures', block.picture.path) %>"
          title="<%= block.picture.title %>"
          width="<%= block.picture.width_for_display(1024) %>"/>
