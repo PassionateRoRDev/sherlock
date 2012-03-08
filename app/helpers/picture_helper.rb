@@ -11,7 +11,7 @@ module PictureHelper
   def picture_dynamic_style(picture)
     case picture.alignment
     when 'left'
-      'float:left;margin:0 1em 1em 0'    
+      'float:left;margin:0 1em 1em 0'
     when 'right'
       'float:right;margin:0 0em 1em 1em'
     end
