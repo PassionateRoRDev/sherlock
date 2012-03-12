@@ -182,6 +182,22 @@ div.hidden {
     line-height: 28px;
 }
 
+.new_invitation .field {
+  position: relative;  
+}
+
+.new_invitation .error_message {
+  position: absolute;
+  top: 0px;
+  left: 350px;
+}
+
+.new_invitation textarea {
+  padding: 4px 5px;
+  color: #666;
+}
+
+
 .required label:before{
   content:"\2217";
   color: blue;
