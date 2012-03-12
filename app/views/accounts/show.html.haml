@@ -6,7 +6,7 @@
   .field.labels-x
     =form.label :company_name, 'PI Company Name :'
     .boxfield
-      =form.text_field :company_name, :class => 'txtfield'
+      =form.text_field :company_name, :class => :txtfield
 
   %h2 ACCOUNT INFO
 
@@ -14,47 +14,40 @@
     .field  
       %label First Name :
       .boxfield
-        %input.txtfield
-    .field  
-      %label Address :
-      .boxfield
-        %input.txtfield
-    .field  
-      %label State :
-      .styled-select-rounded-x
-        %select
-          %option -- select state --
-          %option California
-          %option Illinois
-          %option Nevada
-          %option New York
-          %option Oregon
-          %option Washington
-    .field  
-      %label Zip :
-      .boxfield
-        %input.txtfield
+        =form.text_field :first_name, :class => :txtfield
+    =form.fields_for :user_address do |address|
+      .field  
+        %label Address :
+        .boxfield
+          =address.text_field :address, :class => :txtfield          
+      .field  
+        %label State :
+        .styled-select-rounded-x
+          =address.select :state, states_options
+          
+      .field  
+        %label Zip :
+        .boxfield
+          =address.text_field :zip, :class => :txtfield          
 
   .midright
     .field  
       %label Last Name :
       .boxfield
-        %input.txtfield
-    .field  
-      %label City :
-      .boxfield
-        %input.txtfield
-    .field  
-      %label Country :
-      .styled-select-rounded-x
-        %select
-          %option USA
-          %option Canada          
-        
-    .field  
-      %label Phone Number :
-      .boxfield
-        %input.txtfield
+        =form.text_field :last_name, :class => :txtfield
+    =form.fields_for :user_address do |address|
+      .field  
+        %label City :
+        .boxfield
+          =address.text_field :city, :class => :txtfield
+      .field  
+        %label Country :
+        .styled-select-rounded-x
+          =address.select :country, countries_options
+      .field  
+        %label Phone Number :
+        .boxfield
+          =address.text_field :phone, :class => :txtfield
 
   %h2.clear PASSWORD
 
@@ -62,13 +55,12 @@
     .field  
       %label Password :
       .boxfield
-        %input.txtfield{:type => :password}  
+        =form.password_field :password, :class => :txtfield        
     .field
       %label Confirm Password :
       .boxfield
-        %input.txtfield{:type => :password} 
+        =form.password_field :password_confirmation, :class => :txtfield
     
-
   %h2.clear PERMISSIONS
 
   .labels-x
