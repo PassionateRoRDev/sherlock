@@ -14,6 +14,8 @@ gem 'json'
 gem 'rails_admin', :git => 'git://github.com/sferik/rails_admin.git'
 gem 'valuable'
 
+gem 'raspell'
+
 gem 'rubyzip'
 
 gem 'execjs'
@@ -21,7 +23,7 @@ gem 'therubyracer'
 
 gem 'dimensions'
 
-gem 'tinymce-rails'
+# gem 'tinymce-rails', '3.4.7'
 
 # Gems used only for assets and not required
 # in production environments by default.

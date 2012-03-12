@@ -13,10 +13,13 @@ Sherlock::Application.routes.draw do
     resources :invitations
     resources :footers
   end
-
+    
   resource :account, :only => [:show, :update]
  
   get 'cases/preview/:id' => 'cases#preview', :as => :case_preview
+  
+  match 'spellcheck/lookup' => 'spellcheck#lookup', 
+        :as => :spellcheck, :via => [:get, :post]
   
   get 'dashboard' => 'home#dashboard',  :as => :dashboard
   
