@@ -11,6 +11,9 @@ class Case < ActiveRecord::Base
   
   has_one :footer
   
+  attr_accessible :title, :summary, :number, 
+                  :client_name, :opened_on, :closed_on
+  
   validates :title, :presence => true
   
   def as_json(options = {})  

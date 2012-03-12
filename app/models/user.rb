@@ -5,7 +5,10 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :company_name, :admin
+  attr_accessible :email, :password, :password_confirmation, 
+                  :remember_me, :company_name, :admin,
+                  :first_name, :last_name,                  
+                  :user_address_attributes
  
   has_many :authored_cases, :class_name => 'Case', :foreign_key => 'author_id' 
   has_and_belongs_to_many :viewable_cases, :join_table => 'viewers', :foreign_key => 'viewer_id', :association_foreign_key => 'case_id', :class_name => 'Case'
@@ -17,8 +20,19 @@ class User < ActiveRecord::Base
   has_one :letterhead, :dependent => :destroy
   has_many :logos, :dependent => :destroy
   
+  has_one :user_address
+
+  accepts_nested_attributes_for :user_address
+  
   def find_case_by_id(case_id)
     authored_cases.find_by_id(case_id) || viewable_cases.find_by_id(case_id)
+  end
+  
+  def init_address
+    self.user_address = UserAddress.new(
+      :user     => self,
+      :country  => :US
+    )
   end
   
   def cases
@@ -37,6 +51,7 @@ class User < ActiveRecord::Base
       false
     end
   end 
+      
   
 end
 
