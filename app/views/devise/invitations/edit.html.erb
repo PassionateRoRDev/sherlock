@@ -1,0 +1,46 @@
+
+<div class="form-center">
+  <h1>Welcome to SherlockDocs</h1>
+  <h2>Before proceeding, please set your password</h2>
+</div>
+
+<%= form_for resource, :as => resource_name, 
+  :url => invitation_path(resource_name),   
+  :html => { :method => :put, :class => 'form-center' } do |f| %>
+
+  <%= devise_error_messages! %>
+  <%= f.hidden_field :invitation_token %>
+
+  <div class="field">
+    <label>Email :</label>
+    <div class="boxfield" style="padding-top: 7px;">
+      <strong><%= resource.email %></strong>
+    </div>
+  </div>
+  
+  <div class="field">
+      <%= f.label :password, 'Password :' %>
+      <div class="boxfield">
+        <%= f.password_field :password, :class => :txtfield %>    
+      </div>
+  </div>
+
+  <div class="field">
+    <%= f.label :password, 'Confirm :' %>
+    <div class="boxfield">
+      <%= f.password_field :password_confirmation, :class => :txtfield %>
+    </div>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Proceed", :class => :button %>        
+  </div>
+
+<% end %>
+
+<script type="text/javascript">
+  $(function() {
+    $('#user_password').focus();
+  });
+</script>
+
