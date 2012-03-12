@@ -35,18 +35,21 @@ class VideosController < ApplicationController
       params[:video][:original_filename] = video.original_filename
       params[:video][:content_type]      = video.content_type    
 
+      logger.debug("create: storing the video - #{Time.now.to_i}")
       video_filename = Video.store(current_user, video)
       
       start_time = params[:start_time].to_i
       end_time   = params[:end_time].to_i
       
       if video_filename.end_with?('zip')
+        logger.debug("create: encoding the video - #{Time.now.to_i}")
         encoding_info = Video.encode(
           current_user.id, video_filename, start_time, end_time)
         video_filename = encoding_info.filename
         params[:video][:content_type] = encoding_info.content_type
         params[:video][:fps] = encoding_info.fps
         params[:video][:duration] = encoding_info.duration      
+        logger.debug("create: encoding done - #{Time.now.to_i}")
       end
               
       params[:video][:path] = video_filename
