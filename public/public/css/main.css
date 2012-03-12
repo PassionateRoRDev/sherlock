@@ -200,7 +200,7 @@ filter: progid:DXImageTransform.Microsoft.Alpha(opacity=80);
 	float:left;
 	width:225px;
 	height:305px;
-	background:url(../images/max-plan-bg.jpg) no-repeat;
+	background:url(https://s3.amazonaws.com/sherlockdocs.com/images/max-plan-bg.jpg) no-repeat;
 	margin-top:15px;
 	text-align:center;
 }
@@ -215,7 +215,7 @@ filter: progid:DXImageTransform.Microsoft.Alpha(opacity=80);
 	float:left;
 	width:251px;
 	height:335px;
-	background:url(../images/premium-bg.jpg) no-repeat;
+	background:url(https://s3.amazonaws.com/sherlockdocs.com/images/premium-bg.jpg) no-repeat;
 	text-align:center;
 }
 .premium-plan p {
@@ -229,7 +229,7 @@ filter: progid:DXImageTransform.Microsoft.Alpha(opacity=80);
 	float:left;
 	width:223px;
 	height:305px;
-	background:url(../images/basic-bg.jpg) no-repeat;
+	background:url(https://s3.amazonaws.com/sherlockdocs.com/images/basic-bg.jpg) no-repeat;
 	margin-top:15px;
 	text-align:center;
 }
