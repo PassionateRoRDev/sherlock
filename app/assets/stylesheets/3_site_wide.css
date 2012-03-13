@@ -720,3 +720,8 @@ input.link {
 h2.case-title {
   font-size: 220%;
 }
+
+#appletContainer {
+  position: absolute;
+  top: 0;
+}

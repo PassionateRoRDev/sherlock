@@ -43,7 +43,7 @@
       $('#btn-screen-capture').click(function() {           
         var container = $('#appletContainer');
         container.empty();
-        if (container.html() == '') {
+        {
           <% if @picture.id %>
           var post_url = '<%= case_picture_url(@case, @picture) %>';
           <% else %>
@@ -52,7 +52,7 @@
           var token = $('meta[name=csrf-token]').attr('content');
           var code = '<applet archive="<%= root_url %>SherlockScreen.jar?v=' + new Date().valueOf() + '" ' +
             'code="sherlockscreen.SherlockScreen.class" ' +
-            'width="300" height="60" MAYSCRIPT>' +        
+            'width="1" height="1" MAYSCRIPT>' +        
             '<param name="type" value="picture"/>' +
             '<param name="token" value="' + token + '"/>' +
             '<param name="unique_code" value="<%= @picture.unique_code %>"/>' +
