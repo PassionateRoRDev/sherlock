@@ -4,7 +4,8 @@ module PictureHelper
     [
       ['None', nil],
       ['Left', 'left'],
-      ['Right', 'right']      
+      ['Right', 'right'],
+      ['Center', 'center']
     ]
   end
   
@@ -14,6 +15,10 @@ module PictureHelper
       'float:left;margin:0 1em 1em 0'
     when 'right'
       'float:right;margin:0 0em 1em 1em'
+    when 'center'
+      'text-align:center;clear:both;'
+    else
+      'clear:both;'
     end
   end
   
