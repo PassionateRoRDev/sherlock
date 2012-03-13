@@ -25,7 +25,7 @@ class Letterhead < ActiveRecord::Base
     
     if options[:camelize]      
       result.keys.each { |k| result[k.to_s.camelize(:lower)] = result[k] }      
-    end        
+    end
     
     if divider_above
       result[:divider] = {

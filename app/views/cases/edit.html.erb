@@ -1,6 +1,8 @@
 <div class="breadcrumb">
   <%= link_to 'Dashboard', dashboard_path %> /
-  <%= link_to 'My Cases', cases_path %> / Edit Case
+  <%= link_to 'My Cases', cases_path %> / 
+  <%= link_to @case.title, @case %> /
+  Edit
 </div>
 
 <h1>Edit Case</h1>

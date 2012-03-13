@@ -9,6 +9,13 @@
       <%= f.text_field :title, :class => 'txtfield txtfield-wide' %>
     </div>
   </div>
+  
+  <div class="field">
+    <%= f.label :title_alignment, 'Align Title :' %>
+    <div class="styled-select-rounded-x">
+      <%= f.select :title_alignment, title_alignment_options %>
+    </div>
+  </div>
 
   <div class="field">    
       <%= f.label :summary, 'Summary :', :class => :inline %>

@@ -716,3 +716,7 @@ input.link {
     bottom: auto !important;
     z-index: 100;
 }
+
+h2.case-title {
+  font-size: 220%;
+}

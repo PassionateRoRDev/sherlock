@@ -5,6 +5,12 @@
 <head>
   <title><%= @case.title %> - Preview</title>
   <style type="text/css">
+    
+    body {
+      font-family: Georgia;
+      font-size: 18px;
+    }
+    
     h4 {
       margin-top: 0.5em;
     }
@@ -38,7 +44,7 @@
 
 <%= render 'letterheads/show' if @letterhead %>
 
-<h1><%= @case.title %></h1>
+<h1 style="<%= case_title_style(@case) %>"><%= @case.title %></h1>
 
 <h2>Summary</h2>
 

@@ -34,7 +34,8 @@
   </div>
 </div>
 
-<h2><%= @case.title %></h2>
+<h2 class="case-title" 
+    style="<%= case_title_style(@case) %>"><%= @case.title %></h2>
 
 <p>
   <%= @case.summary.to_s.html_safe %>

@@ -11,7 +11,8 @@ class Case < ActiveRecord::Base
   
   has_one :footer
   
-  attr_accessible :title, :summary, :number, 
+  attr_accessible :title, :title_alignment,
+                  :summary, :number, 
                   :client_name, :opened_on, :closed_on
   
   validates :title, :presence => true
@@ -21,6 +22,9 @@ class Case < ActiveRecord::Base
     except = [:author_id, :client_name, :id, :footer, :number, :updated_at]
     include = []    
     result = super(:include => include, :except => except)        
+    
+    result['titleAlignment'] = self.title_alignment
+    
     result['blocks'] = self.blocks.map { |block| block.as_json(options) }    
     result
   end
