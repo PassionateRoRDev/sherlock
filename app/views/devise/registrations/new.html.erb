@@ -55,9 +55,8 @@
 
       <div class="field">
         <%= address.label :state, 'State :' %>
-        <div class="boxfield">
-          <%= address.text_field :state, 
-              :class => :txtfield, :tabindex => 8 %>
+        <div class="styled-select-rounded-x">
+          <%= address.select :state, states_options, :tabindex => 8 %>              
         </div>
       </div>
 
@@ -73,7 +72,7 @@
     
   </div>
 
-  <div class="midright labels-x" style="margin-right:3em;">
+  <div class="midright labels-x" style="margin-right:0em;width: 383px;">
     
     <br/>
     
@@ -106,10 +105,9 @@
 
       <div class="field">
         <%= address.label :country, 'Country :' %>
-        <div class="boxfield">
-          <%= address.text_field :country, :class => :txtfield,
-              :tabindex => 9 %>
-        </div>
+        <div class="styled-select-rounded-x">
+          <%= address.select :country, countries_options, :tabindex => 9 %>
+        </div>        
       </div>
 
       <div class="field">
