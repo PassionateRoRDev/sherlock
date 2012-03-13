@@ -42,6 +42,7 @@
       
       $('#btn-screen-capture').click(function() {           
         var container = $('#appletContainer');
+        container.empty();
         if (container.html() == '') {
           <% if @picture.id %>
           var post_url = '<%= case_picture_url(@case, @picture) %>';
