@@ -138,8 +138,9 @@ class CasesController < ApplicationController
   end
   
   def convert_dates(params)    
-    params['opened_on'] = convert_date(params['opened_on'])
-    params['closed_on'] = convert_date(params['closed_on'])    
+    params['opened_on']   = convert_date(params['opened_on'])
+    params['closed_on']   = convert_date(params['closed_on'])
+    params['report_date'] = convert_date(params['report_date'])
     params
   end
     

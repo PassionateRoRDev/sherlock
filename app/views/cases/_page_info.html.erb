@@ -23,8 +23,8 @@
       <div class="field">
         <label>Type of Case :</label>
         <div class="boxfield">
-          <input type="text" class="txtfield hint" 
-                 title="not required"/>
+          <%= f.text_field :case_type, :class => 'txtfield hint', 
+                           :title => 'not required' %>          
         </div>
       </div>
       <div class="field">
@@ -55,8 +55,9 @@
       <div class="field">
         <label>Report Date :</label>
         <div class="boxfield">
-          <input type="text" class="txtfield hint datepicker" 
-                 title="optional"/>
+          <%= f.text_field :report_date,
+                           :class => 'txtfield hint datepicker',
+                           :title => 'optional' %>          
         </div>
       </div>
   

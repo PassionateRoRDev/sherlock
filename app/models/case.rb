@@ -13,7 +13,9 @@ class Case < ActiveRecord::Base
   
   attr_accessible :title, :title_alignment,
                   :summary, :number, 
-                  :client_name, :opened_on, :closed_on
+                  :client_name, 
+                  :case_type,
+                  :opened_on, :closed_on, :report_date
   
   validates :title, :presence => true
   
