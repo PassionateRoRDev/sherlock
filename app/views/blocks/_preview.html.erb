@@ -15,7 +15,8 @@
 <% end %>
 
 <% if block.video %>
-  <div class="video-block">
+  <div class="video-block"
+       style="<%= video_dynamic_style(block.video) %>">       
     <%= render 'videos/jplayer', :video => block.video %>
     <!--
     <img src="<%= url_for file_path('videos', block.video.thumbnail) %>"

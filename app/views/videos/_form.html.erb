@@ -14,6 +14,13 @@
   </div>  
 </div>
 
+<div class="field">
+  <%= f.label :alignment, 'Alignment :' %>
+  <div class="styled-select-rounded-x">
+    <%= f.select :alignment, video_alignment_options %>
+  </div>
+</div>
+
 <%= f.hidden_field :unique_code unless @video.id %>
 
 <% if @video.id %>

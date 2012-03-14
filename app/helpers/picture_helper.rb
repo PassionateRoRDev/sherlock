@@ -16,9 +16,9 @@ module PictureHelper
     when 'right'
       'float:right;margin:0 0em 1em 1em'
     when 'center'
-      'text-align:center;clear:both;'
+      'text-align:center;clear:both;margin-top:1em;'
     else
-      'clear:both;'
+      'clear:both;margin-top:1em;'
     end
   end
   
