@@ -82,6 +82,6 @@ Then /^(?:|I )should not see "([^"]*)"$/ do |text|
 end
 
 Then /^the list of cases should contain (\d+) cases?$/ do |how_many|  
-  find(:css, 'ol.cases').should match_exactly(how_many.to_i, "li")
+  find(:css, 'ul.case-icons-list').should match_exactly(how_many.to_i, "li")
 end
 
