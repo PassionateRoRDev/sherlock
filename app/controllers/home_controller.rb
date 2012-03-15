@@ -20,7 +20,8 @@ class HomeController < ApplicationController
   end
   
   def dashboard
-    @cases = current_user.cases
+    #@cases = current_user.cases
+    redirect_to cases_path
   end
   
   def pricing
