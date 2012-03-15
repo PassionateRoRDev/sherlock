@@ -8,7 +8,8 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, 
                   :remember_me, :company_name,
                   :first_name, :last_name,                  
-                  :user_address_attributes
+                  :user_address_attributes,
+                  :skip_invitation
  
   has_many :authored_cases, :class_name => 'Case', :foreign_key => 'author_id' 
   has_and_belongs_to_many :viewable_cases, :join_table => 'viewers', :foreign_key => 'viewer_id', :association_foreign_key => 'case_id', :class_name => 'Case'
