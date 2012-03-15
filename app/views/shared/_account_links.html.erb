@@ -1,7 +1,11 @@
 <div class="head">
-  <div class="headtxt">Account</div>
+  <%= investigators_only do %>
+    <div class="headtxt">Account</div>
+  <% end %>
   <div class="head-account-links">
-    <a class="settings" href="<%= account_path %>" title="Settings">Settings</a>
+    <%= investigators_only do %>
+      <a class="settings" href="<%= account_path %>" title="Settings">Settings</a>
+    <% end %>
     <a class="help" href="<%= help_path %>" title="Help">Help</a>
   </div>
 </div>

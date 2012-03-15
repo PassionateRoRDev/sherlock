@@ -1,6 +1,7 @@
 class VideosController < ApplicationController
   
   before_filter :authenticate_user!
+  before_filter :authorize_pi!
   
   #
   # Note: we may want to remove it, if this controller will also be

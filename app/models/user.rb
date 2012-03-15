@@ -42,6 +42,13 @@ class User < ActiveRecord::Base
   def invited?
     ! self.invitation_token.blank?  
   end
+  
+  #
+  # PI's are uses who haven't been invited
+  #
+  def pi?
+    invitation_accepted_at.blank? && (!invited?)
+  end
 
   def can_view?( object )
     case object

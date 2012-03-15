@@ -8,14 +8,19 @@
       :class =>'icon icon-pdf', 
       :title => 'Download as PDF' %>    
   
-  <%= link_to 'Share', new_case_invitation_path(c), 
-      :title => 'Share Report with a Client',
-      :class => 'icon icon-envelope' %>    
+  <%= investigators_only do %>
   
-  <%= link_to 'Delete', c, 
-       :confirm => 'Are you sure you want to remove this case?', 
-       :method => :delete,
-       :class => 'icon icon-trash' %>
+    <%= link_to 'Share', new_case_invitation_path(c), 
+        :title => 'Share Report with a Client',
+        :class => 'icon icon-envelope' %>    
+
+    <%= link_to 'Delete', c, 
+         :confirm => 'Are you sure you want to remove this case?', 
+         :method => :delete,
+         :class => 'icon icon-trash' %>
+  
+  <% end %>
+  
     
 </div>      
         

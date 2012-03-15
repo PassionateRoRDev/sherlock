@@ -1,6 +1,8 @@
 class HtmlDetailsController < ApplicationController
   
   before_filter :authenticate_user!
+  before_filter :authorize_pi!
+  
   before_filter :resolve_case, :only => [ :new, :edit, :update, :create ]
   
   respond_to :html, :json, :except => :update

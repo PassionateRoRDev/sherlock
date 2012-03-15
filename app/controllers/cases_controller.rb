@@ -1,6 +1,9 @@
 class CasesController < ApplicationController
   
   before_filter :authenticate_user!
+  
+  before_filter :authorize_pi!, :except => [ :index, :preview, :show ]
+  
   before_filter :resolve_case, :except => [ :new, :create, :index ]
   
   def new
@@ -28,10 +31,12 @@ class CasesController < ApplicationController
     render :preview, :layout => false
   end
   
-  def show        
+  def show     
     respond_to do |format|
       #format.xml { render :xml => @case }
-      format.html      
+      format.html {
+        redirect_to :action => :preview unless current_user.pi?
+      }     
       format.pdf { render_pdf2(@case) }
       format.js { render :json => @case }
     end

@@ -1,6 +1,7 @@
 class LogosController < ApplicationController
   
   before_filter :authenticate_user!
+  before_filter :authorize_pi!
   
   before_filter :resolve_logo, :except => [ :index, :new, :create ]
   

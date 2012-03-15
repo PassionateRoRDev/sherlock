@@ -1,5 +1,8 @@
 class SpellcheckController < ApplicationController
   
+  before_filter :authenticate_user!
+  before_filter :authorize_pi!
+  
   skip_before_filter :verify_authenticity_token, :only => :lookup
   
   def lookup

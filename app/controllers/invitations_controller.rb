@@ -1,5 +1,8 @@
 class InvitationsController < ApplicationController
 
+  before_filter :authenticate_user!  
+  before_filter :authorize_pi!  
+  
   def new
     @invitation = Invitation.new(:case_id => params[:case_id])
   end

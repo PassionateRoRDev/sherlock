@@ -5,10 +5,12 @@
 <div id="my-cases-wrapper">
   <h1>My Cases</h1>
 
-<div class="link-buttons">
-  <%= link_to 'Create a new Case', new_case_path, 
-              :class => "button button-wide right" %>
-</div>
+<%= investigators_only do %>  
+  <div class="link-buttons">
+    <%= link_to 'Create a new Case', new_case_path, 
+                :class => "button button-wide right" %>
+  </div>  
+<% end %>
 
 </div>
 

@@ -1,6 +1,7 @@
 class FootersController < ApplicationController
   
   before_filter :authenticate_user!
+  before_filter :authorize_pi!
   
   before_filter :resolve_case
   before_filter :resolve_footer, :except => [ :new, :create ]
