@@ -7,7 +7,7 @@
 <% if block.picture %>
   <div class="picture-block"
        style="<%= picture_dynamic_style(block.picture) %>">
-    <img src="<%= url_for file_path('pictures', block.picture.path) %>"
+    <img src="<%= file_picture_path block.picture %>"
          title="<%= block.picture.title %>"
          width="<%= block.picture.width_for_display(1024) %>"/>
     <h4><%= block.picture.title %></h4>
@@ -19,7 +19,7 @@
        style="<%= video_dynamic_style(block.video) %>">       
     <%= render 'videos/jplayer', :video => block.video %>
     <!--
-    <img src="<%= url_for file_path('videos', block.video.thumbnail) %>"
+    <img src="<%= file_video_path block.video %>"
          title="<%= block.video.title %>"
          width="<%= block.video.width %>"
          height="<%= block.video.height %>"/>

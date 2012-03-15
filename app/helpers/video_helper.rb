@@ -1,4 +1,8 @@
 module VideoHelper
+
+  def file_video_path(video, path = video.thumbnail)
+    file_path(video.block.case_id, 'videos', path)
+  end
   
   def video_alignment_options
     [

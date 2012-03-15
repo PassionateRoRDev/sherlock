@@ -26,7 +26,7 @@ class CasesController < ApplicationController
   
   def preview    
     
-    @letterhead = current_user.letterhead
+    @letterhead = @case.author.letterhead
     
     render :preview, :layout => false
   end

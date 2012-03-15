@@ -12,11 +12,11 @@ class User < ActiveRecord::Base
  
   has_many :authored_cases, :class_name => 'Case', :foreign_key => 'author_id' 
   has_and_belongs_to_many :viewable_cases, :join_table => 'viewers', :foreign_key => 'viewer_id', :association_foreign_key => 'case_id', :class_name => 'Case'
-  has_many :blocks, :through => :authored_cases
   
+  has_many :blocks, :through => :authored_cases
   has_many :pictures, :through => :blocks
   has_many :videos, :through => :blocks
-    
+  
   has_one :letterhead, :dependent => :destroy
   has_many :logos, :dependent => :destroy
   
