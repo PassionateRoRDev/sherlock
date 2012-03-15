@@ -18,12 +18,5 @@
   <div class="video-block"
        style="<%= video_dynamic_style(block.video) %>">       
     <%= render 'videos/jplayer', :video => block.video %>
-    <!--
-    <img src="<%= file_video_path block.video %>"
-         title="<%= block.video.title %>"
-         width="<%= block.video.width %>"
-         height="<%= block.video.height %>"/>
-    <h4>Video: <%= block.video.title %></h4>
-    -->
   </div>
 <% end %>

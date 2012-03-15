@@ -7,7 +7,6 @@
         
   <div style="float:right;">
   <% if block.html_detail %>    
-    <%= link_to 'Edit', edit_case_html_detail_path(block.case, block.html_detail) if false %>
     <%= link_to 'Edit', 
         edit_case_html_detail_path(block.case, block.html_detail),
         :class => 'block-edit-ajax' %> |
@@ -16,7 +15,7 @@
     <%= link_to 'Edit', edit_case_picture_path(block.case, block.picture) %> |
   <% end %>
   <% if block.video %>
-    <%= link_to 'Download', file_path('videos', block.video.path) %> |  
+    <%= link_to 'Download', file_video_path(block.video) %> |  
     <%= link_to 'Edit', edit_case_video_path(block.case, block.video) %> |    
   <% end %>
     

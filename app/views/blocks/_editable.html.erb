@@ -7,15 +7,11 @@
   <% end %>
   <% if block.picture %>
     <%= block.picture.title %><br/>
-    <img src="<%= url_for file_path('pictures', block.picture.path) %>"
+    <img src="<%= file_picture_path(block.picture) %>"
          width="<%= block.picture.width_for_display(840) %>"/>
   <% end %>
   <% if block.video %>
     <%= block.video.title %><br/>    
-    <% if block.video.thumbnail %>
-      <!-- <img src="<%= url_for file_path('videos', block.video.thumbnail) %>"/> -->
-    <% end %>
-    
     <%= render 'videos/jplayer', :video => block.video %>
   <% end %>
 </div>

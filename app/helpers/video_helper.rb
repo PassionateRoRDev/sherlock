@@ -1,6 +1,6 @@
 module VideoHelper
 
-  def file_video_path(video, path = video.thumbnail)
+  def file_video_path(video, path = video.path)
     file_path(video.block.case_id, 'videos', path)
   end
   
