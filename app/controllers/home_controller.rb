@@ -1,6 +1,7 @@
 class HomeController < ApplicationController
   
   before_filter :authenticate_user!, :only => [:dashboard]
+  before_filter :check_public_section
   
   def index    
     @title = 'SherlockDocs'
@@ -27,7 +28,15 @@ class HomeController < ApplicationController
   def pricing
     @title = 'Plans and Pricing'
     render 'pricing', :layout => 'public'
-    
+  end
+
+  private
+
+  #
+  # Disable public pages for now for the production environment
+  #
+  def check_public_section
+    redirect_to dashboard_path if Rails.env == 'production'
   end
   
 end
