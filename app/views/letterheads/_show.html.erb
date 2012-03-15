@@ -7,7 +7,7 @@
          style="float:<%= @letterhead.logo_alignment %>;">
     <% end %>
       <img style="float:<%= @letterhead.logo_alignment %>;"
-           src="<%= url_for file_path('logos', @letterhead.logo.path) %>"
+           src="<%= file_logo_path(kase, @letterhead.logo) %>"
            height="<%= @letterhead.logo.height_for_display(80) %>"/>        
     <% if @letterhead.is_link %>
       </a>

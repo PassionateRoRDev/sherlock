@@ -33,7 +33,7 @@ Sherlock::Application.routes.draw do
   
   resources :blocks
   
-  match 'files/:type/:filename' => 'files#show',
+  match 'files/:case_id/:type/:filename' => 'files#show',
     :constraints => { :filename => /.*/ }, :as => :file
   
   # The priority is based upon order of creation:

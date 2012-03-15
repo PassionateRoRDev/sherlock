@@ -1,5 +1,9 @@
 module PictureHelper
   
+  def file_picture_path(picture)
+    file_path(picture.block.case_id, 'pictures', picture.path)
+  end
+  
   def image_alignment_options
     [
       ['None', nil],

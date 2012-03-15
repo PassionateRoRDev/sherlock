@@ -11,7 +11,11 @@ class FilesController < ApplicationController
     filename  = params[:filename]
     
     user = current_user
-    path = "#{Rails.root}/files/#{user.id}/#{type}/" + filename
+    
+    kase = resolve_case_using_param(:case_id)
+    case_author = kase.author
+    
+    path = "#{Rails.root}/files/#{case_author.id}/#{type}/" + filename
     
     logger.debug("Path: " + path)
     
@@ -23,9 +27,9 @@ class FilesController < ApplicationController
     
     case type
     when 'pictures'
-      asset = user.pictures.find_by_path(filename)
+      asset = kase.pictures.find_by_path(filename)
     when 'videos'
-      asset = user.videos.find_by_path(filename)
+      asset = kase.videos.find_by_path(filename)
       unless asset
         # try based on the file extension
         filename =~ /([^.]+)$/
@@ -46,7 +50,7 @@ class FilesController < ApplicationController
         end    
       end
     when 'logos'
-      asset = user.logos.find_by_path(filename)
+      asset = case_author.logos.find_by_path(filename)
     end
     
     if asset    
