@@ -1,0 +1,10 @@
+<div class="link-buttons">
+  <%= link_to 'View Case', c, :class => :button %>
+  <%= link_to 'Share', new_case_invitation_path(c), :class => 'button share' %>
+  <%= link_to 'Get PDF', 
+              case_path(c, :format => :pdf), :class => :button %>
+  <%= link_to 'Delete', c, 
+       :confirm => 'Are you sure you want to remove this case?', 
+       :method => :delete,
+       :class => :button %>
+</div>

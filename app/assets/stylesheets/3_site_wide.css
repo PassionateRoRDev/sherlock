@@ -494,6 +494,23 @@ a.button {
     color: #fff;
 }
 
+a.button:hover {
+  color: #ddd;
+}
+
+a.icon {
+    display: block;
+    text-indent: -1000em;
+    outline: none;
+    float: left;
+    margin-right: 5px;
+   
+}
+
+a.icon.icon-pdf {
+  margin-right: 7px; 
+}
+
 .right,
 a.button.right {
     float: right;
@@ -690,24 +707,21 @@ input.link {
 }
 
 .icon {
-    width: 14px;
-    height: 14px;
+    width: 16px;
+    height: 16px;
     background-repeat: no-repeat;    
-    background-image: url(glyphicons-halflings.png);
+    background-image: url(glyph-icons.png);
 }
 
 .icon-white {
-    background-image: url(glyphicons-halflings-white.png);
-    
+    background-image: url(glyphicons-halflings-white.png);    
 }
 
-.icon-trash {
-    background-position: -456px 0;
-}
-
-.icon-plus {
-    background-position: -408px -96px;
-}
+.icon-eye-open { background-position: -96px -120px; }
+.icon-trash { background-position: -456px 0; }
+.icon-plus { background-position: -408px -96px; }
+.icon-pdf { background-position: 0px -140px; }
+.icon-envelope { background-position: -72px 0; }
 
 .container-upper .topbar {
     top:2px;    

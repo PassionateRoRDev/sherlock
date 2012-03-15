@@ -24,3 +24,43 @@
   padding-right: 25px;
   background: url(loading_32_140.gif) no-repeat top right;
 }
+
+#my-cases-wrapper {
+  position: relative;
+}
+
+#my-cases-wrapper .link-buttons {
+  position:absolute;
+  top:4px;
+  right:0;
+}
+
+#my-cases-wrapper .link-buttons a {
+  margin-right: 0;
+}
+
+.case-small-icons {
+  height: 18px;
+}
+
+.case-icons-list {
+   overflow: hidden;
+   margin-bottom: 0;
+   padding-top: 1em;
+}
+
+.case-icons-list li {    
+  float: left;
+  width: 90px;
+  height: 180px;
+  text-align: center;
+  margin-right: 35px;
+}
+
+.case-icons-list li div.link a {
+  display: block;
+  background: url(briefcase-64.png) no-repeat 12px 0;  
+  padding-top: 68px;  
+}
+
+  

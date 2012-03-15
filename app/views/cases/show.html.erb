@@ -1,22 +1,17 @@
 <div class="breadcrumb">
   <%= link_to 'Dashboard', dashboard_path %> /
   <%= link_to 'My Cases', cases_path %> / <%= @case.title %>
+  
+  <div style="float:right;">
+    <%= render 'case_small_icons', :c => @case %>
+  </div>
+  
 </div>
 
 <h1 style="position:relative;">
   <%= @case.title %>
   
-  <div style="position:absolute;bottom:8px;right:0;">
-    <small>
-    <%= link_to 'Create New Case', new_case_path %> |
-    <%= link_to 'Preview', case_preview_path(@case), :class => 'link-preview' %>    |
-    <%= link_to 'Share', new_case_invitation_path(@case), :class => 'link-invite' %>    |
-    <%= link_to 'Get PDF', case_path(@case, :format => :pdf) %>    |
-    <%= link_to 'Delete', @case, 
-               :confirm => 'Are you sure you want to remove this case?', 
-               :method => :delete %>               
-    </small>
-  </div>
+  <%= render 'case_upper_links' if false %>  
   
 </h1>
 
@@ -35,7 +30,7 @@
 </div>
 
 <h2 class="case-title" 
-    style="<%= case_title_style(@case) %>"><%= @case.title %></h2>
+    style=""><%= @case.title %></h2>
 
 <p>
   <%= @case.summary.to_s.html_safe %>

@@ -1,27 +1,16 @@
-<div class="midright">  
+<div class="midright"> 
   <div class="inbox-hd">Other Page Options</div>
-  <div class="txtbox2">Do you want to Password-Protect this page?</div>
-  <div class="txtbox2">
-    <input type="radio" checked="" value="1" 
-           id="enable_password_yes"
-           name="enable_password">
-    <label class="inline" for="enable_password_yes">Yes</label>
-    
-    <input type="radio" value="0" 
-           id="enable_password_no"
-           name="enable_password">
-    <label class="inline" for="enable_password_now">No</label>
-  </div>
-  <div class="txtbox2">If "Yes", enter the password:</div>
-  <div class="txtbox2">
-    <input type="text" name="" class="txtfield">
-  </div>
+  
+  <%= render 'password_protection' if false %>    
   
   <% if @case.footer %>
-    <%= link_to 'Edit Footer', edit_case_footer_path(@case, @case.footer),
-    :class => :button %>
+    <%= link_to 'Footer', 
+        edit_case_footer_path(@case, @case.footer),        
+        :class => :button, :title => 'Edit Footer for this Report' %>
   <% else %>
-    <%= link_to 'Create Footer', new_case_footer_path(@case), :class => :button %>
+    <%= link_to 'Footer', 
+        new_case_footer_path(@case), 
+        :class => :button, :title => 'Create Footer for this Report' %>
   <% end %>
     
 </div>

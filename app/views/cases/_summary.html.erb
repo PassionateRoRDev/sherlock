@@ -1,0 +1,8 @@
+<div class="summary" style="margin:1em 0;">          
+  <% if c.summary.blank? %>
+      <em>None</em>
+  <% else %>
+      <%= c.summary.to_s.html_safe %>
+  <% end %>
+</div>
+        

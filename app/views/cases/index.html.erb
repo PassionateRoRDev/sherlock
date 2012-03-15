@@ -2,47 +2,50 @@
   <%= link_to 'Dashboard', dashboard_path %> / My Cases
 </div>
 
-<h1>My Cases</h1>
+<div id="my-cases-wrapper">
+  <h1>My Cases</h1>
 
-<div class="link-buttons" style="padding-left:2em;">
+<div class="link-buttons">
   <%= link_to 'Create a new Case', new_case_path, 
               :class => "button button-wide right" %>
+</div>
+
 </div>
 
 <% if @cases.empty? %>
 <h2 style="margin-bottom:0;">You haven't created any cases yet</h2>
 <% else %>
+
+  <ul class="case-icons-list">
+    <% @cases.each do |c| %>
+      <%= render 'case_icon_block', :c => c %>
+    <% end %>
+  </ul>
+
+  <% if false %>
   <ol class="cases">
     <% @cases.each do |c| %>
     <li style="clear:both;">
-        <h2><%= link_to c.title, c %></h2>
+            
+        <h2 style="margin-bottom:0.5em;"><%= link_to c.title, c %></h2>                
+      
+        <%= render 'case_small_icons', :c => c %>
+                
+        <%= render 'summary', :c => c if false %>
         
-        <div class="summary" style="margin:1em 0;">
-          
-          <% if c.summary.blank? %>
-              <em>None</em>
-          <% else %>
-              <%= c.summary.to_s.html_safe %>
-          <% end %>
-        </div>
-        <div class="link-buttons">
-          <%= link_to 'View Case', c, :class => :button %>
-          <%= link_to 'Share', new_case_invitation_path(c), :class => 'button share' %>
-          <%= link_to 'Get PDF', 
-                      case_path(c, :format => :pdf), :class => :button %>
-          <%= link_to 'Delete', c, 
-               :confirm => 'Are you sure you want to remove this case?', 
-               :method => :delete,
-               :class => :button %>
-        </div>
+        <%= render 'list_buttons', :c => c if false %>
+        
     </li>
     <% end %>
   </ol>
+  <% end %>
 
-  <div class="link-buttons" style="padding-left:2em;">
+  <!--
+  <div class="link-buttons" style="padding-left:2em;clear:both;">
   <%= link_to 'Create a new Case', new_case_path, 
               :class => "button button-wide right" %>
   </div>
-
+  -->
+  
 <% end %>
 
