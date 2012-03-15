@@ -1,5 +1,9 @@
 %h1 Invite Client to View Report
 
+=@url1
+%br
+=@url2
+
 =form_for @invitation, :url => case_invitations_path( @invitation.case_id ) do |form|
   .field.email.required
     =form.label :email, 'Client Email'

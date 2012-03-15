@@ -8,6 +8,9 @@ class Invitation < Valuable
   has_value :message
   has_value :case_id
   
+  attr_writer :url_invitation
+  attr_writer :url_cases 
+  
   attr_accessor :current_user
 
   validates :email, :email => true
@@ -59,9 +62,9 @@ class Invitation < Valuable
   
   def with_presentation_layer
     if self.guest.invited?
-      IntroductoryInvitationPresenter.new( self )
+      IntroductoryInvitationPresenter.new(self, url_invitation)
     else
-      RepeatInvitationPresenter.new( self )
+      RepeatInvitationPresenter.new( self, url_cases )
     end
   end
 end
