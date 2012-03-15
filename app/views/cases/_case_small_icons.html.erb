@@ -1,8 +1,16 @@
 <div class="case-small-icons">
-  <a href="#"     
-     title="Preview" class="icon icon-eye-open">Preview</a>
-  <a href="#" title="Get as PDF" class="icon icon-pdf">PDF</a>
-  <a href="#" title="Share" class="icon icon-envelope">Share</a>
+  
+  <%= link_to 'Preview', case_preview_path(c), 
+              :title => 'Preview Report',
+              :class => 'icon icon-eye-open' %>
+  
+  <%= link_to 'Get PDF', case_path(c, :pdf), 
+      :class =>'icon icon-pdf', 
+      :title => 'Download as PDF' %>    
+  
+  <%= link_to 'Share', new_case_invitation_path(c), 
+      :title => 'Share Report with a Client',
+      :class => 'icon icon-envelope' %>    
   
   <%= link_to 'Delete', c, 
        :confirm => 'Are you sure you want to remove this case?', 
