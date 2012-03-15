@@ -62,9 +62,9 @@ class Invitation < Valuable
   
   def with_presentation_layer
     if self.guest.invited?
-      IntroductoryInvitationPresenter.new(self, url_invitation)
+      IntroductoryInvitationPresenter.new(self, @url_invitation)
     else
-      RepeatInvitationPresenter.new( self, url_cases )
+      RepeatInvitationPresenter.new( self, @url_cases )
     end
   end
 end
