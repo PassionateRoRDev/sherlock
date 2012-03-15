@@ -31,10 +31,18 @@ describe PostOffice do
       email.parts.count.should == 2      
     end
     
-    it "should contain Adobe link in the HTML version" do      
+    it "should contain Adobe link in the TXT version" do      
       email = PostOffice.invitation(@presenter).deliver
       email.parts[0].body.should include('http://get.adobe.com/reader/')
-    end        
+    end
+    
+    it "Test version should contain the invitation message" do
+      email = PostOffice.invitation(@presenter).deliver
+      email.parts[0].body.should include @presenter.message            
+      
+      pp email.parts[1].body
+      
+    end
     
   end  
     
