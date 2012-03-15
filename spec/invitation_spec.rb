@@ -2,8 +2,9 @@ require 'spec_helper'
 
 describe Invitation do
 
-  it 'is valid' do
-    Factory.build(:invitation).should be_valid
+  it 'is valid' do    
+    somebody = Factory.build(:user, :email => 'somebody@else.com')
+    Factory.build(:invitation, :current_user => somebody).should be_valid
   end
 
   it 'loads the associated case' do
@@ -18,15 +19,17 @@ describe Invitation do
     end
 
     it 'sends an invitation if valid' do
+      somebody = Factory.build(:user, :email => 'somebody@else.com')
       i = mock(PostOffice)
       i.should_receive(:deliver)
       PostOffice.should_receive(:invitation).and_return(i)
-      Factory.build(:invitation).deliver
+      Factory.build(:invitation, :current_user => somebody).deliver
     end
   end
 
   it 'adds permission for the new user to view the case' do
-    n = Factory.build :invitation
+    somebody = Factory.build(:user, :email => 'somebody@else.com')
+    n = Factory.build(:invitation, :current_user => somebody)
     n.deliver
     client = User.where(:email => n.email ).first
     c = Case.find( n.case )

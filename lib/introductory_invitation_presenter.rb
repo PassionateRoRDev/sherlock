@@ -28,7 +28,7 @@ class IntroductoryInvitationPresenter
   end
 
   def link_target 
-    url_invitation + '?invitation_token=' + user.invitation_token    
+    url_invitation.to_s + '?invitation_token=' + user.invitation_token    
   end
 end
 

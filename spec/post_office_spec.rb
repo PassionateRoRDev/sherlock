@@ -16,8 +16,9 @@ describe PostOffice do
     end
 
     it "should send the invitation email when called" do    
+      previous = ActionMailer::Base.deliveries.count
       email = PostOffice.invitation(@presenter).deliver  
-      ActionMailer::Base.deliveries.count.should == 1
+      ActionMailer::Base.deliveries.count.should == previous + 1
     end
 
     it "should send email to the user's email address" do
