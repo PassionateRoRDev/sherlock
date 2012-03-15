@@ -31,6 +31,10 @@ class Invitation < Valuable
     valid? && find_or_create_guest && set_permissions && deliver_email
   end
    
+  def guest
+    find_or_create_guest
+  end
+  
   private
   
   def receipient_is_not_me
@@ -46,17 +50,13 @@ class Invitation < Valuable
   end
 
   def set_permissions
-    self.case.viewers << self.guest unless (self.case.author == self.guest)
+    self.case.viewers << guest unless (self.case.author == guest)
   end
 
   def deliver_email
     PostOffice.invitation( self.with_presentation_layer ).deliver
   end
-
-  def guest
-    self.find_or_create_guest
-  end
-
+  
   def with_presentation_layer
     if self.guest.invited?
       IntroductoryInvitationPresenter.new( self )
