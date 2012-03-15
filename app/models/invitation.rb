@@ -7,9 +7,13 @@ class Invitation < Valuable
   has_value :name
   has_value :message
   has_value :case_id
+  
+  attr_accessor :current_user
 
   validates :email, :email => true
   validates_presence_of :email, :name, :message, :case_id
+  
+  validate :receipient_is_not_me
 
   def to_model
     self
@@ -27,6 +31,13 @@ class Invitation < Valuable
     valid? && find_or_create_guest && set_permissions && deliver_email
   end
    
+  private
+  
+  def receipient_is_not_me
+    errors.add(:email, 'must be different from your email') if 
+      email.present? && email == current_user.email          
+  end
+  
   def find_or_create_guest 
     @guest ||= User.where(:email => self.email).first || 
          User.invite!(:email => self.email, 
@@ -35,7 +46,7 @@ class Invitation < Valuable
   end
 
   def set_permissions
-    self.case.viewers << self.guest
+    self.case.viewers << self.guest unless (self.case.author == self.guest)
   end
 
   def deliver_email

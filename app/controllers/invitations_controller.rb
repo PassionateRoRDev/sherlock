@@ -8,7 +8,10 @@ class InvitationsController < ApplicationController
   end
 
   def create
+    
     @invitation = Invitation.new( params[:invitation] )
+    @invitation.current_user = current_user
+    
     if @invitation.deliver
       flash[:notice] = "Sent invitation to view the report."
       redirect_to @invitation.case

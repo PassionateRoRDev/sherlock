@@ -192,6 +192,14 @@ div.hidden {
   left: 350px;
 }
 
+.new_invitation .message .error_message {
+  position: relative;
+  margin-left: 130px;
+  margin-bottom: 0.5em;
+  top: 0;
+  left: 0;
+}
+
 .new_invitation textarea {
   padding: 4px 5px;
   color: #666;

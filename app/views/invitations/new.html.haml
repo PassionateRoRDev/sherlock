@@ -20,7 +20,16 @@
   .field.message.required
     =form.label :message
     =form.text_area :message, :rows => 5, :cols => 100
+
+    -unless form.object.errors[:message].empty?
+      .error_message
+        Message
+        =form.object.errors[:message].join(', ')
+
     =form.hidden_field :case_id, :value => @invitation.case_id
 
   .controls
     =form.submit 'Send', :class => 'button'
+
+:javascript
+  $(function() { $('#invitation_email').focus(); });
