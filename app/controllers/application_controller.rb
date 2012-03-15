@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
     redirect_to main_app.dashboard_path, 
       :alert => 'You are not authorized to view that page.'
   end
-  
+    
   def user_is_pi?
     (current_user && current_user.pi?)
   end  

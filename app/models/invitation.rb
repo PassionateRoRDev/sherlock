@@ -54,7 +54,7 @@ class Invitation < Valuable
   end
 
   def deliver_email
-    PostOffice.invitation( self.with_presentation_layer ).deliver
+    PostOffice.invitation(with_presentation_layer).deliver
   end
   
   def with_presentation_layer

@@ -1,5 +1,7 @@
 class RepeatInvitationPresenter
 
+  include Rails.application.routes.url_helpers
+  
   def initialize( invitation )
     @invitation = invitation
   end
@@ -25,7 +27,8 @@ class RepeatInvitationPresenter
   end
 
   def link_target
-    case_url(@invitation.case, :pdf)    
+    host = ActionMailer::Base.default_url_options[:host]
+    case_url(@invitation.case, :pdf, :host => host)    
   end
 end
 

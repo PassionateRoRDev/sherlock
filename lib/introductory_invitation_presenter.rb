@@ -1,5 +1,7 @@
 class IntroductoryInvitationPresenter
 
+  include Rails.application.routes.url_helpers
+  
   def initialize( invitation )
     @invitation = invitation
   end
@@ -24,8 +26,9 @@ class IntroductoryInvitationPresenter
     "Create Password and View Report"
   end
 
-  def link_target        
-    accept_user_invitation_url(:token => user.invitation_token)    
+  def link_target    
+    host = ActionMailer::Base.default_url_options[:host]
+    accept_user_invitation_url(:token => user.invitation_token, :host => host)    
   end
 end
 
