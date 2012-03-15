@@ -25,7 +25,7 @@ class RepeatInvitationPresenter
   end
 
   def link_target
-    'http://' + APP_CONFIG['domain'] + "/cases/#{@invitation.case.id}.pdf"
+    case_url(@invitation.case, :pdf)    
   end
 end
 

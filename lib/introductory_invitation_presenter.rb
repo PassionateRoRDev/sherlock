@@ -24,8 +24,8 @@ class IntroductoryInvitationPresenter
     "Create Password and View Report"
   end
 
-  def link_target
-    'http://' + APP_CONFIG['domain'] + "/users/invitation/accept?invitation_token=#{user.invitation_token}"
+  def link_target        
+    accept_user_invitation_url(:token => user.invitation_token)    
   end
 end
 
