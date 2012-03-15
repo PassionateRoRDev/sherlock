@@ -1,10 +1,10 @@
 application:
-  sender: SherlocDocs <noreply@sherlockdocs.com>
+  sender: SherlockDocs <invitation@sherlockdocs.com>
 
 development:    
   files_path: files/
   templates_path: templates/
-  domain: localhost:3000
+  domain: sherlockdocs.com:3000
 
 test:
   files_path: tmp/files/
