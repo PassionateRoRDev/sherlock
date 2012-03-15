@@ -221,7 +221,8 @@ DEPENDENCIES
   rails (= 3.1.4)
   rails_admin!
   raspell
-  rspec-rails (~> 2.5)
+  rspec
+  rspec-rails
   rubyzip
   sass-rails (~> 3.1.5)
   therubyracer

@@ -1,7 +1,25 @@
-=simple_format(@invitation.message)
+!!! 5
+%html
+  %head
+    %meta{:content => 'text/html; charset=UTF-8', 'http-equiv' => 'Content-Type'}
+  %body
 
-=simple_format(@invitation.help_message)
+    =simple_format(@invitation.message)
 
-=link_to @invitation.link_text, @invitation.link_target
+    =simple_format(@invitation.help_message)
+
+    =link_to @invitation.link_text, @invitation.link_target
+
+    %p 
+    In order to open PDF reports from SherlockDocs you will need a free
+    Adobe Reader installed. Get it from:
+  
+    %p http://get.adobe.com/reader/
+
+    %p Sincerely
+    
+    %p SherlockDocs Team</p>    
+
+  
 
 

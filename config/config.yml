@@ -3,16 +3,13 @@ application:
 
 development:    
   files_path: files/
-  templates_path: templates/
-  domain: sherlockdocs.com:3000
+  templates_path: templates/  
 
 test:
   files_path: tmp/files/
-  templates_path: templates/
-  domain: localhost:3000
+  templates_path: templates/  
 
 production:  
   files_path: files/
-  templates_path: templates/
-  domain: SherlockDocs.com
+  templates_path: templates/  
 
