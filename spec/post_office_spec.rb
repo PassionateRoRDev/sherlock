@@ -40,7 +40,7 @@ describe PostOffice do
       email = PostOffice.invitation(@presenter).deliver
       email.parts[0].body.should include @presenter.message            
       
-      pp email.parts[1].body
+      #pp email.parts[1].body
       
     end
     

@@ -3,15 +3,12 @@ require 'spec_helper'
 describe Report do
   
   def prepare_case
-  Factory(:case, :author => Factory(:user))  
-end
+    Factory(:case, :author => Factory(:user))  
+  end
 
-def prepare_report(c = nil)  
-  c ||= prepare_case
-  Report.new(:title => 'Report Title', 
-             :case => c, 
-             :output_file => 'report1.pdf')  
-end
+  def prepare_report(c = nil)      
+    Factory.build(:report, :case => c || prepare_case)    
+  end
   
   it 'JSON should have correct title' do
     r = prepare_report

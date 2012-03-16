@@ -8,11 +8,13 @@ gem 'rails', '3.1.4'
 gem 'mysql2'
 gem 'devise', '~>1.4.3'
 gem 'devise_invitable'
-gem 'factory_girl_rails'
+
 gem 'fastercsv'
 gem 'json'
 gem 'rails_admin', :git => 'git://github.com/sferik/rails_admin.git'
 gem 'valuable'
+
+gem 'rmagick'
 
 gem 'raspell'
 
@@ -36,13 +38,12 @@ end
 gem 'jquery-rails'
 
 group :test, :development do
-  #gem 'rspec-rails', '~> 2.5'
+  gem 'rspec-rails', '~> 2.5'
   #gem 'ruby-debug19', :require => 'ruby-debug'
 end
 
 group :test do
-  gem 'rspec'
-  gem 'rspec-rails'  
+  gem 'factory_girl_rails'
   gem 'cucumber-rails'
   gem 'capybara'
   gem 'database_cleaner'

@@ -154,6 +154,7 @@ GEM
     rdoc (3.12)
       json (~> 1.4)
     remotipart (1.0.1)
+    rmagick (2.13.1)
     rspec (2.8.0)
       rspec-core (~> 2.8.0)
       rspec-expectations (~> 2.8.0)
@@ -221,8 +222,8 @@ DEPENDENCIES
   rails (= 3.1.4)
   rails_admin!
   raspell
-  rspec
-  rspec-rails
+  rmagick
+  rspec-rails (~> 2.5)
   rubyzip
   sass-rails (~> 3.1.5)
   therubyracer

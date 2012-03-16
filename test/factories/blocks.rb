@@ -6,7 +6,7 @@ FactoryGirl.define do
   factory :picture do
     association :block
     title 'Something'
-    path '/tmp/dummy.txt'
+    path '/tmp/dummy.png'
   end
 
   factory :html_detail do
