@@ -1,16 +1,11 @@
-require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
+require 'spec_helper'
 
 describe PostOffice do
   
   context "For the 1st time invitation email" do
   
-    before do 
-      @invitation = Invitation.new(
-        :email    => 'user1@mail.com',
-        :name     => 'John Smith',
-        :message  => 'Hey John, take a look at these pics',
-        :case_id  => 1
-      )    
+    before do
+      @invitation = Factory.build(:invitation)
       url = 'http://host.com/invitations'    
       @presenter = IntroductoryInvitationPresenter.new(@invitation, url)            
     end
