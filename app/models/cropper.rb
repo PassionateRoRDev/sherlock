@@ -1,3 +1,6 @@
+
+require 'RMagick'
+
 class Cropper
 
   def crop(image_path, x, y, width, height)
