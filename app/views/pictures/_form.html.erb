@@ -29,7 +29,7 @@
         <img 
           style="border: 1px solid black;"
           width="<%= @picture.width_for_display(750) %>"
-          src="<%= url_for file_path('pictures', @picture.path) %>"/>    
+          src="<%= file_picture_path(@picture) %>"/>    
       </div>
       <a href="#"
          id="btn-change-picture">Change the Picture</a>

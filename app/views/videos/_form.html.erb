@@ -73,7 +73,7 @@
 <h4 class="label">Thumbnail :</h4>
 <div class="field-right">  
   <% if @video.thumbnail %>  
-    <img src="<%= url_for file_path('videos', @video.thumbnail) %>"
+    <img src="<%= file_video_path(@video, @video.thumbnail) %>"
          width="<%= @video.online_dims[0] %>"
          /> 
   <% end %>  
