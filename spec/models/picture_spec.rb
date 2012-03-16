@@ -54,6 +54,10 @@ describe Picture do
       @picture.crop([10, 10, 100, 50]).should be_true      
     end
     
+    it "should crop and return true if args are strings" do
+      @picture.crop(['10', '10', '100', '50']).should be_true      
+    end
+    
     it "should crop not produce any additional files" do
       @picture.crop([10, 10, 100, 50])      
       # there should be 2 files under pictures right now: picture and backup      

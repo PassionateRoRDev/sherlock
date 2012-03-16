@@ -72,15 +72,9 @@ class PicturesController < ApplicationController
     if image    
       params[:picture][:original_filename] = image.original_filename
       params[:picture][:content_type] = image.content_type              
-    else
-      # crop the image?
-      if params[:crop]
-        data = params[:crop]        
-        cropper = Cropper.new
-        new_path = cropper.crop(@picture.full_filepath, 
-                                data['x'], data['y'], data['w'], data['h'])
-        logger.debug(new_path)
-      end
+    else           
+      logger.debug(params[:crop])
+      @picture.crop(params[:crop]) if params[:crop]      
     end
     
     respond_to do |format|

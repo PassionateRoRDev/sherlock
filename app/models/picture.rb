@@ -63,7 +63,8 @@ class Picture < ActiveRecord::Base
     
     cropped = false
     
-    x, y, w, h = rectangle    
+    x, y, w, h = rectangle
+    
     cropper = Cropper.new
     result = cropper.crop(full_filepath, x, y, w, h)    
     
@@ -71,7 +72,7 @@ class Picture < ActiveRecord::Base
     # the desired ones:
     
     if result.present? && File.exists?(result)
-        if Dimensions.dimensions(result) == [w, h]          
+        if Dimensions.dimensions(result) == [w.to_i, h.to_i]          
           backup
           File.rename(result, full_filepath)
           cropped = true
