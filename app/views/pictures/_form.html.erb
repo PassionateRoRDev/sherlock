@@ -40,18 +40,10 @@
          style="visibility:hidden;"
          id="link-keep-picture">Keep the picture</a>
       
-      <input type="hidden" 
-             id="crop-coords-x"
-             name="crop_coords[x]" value=""/>
-      <input type="hidden" 
-             id="crop-coords-y"
-             name="crop_coords[y]" value=""/>
-      <input type="hidden" 
-             id="crop-coords-w"
-             name="crop_coords[w]" value=""/>
-      <input type="hidden" 
-             id="crop-coords-h"
-             name="crop_coords[h]" value=""/>
+      <input type="hidden" id="crop-x" name="crop[x]"/>
+      <input type="hidden" id="crop-y" name="crop[y]"/>
+      <input type="hidden" id="crop-w" name="crop[w]"/>
+      <input type="hidden" id="crop-h" name="crop[h]"/>             
       
       <%= stylesheet_link_tag root_path + 'stylesheets/jquery.jcrop.min.css' %>
       
@@ -62,10 +54,10 @@
       $(function() {
         $('#picture-holder').Jcrop({
           onSelect: function(c) {
-            $('#crop-coords-x').val(c.x);
-            $('#crop-coords-y').val(c.y);
-            $('#crop-coords-w').val(c.w);
-            $('#crop-coords-h').val(c.h);
+            $('#crop-x').val(c.x);
+            $('#crop-y').val(c.y);
+            $('#crop-w').val(c.w);
+            $('#crop-h').val(c.h);
           }
         });          
         
