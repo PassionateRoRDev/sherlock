@@ -10,12 +10,16 @@ class FilesController < ApplicationController
     type      = params[:type]
     filename  = params[:filename]
     
+    kase = nil
+    
     user = current_user
     
-    kase = resolve_case_using_param(:case_id)
-    case_author = kase.author
+    unless user.pi?    
+      kase = resolve_case_using_param(:case_id)
+      user = kase.author
+    end
     
-    path = "#{Rails.root}/files/#{case_author.id}/#{type}/" + filename
+    path = "#{Rails.root}/files/#{user.id}/#{type}/" + filename
     
     logger.debug("Path: " + path)
     
@@ -50,7 +54,7 @@ class FilesController < ApplicationController
         end    
       end
     when 'logos'
-      asset = case_author.logos.find_by_path(filename)
+      asset = user.logos.find_by_path(filename)
     end
     
     if asset    

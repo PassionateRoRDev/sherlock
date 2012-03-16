@@ -39,6 +39,10 @@ class Picture < ActiveRecord::Base
     FileAsset::store_for_type(author, upload_info, 'pictures')            
   end  
   
+  def case_id
+    block ? block.case_id : 0
+  end
+  
   def file_type
     'pictures'
   end

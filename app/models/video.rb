@@ -23,6 +23,10 @@ class Video < ActiveRecord::Base
     'videos'
   end
   
+  def case_id
+    block ? block.case_id : 0
+  end
+  
   def thumbnail_method
     self.thumbnail_pos.blank? ? :manual : :auto
   end

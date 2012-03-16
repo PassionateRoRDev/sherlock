@@ -30,7 +30,8 @@ module PictureHelper
     
     dims = Picture.scale_to_bounds(obj.dims, max_dims)
     
-    link = file_path(obj.file_type, obj.path)
+    case_id = obj.case_id    
+    link = file_path(case_id, obj.file_type, obj.path)
     
     size_string = dims[0].floor.to_s + 'x' + dims[1].floor.to_s
     title = "Original Dimensions: #{obj.dims[0]}x#{obj.dims[1]}"

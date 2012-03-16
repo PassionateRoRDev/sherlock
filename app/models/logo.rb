@@ -15,6 +15,10 @@ class Logo < ActiveRecord::Base
     'logos'
   end
   
+  def case_id
+    0
+  end
+  
   # Overrides author_id from FileAsset
   def author_id
     self.user.id
