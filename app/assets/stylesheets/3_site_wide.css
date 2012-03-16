@@ -10,7 +10,6 @@ body {
     position: relative;
 }
 
-
 @font-face {
     font-family: 'DIN-Bold';
     src: url('DIN-Bold.eot');
@@ -746,4 +745,14 @@ h2.case-title {
 #appletContainer {
   position: absolute;
   top: 0;
+}
+
+.rich-dropdown-wrapper {
+  position:relative;
+}
+
+.rich-dropdown-wrapper .insert-wrapper {
+  position:absolute;
+  right:6px;
+  top:0;
 }

@@ -72,7 +72,8 @@ $(function() {
       SHERLOCK.utils.showAjaxLoading();
     });     
     
-    $('.form-insert-block').live('submit', function(e) {        
+    $('.form-insert-block').live('submit', function(e) {
+      
         var t = $('select', this).val();
         var wrapper = 
             $(this).parents('.form-insert-block-wrapper:first');

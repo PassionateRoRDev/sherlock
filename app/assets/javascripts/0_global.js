@@ -150,7 +150,7 @@ $(function() {
       return $.ajax(options);
     };
 
-    SHERLOCK.utils.initializeAutoHintFields();
+    SHERLOCK.utils.initializeAutoHintFields();            
     
     $('.styled-select-rounded-x select').change(function() {
       this.blur();

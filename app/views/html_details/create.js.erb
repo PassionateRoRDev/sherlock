@@ -1,5 +1,6 @@
 $('.blocks-area .no-blocks-msg').remove();
 $('.new-block').before('<%= escape_javascript(render @block) %>');
+$('.new-block').prev().prev().find('select.rich-dropdown').msDropDown();
 SHERLOCK.cases.removeInjectedForm();
 SHERLOCK.utils.hideAjaxLoading();
 SHERLOCK.utils.flashMessage('notice', 'New Text Block has been created');
