@@ -50,6 +50,21 @@ describe Picture do
       File.new(@picture.full_filepath).size.should < File.new(@filepath).size
     end
     
+    it "should crop and return true" do
+      @picture.crop([10, 10, 100, 50]).should be_true      
+    end
+    
+    it "should crop not produce any additional files" do
+      @picture.crop([10, 10, 100, 50])      
+      # there should be 2 files under pictures right now: picture and backup      
+      dir = FileAsset::dir_for_author(@picture.author_id, 'pictures')
+      Dir[dir + '/*'].count.should == 2      
+    end
+    
+    it "should not crop if width is 0" do
+      @picture.crop([10, 10, 0, 50]).should be_false      
+    end
+    
     it "should save a backup before cropping" do
       @picture.crop([10, 10, 100, 50])
       File.new(@picture.backup_path).size.should == File.new(@filepath).size      
