@@ -1,6 +1,8 @@
 require 'spec_helper'
 
-def prepare_case
+describe Report do
+  
+  def prepare_case
   Factory(:case, :author => Factory(:user))  
 end
 
@@ -10,8 +12,7 @@ def prepare_report(c = nil)
              :case => c, 
              :output_file => 'report1.pdf')  
 end
-
-describe Report do
+  
   it 'JSON should have correct title' do
     r = prepare_report
     decoded = ActiveSupport::JSON.decode(r.to_json)
@@ -74,8 +75,8 @@ describe Report do
   end
   
   it 'Picture block should return its title as a caption' do
-    c = prepare_case
     
+    c = prepare_case    
     c.blocks << Block.new(
       :html_detail => HtmlDetail.new(:contents => 'Contents of the first HTML block'))    
     
