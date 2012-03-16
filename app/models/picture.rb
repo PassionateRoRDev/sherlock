@@ -46,7 +46,36 @@ class Picture < ActiveRecord::Base
   def file_type
     'pictures'
   end
+  
+  def backup
+    FileUtils.copy_file(full_filepath, backup_path)
+  end
+  
+  def backup_path
+    full_filepath + '.bak'
+  end
+  
+  def restore_from_backup
+    File.rename(backup_path, full_filepath)
+  end
+  
+  def crop(rectangle)   
     
+    x, y, w, h = rectangle    
+    cropper = Cropper.new
+    result = cropper.crop(full_filepath, x, y, w, h)
+    
+    # sanity check - the result must exist and its dimensions have to match
+    # the desired ones:
+    if result.present? && File.exists?(result)
+        if Dimensions.dimensions(result) == [w, h]          
+          backup
+          File.rename(result, full_filepath)
+        end      
+    end    
+        
+  end
+  
   def dimensions
     File.exists?(full_filepath) ? Dimensions.dimensions(full_filepath) : [0, 0]
   end

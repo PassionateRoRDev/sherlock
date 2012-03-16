@@ -7,9 +7,12 @@ def prepare_files_dir
   FileUtils.mkdir_p(dst_dir)        
 end
 
-def copy_fixture_file(filename)            
-  src_image = "#{Rails.root}/features/fixtures/files/#{filename}"   
+def fixture_file_path(filename)
+  "#{Rails.root}/features/fixtures/files/#{filename}"
+end
+
+def copy_fixture_file(filename)              
   result_path = File.join(dst_dir, filename)
-  FileUtils.copy(src_image, result_path)  
+  FileUtils.copy(fixture_file_path(filename), result_path)  
   result_path
 end
