@@ -32,7 +32,19 @@
   <div class="container main-bottom"></div>
       
   <script type="text/javascript">
-    $('select.rich-dropdown').msDropDown();
+    $(function() {
+      $('.rich-dropdown-wrapper select').each(function(e) {      
+      var options = {};
+      if ($(this).data('show-rows')) {
+        options['visibleRows'] = $(this).data('show-rows');
+        options['rowHeight'] = 19;        
+      }
+      if ($(this).parent().hasClass('rich-dropdown-wrapper-x')) {
+        options['selectWidth'] = 218;
+      }
+      $(this).msDropDown(options);      
+      });
+    });
   </script>
   
 </body>

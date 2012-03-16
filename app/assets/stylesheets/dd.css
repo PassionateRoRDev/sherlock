@@ -32,6 +32,11 @@
         
 	
 }
+
+.rich-dropdown-wrapper-x .dd .ddTitle {  
+        background: url(dropdown-218.png) no-repeat;
+}
+
 .dd .ddTitle span.arrow {
 	/*
         background:url(dd_arrow.gif) no-repeat 0 0; 

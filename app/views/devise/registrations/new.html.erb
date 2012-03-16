@@ -55,8 +55,10 @@
 
       <div class="field">
         <%= address.label :state, 'State :' %>
-        <div class="styled-select-rounded-x">
-          <%= address.select :state, states_options, :tabindex => 8 %>              
+        <div class="rich-dropdown-wrapper rich-dropdown-wrapper-x">
+          <%= address.select :state, states_options, {},              
+              'data-show-rows' => 7,
+              :tabindex => 8 %>              
         </div>
       </div>
 
@@ -104,9 +106,10 @@
       </div>
 
       <div class="field">
-        <%= address.label :country, 'Country :' %>
-        <div class="styled-select-rounded-x">
-          <%= address.select :country, countries_options, :tabindex => 9 %>
+        <%= address.label :country, 'Country :' %>        
+        <div class="rich-dropdown-wrapper rich-dropdown-wrapper-x">
+          <%= address.select :country, countries_options, {},             
+              :tabindex => 9 %>
         </div>        
       </div>
 
@@ -124,7 +127,7 @@
 
   <div class="labels-x">
   
-    <div class="actions">
+    <div class="actions" style="padding-top:2em; padding-bottom:2em;">
       <%= f.submit "Register", :class => :button, :tabindex => 12 %>
       <%= link_to 'Login', new_user_session_path, :tabindex => 13 %>
     </div>

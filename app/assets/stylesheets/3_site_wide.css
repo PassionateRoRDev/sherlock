@@ -747,8 +747,12 @@ h2.case-title {
   top: 0;
 }
 
+.rich-dropdown-wrapper-x {
+  height: 30px;  
+}
+
 .rich-dropdown-wrapper {
-  position:relative;
+  position:relative;  
 }
 
 .rich-dropdown-wrapper .insert-wrapper {

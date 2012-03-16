@@ -26,10 +26,12 @@
         %label Address :
         .boxfield
           =address.text_field :address, :class => :txtfield          
+      
       .field  
         %label State :
-        .styled-select-rounded-x
-          =address.select :state, states_options
+        .rich-dropdown-wrapper.rich-dropdown-wrapper-x 
+          =address.select :state, states_options, {}, 'data-show-rows' => 7, 
+                          :tablindex => 8
           
       .field  
         %label Zip :
@@ -48,7 +50,7 @@
           =address.text_field :city, :class => :txtfield
       .field  
         %label Country :
-        .styled-select-rounded-x
+        .rich-dropdown-wrapper.rich-dropdown-wrapper-x        
           =address.select :country, countries_options
       .field  
         %label Phone Number :
