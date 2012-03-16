@@ -14,7 +14,9 @@ class FilesController < ApplicationController
     
     user = current_user
     
-    unless user.pi?    
+    if user.pi?    
+      kase = user.find_case_by_id(params[:case_id]) if params[:case_id]
+    else
       kase = resolve_case_using_param(:case_id)
       user = kase.author
     end

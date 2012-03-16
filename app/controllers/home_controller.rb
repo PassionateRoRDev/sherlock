@@ -1,7 +1,7 @@
 class HomeController < ApplicationController
   
   before_filter :authenticate_user!, :only => [:dashboard]
-  before_filter :check_public_section
+  before_filter :check_public_section, :except => [:dashboard]
   
   def index    
     @title = 'SherlockDocs'

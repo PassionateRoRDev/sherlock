@@ -18,6 +18,10 @@ class Video < ActiveRecord::Base
       :thumbnail_pos  => '00:00:01'
     )
   end
+
+  def self.ffmpeg_path
+    '/usr/local/bin/ffmpeg'
+  end
   
   def file_type
     'videos'
@@ -95,7 +99,7 @@ class Video < ActiveRecord::Base
         end                
       end
     else
-      command = "ffmpeg -vframes 1 -i #{full_video_path} -ss #{timecode} " +
+      command = "#{Video.ffmpeg_path} -vframes 1 -i #{full_video_path} -ss #{timecode} " +
               " -f image2 #{full_thumb_path} 2>&1"
     
       Rails::logger.debug("Command is: " + command)
@@ -185,7 +189,7 @@ class Video < ActiveRecord::Base
     if File.exists?("#{destination}/sound.aiff")
       ev = Event.create(:event_type => 'convert_aiff')
       Rails::logger.debug("Encoding the sound into mp3")
-      command = "ffmpeg -i #{destination}/sound.aiff -f mp3 -acodec libmp3lame -ab 192000 -ar 44100 #{destination}/sound.mp3 2>&1"
+      command = "#{Video.ffmpeg_path} -i #{destination}/sound.aiff -f mp3 -acodec libmp3lame -ab 192000 -ar 44100 #{destination}/sound.mp3 2>&1"
       result = `#{command}`
       ev.finish
       Rails::logger.debug("Result of AIFF -> MP3 command:")
@@ -198,7 +202,7 @@ class Video < ActiveRecord::Base
     
     options = '-ar 44100 -qmax 30' if ext == 'flv'
     
-    command = "ffmpeg -r #{fps} -b 1800 -i #{destination}/%06d.jpg #{options} #{sound_options} -y #{video_full_path} 2>&1"
+    command = "#{Video.ffmpeg_path} -r #{fps} -b 1800 -i #{destination}/%06d.jpg #{options} #{sound_options} -y #{video_full_path} 2>&1"
     Rails::logger.debug("Command: #{command}")
     
     ev = Event.create(:event_type => 'video_encode_frames')
@@ -274,7 +278,7 @@ class Video < ActiveRecord::Base
         if format == :m4v
           extra_flags += ' -vprofile baseline'
         end
-        command = "ffmpeg -i #{video_path} #{extra_flags} -strict experimental -deinterlace -ar 44100 -y -r 25 -qmin 3 -qmax 6 #{new_video_path} 2>&1"
+        command = "#{Video.ffmpeg_path} -i #{video_path} #{extra_flags} -strict experimental -deinterlace -ar 44100 -y -r 25 -qmin 3 -qmax 6 #{new_video_path} 2>&1"
         Rails::logger.debug("Recode command: " + command)
         ev = Event.create(
                   :event_type => 'video_recode', 
