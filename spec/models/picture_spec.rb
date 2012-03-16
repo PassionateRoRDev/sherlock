@@ -60,6 +60,18 @@ describe Picture do
       @picture.restore_from_backup
       File.new(@picture.full_filepath).size.should == File.new(@filepath).size      
     end
+    
+    it "should remove its file when it gets deleted" do
+      @picture.destroy
+      File.exists?(@picture.full_filepath).should be_false
+    end    
+    
+    it "should remove its backup file when it gets deleted" do
+      @picture.backup
+      backup_file = @picture.backup_path
+      @picture.destroy
+      File.exists?(backup_file).should be_false
+    end    
   
   end
   

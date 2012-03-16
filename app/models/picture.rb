@@ -8,7 +8,7 @@ class Picture < ActiveRecord::Base
   validates :path, :presence => true
   validates :title, :presence => true
   
-  before_destroy :delete_file
+  before_destroy :delete_files
   
   def self.generate(block)
     Picture.new(
@@ -85,8 +85,9 @@ class Picture < ActiveRecord::Base
     dims ? (dims[0] > max_width ? max_width : dims[0]) : 0
   end
     
-  def delete_file
-    delete_file_for_type(file_type)  
+  def delete_files
+    delete_file_for_type(file_type)          
+    File.delete(backup_path) if File.exists?(backup_path)
   end
 
   def self.populate_missing_codes
