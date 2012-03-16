@@ -1,32 +1,27 @@
-require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
+require 'spec_helper'
 
 def prepare_case
-  u = User.new { |u| u.id = 1}
-  Case.new(:title => 'Case #170', :summary => 'Summary!', :author => u)
+  Factory(:case, :author => Factory(:user))  
 end
 
-def prepare_report(c = nil)
-  c = prepare_case unless c
+def prepare_report(c = nil)  
+  c ||= prepare_case
   Report.new(:title => 'Report Title', 
              :case => c, 
-             :output_file => 'report1.pdf')
-  
+             :output_file => 'report1.pdf')  
 end
 
 describe Report do
   it 'JSON should have correct title' do
     r = prepare_report
     decoded = ActiveSupport::JSON.decode(r.to_json)
-    decoded["title"].should == 'Report Title'
+    decoded["title"].should == r.title
   end
   
   it 'JSON should have correct output file' do
     r = prepare_report
-    decoded = ActiveSupport::JSON.decode(r.to_json)
-    
-    files_path = "#{Rails.root}/#{APP_CONFIG['files_path']}"
-    
-    decoded["outputFile"].should == "#{files_path}1/reports/report1.pdf"
+    decoded = ActiveSupport::JSON.decode(r.to_json)    
+    decoded["outputFile"].should == "#{r.reports_root}#{r.output_file}"   
   end
   
   it 'JSON should have correct number of blocks' do
@@ -65,14 +60,17 @@ describe Report do
     decoded['template'].should == 'template.xhtml'    
   end
   
-  it 'JSON should contain picturesRoot and it should be absolute' do
+  it 'picturesRoot should be absolute path' do
     r = prepare_report
-    r.template = 'template.xhtml'
-    
     files_path = "#{Rails.root}/#{APP_CONFIG['files_path']}"
-    
+    r.pictures_root.should == "#{files_path}#{r.case.author.id}/pictures/"
+  end
+  
+  it 'JSON should contain picturesRoot' do    
+    r = prepare_report
+    r.template = 'template.xhtml'    
     decoded = ActiveSupport::JSON.decode(r.to_json)    
-    decoded['picturesRoot'].should == "#{files_path}1/pictures/"    
+    decoded['picturesRoot'].should == r.pictures_root
   end
   
   it 'Picture block should return its title as a caption' do
