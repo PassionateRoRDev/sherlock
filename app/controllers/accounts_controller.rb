@@ -6,6 +6,9 @@ class AccountsController < ApplicationController
   def show
     @account = current_user
     @account.user_address ||= @account.init_address 
+    
+    @cases = current_user.authored_cases
+    
   end
 
   def update

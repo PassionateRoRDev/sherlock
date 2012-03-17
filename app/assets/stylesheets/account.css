@@ -1,0 +1,45 @@
+table.viewers {
+  width: 100%;
+  margin-bottom: 0;
+}
+
+table.viewers th {
+  border-color: #ccc;
+  border-top: none;
+}
+
+table.viewers th.first {
+  border-left: none;
+  text-align: left;
+}
+
+table.viewers th.last {
+  border-right: none;
+}
+
+table.viewers th.case {
+  width: 60%;
+}
+
+table.viewers td {
+  border: none;
+  border-bottom: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+}
+
+table.viewers tr {
+  vertical-align: top;
+}
+
+table.viewers td .viewer {  
+  display: block;
+  float: left;
+  margin-right: 5px;
+  background-color: white;
+  padding: 2px 5px;
+  border: 1px solid #acacac;
+}
+
+table.viewers td .viewer a {
+  color: #397A89;
+}

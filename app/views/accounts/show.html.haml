@@ -1,7 +1,5 @@
 %h1 Your Account
 
-
-
 =form_for @account, :url => account_path do |form|
   .field.labels-x
     =form.label :company_name, 'PI Company Name :'
@@ -69,9 +67,29 @@
       .boxfield
         =form.password_field :password_confirmation, :class => :txtfield
     
-  %h2.clear PERMISSIONS
-
   .labels-x
     .controls
       =form.submit 'Update', :class => 'button'
 
+
+  %h2.clear PERMISSIONS
+
+  %table.viewers
+    %thead
+      %tr
+        %th.case.first Case Title
+        %th.viewers.last Viewers                                  
+    %tbody     
+      -@cases.each do |c|
+        %tr
+          %td  
+            =link_to 'Share', new_case_invitation_path(c), 
+             :title => 'Share Report',
+             :class => 'icon icon-envelope'           
+            =link_to c.title, c
+          %td
+            -c.viewers.each do |viewer|
+              .viewer
+                =link_to viewer.email
+
+ 

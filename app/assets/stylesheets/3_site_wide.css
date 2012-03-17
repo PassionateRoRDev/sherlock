@@ -651,6 +651,10 @@ input.link {
   clear: both;
 }
 
+.center {
+  text-align: center;
+}
+
 .left {
     float: left;
 }
