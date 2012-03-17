@@ -89,7 +89,7 @@
             =link_to c.title, c
           %td
             -c.viewers.each do |viewer|
-              .viewer
+              .viewer{:style => 'margin-bottom:2px;'}
                 =link_to viewer.email
 
  
