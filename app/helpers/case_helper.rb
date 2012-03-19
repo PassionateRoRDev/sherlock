@@ -16,11 +16,11 @@ module CaseHelper
     
     case kase.title_alignment.to_s
     when 'right'
-      'text-align:right;'
+      'text-align:right;clear:both;'
     when 'center'
-      'text-align:center;'
+      'text-align:center;clear:both;'
     else
-      ''
+      'clear:both;'
     end
     
   end
