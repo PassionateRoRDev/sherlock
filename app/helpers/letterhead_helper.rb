@@ -1,5 +1,36 @@
 module LetterheadHelper
   
+  def letterhead_style(letterhead)
+  
+    result = "text-align:#{letterhead.text_align};"
+    result += "font-size:#{letterhead.font_size}px;"
+    result += "font-weight:bold;"
+    result += "color:#{letterhead.font_color};"
+    
+    floated = letterhead_float(letterhead.alignment)    
+    result += "float:#{floated};" if floated.present? 
+      
+    result
+  end
+  
+  def letterhead_logo_wrapper_style(letterhead)
+    
+    result = 'position:absolute;'
+    
+    floated = letterhead_float(letterhead.logo_alignment)
+    if floated.present?
+      result += "#{floated}:0;"      
+    else
+      result += 'width:100%;text-align:center;'
+    end
+        
+    result
+  end
+    
+  def letterhead_float(alignment)    
+    ['left', 'right'].include?(alignment) ? alignment : ''
+  end              
+  
   def font_face_options
     [
       ['Arial', 'arial'],

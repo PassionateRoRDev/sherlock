@@ -82,7 +82,11 @@
 	vertical-align:middle;
 }
 .dd .ddChild a.selected {
+  /*
 	background-color:#66CCFF;
+  */
+  background-color: #397A89;
+  color: white;
 	
 }
 .hidden {display:none;}
