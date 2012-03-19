@@ -8,7 +8,7 @@ module FileAsset
     self.block ? self.block.case.author_id : 0
   end
 
-  def filepath_for_type_and_filename(type, filename)        
+  def filepath_for_type_and_filename(type, filename)
     filename ? FileAsset::dir_for_author(author_id, type) + '/' + filename : nil
   end
   

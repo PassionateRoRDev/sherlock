@@ -19,6 +19,32 @@ class Case < ActiveRecord::Base
   
   validates :title, :presence => true
   
+  def copy_picture(picture)
+    
+    filename = FileAsset::generate_new_filename(picture.original_filename)                
+    full_dst_path = picture.filepath_for_type_and_filename('pictures', filename)
+    FileUtils.copy_file(picture.full_filepath, full_dst_path)
+    
+    Picture.create(
+      :block              => Block.new(:case => self),
+      :unique_code        => Picture.generate_unique_code,      
+      :title              => 'Copy of ' + picture.title,
+      :path               => filename,
+      :original_filename  => 'cropped-' + picture.original_filename,
+      :content_type       => picture.content_type      
+    )    
+    
+  end
+  
+  def create_block_from_picture(picture, crop_params)    
+    picture_copy = copy_picture(picture)
+    if picture_copy
+      picture_copy.crop(crop_params) 
+      picture_copy.remove_backup
+    end      
+    picture_copy    
+  end
+  
   def as_json(options = {})  
         
     except = [:author_id, :client_name, :id, :footer, :number, :updated_at]

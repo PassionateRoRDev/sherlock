@@ -72,9 +72,12 @@ class PicturesController < ApplicationController
     if image    
       params[:picture][:original_filename] = image.original_filename
       params[:picture][:content_type] = image.content_type              
-    else           
-      logger.debug(params[:crop])
-      @picture.crop(params[:crop]) if params[:crop]      
+    else
+      if (params[:crop_new_block].to_i == 1)
+        @case.create_block_from_picture(@picture, params[:crop])
+      else
+        @picture.crop(params[:crop])
+      end      
     end
     
     respond_to do |format|

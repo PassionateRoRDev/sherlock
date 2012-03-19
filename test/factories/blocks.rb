@@ -4,9 +4,10 @@ FactoryGirl.define do
   end
 
   factory :picture do
-    association :block
+    association :block    
     title 'Something'
     path '/tmp/dummy.png'
+    unique_code Picture.generate_unique_code
   end
 
   factory :html_detail do

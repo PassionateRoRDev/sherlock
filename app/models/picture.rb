@@ -55,6 +55,10 @@ class Picture < ActiveRecord::Base
     full_filepath + '.bak'
   end
   
+  def remove_backup
+    File.delete(backup_path) if File.exists?(backup_path)
+  end
+  
   def restore_from_backup
     File.rename(backup_path, full_filepath)
   end
@@ -93,8 +97,8 @@ class Picture < ActiveRecord::Base
   end
     
   def delete_files
-    delete_file_for_type(file_type)          
-    File.delete(backup_path) if File.exists?(backup_path)
+    delete_file_for_type(file_type)
+    remove_backup    
   end
 
   def self.populate_missing_codes
