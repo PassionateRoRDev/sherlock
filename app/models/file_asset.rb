@@ -31,15 +31,13 @@ module FileAsset
     hash + '-' + original_filename    
   end
   
-  def self.store_for_type(author, file, type)
+  def self.store_for_type(author, file_info, bytes, type)
     
-    filename = generate_new_filename(file.original_filename)    
+    filename = generate_new_filename(file_info.original_filename)    
     
     dir = dir_for_author(author.id, type)    
-    Rails::logger.debug("Creating dir if does not exist: " + dir)
     FileUtils.mkdir_p(dir) unless File.directory?(dir)
-    if File.directory?(dir)
-      bytes = file.read
+    if File.directory?(dir)      
       filepath = dir + '/' + filename
       File.open(filepath, 'wb') {|f| f.write(bytes) }
     end

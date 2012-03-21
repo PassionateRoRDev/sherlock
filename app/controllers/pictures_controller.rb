@@ -22,14 +22,11 @@ class PicturesController < ApplicationController
   def create
            
     image = params[:upload] ? params[:upload]['image'] : nil
-            
-    if image          
-      params[:picture][:original_filename] = image.original_filename
-      params[:picture][:content_type] = image.content_type    
-      file_path = Picture.store(current_user, image)
-      params[:picture][:path] = file_path
-    end      
     
+    params[:picture].merge!(handle_image_upload(image)) if image
+    
+    pp params
+        
     @picture = Picture.new(params[:picture])
     block = Block.new(:case => @case)    
     @insert_before_id = params[:insert_before_id].to_i
@@ -39,8 +36,11 @@ class PicturesController < ApplicationController
     respond_to do |format|
       if (@picture.save) 
         format.html { redirect_to(@case, :notice => 'Picture block has been added') }
-      else  
-        format.html { render :action => 'new' }
+      else        
+        format.html do
+          flash[:alert] = 'Picture could not be saved'
+          render :action => 'new'           
+        end
       end
     end        
     
@@ -99,6 +99,14 @@ class PicturesController < ApplicationController
   end
   
   private
+  
+  def handle_image_upload(image)   
+    {
+      :original_filename  => image.original_filename,
+      :content_type       => image.content_type,
+      :path               => Picture.store(current_user, image)
+    }    
+  end
   
   def resolve_case
     resolve_case_using_param(:case_id)

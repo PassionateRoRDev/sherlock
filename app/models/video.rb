@@ -121,7 +121,7 @@ class Video < ActiveRecord::Base
   end  
   
   def self.store(author, upload_info)        
-    FileAsset::store_for_type(author, upload_info, 'videos')                
+    FileAsset::store_for_type(author, upload_info, upload_info.read, 'videos')                
   end
   
   def self.calculate_fps(frames_count, duration_miliseconds)    

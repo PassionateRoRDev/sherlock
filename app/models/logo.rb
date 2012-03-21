@@ -8,7 +8,7 @@ class Logo < ActiveRecord::Base
   before_destroy :delete_file    
   
   def self.store(author, upload_info)    
-    FileAsset::store_for_type(author, upload_info, 'logos')            
+    FileAsset::store_for_type(author, upload_info, upload_info.read, 'logos')            
   end  
   
   def file_type

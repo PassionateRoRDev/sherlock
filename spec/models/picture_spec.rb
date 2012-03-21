@@ -4,12 +4,12 @@ describe Picture do
   
   it "should classify an image as an image" do
     f = File.open(fixture_file_path('sample_image1.png'))
-    Picture.is_image?(f).should be_true
+    Picture.is_image?(f.read).should be_true
   end
   
   it "should classify a text file as a non-image" do
     f = File.open(fixture_file_path('text_file1.txt'))
-    Picture.is_image?(f).should_not be_true
+    Picture.is_image?(f.read).should_not be_true
   end
   
   it "should return correct author_id" do            
