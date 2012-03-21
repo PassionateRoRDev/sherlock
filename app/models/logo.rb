@@ -5,10 +5,24 @@ class Logo < ActiveRecord::Base
   belongs_to :user
   belongs_to :letterhead
   
+  validates :path, :presence => true
+  
   before_destroy :delete_file    
   
-  def self.store(author, upload_info)    
-    FileAsset::store_for_type(author, upload_info, upload_info.read, 'logos')            
+  #
+  # TODO: extend the FileAsset module
+  #
+  def self.is_image?(bytes)
+    FileAsset::is_image?(bytes)
+  end
+  
+  def self.store(author, upload_info)
+    bytes = upload_info.read
+    if is_image?(bytes)
+      FileAsset::store_for_type(author, upload_info, upload_info.read, 'logos')            
+    else
+      nil
+    end
   end  
   
   def file_type

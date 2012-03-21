@@ -1,5 +1,4 @@
 require 'digest/md5'
-require 'RMagick'
 
 class Picture < ActiveRecord::Base
   
@@ -39,18 +38,20 @@ class Picture < ActiveRecord::Base
     
   end
   
-  def self.is_image?(bytes)  
-    begin
-      ! Magick::Image.from_blob(bytes).empty?      
-    rescue Magick::ImageMagickError      
-      false
-    end    
+  #
+  # TODO: extend the FileAsset module
+  #
+  def self.is_image?(bytes)
+    FileAsset::is_image?(bytes)
   end
   
   def self.store(author, upload_info)
-    bytes = upload_info.read
-    FileAsset::store_for_type(author, upload_info, bytes, 'pictures') if 
-      is_image?(bytes)
+    bytes = upload_info.read    
+    if is_image?(bytes)
+      FileAsset::store_for_type(author, upload_info, bytes, 'pictures') 
+    else
+      nil
+    end
   end  
   
   def case_id

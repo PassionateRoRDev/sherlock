@@ -72,7 +72,11 @@ class LetterheadsController < ApplicationController
         format.html { redirect_to dashboard_path, notice: 'Letterhead was successfully created.' }
         format.json { render json: @letterhead, status: :created, location: @letterhead }
       else
-        format.html { render action: "new" }
+        format.html do
+          @letterhead.logo = nil
+          flash[:alert] = 'Letterhead could not be created'
+          render action: "new"
+        end
         format.json { render json: @letterhead.errors, status: :unprocessable_entity }
       end
     end

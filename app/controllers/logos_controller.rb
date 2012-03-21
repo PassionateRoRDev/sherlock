@@ -59,7 +59,10 @@ class LogosController < ApplicationController
         format.html { redirect_to dashboard_path, notice: 'Logo was successfully created.' }
         format.json { render json: @logo, status: :created, location: @logo }
       else
-        format.html { render action: "new" }
+        format.html do
+          flash[:alert] = 'Logo could not be created'
+          render action: "new"
+        end
         format.json { render json: @logo.errors, status: :unprocessable_entity }
       end
     end

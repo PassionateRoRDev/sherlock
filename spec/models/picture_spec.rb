@@ -12,6 +12,11 @@ describe Picture do
     Picture.is_image?(f.read).should_not be_true
   end
   
+  it "should classify a pdf file as a non-image" do
+    f = File.open(fixture_file_path('sample.pdf'))
+    Picture.is_image?(f.read).should_not be_true
+  end
+  
   it "should return correct author_id" do            
     c = Factory(:case)
     p = Factory(:picture, :block => Factory(:block, :case => c))    

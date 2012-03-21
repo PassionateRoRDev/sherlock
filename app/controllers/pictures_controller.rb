@@ -25,8 +25,6 @@ class PicturesController < ApplicationController
     
     params[:picture].merge!(handle_image_upload(image)) if image
     
-    pp params
-        
     @picture = Picture.new(params[:picture])
     block = Block.new(:case => @case)    
     @insert_before_id = params[:insert_before_id].to_i
@@ -80,19 +78,29 @@ class PicturesController < ApplicationController
       end      
     end
     
-    respond_to do |format|
-      if @picture.update_attributes(params[:picture])                        
-                
+    respond_to do |format|      
+      error = true      
+      if @picture.update_attributes(params[:picture])                                
         if image
-          logger.debug("Deleting the previous file")
-          @picture.delete_file
-          @picture.path = Picture.store(current_user, image)
-          @picture.save
+          logger.debug 'Storing the picture'
+          new_filepath = Picture.store(current_user, image)
+          logger.debug new_filepath.to_s
+          if new_filepath.present?                      
+            @picture.delete_files
+            @picture.path = new_filepath            
+            error = ! @picture.save                                    
+          end
         end
-        
-        format.html { redirect_to(@case, :notice => 'The block has been successfully updated') }
+      end
+      
+      if error
+        format.html do 
+          flash[:alert] = 'The block has not been updated'
+          render :action => 'edit'          
+        end        
       else
-        format.html { render :action => 'edit' }
+        format.html { redirect_to @case, 
+                      :notice => 'The block has been successfully updated' }        
       end
     end
     

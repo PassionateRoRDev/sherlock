@@ -25,6 +25,13 @@ module FileAsset
     "#{Rails.root}/" + APP_CONFIG['files_path'] + "#{author_id}/#{type}"
   end
   
+  def self.is_image?(bytes)  
+    stream = StringIO.new(bytes)
+    dims = Dimensions(stream)
+    stream.read
+    (dims.width.to_i > 0) && (dims.height.to_i > 0)
+  end  
+  
   def self.generate_new_filename(original_filename)
     s = Time.now.to_i.to_s + rand(0..999).to_s
     hash = Digest::MD5.hexdigest(s)    
