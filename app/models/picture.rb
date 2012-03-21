@@ -18,6 +18,8 @@ class Picture < ActiveRecord::Base
   end
   
   def self.scale_to_bounds(dims, max_dims)
+
+    return max_dims if dims.nil?
     
     ratio = (0.0 + dims[0]) / dims[1]
     

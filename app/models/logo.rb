@@ -30,7 +30,7 @@ class Logo < ActiveRecord::Base
   
   def height_for_display(max_height)
     the_dims = dims
-    the_dims[1] > max_height ? max_height : the_dims[1]
+    the_dims.nil? ? max_height : (the_dims[1] > max_height ? max_height : the_dims[1])
   end  
   
   def delete_file
