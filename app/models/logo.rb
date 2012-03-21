@@ -24,8 +24,12 @@ class Logo < ActiveRecord::Base
     self.user.id
   end  
 
+  def has_file?
+    File.exists?(full_filepath.to_s)
+  end
+  
   def dims
-    File.exists?(full_filepath) ? Dimensions.dimensions(full_filepath) : nil  
+    has_file? ? Dimensions.dimensions(full_filepath) : nil  
   end
   
   def height_for_display(max_height)

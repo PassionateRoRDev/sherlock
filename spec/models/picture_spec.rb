@@ -2,6 +2,16 @@ require 'spec_helper'
 
 describe Picture do
   
+  it "should classify an image as an image" do
+    f = File.open(fixture_file_path('sample_image1.png'))
+    Picture.is_image?(f).should be_true
+  end
+  
+  it "should classify a text file as a non-image" do
+    f = File.open(fixture_file_path('text_file1.txt'))
+    Picture.is_image?(f).should_not be_true
+  end
+  
   it "should return correct author_id" do            
     c = Factory(:case)
     p = Factory(:picture, :block => Factory(:block, :case => c))    
@@ -10,7 +20,24 @@ describe Picture do
   
   it "should return correct file type" do
     p = Factory(:picture)  
-    p.file_type.should == 'pictures'
+    p.file_type.should == 'pictures'    
+  end
+  
+  context "for a non-image file the upload" do
+    before do
+      filename = 'text_file1.txt'      
+      data = {
+        :filepath           => fixture_file_path(filename),
+        :original_filename  => filename
+      }
+      @upload = Uploader.new(data)
+    end
+    
+    it "should fail" do
+      block = Factory(:block)       
+      filename = Picture.store(block.case.author, @upload)    
+      filename.should == nil
+    end
     
   end
   

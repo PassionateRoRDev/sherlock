@@ -37,8 +37,17 @@ class Picture < ActiveRecord::Base
     
   end
   
+  def self.is_image?(file)
+    
+    image = Dimensions(file)
+    file.read
+    file.seek(0)    
+    (image.width.to_i > 0) && (image.height.to_i > 0)
+  end
+  
   def self.store(author, upload_info)    
-    FileAsset::store_for_type(author, upload_info, 'pictures')            
+    FileAsset::store_for_type(author, upload_info, 'pictures') if 
+      is_image?(upload_info)
   end  
   
   def case_id

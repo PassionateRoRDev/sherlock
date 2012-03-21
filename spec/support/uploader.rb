@@ -9,6 +9,9 @@ class Uploader
     
   end
   
+  def seek(offset)    
+  end
+  
   def read    
     File.open(filepath, 'rb').read    
   end
