@@ -9,6 +9,10 @@
 admins = ['jw@mustmodify.com', 'kingeri@gmail.com', 'pebeauchemin@gmail.com']
 
 admins.each do |e|
-  User.find_or_create_by_email(:email => e, :password => 'sherl0ckdocs40!', :password_confirmation => 'sherl0ckdocs40!')
+  User.find_or_create_by_email(
+    :email => e, 
+    :password => 'sherl0ckdocs40!', 
+    :password_confirmation => 'sherl0ckdocs40!',
+    :admin => true)
 end
 
