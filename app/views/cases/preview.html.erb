@@ -41,6 +41,8 @@
     
     h1 {
       clear: both;
+      margin-top: 0;
+      padding-top: 0.5em;
     }
     
   </style>
@@ -58,6 +60,22 @@
 <%= render 'letterheads/show', :kase => @case if @letterhead %>
 
 <h1 style="<%= case_title_style(@case) %>"><%= @case.title %></h1>
+<script type="text/javascript">
+  //<![CDATA[  
+  var textHeight = $('#letterhead-text').height();
+  if (!textHeight) {
+    textHeight = 0;
+  }
+  var logoHeight = $('#logo-wrapper').height();  
+  if (!logoHeight) {
+    logoHeight = 0;
+  }
+  var h = textHeight > logoHeight ? textHeight : logoHeight;
+  if ( $('#header').height() < h) {
+    $('#header').css('height', h);
+  }
+  //]]>
+</script>
 
 <h2>Summary</h2>
 
