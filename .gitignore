@@ -20,9 +20,12 @@ config/database.yml
 coverage/*
 log/*
 nbproject
+files/*
 public/tiny_mce_*
 public/javascripts/all.js
+public/tiny_mce
 public/assets
+public/assets-*
 public/myimages
 public/system
 rerun.txt
