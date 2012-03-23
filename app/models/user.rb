@@ -39,6 +39,10 @@ class User < ActiveRecord::Base
     )
   end
   
+  def add_client(client)
+    self.clients << client unless self.clients.include?(client)
+  end
+  
   def cases
     (authored_cases + viewable_cases).uniq
   end

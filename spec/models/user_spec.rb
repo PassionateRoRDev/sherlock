@@ -43,9 +43,24 @@ describe User do
     casework.reload.viewers.should include author
     author.reload.should have(1).cases
   end
+  
   it 'has a list of authored cases' do
     c = Factory.create(:case)
     c.author.authored_cases.should include(c)
   end
+  
+  it 'should have 0 clients initially' do
+    investigator = Factory(:user)
+    investigator.clients.should == []    
+  end
+  
+  it 'should have 1 client added when asked to do so twice' do
+    investigator = Factory(:user)
+    client = Factory(:user, :email => 'client1@aol.com')
+    investigator.add_client(client)
+    investigator.add_client(client)
+    investigator.clients.count.should == 1
+  end
+  
 end
 
