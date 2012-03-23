@@ -151,6 +151,11 @@
 
 <script type="text/javascript">  
   
+  $('form#new_video').submit(function() {
+    SHERLOCK.utils.showAjaxLoading();    
+    return true;
+  });  
+  
   $('#btn-thumbnail-change').click(function(e) {
     $('#block-thumbnail-change-wrapper').show();
     $('#link-thumbnail-keep').parent().removeClass('hidden');
