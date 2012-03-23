@@ -79,8 +79,9 @@ class PicturesController < ApplicationController
     end
     
     respond_to do |format|      
-      error = true      
+      error = true     
       if @picture.update_attributes(params[:picture])                                
+        error = false
         if image
           logger.debug 'Storing the picture'
           new_filepath = Picture.store(current_user, image)
@@ -92,6 +93,8 @@ class PicturesController < ApplicationController
           end
         end
       end
+      
+      pp error
       
       if error
         format.html do 
