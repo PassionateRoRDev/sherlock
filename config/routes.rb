@@ -8,6 +8,7 @@ Sherlock::Application.routes.draw do
   
   resources :letterheads
   resources :logos
+  resources :clients
   
   resources :cases do
     resources :html_details

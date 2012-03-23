@@ -31,7 +31,7 @@ class Invitation < Valuable
   end
 
   def deliver 
-    valid? && find_or_create_guest && set_permissions && deliver_email
+    valid? && find_or_create_guest && set_permissions && add_as_client && deliver_email
   end
    
   def guest
@@ -54,6 +54,13 @@ class Invitation < Valuable
 
   def set_permissions
     self.case.viewers << guest unless (self.case.author == guest)
+  end
+  
+  #
+  # Return true as this call is part of the chained invocation
+  #
+  def add_as_client
+    self.case.author.add_client(guest) || true
   end
 
   def deliver_email
