@@ -1,6 +1,6 @@
 class Uploader
   
-  attr_accessor :filepath, :original_filename
+  attr_accessor :filepath, :original_filename, :content_type
   
   def initialize(options = {})    
     options.each do |field, value|

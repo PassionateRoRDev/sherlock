@@ -8,6 +8,11 @@ describe Logo do
     logo.author_id.should == user.id
   end
   
+  it 'Should detect EPS file' do    
+    bytes = File.open(fixture_file_path('football_logo.eps')).read
+    Logo.is_eps?(bytes).should be_true
+  end
+  
   it 'Should not break on invalid dimensions when height_for_display is called' do
     logo = Factory.build(:logo)
     max_height = 200
@@ -17,25 +22,42 @@ describe Logo do
   context "for the uploaded file picture should" do    
     
     before do    
-      filename = 'shelockdocslogo.jpg'
-      user = Factory(:user)
-      @filepath = fixture_file_path(filename)      
-      data = {
-        :filepath           => @filepath,
-        :original_filename  => filename
-      }
-      upload = Uploader.new(data)      
-      filename = Logo.store(user, upload)    
-      @logo = Factory(:logo, 
-        :user => user, 
-        :path => filename, 
-        :content_type => 'image/jpeg')
-    
+      helper = LogoSpecHelper.new
+      @logo     = helper.upload_file('shelockdocslogo.jpg', 'image/jpeg')                
+      @filepath = helper.filepath      
     end
     
     it "store the image in the original dimensions" do
       original = Dimensions.dimensions(@filepath)
       Dimensions.dimensions(@logo.full_filepath).should == original            
+    end
+    
+  end
+  
+  context "for the uploaded file in EPS format it should" do
+    before do          
+      helper = LogoSpecHelper.new
+      @logo     = helper.upload_file('football_logo.eps', 'application/postscript')                
+      @filepath = helper.filepath 
+    end
+    
+    it "store the original eps version" do
+      eps_path = @logo.full_path_for_format(:eps)
+      File.size(eps_path).should == File.size(@filepath)
+    end
+    
+    it "convert itself to be of type PNG" do
+      @logo.content_type.should == 'image/png'
+    end
+    
+    it "create a PNG copy 200 high" do
+      Dimensions.dimensions(@logo.full_filepath)[1].should == 200      
+    end
+    
+    it "delete the EPS file when logo is removed" do
+      eps_path = @logo.full_path_for_format(:eps)
+      @logo.destroy
+      File.exists?(eps_path).should be_false
     end
     
   end

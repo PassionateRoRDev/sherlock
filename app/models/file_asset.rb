@@ -8,8 +8,12 @@ module FileAsset
     self.block ? self.block.case.author_id : 0
   end
 
+  def self.filepath_for_type_filename_and_author(type, filename, author_id)
+    filename ? dir_for_author(author_id, type) + '/' + filename : nil
+  end
+  
   def filepath_for_type_and_filename(type, filename)
-    filename ? FileAsset::dir_for_author(author_id, type) + '/' + filename : nil
+    FileAsset::filepath_for_type_filename_and_author(type, filename, author_id)
   end
   
   def full_filepath
@@ -25,11 +29,16 @@ module FileAsset
     "#{Rails.root}/" + APP_CONFIG['files_path'] + "#{author_id}/#{type}"
   end
   
-  def self.is_image?(bytes)  
+  def self.dimensions_for_bytes(bytes)
     stream = StringIO.new(bytes)
     dims = Dimensions(stream)
     stream.read
-    (dims.width.to_i > 0) && (dims.height.to_i > 0)
+    [dims.width.to_i, dims.height.to_i]
+  end
+  
+  def self.is_image?(bytes)
+    dims = dimensions_for_bytes(bytes)
+    (dims[0] > 0) && (dims[1] > 0)   
   end  
   
   def self.generate_new_filename(original_filename)
