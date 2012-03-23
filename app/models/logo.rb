@@ -1,3 +1,5 @@
+require 'RMagick'
+
 class Logo < ActiveRecord::Base
     
   PNG_FROM_EPS_HEIGHT = 200
@@ -19,7 +21,7 @@ class Logo < ActiveRecord::Base
   end
   
   def self.convert_eps_to_png(eps_bytes)
-    Magick::Image.from_blob(eps_bytes).first.to_blob()
+    Magick::Image.from_blob(eps_bytes).first.to_blob { |im| im.format = 'PNG' }
   end
   
   def self.scale_to_height(png_bytes, dims, height)
