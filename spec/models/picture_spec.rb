@@ -48,10 +48,8 @@ describe Picture do
   
   context "for the uploaded file picture should" do
   
-    before do
-      
-      @filepath = fixture_file_path('sample_image1.png')
-      
+    before do      
+      @filepath = fixture_file_path('sample_image1.png')      
       data = {
         :filepath           => @filepath,
         :original_filename  => 'sample_image1.png'

@@ -31,3 +31,6 @@ KEY_PATH=../amazon/amazonmicro2.pem
 scp -i $KEY_PATH $bundle $AMAZON_PI:$PRODUCTION_PATH/public/
 echo "Relinking to use the new bundle"
 ssh -i $KEY_PATH -t $AMAZON_PI "cd $PRODUCTION_PATH/public;tar -xzf $bundle;rm $bundle; rm assets;ln -s $basename assets;sudo apachectl restart"
+
+rm -rf public/assets/*
+

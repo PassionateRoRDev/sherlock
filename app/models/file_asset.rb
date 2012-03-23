@@ -45,7 +45,7 @@ module FileAsset
     dir = dir_for_author(author.id, type)    
     FileUtils.mkdir_p(dir) unless File.directory?(dir)
     if File.directory?(dir)      
-      filepath = dir + '/' + filename
+      filepath = dir + '/' + filename            
       File.open(filepath, 'wb') {|f| f.write(bytes) }
     end
     

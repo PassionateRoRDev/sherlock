@@ -17,8 +17,8 @@ class Logo < ActiveRecord::Base
   end
   
   def self.store(author, upload_info)
-    bytes = upload_info.read
-    if is_image?(bytes)
+    bytes = upload_info.read    
+    if is_image?(bytes)      
       FileAsset::store_for_type(author, upload_info, bytes, 'logos')            
     else
       nil
