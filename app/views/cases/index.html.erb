@@ -19,6 +19,7 @@
 <% else %>
 
   <ul class="case-icons-list">
+    <%= render 'folders/folder' %>
     <% @cases.each do |c| %>
       <%= render 'case_icon_block', :c => c %>
     <% end %>
