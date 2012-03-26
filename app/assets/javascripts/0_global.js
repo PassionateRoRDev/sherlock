@@ -18,6 +18,33 @@ SHERLOCK.utils.flashMessage = function(clazz, txt) {
     setTimeout(SHERLOCK.utils.hideFlashMessages, 5000);
 };
 
+SHERLOCK.utils.detectJava = function()
+{
+        
+  var result = [0, 0, 0];
+
+  var jres = deployJava.getJREs();        
+  var parts;
+  var major1, major2, minor;
+
+  for (var idx in jres) {
+
+    parts = jres[idx].split('.');
+    major1 = parseInt(parts[0]);
+    major2 = parseInt(parts[1]);
+    minor  = parts[2];
+
+    if ((major1 >= result[0]) && (major2 >= result[1])) {
+      result[0] = major1;
+      result[1] = major2;
+      result[2] = minor;
+    }
+  }
+
+  return result;
+          
+};
+
 SHERLOCK.utils.showAjaxError = function() {
   SHERLOCK.utils.hideAjaxLoading();
   alert('Request failed, please try again');

@@ -774,3 +774,13 @@ h2.case-title {
   right:6px;
   top:0;
 }
+
+#java-install a {  
+    background: url(btn_download_java.gif) no-repeat scroll 0 0 transparent;
+    border: medium none;
+    display: block;
+    height: 45px;  
+    margin-left: 0;
+    text-indent: -1000px;
+    width: 212px;
+}

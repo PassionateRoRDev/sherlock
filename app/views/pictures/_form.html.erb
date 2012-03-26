@@ -95,13 +95,15 @@
         <input type="button" value="Screen Capture" 
                id="btn-screen-capture"
                class="button button-wide"/>            
-    </div>                
+    </div>
+      
+    <%= render 'shared/java_detect', :func_name => 'screen capture' %>          
       
   <% if @picture.id %>
     </div>
   <% end %>
       
-<div class="actions" style="padding-top:1em;">
+<div class="actions" style="padding-top:0em;">
   <%= f.submit 'Save', :class => :button %>
   <% if @picture.id %>
     <%= link_to 'Cancel', @case %>

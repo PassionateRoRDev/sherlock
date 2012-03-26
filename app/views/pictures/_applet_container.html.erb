@@ -34,7 +34,42 @@
         $.ajax(url_check, settings);
       }
       
-      $('#btn-screen-capture').click(function() {           
+      $('#btn-screen-capture').click(function() {
+        
+        $('#accept-java').show();
+        var javaVersion = SHERLOCK.utils.detectJava();
+        
+        var versionString = javaVersion.join('.');                                
+        var msg = 'Detected ' + versionString;
+        var color = 'green';
+        
+        var found = (javaVersion[0] >= 1);
+        var correctFound = found && (javaVersion[1] >= 6);
+        
+        if (!correctFound) {
+          color = 'red';
+          if (!found) {
+            msg = 'Java not found';
+          }
+        }
+        
+        $('#java-version-result').css({
+          'margin-top': '0px' ,
+          'color': color
+        }).html(msg);
+        
+        if (!correctFound) {
+          if (found) {
+            $('#java-install .install').remove();
+          } else {
+            $('#java-install .upgrade').remove();
+          }
+          $('#java-install').show();
+          return;
+        }
+        
+        $('#java-applet-launching').show();
+        
         var container = $('#appletContainer');
         container.empty();
         {
