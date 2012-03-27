@@ -15,6 +15,15 @@
      
   <% if @case.viewers.empty? %>
     No client is authorized to see this report at the moment.
+    <div style="margin-top:2px;">
+    <%= link_to 'Do you want to share it?', 
+        new_case_invitation_path(@case) %>
+    <%= link_to 'Share Report with a Client', 
+        new_case_invitation_path(@case), 
+        :title => 'Share Report with a Client',
+        :class => 'icon icon-envelope' %>
+    </div>
+    
   <% else %>  
     <ul class="ordinary">
     <% @case.viewers.each do |viewer| %>
