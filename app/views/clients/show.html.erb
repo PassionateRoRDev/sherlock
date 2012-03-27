@@ -1,0 +1,22 @@
+<div class="breadcrumb">
+  <%= link_to 'Dashboard', dashboard_path %> /
+  <%= link_to 'My Clients', clients_path %> / <%= @client.full_name %>
+</div>
+
+<h1>Client: <%= @client.full_name %></h1>
+
+<dl class="client-info">
+  <dt>First name:</dt>
+  <dd><%= print_or @client.first_name %></dd>
+  <dt>Last name:</dt>
+  <dd><%= print_or @client.last_name %></dd>
+  <dt>Email:</dt>
+  <dd><%= @client.email %></dd>
+  <dt>Last Logged-in On:</dt>
+  <dd><%= @client.last_sign_in_at %></dd>
+  
+</dl>
+
+<div class="link-buttons">
+  <%= link_to 'Edit', edit_client_path(@client), :class => :button %>
+</div>

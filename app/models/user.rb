@@ -43,6 +43,11 @@ class User < ActiveRecord::Base
     self.clients << client unless self.clients.include?(client)
   end
   
+  def full_name
+    result = (self.first_name.to_s + ' ' + self.last_name.to_s).gsub(/\s\s+/, '')
+    result.empty? ? self.email : result    
+  end
+  
   def cases
     (authored_cases + viewable_cases).uniq
   end

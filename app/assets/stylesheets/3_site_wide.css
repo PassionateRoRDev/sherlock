@@ -825,3 +825,27 @@ h2.case-title {
   left:18px;
   top:2px;
 }
+
+.table-bordered {
+    -moz-border-bottom-colors: none;
+    -moz-border-image: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    border-collapse: separate;
+    border-color: #DDDDDD #DDDDDD #DDDDDD -moz-use-text-color;
+    border-radius: 4px 4px 4px 4px;
+    border-style: solid solid solid none;
+    border-width: 1px 1px 1px 0;
+}
+
+.table-bordered th, .table-bordered td {
+    border-left: 1px solid #DDDDDD;
+    border-right: none;
+    border-top: none;
+    border-bottom: none;
+}
+
+.table-striped tr.even {
+  background-color: #F9F9F9;
+}

@@ -1,0 +1,24 @@
+.breadcrumb
+  =link_to 'Dashboard', dashboard_path 
+  \/
+  =link_to 'My Clients', clients_path 
+  \/ 
+  =@client.full_name
+
+%h1 
+  Client: 
+  =@client.full_name
+
+.client-form
+  =form_for @client, :url => client_path do |f|
+    .field
+      =f.label :first_name, 'First Name :'
+      .boxfield
+        =f.text_field :first_name, :class => :txtfield
+    .field
+      =f.label :last_name, 'Last Name :'
+      .boxfield
+        =f.text_field :last_name, :class => :txtfield    
+    .controls
+      =f.submit 'Update', :class => 'button'
+      =link_to 'Cancel', client_path(@client)
