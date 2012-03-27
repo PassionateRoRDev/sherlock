@@ -50,22 +50,23 @@
   <div>
     <label for="upload_video">Select Video :</label>
     
-    <span class="btn fileinput-button">
+    <span class="btn2 fileinput-button">
       <%= file_field 'upload', 'video', 
           :title => 'Select video file to be uploaded' %>                      
-          <span>
-            <i class="icon-plus icon-white"></i>
-            Browse...
-          </span>
+          <span>Browse...</span>
     </span>
     
-    <strong>OR&nbsp;&nbsp;</strong>    
-    <input type="button" value="Record Screencast" 
-           id="btn-screen-capture"
-           class="button button-wide"/>
+    <strong>OR&nbsp;&nbsp;</strong>
+    <button id="btn-screen-capture"
+            style="padding-left:10px;"
+            type="button" class="button2 button2-wide">
+          <img src="/assets/capture_28_22.png"/>
+          Record Screencast
+    </button>    
   </div>      
     
-  <%= render 'shared/java_detect', :func_name => 'video capture' %>
+  <%= render 'shared/java_detect', 
+      :func_name => 'video capture', :app_name => 'Recorder' %>
     
   <% if @video.id %>
 </div>

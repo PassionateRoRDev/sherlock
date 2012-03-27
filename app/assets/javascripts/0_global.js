@@ -7,6 +7,45 @@ $.ajaxSetup({
 var SHERLOCK = SHERLOCK || {};
 SHERLOCK.utils = SHERLOCK.utils || {};
 
+SHERLOCK.utils.startJavaDetectionForCapture = function() {
+  
+    $('#accept-java').show();
+    var javaVersion = SHERLOCK.utils.detectJava();
+        
+    var versionString = javaVersion.join('.');                                
+    var msg = 'Detected ' + versionString;
+    var color = 'green';
+        
+    var found = (javaVersion[0] >= 1);
+    var correctFound = found && (javaVersion[1] >= 6);
+
+    if (!correctFound) {
+      color = 'red';
+      if (!found) {
+        msg = 'Java not found';
+      }
+    }
+        
+    $('.detecting .detecting-spinning').hide();
+        
+    $('#java-version-result').css({
+      'margin-top': '0px' ,
+      'color': color
+    }).html(msg);
+        
+    if (!correctFound) {
+      if (found) {
+        $('#java-install .install').remove();
+      } else {
+        $('#java-install .upgrade').remove();
+      }
+      $('#java-install').show();
+      
+    }
+    
+    return correctFound;
+}
+
 SHERLOCK.utils.flashMessage = function(clazz, txt) {
     var msgs = $('.flash-messages');
     var m = msgs.find('.' + clazz);

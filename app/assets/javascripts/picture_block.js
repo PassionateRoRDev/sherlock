@@ -37,14 +37,9 @@ SHERLOCK.pictures.initEditForm = function() {
     }
     
     var result = true;    
-    if (hasCrop(this)) {
-      
+    if (hasCrop(this)) {      
       result = false;
-      $( "#dialog-crop-confirm").dialog('open');
-      /*
-      if (!confirm('Do you want REPLACE the existing picture with the cropped area')) {
-        this.crop_new_block.value = 1;                
-      }*/
+      $( "#dialog-crop-confirm").dialog('open');      
     }   
     return result;
   });
@@ -115,39 +110,9 @@ SHERLOCK.pictures.initAppletContainer = function(data) {
   function screenCaptureClicked()
   {
     
-    $('#accept-java').show();
-    var javaVersion = SHERLOCK.utils.detectJava();
-        
-    var versionString = javaVersion.join('.');                                
-    var msg = 'Detected ' + versionString;
-    var color = 'green';
-        
-    var found = (javaVersion[0] >= 1);
-    var correctFound = found && (javaVersion[1] >= 6);
-
-    if (!correctFound) {
-      color = 'red';
-      if (!found) {
-        msg = 'Java not found';
-      }
-    }
-        
-    $('.detecting .detecting-spinning').hide();
-        
-    $('#java-version-result').css({
-      'margin-top': '0px' ,
-      'color': color
-    }).html(msg);
-        
-    if (!correctFound) {
-      if (found) {
-        $('#java-install .install').remove();
-      } else {
-        $('#java-install .upgrade').remove();
-      }
-      $('#java-install').show();
+    if (!SHERLOCK.utils.startJavaDetectionForCapture()) {
       return;
-    }
+    }    
         
     $('#java-applet-launching .app-is-running').hide();
     $('#java-applet-launching').show();
