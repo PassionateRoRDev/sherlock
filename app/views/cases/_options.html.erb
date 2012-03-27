@@ -4,7 +4,7 @@
   <%= link_to 'Customize Footer for this report', footer_path(@case), 
       :title => 'Customize Footer for this report' %>
     
-  <h2 style="clear:both;padding-top:0em;">CLIENTS AUTHORIZED TO VIEW REPORT:</h2>
+  <h2 style="clear:both;padding-top:0em;">CLIENTS AUTHORIZED TO VIEW REPORT</h2>
      
   <% if @case.viewers.empty? %>
     No client is authorized to see this report at the moment.
@@ -28,5 +28,9 @@
     <% end %>
     </ul>
   <% end %>
+    
+  <h2 style="clear:both;padding-top:0em;">PRIVATE NOTES</h2>
+  
+  You haven't created any notes yet.
     
 </div>
