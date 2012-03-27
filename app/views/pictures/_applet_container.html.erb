@@ -3,6 +3,14 @@
 
 <script type="text/javascript">
   
+    function appletLoaded()
+    {
+      $('#java-applet-launching').html("Capture frame launched");
+      setTimeout(function() {
+        $('#accept-java').hide();
+      }, 2000);
+    }
+  
     $(function() {      
       
       function normalizeDate(s)
