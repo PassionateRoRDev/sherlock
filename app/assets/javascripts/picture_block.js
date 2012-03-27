@@ -4,21 +4,27 @@ SHERLOCK.pictures = SHERLOCK.pictures || {};
 
 SHERLOCK.pictures.initEditForm = function() {  
   
+  var form = $('form.edit_picture').get(0);
+  
   $( "#dialog-crop-confirm" ).dialog({
     resizable: false,
     autoOpen : false,
-    height:140,
+    height:180,
+    width: 600,
     modal: true,
     buttons: {
-      'Create New' : function() {
+      'Cancel': function() {
         $(this).dialog('close');
       },
       'Replace Current': function() {
         $(this).dialog('close');
-      },      
-      'Cancel': function() {
+        form.submit();
+      },            
+      'Create New' : function() {
+        form.crop_new_block.value = 1;
         $(this).dialog('close');
-      }
+        form.submit();
+      }      
     }
   });
   
