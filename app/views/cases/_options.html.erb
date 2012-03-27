@@ -1,16 +1,30 @@
 <div class="midright"> 
   <div class="inbox-hd">Other Page Options</div>
-  
-  <%= render 'password_protection' if false %>    
-  
-  <% if @case.footer %>
-    <%= link_to 'Footer', 
+      
+  <% if @case.footer %>      
+    <%= link_to 'Customize Footer for this report', 
         edit_case_footer_path(@case, @case.footer),        
-        :class => :button, :title => 'Edit Footer for this Report' %>
+        :title => 'Edit Footer for this Report' %>
   <% else %>
-    <%= link_to 'Footer', 
+    <%= link_to 'Customize Footer for this report', 
         new_case_footer_path(@case), 
-        :class => :button, :title => 'Create Footer for this Report' %>
+        :title => 'Create Footer for this Report' %>
+  <% end %>
+  
+  <h2 style="clear:both;padding-top:0em;">CLIENTS AUTHORIZED TO VIEW REPORT:</h2>
+     
+  <% if @case.viewers.empty? %>
+    No client is authorized to see this report at the moment.
+  <% else %>  
+    <ul class="ordinary">
+    <% @case.viewers.each do |viewer| %>
+      <% if current_user.clients.include?(viewer) %>
+        <li>
+          <%= link_to viewer.full_name, client_path(viewer) %>
+        </li>
+      <% end %>
+    <% end %>
+    </ul>
   <% end %>
     
 </div>

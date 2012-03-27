@@ -4,6 +4,10 @@ module CaseHelper
     date.blank? ? '' : date.strftime('%m/%d/%Y')    
   end
   
+  def cases_options(cases)
+    cases.map { |c| [ c.title, c.id ] }
+  end
+  
   def title_alignment_options
     [      
       ['Left', 'left'],

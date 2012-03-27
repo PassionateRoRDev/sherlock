@@ -7,7 +7,9 @@ class ClientsController < ApplicationController
     @clients = current_user.clients    
   end
   
-  def show            
+  def show
+    @client.user_address ||= UserAddress.new
+    @cases = current_user.cases
   end
   
   def edit

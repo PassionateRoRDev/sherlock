@@ -90,6 +90,6 @@
           %td
             -c.viewers.each do |viewer|
               .viewer{:style => 'margin-bottom:2px;'}
-                =link_to viewer.email
+                =link_to viewer.email, client_path(viewer)
 
  

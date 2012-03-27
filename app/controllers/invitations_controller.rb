@@ -3,8 +3,11 @@ class InvitationsController < ApplicationController
   before_filter :authenticate_user!  
   before_filter :authorize_pi!  
   
-  def new    
-    @invitation = Invitation.new(:case_id => params[:case_id])    
+  def new
+    @case = current_user.authored_cases.find_by_id(params[:case_id])
+    return redirect_to cases_path unless @case
+    
+    @invitation = Invitation.new(:case_id => @case.id)    
   end
 
   def create

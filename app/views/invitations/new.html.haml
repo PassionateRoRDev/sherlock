@@ -1,3 +1,12 @@
+.breadcrumb
+  =link_to 'Dashboard', dashboard_path 
+  \/
+  =link_to 'My Cases', cases_path 
+  \/ 
+  =link_to @case.title, @case
+  \/
+  Invite Client
+  
 %h1 Invite Client to View Report
 
 =@url1

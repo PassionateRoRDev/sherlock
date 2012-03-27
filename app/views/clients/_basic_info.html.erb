@@ -1,0 +1,18 @@
+<h2>BASIC INFO</h2>
+  
+<dl class="client-info">
+  <dt>First name:</dt>
+  <dd><%= print_or @client.first_name %></dd>
+  <dt>Last name:</dt>
+  <dd><%= print_or @client.last_name %></dd>
+  <dt>Email:</dt>
+  <dd><%= @client.email %></dd>
+  <dt>Phone:</dt>
+  <dd><%= print_or @client.user_address.phone %></dd>  
+  <dt>Last Login On:</dt>
+  <dd><%= @client.last_sign_in_at %></dd>
+</dl>
+
+<div class="link-buttons" style="clear:both;margin-left:30%;">
+  <%= link_to 'Edit', edit_client_path(@client), :class => :button %>
+</div>

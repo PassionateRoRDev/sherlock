@@ -1,0 +1,32 @@
+<h2>CASES THEY CAN ACCESS</h2>
+
+<% if @client.viewable_cases.empty? %>
+  None
+<% else %>
+  <ul class="ordinary">
+    <% @client.viewable_cases.each do |kase| %>
+    <li>
+      <%= link_to kase.title, kase %>
+    </li>
+    <% end %>
+  </ul>  
+<% end %>
+  
+  <form>
+  Grant access to case:
+  <select>
+    <%= options_for_select(cases_options(@cases)) %>
+  </select>
+  
+  <div style="margin-top:10px;font-size:80%;">
+  
+  <input type="button"          
+         class="button" value="Grant Access"/>
+  &nbsp;&nbsp; OR &nbsp;&nbsp;
+  <input type="button"          
+         class="button button-150" value="Send Invitation"/>
+  
+  </div>  
+  
+  </form>
+

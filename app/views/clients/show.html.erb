@@ -5,18 +5,14 @@
 
 <h1>Client: <%= @client.full_name %></h1>
 
-<dl class="client-info">
-  <dt>First name:</dt>
-  <dd><%= print_or @client.first_name %></dd>
-  <dt>Last name:</dt>
-  <dd><%= print_or @client.last_name %></dd>
-  <dt>Email:</dt>
-  <dd><%= @client.email %></dd>
-  <dt>Last Logged-in On:</dt>
-  <dd><%= @client.last_sign_in_at %></dd>
-  
-</dl>
+<div class="client-detail-page">
 
-<div class="link-buttons">
-  <%= link_to 'Edit', edit_client_path(@client), :class => :button %>
+<div style="float:left;width:49%;">
+  <%= render 'clients/basic_info' %>    
+</div>
+  
+<div style="float:left;width:49%;">
+  <%= render 'clients/permissions' %>    
+</div>
+  
 </div>

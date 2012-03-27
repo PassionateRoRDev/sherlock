@@ -7,15 +7,39 @@
   margin-bottom: 0;
 }
 
-dl.client-info {
-  margin-left: 0;
+.clients-list table th {
+  text-align: left;
+}
+
+.clients-list table th.center {
+  text-align: center;
+}
+
+.client-detail-page {
+  overflow:hidden;
   font-size: 120%;
 }
 
-dl.client-info dd {
-  margin-bottom: 5px;
+dl.client-info {
+  margin-left: 0;  
 }
 
 .client-form {
   margin-top: 1em;
 }
+
+.client-info dt { 
+    float: left;
+    text-align: right;
+    font-weight: bold;
+    padding-right: 1ex;        
+    width: 30%;
+}
+
+.client-info dd {
+    width: 60%;
+    margin-left: 0;
+    float: left;
+    margin-bottom: 7px;
+}
+

@@ -504,6 +504,13 @@ input.button2 {
     background-image:url(btn2_94_28_2.png);
 }
 
+button.button-150,
+input.button-150 {
+    color: #000;
+    width: 150px;
+    background-image:url(btn2_150_28.png);
+}
+
 span.btn,
 a.button {    
     text-decoration: none;
@@ -542,6 +549,8 @@ a.button:hover {
   color: #ddd;    
 }
 
+input.button-150:hover,
+button.button-150:hover,
 button.button2:hover,
 input.button2:hover,
 span.btn2:hover {
@@ -848,4 +857,13 @@ h2.case-title {
 
 .table-striped tr.even {
   background-color: #F9F9F9;
+}
+
+ul.ordinary {
+  margin-left: 0;
+}
+
+ul.ordinary li {
+  list-style: disc;
+  margin-left:1em;
 }

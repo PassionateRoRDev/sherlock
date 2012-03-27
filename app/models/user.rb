@@ -43,6 +43,10 @@ class User < ActiveRecord::Base
     self.clients << client unless self.clients.include?(client)
   end
   
+  def phone
+    self.user_address ? self.user_address.phone : nil
+  end
+  
   def full_name
     result = (self.first_name.to_s + ' ' + self.last_name.to_s)
              .gsub(/\s\s+/, '').strip
