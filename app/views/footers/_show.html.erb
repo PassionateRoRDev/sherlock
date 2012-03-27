@@ -1,0 +1,32 @@
+<div id="footer">
+  
+  <% if footer.divider_above %>  
+    <hr style="height:<%= footer.divider_size %>px;
+               background-color:<%= footer.divider_color %>;
+               width:<%= footer.divider_width %>%;
+               margin:auto;"/>
+  <% end %>
+  
+  <div id="footer-text" style="<%= footer_style(footer) %>">    
+    <% if footer.is_link %>
+      <a href="<%= footer.link %>"
+         title="<%= footer.link %>"
+         style="color:<%= footer.font_color %>;">
+    <% end %>
+      <%= footer.contents.gsub(/(\r\n)|(\r)|(\n)/, '<br/>').html_safe %>            
+    <% if footer.is_link %>    
+      </a>
+    <% end %>
+  </div>
+    
+  <% if footer.divider_below %>  
+    <hr style="height:<%= footer.divider_size %>px;
+               background-color:<%= footer.divider_color %>;
+               width:<%= footer.divider_width %>%;
+               margin:auto;"/>
+  <% end %>
+  
+    
+</div>
+
+
