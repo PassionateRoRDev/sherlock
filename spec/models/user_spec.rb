@@ -62,5 +62,23 @@ describe User do
     investigator.clients.count.should == 1
   end
   
+  it 'should return email as full name if first name and last name are blank' do
+    user = Factory(:user, 
+      :first_name => nil, 
+      :last_name => nil, 
+      :email => 'user@mail.com'
+    )
+    user.full_name.should == "user@mail.com"
+  end
+  
+  it 'should return last name as full name if first name is blank' do
+    user = Factory(:user, 
+      :first_name => nil, 
+      :last_name => 'Smith', 
+      :email => 'user@mail.com'
+    )
+    user.full_name.should == "Smith"
+  end
+  
 end
 

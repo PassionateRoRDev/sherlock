@@ -44,8 +44,9 @@ class User < ActiveRecord::Base
   end
   
   def full_name
-    result = (self.first_name.to_s + ' ' + self.last_name.to_s).gsub(/\s\s+/, '')
-    result.empty? ? self.email : result    
+    result = (self.first_name.to_s + ' ' + self.last_name.to_s)
+             .gsub(/\s\s+/, '').strip
+    result.empty? ? self.email : result
   end
   
   def cases
