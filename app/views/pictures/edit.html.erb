@@ -10,8 +10,19 @@
 <%= render 'form' %>
 <%= render 'applet_container' %>
 
+<div id="dialog-crop-confirm" title="Confirm the picture crop">
+  <p>
+    
+    <span class="ui-icon ui-icon-alert" 
+          style="float:left; margin:0 7px 20px 0;"></span>
+    Do you want <strong>REPLACE</strong> the existing picture with contents 
+    of the cropped area, or <strong>CREATE</strong> a new picture?
+  </p>
+</div>
+
 <script type="text/javascript">
   $(function() {
+    SHERLOCK.pictures.initEditForm();
     $('#picture_title').focus();
   });
 </script>

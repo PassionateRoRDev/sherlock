@@ -485,7 +485,10 @@ label, .boxtxt {
     margin-right: 1em;
 }
 
-input.button {
+input.button, 
+button.button, 
+input.button2,
+button.button2 {
     cursor: pointer;
     width: 94px;
     height: 28px;
@@ -493,6 +496,12 @@ input.button {
     background:url(btn.jpg);    
     font-size: 14px;
     color: #fff;
+}
+
+button.button2,
+input.button2 {
+    color: #000;
+    background-image:url(btn2_94_28_2.png);
 }
 
 span.btn,
@@ -511,8 +520,32 @@ a.button {
     color: #fff;
 }
 
+span.btn2,
+a.button2 {    
+    text-decoration: none;
+    display: block;
+    float: left;
+    font-size: 14px;
+    width: 94px;
+    height: 28px;
+    line-height: 28px;
+    text-align: center;
+    border: none;
+    margin-right: 1em;    
+    background-image:url(btn2_94_28_2.png);
+    color: #000;
+}
+
+input.button:hover,
+span.btn:hover,
 a.button:hover {
-  color: #ddd;
+  color: #ddd;    
+}
+
+button.button2:hover,
+input.button2:hover,
+span.btn2:hover {
+  color: #397A89;
 }
 
 a.icon {
@@ -537,6 +570,13 @@ input.button-wide,
 a.button-wide {
     width: 218px;
     background-image:url(btn_218.png);
+}
+
+button.button2-wide,
+input.button2-wide {
+  color: #000;
+  width: 218px;
+  background-image:url(btn2_218_28.png);
 }
 
 h4.label {
@@ -743,6 +783,7 @@ input.link {
 .icon-plus { background-position: -408px -96px; }
 .icon-pdf { background-position: 0px -140px; }
 .icon-envelope { background-position: -72px 0; }
+.icon-camera { background-position: -120px -48px; }
 
 .container-upper .topbar {
     top:2px;    
@@ -775,12 +816,12 @@ h2.case-title {
   top:0;
 }
 
-#java-install a {  
-    background: url(btn_download_java.gif) no-repeat scroll 0 0 transparent;
-    border: medium none;
-    display: block;
-    height: 45px;  
-    margin-left: 0;
-    text-indent: -1000px;
-    width: 212px;
+#btn-screen-capture {
+  position:relative;
+}
+
+#btn-screen-capture img {
+  position:absolute;
+  left:18px;
+  top:2px;
 }

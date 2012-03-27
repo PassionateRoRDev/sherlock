@@ -1,0 +1,51 @@
+#accept-java {
+  font-size: 110%;
+}
+
+#accept-java .detecting {
+  margin-top: 2px;
+}
+
+#accept-java .detecting-text {
+  float:left;
+  margin:0px 5px 0 0;
+}
+
+#accept-java .detecting-spinning {
+  display: block;
+  float: left;
+}
+
+#accept-java #java-version-result {
+  float: left;
+}
+
+#java-applet-launching {  
+  clear:both;
+  padding-top:2px;
+}
+
+#java-applet-launching .please-wait {
+  float:left;
+  margin:8px 4px 0 0;
+}
+      
+#java-applet-launching .spinning {
+  display: block;
+  float:left;
+}
+ 
+#java-install {
+  clear:both;
+  padding-top:2px;
+}
+
+#java-install a {  
+    background: url(btn_download_java.gif) no-repeat scroll 0 0 transparent;
+    border: medium none;
+    display: block;
+    height: 45px;  
+    margin-left: 0;
+    text-indent: -1000px;
+    width: 212px;
+}

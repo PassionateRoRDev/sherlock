@@ -15,8 +15,7 @@
 </div>
 
 <div class="field">
-  <%= f.label :alignment, 'Alignment :' %>
-  
+  <%= f.label :alignment, 'Alignment :' %>  
   <div class="rich-dropdown-wrapper rich-dropdown-wrapper-x">
     <%= f.select :alignment, image_alignment_options %>
   </div>
@@ -48,35 +47,13 @@
       <input type="hidden" id="crop-w" name="crop[]"/>
       <input type="hidden" id="crop-h" name="crop[]"/>             
       
-      <%= stylesheet_link_tag root_path + 'stylesheets/jquery.jcrop.min.css' %>
-      
+      <%= stylesheet_link_tag root_path + 'stylesheets/jquery.jcrop.min.css' %>      
       <%= javascript_include_tag root_path + 'javascript/jquery.jcrop.min.js' %>
       
-      <script type="text/javascript">
-      
+      <script type="text/javascript">      
       $(function() {
-        $('#picture-holder').Jcrop({
-          onSelect: function(c) {
-            $('#crop-x').val(c.x);
-            $('#crop-y').val(c.y);
-            $('#crop-w').val(c.w);
-            $('#crop-h').val(c.h);
-          }
-        });          
-        
-        $('#btn-change-picture').click(function() {
-          $('#btn-change-picture').hide();
-          $('#image-field-wrapper').show();
-          $('#link-keep-picture').css('visibility', 'visible');
-          return false;
-        });
-        $('#link-keep-picture').click(function(e) {
-          $('#btn-change-picture').show();
-          $('#image-field-wrapper').hide();
-          $('#link-keep-picture').css('visibility', 'hidden');
-          return false;
-        });
-      });
+        SHERLOCK.pictures.initForm();
+      });        
       </script>         
     </div>
     <div id="image-field-wrapper" style="display:none;">
@@ -84,18 +61,18 @@
 
     <div class="field" style="margin-bottom:5px;">
       <label for="upload_image">Select Image :</label>      
-      <span class="btn fileinput-button">
+      <span class="btn2 fileinput-button">
       <%= file_field 'upload', 'image', 
           :title => 'Select image file to be uploaded' %>                      
-          <span>
-            <i class="icon-plus icon-white"></i>
-            Browse...
-          </span>
+          <span>Browse...</span>
       </span>
-      <strong>OR&nbsp;&nbsp;</strong>        
-        <input type="button" value="Screen Capture" 
-               id="btn-screen-capture"
-               class="button button-wide"/>            
+      <strong>OR &nbsp;&nbsp;</strong>        
+        <button id="btn-screen-capture" 
+                type="button" class="button2 button2-wide">
+          <img src="/assets/capture_28_22.png"/>
+          Screen Capture
+        </button>
+          
     </div>
       
     <%= render 'shared/java_detect', :func_name => 'screen capture' %>          

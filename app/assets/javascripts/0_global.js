@@ -18,6 +18,13 @@ SHERLOCK.utils.flashMessage = function(clazz, txt) {
     setTimeout(SHERLOCK.utils.hideFlashMessages, 5000);
 };
 
+SHERLOCK.utils.appletLoaded = function() {  
+  var launching =  $('#java-applet-launching');  
+  $('.please-wait', launching).hide();
+  $('.spinning', launching).hide();
+  $('.app-is-running', launching).show();    
+}
+
 SHERLOCK.utils.detectJava = function()
 {
         
