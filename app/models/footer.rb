@@ -6,6 +6,10 @@ class Footer < ActiveRecord::Base
     self.contents.to_s.lines.count
   end
   
+  def alignment
+    'center'
+  end
+  
   def as_json(options = {})    
     
     result = super(options)

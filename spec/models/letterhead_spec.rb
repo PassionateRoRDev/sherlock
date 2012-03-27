@@ -2,6 +2,11 @@ require 'spec_helper'
 
 describe Letterhead do
     
+  it 'should always return alignment as center' do
+    letterhead = Factory(:letterhead, :alignment => 'left')
+    letterhead.alignment.should == 'center'
+  end
+  
   it 'JSON should not return created_at if its excluded' do
     letterhead = Factory(:letterhead)
     options = {
@@ -45,6 +50,12 @@ describe Letterhead do
     decoded = ActiveSupport::JSON.decode(letterhead.to_json(options))    
     decoded['logo']['path'].should == 'logo.png'
     decoded['logo']['align'].should == 'right'
+  end
+  
+  it 'JSON should return alignment = center no matter what' do
+    letterhead = Factory(:letterhead, :alignment => 'left')
+    decoded = ActiveSupport::JSON.decode letterhead.to_json
+    decoded['alignment'].should == 'center'
   end
   
 end

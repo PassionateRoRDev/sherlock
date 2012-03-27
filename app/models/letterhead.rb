@@ -12,6 +12,10 @@ class Letterhead < ActiveRecord::Base
   def is_link
     self.link.to_s != ''
   end
+  
+  def alignment
+    'center'
+  end
 
   def lines_count
     self.contents.to_s.lines.count
@@ -42,8 +46,8 @@ class Letterhead < ActiveRecord::Base
       result['logo'][:align] = logo_alignment        
     end
     
-    Rails::logger.debug('RESULT:')
-    Rails::logger.debug(result)
+    #Rails::logger.debug('RESULT:')
+    #Rails::logger.debug(result)
     
     result
   end

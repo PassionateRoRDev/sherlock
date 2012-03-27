@@ -2,6 +2,11 @@ require 'spec_helper'
 
 describe Footer do
   
+  it 'should always return alignment as center' do
+    footer = Factory(:footer, :alignment => 'right')
+    footer.alignment.should == 'center'
+  end
+  
   it 'JSON should return proper textAlign' do
     footer = Footer.new(
       :text_align => :left
@@ -27,6 +32,12 @@ describe Footer do
     )    
     decoded = ActiveSupport::JSON.decode(footer.to_json(:camelize => true))    
     decoded['bottomDivider']['height'].should == 1
+  end
+  
+  it 'JSON should return alignment = center no matter what' do
+    footer = Factory(:footer, :alignment => 'left')
+    decoded = ActiveSupport::JSON.decode footer.to_json
+    decoded['alignment'].should == 'center'
   end
   
 end

@@ -1,16 +1,9 @@
 <div class="midright"> 
   <div class="inbox-hd">Other Page Options</div>
       
-  <% if @case.footer %>      
-    <%= link_to 'Customize Footer for this report', 
-        edit_case_footer_path(@case, @case.footer),        
-        :title => 'Edit Footer for this Report' %>
-  <% else %>
-    <%= link_to 'Customize Footer for this report', 
-        new_case_footer_path(@case), 
-        :title => 'Create Footer for this Report' %>
-  <% end %>
-  
+  <%= link_to 'Customize Footer for this report', footer_path(@case), 
+      :title => 'Customize Footer for this report' %>
+    
   <h2 style="clear:both;padding-top:0em;">CLIENTS AUTHORIZED TO VIEW REPORT:</h2>
      
   <% if @case.viewers.empty? %>
