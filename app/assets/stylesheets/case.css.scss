@@ -73,3 +73,15 @@ body.user-client .case-small-icons {
   background-image: url(folder-64.png);
 }
   
+
+ul.authorized-viewers {
+  margin-left: 0;
+  margin-bottom: 0;
+}
+
+ul.authorized-viewers li {
+  padding-left: 20px;
+  margin-bottom: 2px;
+  background: url(glyph-icons.png) no-repeat -25px -140px;
+}   
+

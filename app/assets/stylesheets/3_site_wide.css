@@ -783,6 +783,7 @@ input.link {
     background-image: url(glyph-icons.png);
 }
 
+
 .icon-white {
     background-image: url(glyphicons-halflings-white.png);    
 }
@@ -792,6 +793,7 @@ input.link {
 .icon-plus { background-position: -408px -96px; }
 .icon-pdf { background-position: 0px -140px; }
 .icon-envelope { background-position: -72px 0; }
+.icon-user { background-position: -168px 0; }
 .icon-camera { background-position: -120px -48px; }
 
 .container-upper .topbar {

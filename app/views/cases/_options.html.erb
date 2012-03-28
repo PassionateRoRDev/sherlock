@@ -18,18 +18,29 @@
     </div>
     
   <% else %>  
-    <ul class="ordinary">
+    <ul class="authorized-viewers">
     <% @case.viewers.each do |viewer| %>
       <% if current_user.clients.include?(viewer) %>
         <li>
-          <%= link_to viewer.full_name, client_path(viewer) %>
+          <%= link_to viewer.full_name, client_path(viewer), 
+              :title => 'See ' + viewer.full_name + ' profile' %>
         </li>
       <% end %>
     <% end %>
     </ul>
+    
+    <div style="margin-top: 0.5em;">      
+      <%= link_to 'Share Report with a Client', 
+        new_case_invitation_path(@case), 
+        :title => 'Share Report with a Client',
+        :class => 'icon icon-envelope' %>
+      <%= link_to 'Invite another client', 
+        new_case_invitation_path(@case) %>    
+    </div>
+    
   <% end %>
     
-  <h2 style="clear:both;padding-top:0em;">PRIVATE NOTES</h2>
+  <h2 style="clear:both;padding-top:0.5em;">PRIVATE NOTES</h2>
   
   You haven't created any notes yet.
     
