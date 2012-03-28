@@ -42,16 +42,22 @@ class CasesController < ApplicationController
     end
   end
   
-  def update    
+  def update
+    
     if @case      
-            
+      
       params[:case] = convert_dates(params[:case])
+      params[:case] = preparse_hinted(params[:case], params[:hinted])
+      
+      logger.debug params
             
       respond_to do |format|
         if @case.update_attributes(params[:case])
           format.html { redirect_to(@case, :notice => 'Case has been successfully updated') }
+          format.js
         else
           foreat.html { render :action => 'edit' }
+          format.js
         end
       end
     end
@@ -135,12 +141,21 @@ class CasesController < ApplicationController
     
   end
   
+  def preparse_hinted(params, hinted)    
+    hinted.each do |key, value|      
+      params[key.to_sym] = '' if value.to_i == 1      
+    end        
+    params    
+  end
+  
   def convert_date(date_string)
     if date_string.to_s =~ /(\d\d)\/(\d\d)\/(\d{4})/
       date_string = "#{$3}-#{$1}-#{$2}"
     end
     date_string
   end
+  
+  
   
   def convert_dates(params)    
     params['opened_on']   = convert_date(params['opened_on'])

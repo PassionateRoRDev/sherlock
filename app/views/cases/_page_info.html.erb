@@ -1,6 +1,6 @@
-<div class="midleft" style="position:relative;">
+<div class="midleft section-page-info" style="position:relative;">
             
-    <%= form_for caze do |f| %>
+    <%= form_for caze, :remote => true do |f| %>
   
     <div class="inbox-hd">
       Page Information
@@ -14,22 +14,25 @@
       
       <div class="field">
         <%= f.label :client_name, 'Client Name :' %>
-        <div class="boxfield">
+        <div class="boxfield">          
+          <%= hidden_field_tag :client_name, f.object.client_name %>
           <%= f.text_field :client_name, 
                            :class => 'txtfield hint', 
-                           :title => 'not required' %>          
+                           :title => 'not required' %>        
         </div>
       </div>
       <div class="field">
         <label>Type of Case :</label>
-        <div class="boxfield">
+        <div class="boxfield">                    
+          <%= hidden_field_tag :case_type, f.object.case_type %>
           <%= f.text_field :case_type, :class => 'txtfield hint', 
                            :title => 'not required' %>          
         </div>
       </div>
       <div class="field">
         <%= f.label :number, 'Case Number :' %>
-        <div class="boxfield">
+        <div class="boxfield">          
+          <%= hidden_field_tag :number, f.object.number %>
           <%= f.text_field :number,
                            :class => 'txtfield hint',
                            :title => 'not required, can be alphanumeric' %>          
@@ -37,14 +40,16 @@
       </div>
       <div class="field">
         <%= f.label :opened_on, 'Start Date :' %>
-        <div class="boxfield">
+        <div class="boxfield">          
+          <%= hidden_field_tag :opened_on, f.object.opened_on %>
           <%= f.text_field :opened_on,
                            :class => 'txtfield hint datepicker',
                            :title => 'optional' %>          
         </div>
       </div>
       <div class="field">
-        <%= f.label :opened_on, 'End Date :' %>
+        <%= hidden_field_tag :closed_on, f.object.closed_on %>
+        <%= f.label :closed_on, 'End Date :' %>
         <div class="boxfield">
           <%= f.text_field :closed_on,
                            :class => 'txtfield hint datepicker',
@@ -55,6 +60,7 @@
       <div class="field">
         <label>Report Date :</label>
         <div class="boxfield">
+          <%= hidden_field_tag :report_date, f.object.report_date %>
           <%= f.text_field :report_date,
                            :class => 'txtfield hint datepicker',
                            :title => 'optional' %>          

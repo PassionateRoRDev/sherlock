@@ -66,6 +66,53 @@ SHERLOCK.cases.insertBlockBefore = function(insertBefore) {
     }
 };
 
+SHERLOCK.cases.initCasePage = function() {
+  
+  var f = $('.section-page-info form');
+  $('input.txtfield', f).each(function() {
+    var hidden = $('<input/>').attr({
+        'type': 'hidden',
+        'value': 0,
+        'class': 'hint-marker',
+        'name': this.name.replace('case', 'hinted')
+    });
+    $(this).parent().prepend(hidden);
+  });
+  
+  SHERLOCK.cases.checkBeforeLeavingPage();
+  SHERLOCK.utils.formAjaxify(f);
+};
+
+SHERLOCK.cases.checkBeforeLeavingPage = function() {
+  
+  function checkPageInfoSection()
+  {
+    var f = $('.section-page-info form');    
+    $('input.txtfield', f).each(function() {
+      var field = $(this);
+      var hidden = field.prev();
+      var val = field.hasClass('hinted') ? '' : field.val();
+      var orig = hidden.val();
+      if (typeof orig === 'undefined') {
+        orig = '';
+      }
+      if (val != orig) {      
+        return true;       
+      }
+    });    
+    return false;
+  }
+  
+  /*
+  $(window).bind('beforeunload', function() {    
+    var confirm = checkPageInfoSection();
+    if (confirm) {
+        return 'Do you want to leave the page without saving info?';
+    }
+  });
+  */
+};
+
 $(function() {        
     
     $('.remote-block-delete').live('ajax:before', function() {

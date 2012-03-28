@@ -176,12 +176,23 @@ SHERLOCK.utils.hideAjaxLoading = function() {
   });
 };
 
+SHERLOCK.utils.addHinted = function(field) {
+  field.addClass('hinted');
+  field.parent().find('.hint-marker').val(1);
+}
+
+SHERLOCK.utils.removeHinted = function(field) {
+  field.removeClass('hinted');
+  field.parent().find('.hint-marker').val(0);
+}
+
 SHERLOCK.utils.hintFieldOnBlur = function(inst) {    
     var title = $(inst).attr('title');
     if (($(inst).val() == '')) {     
-        $(inst).val(title).addClass('hinted');
+      $(inst).val(title);
+      SHERLOCK.utils.addHinted($(inst));        
     } else {
-        $(inst).removeClass('hinted');
+      SHERLOCK.utils.removeHinted($(inst));        
     }    
 };
 
@@ -191,7 +202,8 @@ SHERLOCK.utils.initializeAutoHintFields = function() {
     fields.focus(function() {
         if (!$(this).hasClass('datepicker')) {
             if ($(this).val() == $(this).attr('title')) { 
-                $(this).val('').removeClass('hinted');            
+                $(this).val('');
+                SHERLOCK.utils.removeHinted($(this));                     
             }
         }
     });    
@@ -203,13 +215,14 @@ SHERLOCK.utils.initializeAutoHintFields = function() {
     });    
     
     fields.each(function() {
+            
         $(this).attr('AUTOCOMPLETE', 'OFF');
         var title = $(this).attr('title');
         if (this.value == '') { 
             this.value = title;
         }
-        if (this.value == title) { 
-            $(this).addClass('hinted'); 
+        if (this.value == title) {
+          SHERLOCK.utils.addHinted($(this));
         }        
     });
 };
