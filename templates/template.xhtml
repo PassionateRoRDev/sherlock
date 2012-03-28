@@ -25,13 +25,15 @@
         }
         
         div#header {
-          display: block;          
+          margin-top: {HEADER_MARGIN_TOP};
+          display: block;                    
           position: running(header);
         }
         
         div#footer {
           display: block;           
           position: running(footer);
+          margin-top: {FOOTER_MARGIN_BOTTOM};
         }
         
         div#header hr, div#footer hr {
@@ -46,6 +48,7 @@
         
         {PAGE_HEADER_SELECTOR} {
             {PAGE_MARGIN_TOP}
+            {PAGE_MARGIN_BOTTOM}
             @top-center { 
                 content: element(header);                
             } 

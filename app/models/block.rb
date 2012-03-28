@@ -32,8 +32,8 @@ class Block < ActiveRecord::Base
   
   def as_json(options = {})    
     
-    Rails::logger.debug("as_json: options")
-    Rails::logger.debug(options)
+    #Rails::logger.debug("as_json: options")
+    #Rails::logger.debug(options)
     
     include = []
     except = [:created_at, :updated_at, :id, :case_id]    

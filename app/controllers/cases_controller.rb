@@ -92,7 +92,7 @@ class CasesController < ApplicationController
       :for_pdf => true
     }
     
-    logger.debug(report.to_json)
+    #logger.debug(report.to_json)
     
     path = report.write_json(options)
     command = "java -jar #{Rails.root}/script/ReportGen.jar " + path + " 2>&1"
