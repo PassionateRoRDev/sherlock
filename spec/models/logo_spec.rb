@@ -8,6 +8,16 @@ describe Logo do
     logo.author_id.should == user.id
   end
   
+  it 'Should detect DOS EPS header' do
+    bytes = File.open(fixture_file_path('sample_dos_eps.eps')).read
+    Logo.is_dos_eps_header?(bytes).should be_true
+  end
+    
+  it 'Should detect DOS EPS file' do
+    bytes = File.open(fixture_file_path('sample_dos_eps.eps')).read
+    Logo.is_dos_eps?(bytes).should be_true
+  end
+  
   it 'Should detect EPS file' do    
     bytes = File.open(fixture_file_path('football_logo.eps')).read
     Logo.is_eps?(bytes).should be_true
@@ -59,6 +69,19 @@ describe Logo do
       @logo.destroy
       File.exists?(eps_path).should be_false
     end
+    
+  end
+  
+  context "for the uploaded file in DOS EPS format it should" do
+    before do          
+      helper = LogoSpecHelper.new
+      @logo     = helper.upload_file('sample_dos_eps.eps', 'application/postscript')                
+      @filepath = helper.filepath 
+    end        
+    
+    it "create a PNG copy 153 high" do
+      Dimensions.dimensions(@logo.full_filepath)[1].should == 153
+    end        
     
   end
   
