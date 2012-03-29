@@ -82,14 +82,16 @@
           $('#ui-datepicker-div').css('border-color', '#aaaaaa');
           
           if ($(input).hasClass('hinted')) {
-            $(input).removeClass('hinted').val('');
+            $(input).val('');
+            SHERLOCK.utils.removeHinted($(input));
           }        
         },
         onClose : function(dateText, inst) {
           var input = this;
           if ($(input).hasClass('hint')) {
             if (dateText == '') {
-              $(input).val($(input).attr('title')).addClass('hinted');
+              $(input).val($(input).attr('title'));
+              SHERLOCK.utils.addHinted($(input));              
             } else {
               //$(input).val(dateText);
             }
