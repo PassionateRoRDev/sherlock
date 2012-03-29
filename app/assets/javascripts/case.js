@@ -66,6 +66,16 @@ SHERLOCK.cases.insertBlockBefore = function(insertBefore) {
     }
 };
 
+SHERLOCK.cases.updatePageInfoOrigValues = function() {
+  var f = $('.section-page-info form');
+  $('input.txtfield', f).each(function() {
+      var field = $(this);
+      var hidden = field.prev();
+      var val = field.hasClass('hinted') ? '' : field.val();
+      hidden.val(val);      
+  });
+};
+
 SHERLOCK.cases.initCasePage = function() {
   
   var f = $('.section-page-info form');
@@ -86,7 +96,9 @@ SHERLOCK.cases.initCasePage = function() {
 SHERLOCK.cases.checkBeforeLeavingPage = function() {
   
   function checkPageInfoSection()
-  {
+  {   
+    
+    var result = false;
     var f = $('.section-page-info form');    
     $('input.txtfield', f).each(function() {
       var field = $(this);
@@ -96,21 +108,21 @@ SHERLOCK.cases.checkBeforeLeavingPage = function() {
       if (typeof orig === 'undefined') {
         orig = '';
       }
-      if (val != orig) {      
-        return true;       
+      if (val != orig) {        
+        result = true;        
       }
-    });    
-    return false;
+    });
+            
+    return result;
   }
   
-  /*
   $(window).bind('beforeunload', function() {    
     var confirm = checkPageInfoSection();
     if (confirm) {
         return 'Do you want to leave the page without saving info?';
     }
   });
-  */
+  
 };
 
 $(function() {        

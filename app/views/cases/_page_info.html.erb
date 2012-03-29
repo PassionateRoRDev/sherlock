@@ -47,10 +47,10 @@
                            :title => 'optional' %>          
         </div>
       </div>
-      <div class="field">
-        <%= hidden_field_tag :closed_on, f.object.closed_on %>
+      <div class="field">        
         <%= f.label :closed_on, 'End Date :' %>
         <div class="boxfield">
+          <%= hidden_field_tag :closed_on, f.object.closed_on %>
           <%= f.text_field :closed_on,
                            :class => 'txtfield hint datepicker',
                            :title => 'optional, must be after start date' %>          
