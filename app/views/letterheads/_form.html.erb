@@ -120,7 +120,7 @@
                     
                     <% if f.object.logo %>
                     
-                      <%= link_to 'Remove Logo', f.object.logo, 
+                      <%= link_to 'Remove Logo', f.object.logo,                           
                           :confirm => 'Are you sure you want to remove the logo?', 
                           :class  => 'link-remove-logo',
                           :remote => true,
@@ -167,4 +167,7 @@
   $('input#alert_button').click( function() {
     alert($('input.simple_color')[0].value)
   });
+  
+  SHERLOCK.utils.linkAjaxify($('.link-remove-logo'));
+  
 </script>

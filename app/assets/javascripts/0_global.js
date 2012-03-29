@@ -96,6 +96,13 @@ SHERLOCK.utils.showAjaxError = function() {
   alert('Request failed, please try again');
 };
 
+SHERLOCK.utils.linkAjaxify = function(link) {  
+  link.bind('ajax:before', function() {
+    SHERLOCK.utils.showAjaxLoading();
+  });  
+  link.bind('ajax:error', SHERLOCK.utils.showAjaxError);  
+};
+
 SHERLOCK.utils.formAjaxify = function(form) {
   form.bind('ajax:before', function() {
     var f = this;
@@ -112,7 +119,7 @@ SHERLOCK.utils.formAjaxify = function(form) {
       });    
     }
     SHERLOCK.utils.showAjaxLoading();
-  });
+  });  
   form.bind('ajax:complete', function(e) {    
   });
   form.bind('ajax:error', SHERLOCK.utils.showAjaxError);
@@ -237,6 +244,8 @@ $(function() {
     };
 
     SHERLOCK.utils.initializeAutoHintFields();            
+    
+    $('#link-remove-logo')
     
     $('.styled-select-rounded-x select').change(function() {
       this.blur();
