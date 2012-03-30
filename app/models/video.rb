@@ -266,7 +266,8 @@ class Video < ActiveRecord::Base
   
   def recode_to_formats
     #recode_to [:flv, :m4v, :avi]   
-    recode_to [:flv, :mpg, :mov]
+    #recode_to [:flv, :mpg, :mov]
+    recode_to [:flv, :mpg]
   end
   
   def recode_to(formats)    
