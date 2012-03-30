@@ -14,12 +14,19 @@ class FilesController < ApplicationController
     
     user = current_user
     
-    if user.pi?    
-      kase = user.find_case_by_id(params[:case_id]) if params[:case_id]
-    else
+    if user.admin
       kase = resolve_case_using_param(:case_id)
       user = kase.author
+    else
+      if user.pi?    
+        kase = user.find_case_by_id(params[:case_id]) if params[:case_id]
+      else
+        kase = resolve_case_using_param(:case_id)
+        user = kase.author
+      end
     end
+    
+    
     
     path = "#{Rails.root}/files/#{user.id}/#{type}/" + filename
     
