@@ -102,10 +102,10 @@ class CasesController < ApplicationController
     
     path = report.write_json(options)
     command = "java -jar #{Rails.root}/script/ReportGen.jar " + path + " 2>&1"
-    logger.info(command)
+    logger.debug(command)
     result = `#{command}`
-    logger.info("Result of command:")
-    logger.info(result)
+    logger.debug("Result of command:")
+    logger.debug(result)
     
     File.unlink(path) if File.exists?(path)    
     
