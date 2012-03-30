@@ -20,7 +20,11 @@ class ApplicationController < ActionController::Base
   end
   
   def resolve_case_using_param(param)
-    @case = current_user.find_case_by_id(params[param]) || redirect_to(cases_path)    
+    if current_user.admin
+      @case = Case.find_by_id(params[param]) || redirect_to(cases_path)
+    else    
+      @case = current_user.find_case_by_id(params[param]) || redirect_to(cases_path)    
+    end
   end
     
   def authorize_pi!
