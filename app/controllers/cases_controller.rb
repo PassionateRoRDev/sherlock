@@ -142,7 +142,7 @@ class CasesController < ApplicationController
   end
   
   def preparse_hinted(params, hinted)    
-    hinted.each do |key, value|      
+    hinted.to_a.each do |key, value|      
       params[key.to_sym] = '' if value.to_i == 1      
     end        
     params    
