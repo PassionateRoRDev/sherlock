@@ -20,7 +20,7 @@
   <% else %>  
     <ul class="authorized-viewers">
     <% @case.viewers.each do |viewer| %>
-      <% if current_user.clients.include?(viewer) %>
+      <% if @case.author.clients.include?(viewer) %>
         <li>
           <%= link_to viewer.full_name, client_path(viewer), 
               :title => 'See ' + viewer.full_name + ' profile' %>
