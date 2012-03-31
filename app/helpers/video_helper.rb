@@ -19,9 +19,17 @@ module VideoHelper
     
     case video.alignment
     when 'left'
-      style += 'float:left;margin:0 1em 1em 0'
+      if video.width <= Report::NARROW_ELT_WIDTH
+        style += 'float:left;margin:0 1em 1em 0'        
+      else
+        style += 'clear:both'
+      end
     when 'right'
-      style += 'float:right;margin:0 0em 1em 1em'
+      if video.width <= Report::NARROW_ELT_WIDTH
+        style += 'float:right;margin:0 0em 1em 1em'
+      else
+        style += 'clear:both'        
+      end
     when 'center'
       style += 'margin:auto;clear:both;margin-top:1em;'
     else

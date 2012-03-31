@@ -15,6 +15,14 @@ class Block < ActiveRecord::Base
   
   default_scope :order => 'weight'
   
+  def alignment
+    if self.picture
+      self.picture.alignment
+    elsif self.video
+      self.video.alignment
+    end
+  end
+  
   def title
     result = 'Block'
     if self.html_detail
@@ -28,6 +36,10 @@ class Block < ActiveRecord::Base
     end
     result
     
+  end
+  
+  def prev
+    self.case.blocks.where(:weight => self.weight - 1).first
   end
   
   def as_json(options = {})    

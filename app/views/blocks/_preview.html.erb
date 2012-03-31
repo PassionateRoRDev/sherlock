@@ -1,5 +1,5 @@
 <% if block.html_detail %>
-  <p>
+  <p style="<%= text_block_dynamic_style(block.html_detail) %>">
   <%= block.html_detail.contents.to_s.html_safe %>  
   </p>
 <% end %>

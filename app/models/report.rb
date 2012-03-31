@@ -6,6 +6,9 @@ class Report
   attr_accessor :template
   attr_accessor :header  
   
+  MAX_PAGE_WIDTH = 710
+  NARROW_ELT_WIDTH = (MAX_PAGE_WIDTH / 2) + 20
+  
   def initialize(params = {})
     self.case         = params[:case]
     self.title        = params[:title]
