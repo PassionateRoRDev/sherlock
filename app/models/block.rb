@@ -23,6 +23,32 @@ class Block < ActiveRecord::Base
     end
   end
   
+  # Layout strategy - used during the Preview and PDF:
+  # 
+  # if element is LEFT-floated, 
+  # - if it's preceded by RIGHT float, apply BR after it
+  # - else render BR.clear before it
+  #
+  # - if element is RIGHT-floated
+  # - if it's preceded by LEFT floated element, apply BR.clear AFTER it
+  # - else apply BR.clear before it
+  #  
+  def clear
+    prev_block = prev
+    case alignment
+    when 'left'
+      (prev_block && prev_block.alignment == 'right') ? :after : :before
+    when 'right'
+      (prev_block && prev_block.alignment == 'left') ? :after : :before
+    else
+      nil
+    end    
+  end
+    
+  def floated?
+    alignment == 'left' || alignment == 'right'
+  end
+  
   def title
     result = 'Block'
     if self.html_detail

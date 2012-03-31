@@ -33,10 +33,21 @@
       position: absolute;
     }
     
+    #footer {
+      clear: both;
+      padding-top: 1em;
+      padding-bottom: 1em;
+    }
+    
     div#header hr, div#footer hr {            
       border: none;
       clear: both;
       background-color: black;
+    }
+    
+    .picture-block h4 {
+      text-align: center;
+      line-height: 1.3em;
     }
     
     .picture-block, .video-block {
@@ -94,7 +105,9 @@
 </p>
 
 <% @case.blocks.each do |block| %>
+  <%= render 'blocks/clear' if block.clear == :before %>
   <%= render 'blocks/preview', :block => block %>
+  <%= render 'blocks/clear' if block.clear == :after %>
 <% end %>
 
 <%= render 'footers/show', :footer => @case.footer if @case.footer %>

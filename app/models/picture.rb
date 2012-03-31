@@ -18,6 +18,24 @@ class Picture < ActiveRecord::Base
     )
   end
   
+  def online_dims
+    
+    max_width = Report::MAX_PAGE_WIDTH
+    min_width = 450
+    
+    dims = dimensions
+    
+    return dims if (dims == [0, 0]) || (dims[0] <= max_width)
+            
+    result = Picture.scale_to_bounds([dims[0], dims[1]], [max_width, 0])
+    ratio = (0.0 + result[1]) / result[0]
+    if result[0] < min_width
+      result[0] = min_width
+      result[1] = (ratio * result[0]).round
+    end
+    result
+  end
+  
   def self.scale_to_bounds(dims, max_dims)
 
     return max_dims if dims.nil?
@@ -104,6 +122,10 @@ class Picture < ActiveRecord::Base
   
   def dimensions
     File.exists?(full_filepath) ? Dimensions.dimensions(full_filepath) : [0, 0]
+  end
+  
+  def width_for_preview
+    width_for_display Report::MAX_PAGE_WIDTH
   end
   
   def width_for_display(max_width)    

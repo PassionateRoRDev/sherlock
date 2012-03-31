@@ -14,18 +14,20 @@ module VideoHelper
   end
   
   def video_dynamic_style(video)
-    
-    style = "width:#{video.online_dims[0]}px;"
-    
+        
+    online_width = video.online_dims[0]
+    style = "width:#{online_width}px;"
+    is_narrow_elt = online_width <= Report::NARROW_ELT_WIDTH
+      
     case video.alignment
     when 'left'
-      if video.width <= Report::NARROW_ELT_WIDTH
+      if is_narrow_elt
         style += 'float:left;margin:0 1em 1em 0'        
       else
         style += 'clear:both'
       end
     when 'right'
-      if video.width <= Report::NARROW_ELT_WIDTH
+      if is_narrow_elt
         style += 'float:right;margin:0 0em 1em 1em'
       else
         style += 'clear:both'        

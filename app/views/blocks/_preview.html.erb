@@ -1,15 +1,15 @@
 <% if block.html_detail %>
-  <p style="<%= text_block_dynamic_style(block.html_detail) %>">
+  <div style="<%= text_block_dynamic_style(block.html_detail) %>">
   <%= block.html_detail.contents.to_s.html_safe %>  
-  </p>
+  </div>
 <% end %>
-
+  
 <% if block.picture %>
   <div class="picture-block"
        style="<%= picture_dynamic_style(block.picture) %>">
     <img src="<%= file_picture_path block.picture %>"
          title="<%= block.picture.title %>"
-         width="<%= block.picture.width_for_display(1024) %>"/>
+         width="<%= block.picture.width_for_preview() %>"/>
     <h4><%= block.picture.title %></h4>
   </div>
 <% end %>

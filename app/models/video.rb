@@ -40,7 +40,7 @@ class Video < ActiveRecord::Base
   end  
   
   def online_dims
-    max_width = 750
+    max_width = Report::MAX_PAGE_WIDTH
     min_width = 450
     result = Picture.scale_to_bounds([width, height], [max_width, 0])
     ratio = (0.0 + result[1]) / result[0]

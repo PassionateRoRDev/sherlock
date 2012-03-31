@@ -14,16 +14,32 @@ module PictureHelper
   end
   
   def picture_dynamic_style(picture)
+    
+    online_width = picture.online_dims[0]
+    style = "width:#{online_width}px;"
+    is_narrow_elt = online_width <= Report::NARROW_ELT_WIDTH
+    
     case picture.alignment
     when 'left'
-      'float:left;margin:0 1em 1em 0'
+      if is_narrow_elt
+        style += 'float:left;margin:0 1em 1em 0'
+      else
+        style += 'clear:both;'
+      end
     when 'right'
-      'float:right;margin:0 0em 1em 1em'
+      if is_narrow_elt
+        style += 'float:right;margin:0 0em 1em 1em'
+      else
+        style += 'clear:both;'
+      end
     when 'center'
-      'text-align:center;clear:both;margin-top:1em;'
+      style += 'text-align:center;clear:both;margin-top:1em;'
     else
-      'clear:both;margin-top:1em;'
+      style += 'clear:both;margin-top:1em;'
     end
+    
+    style
+    
   end
   
   def image_tag_constrained(obj, max_dims)    
