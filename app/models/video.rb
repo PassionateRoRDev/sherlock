@@ -270,8 +270,14 @@ class Video < ActiveRecord::Base
     recode_to [:flv, :mpg]
   end
   
-  def recode_to(formats)    
+  def recode_to(formats, source_format = :original)    
+    
     video_path = filepath_for_type_and_filename('videos', self.path)
+    
+    # if the source format is something else than the original one, use it
+    # instead
+    video_path = full_path_for_format(source_format) unless source_format == :original
+    
     formats.each do |format|      
       unless self.path == path_for_format(format)        
         new_video_path = full_path_for_format(format)
