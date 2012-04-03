@@ -249,7 +249,7 @@ class Picture < ActiveRecord::Base
   
   def accept_only_image_uploads
     @uploaded_file_bytes ||= uploaded_file.read        
-    errors.add :image_type, "Invalid image type" unless 
+    errors.add :image_type, "could not be recognized" unless 
       Picture.is_image?(@uploaded_file_bytes)     
   end
   

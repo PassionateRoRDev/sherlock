@@ -81,11 +81,9 @@ class PicturesController < ApplicationController
         error = false
         if image
           @picture.uploaded_file = image
-          @picture.save
+          error = !@picture.save
         end
       end
-      
-      pp error
       
       if error
         format.html do 
