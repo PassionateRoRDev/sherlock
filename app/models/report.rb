@@ -9,6 +9,9 @@ class Report
   MAX_PAGE_WIDTH = 750
   NARROW_ELT_WIDTH = (MAX_PAGE_WIDTH / 2) + 20
   
+  PDF_RETRY_COUNT = 5
+  RETRY_SLEEP_INTERVAL = 2
+  
   def initialize(params = {})
     self.case         = params[:case]
     self.title        = params[:title]
@@ -42,6 +45,43 @@ class Report
     }
   end
     
+  def generate_pdf   
+    options = {
+      :for_pdf => true
+    }
+    path = write_json(options)
+    command = "java -jar #{Rails.root}/script/ReportGen.jar " + path + " 2>&1"
+    Rails::logger.debug command
+    
+    run_command_with_retry(command, PDF_RETRY_COUNT)
+    
+    File.unlink(path) if File.exists?(path)        
+    
+  end
+  
+  def run_command_with_retry(command, try_count)
+    
+    success = false
+    until success || (try_count == 0)   
+      begin
+        #if try_count == PDF_RETRY_COUNT
+        #  Rails::logger.info("Raising Errno::ENOMEM")
+        #  raise Errno::ENOMEM
+        #end
+        result = `#{command}`
+        Rails::logger.debug "Result of command:"
+        Rails::logger.debug result
+        success = true
+      rescue        
+        Rails::logger.error "Command failed! Retry count = #{try_count}"
+        try_count -= 1
+        Rails::logger.info "Falling asleep..."
+        sleep(RETRY_SLEEP_INTERVAL) if try_count > 0
+        Rails::logger.info "Waking up"
+      end
+    end        
+  end
+  
   def write_json(options = {})
     dir = reports_root
     FileUtils.mkdir_p(dir) unless File.directory?(dir)

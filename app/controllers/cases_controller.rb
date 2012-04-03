@@ -92,22 +92,9 @@ class CasesController < ApplicationController
     report.header = current_user.letterhead
     report.case = the_case
     report.output_file = "report_#{the_case.id}.pdf"
-    report.template = 'template.xhtml'
+    report.template = 'template.xhtml'        
     
-    options = {
-      :for_pdf => true
-    }
-    
-    #logger.debug(report.to_json)
-    
-    path = report.write_json(options)
-    command = "java -jar #{Rails.root}/script/ReportGen.jar " + path + " 2>&1"
-    logger.debug(command)
-    result = `#{command}`
-    logger.debug("Result of command:")
-    logger.debug(result)
-    
-    File.unlink(path) if File.exists?(path)    
+    report.generate_pdf        
     
     title = the_case.title.gsub(/\s+/, '-') + '.pdf'    
     send_pdf_headers(title)
