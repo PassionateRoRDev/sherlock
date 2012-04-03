@@ -9,6 +9,7 @@ describe Picture do
   
   it "should require a file upload for a new object" do
     picture = Factory.build(:picture)    
+    picture.valid?.should be_false
     picture.errors[:uploaded_file].should_not be_empty    
   end
   
