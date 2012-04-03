@@ -6,16 +6,23 @@ class Picture < ActiveRecord::Base
   
   belongs_to :block 
   
-  validates :path, :presence => true
   validates :title, :presence => true
+  
+  validate :accept_only_image_uploads, :if => :has_uploaded_file?
+  
+  attr_accessor :uploaded_file
+  
+  attr_accessible :title, :uploaded_file, :alignment, :unique_code
+  
+  before_save :process_upload, :if => :has_uploaded_file?
   
   before_destroy :delete_files
   
   def self.generate(block)
-    Picture.new(
-      :block        => block,
-      :unique_code  => generate_unique_code
-    )
+    Picture.new do |p|
+      p.block = block
+      p.unique_code = generate_unique_code
+    end        
   end
   
   def online_dims
@@ -58,13 +65,18 @@ class Picture < ActiveRecord::Base
   
   #
   # TODO: extend the FileAsset module
+  # TODO: OR remove it from FileAsset altogether
   #
   def self.is_image?(bytes)
     FileAsset::is_image?(bytes)
   end
   
+  def self.is_simple_image?(bytes)
+    FileAsset::is_simple_image?(bytes)
+  end
+  
   def self.store(author, upload_info)
-    bytes = upload_info.read    
+    bytes = upload_info.read  
     if is_image?(bytes)
       FileAsset::store_for_type(author, upload_info, bytes, 'pictures') 
     else
@@ -80,12 +92,24 @@ class Picture < ActiveRecord::Base
     'pictures'
   end
   
+  def has_uploaded_file?
+    !uploaded_file.nil?
+  end
+  
   def backup
     FileUtils.copy_file(full_filepath, backup_path)
   end
   
   def backup_path
     full_filepath + '.bak'
+  end
+  
+  def orig_path
+    full_path_for_suffix(:orig)
+  end
+  
+  def remove_original_file
+    File.delete(orig_path) if File.exists?(orig_path)
   end
   
   def remove_backup
@@ -95,7 +119,7 @@ class Picture < ActiveRecord::Base
   def restore_from_backup
     File.rename(backup_path, full_filepath)
   end
-  
+    
   def crop(rectangle)   
     
     cropped = false
@@ -135,7 +159,8 @@ class Picture < ActiveRecord::Base
     
   def delete_files
     delete_file_for_type(file_type)
-    remove_backup    
+    remove_backup
+    remove_original_file    
   end
 
   def self.populate_missing_codes
@@ -180,4 +205,46 @@ class Picture < ActiveRecord::Base
     (0...len).map{ ('a'..'z').to_a[rand(26)] }.join
   end
  
+  def convert_to_png(bytes)
+    Magick::Image.from_blob(bytes).first.to_blob { |im| im.format = 'PNG' }
+  end
+  
+  def process_upload
+    
+    @uploaded_file_bytes ||= uploaded_file.read
+      
+    effective_filename = uploaded_file.original_filename      
+    content_type       = uploaded_file.content_type     
+    
+    # remove the old files if persisted
+    self.delete_files if persisted?
+        
+    self.original_filename = effective_filename
+    self.content_type      = content_type
+    
+    bytes = @uploaded_file_bytes
+    is_simple_image = Picture.is_simple_image? @uploaded_file_bytes
+    unless is_simple_image 
+      bytes = convert_to_png(bytes)      
+      self.content_type = 'image/png'
+      effective_filename = path_for_suffix(:png, effective_filename)
+    end
+   
+    self.content_type = content_type    
+    self.path = store effective_filename, bytes
+        
+    # store the original file under .orig if we did any conversions    
+    File.open(orig_path, 'wb').write(@uploaded_file_bytes) unless is_simple_image  
+    
+  end
+  
+  #
+  # Custom validator:
+  #
+  def accept_only_image_uploads
+    @uploaded_file_bytes ||= uploaded_file.read        
+    errors.add :image_type, "Invalid image type" unless 
+      Picture.is_image?(@uploaded_file_bytes)     
+  end
+  
 end

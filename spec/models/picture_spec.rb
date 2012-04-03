@@ -7,14 +7,57 @@ describe Picture do
     Picture.is_image?(f.read).should be_true
   end
   
+  it "should be invalid for uploaded_file set to text file" do
+    user = Factory(:user)
+    filename = 'text_file1.txt'   
+    data = {
+      :filepath           => fixture_file_path(filename),
+      :original_filename  => filename
+    }
+    uploaded = Uploader.new(data)
+    p = Picture.new(:title => 'Test picture', :uploaded_file => uploaded)
+    p.valid?.should be_false
+    p.errors[:image_type].should_not be_empty
+  end
+  
+  it "should be valid for uploaded PNG file" do
+    filename = 'sample_image1.png'   
+    data = {
+      :filepath           => fixture_file_path(filename),
+      :original_filename  => filename
+    }
+    uploaded = Uploader.new(data)
+    p = Picture.new(:title => 'Test picture', :uploaded_file => uploaded)
+    p.valid?.should be_true
+    p.errors[:image_type].should be_empty
+  end
+  
+  it "should be valid for uploaded BMP file" do    
+    filename = 'sample_image1.bmp'   
+    data = {
+      :filepath           => fixture_file_path(filename),
+      :original_filename  => filename
+    }
+    uploaded = Uploader.new(data)
+    p = Picture.new(:title => 'Test picture', :uploaded_file => uploaded)
+    p.valid?.should be_true
+    p.errors[:image_type].should be_empty
+  end
+  
   it "should classify a text file as a non-image" do
     f = File.open(fixture_file_path('text_file1.txt'))
     Picture.is_image?(f.read).should_not be_true
   end
   
-  it "should classify a pdf file as a non-image" do
+  it "should classify a pdf file as an image" do
     f = File.open(fixture_file_path('sample.pdf'))
-    Picture.is_image?(f.read).should_not be_true
+    Picture.is_image?(f.read).should be_true
+  end
+  
+  it "should return correct author" do
+    c = Factory(:case)
+    p = Factory(:picture, :block => Factory(:block, :case => c))
+    p.author.should == c.author
   end
   
   it "should return correct author_id" do            
@@ -29,6 +72,7 @@ describe Picture do
   end
   
   context "for a non-image file the upload" do
+    
     before do
       filename = 'text_file1.txt'      
       data = {
@@ -42,10 +86,40 @@ describe Picture do
       block = Factory(:block)       
       filename = Picture.store(block.case.author, @upload)    
       filename.should == nil
-    end
-    
+    end    
   end
   
+  context "for uploaded BMP file" do
+    
+    before do
+      filename = 'sample_image1.bmp'
+      @original_file_path = fixture_file_path(filename)
+      data = {
+        :filepath           => @original_file_path,
+        :original_filename  => filename        
+      }
+      @upload = Uploader.new(data)
+      @picture = Picture.new(:title => 'Test picture', :uploaded_file  => @upload)
+      @picture.block = Factory(:block)
+      @picture.save
+    end
+    
+    it "should save the image with PNG suffix" do            
+      @picture.path.end_with?('sample_image1.png').should be_true            
+    end
+    
+    it "should save the copy with .orig suffix" do
+      @picture.orig_path.should_not be_empty
+      File.exists?(@picture.orig_path).should be_true      
+      File.new(@picture.orig_path).size.should == File.new(@original_file_path).size      
+    end
+    
+    it "should return correct dimenions for the file" do
+      @picture.dimensions.should == [465, 349]
+    end
+    
+  end  
+
   context "for the uploaded file picture should" do
   
     before do      
@@ -54,12 +128,10 @@ describe Picture do
         :filepath           => @filepath,
         :original_filename  => 'sample_image1.png'
       }
-      upload = Uploader.new(data)
-      
-      block = Factory(:block)       
-      filename = Picture.store(block.case.author, upload)    
-      @picture = Factory(:picture, :path => filename, :block => block)
-      
+      upload = Uploader.new(data)                  
+      @picture       = Picture.new(:title => 'New picture', :uploaded_file => upload)      
+      @picture.block = Factory(:block)
+      @picture.save
     end
     
     it "return correct dimensions" do

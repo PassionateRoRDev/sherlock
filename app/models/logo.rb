@@ -70,7 +70,7 @@ class Logo < ActiveRecord::Base
       upload_info.content_type = 'image/png'
       upload_info.original_filename = 
         path_for_format(upload_info.original_filename, :png)      
-      png_path = FileAsset::store_for_type(author, upload_info, png_bytes, 'logos')        
+      png_path = FileAsset::store_for_type(author, upload_info, png_bytes, 'logos')
       eps_path = path_for_format(png_path, :eps)
       full_eps_path = 
         FileAsset::filepath_for_type_filename_and_author('logos', eps_path, author.id)          
@@ -142,10 +142,10 @@ class Logo < ActiveRecord::Base
     0
   end
   
-  # Overrides author_id from FileAsset
-  def author_id
-    self.user.id
-  end  
+  # Overrides author from FileAsset  
+  def author
+    self.user
+  end
 
   def has_file?
     File.exists?(full_filepath.to_s)
