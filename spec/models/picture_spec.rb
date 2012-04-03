@@ -7,6 +7,11 @@ describe Picture do
     Picture.is_image?(f.read).should be_true
   end
   
+  it "should require a file upload for a new object" do
+    picture = Factory.build(:picture)    
+    picture.errors[:uploaded_file].should_not be_empty    
+  end
+  
   it "should be invalid for uploaded_file set to text file" do
     user = Factory(:user)
     filename = 'text_file1.txt'   
@@ -54,22 +59,23 @@ describe Picture do
     Picture.is_image?(f.read).should be_true
   end
   
+            
   it "should return correct author" do
     c = Factory(:case)
-    p = Factory(:picture, :block => Factory(:block, :case => c))
+    p = Factory.build(:picture, :block => Factory(:block, :case => c))
     p.author.should == c.author
   end
-  
+
   it "should return correct author_id" do            
     c = Factory(:case)
-    p = Factory(:picture, :block => Factory(:block, :case => c))    
+    p = Factory.build(:picture, :block => Factory(:block, :case => c))
     p.author_id.should == c.author.id    
   end
-  
+
   it "should return correct file type" do
-    p = Factory(:picture)  
+    p = Factory.build(:picture)  
     p.file_type.should == 'pictures'    
-  end
+  end    
   
   context "for a non-image file the upload" do
     

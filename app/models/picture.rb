@@ -8,6 +8,7 @@ class Picture < ActiveRecord::Base
   
   validates :title, :presence => true
   
+  validate :require_upload_for_a_new_image, :unless => :persisted?
   validate :accept_only_image_uploads, :if => :has_uploaded_file?
   
   attr_accessor :uploaded_file
@@ -241,6 +242,11 @@ class Picture < ActiveRecord::Base
   #
   # Custom validator:
   #
+  
+  def require_upload_for_a_new_image  
+    errors.add :uploaded_file, "has to be provided" unless has_uploaded_file?
+  end
+  
   def accept_only_image_uploads
     @uploaded_file_bytes ||= uploaded_file.read        
     errors.add :image_type, "Invalid image type" unless 
