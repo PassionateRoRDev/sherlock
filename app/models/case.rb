@@ -59,6 +59,24 @@ class Case < ActiveRecord::Base
     result
   end
   
+   def create_event_for_creation
+      exists = Event.where(
+        :event_type     => 'create', 
+        :event_subtype  => 'case', 
+        :detail_i1 => self.id
+      )
+      if exists.empty?
+        ev = Event.new(
+            :event_type     => 'create',
+            :event_subtype  => 'case',
+            :detail_i1      => self.id,
+            :user_id        => self.author_id
+        )
+        ev.started_at = self.created_at.to_i
+        ev.save
+      end
+  end
+  
   private
   
   def invalidate_report
