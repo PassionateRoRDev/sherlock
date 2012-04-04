@@ -2,6 +2,8 @@ class Event < ActiveRecord::Base
   
   after_initialize :init_timestamp    
   
+  belongs_to :user
+  
   def finish
     self.finished_at = Time.now.to_i
     self.duration = self.finished_at - self.started_at

@@ -7,7 +7,8 @@ class CaseObserver < ActiveRecord::Observer
     Event.create( 
       :event_type => 'create',
       :event_subtype => 'case',
-      :detail_i1 => model.id 
+      :detail_i1 => model.id,
+      :user_id    => model.author_id
     )         
   end
   
@@ -16,7 +17,8 @@ class CaseObserver < ActiveRecord::Observer
     Event.create( 
       :event_type => 'delete',
       :event_subtype => 'case',
-      :detail_i1 => model.id 
+      :detail_i1 => model.id,
+      :user_id    => model.author_id
     )
   end  
 
