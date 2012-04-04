@@ -19,6 +19,8 @@ class Case < ActiveRecord::Base
   
   validates :title, :presence => true
   
+  after_save :invalidate_report
+  
   def copy_picture(picture)
     
     filename = FileAsset::generate_new_filename(picture.original_filename)                
@@ -55,6 +57,12 @@ class Case < ActiveRecord::Base
     
     result['blocks'] = self.blocks.map { |block| block.as_json(options) }    
     result
+  end
+  
+  private
+  
+  def invalidate_report
+    Report.invalidate_for_case self.id
   end
   
 end

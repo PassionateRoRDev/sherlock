@@ -11,7 +11,10 @@ class Logo < ActiveRecord::Base
   
   validates :path, :presence => true
   
+  after_save :invalidate_reports
   before_destroy :delete_file    
+  before_destroy :invalidate_reports
+  
   
   #
   # TODO: extend the FileAsset module
@@ -168,6 +171,12 @@ class Logo < ActiveRecord::Base
   def delete_file
     delete_file_for_type(file_type)
     [:eps].each { |format| delete_file_for_format(format) }          
+  end
+  
+  private
+  
+  def invalidate_reports    
+    Report.invalidate_for_user(self.letterhead.user_id) if self.letterhead        
   end
   
 end

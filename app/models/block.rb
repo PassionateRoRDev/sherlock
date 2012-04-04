@@ -12,6 +12,7 @@ class Block < ActiveRecord::Base
   after_create :adjust_weight_after_insert
   
   before_destroy :adjust_weights
+  before_destroy :invalidate_report
   
   default_scope :order => 'weight'
   
@@ -113,6 +114,10 @@ class Block < ActiveRecord::Base
         save
       end
     end
+  end
+  
+  def invalidate_report
+    Report.invalidate_for_case self.case_id
   end
   
   def adjust_weights

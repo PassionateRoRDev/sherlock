@@ -90,8 +90,7 @@ class CasesController < ApplicationController
     report = Report.new
     report.title = the_case.title
     report.header = current_user.letterhead
-    report.case = the_case
-    report.output_file = "report_#{the_case.id}.pdf"
+    report.case = the_case    
     report.template = 'template.xhtml'        
     
     report.generate_pdf        

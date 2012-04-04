@@ -3,6 +3,7 @@ require 'digest/md5'
 class Picture < ActiveRecord::Base
   
   include FileAsset
+  include BlockDetail
   
   belongs_to :block 
   
@@ -15,9 +16,9 @@ class Picture < ActiveRecord::Base
   
   attr_accessible :title, :uploaded_file, :alignment, :unique_code
   
-  before_save :process_upload, :if => :has_uploaded_file?
-  
-  before_destroy :delete_files
+  before_save :process_upload, :if => :has_uploaded_file?  
+  before_destroy :delete_files  
+  after_save :invalidate_report
   
   def self.generate(block)
     Picture.new do |p|

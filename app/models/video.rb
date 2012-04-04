@@ -3,10 +3,14 @@ require 'zip/zip'
 
 class Video < ActiveRecord::Base
   
-  include FileAsset
+  include FileAsset  
+  include BlockDetail
   
-  belongs_to :block 
+  belongs_to :block
+  
   validates :path, :presence => true  
+  
+  after_save :invalidate_report
   
   before_destroy :delete_file
   before_destroy :delete_thumbnail

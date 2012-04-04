@@ -1,8 +1,7 @@
 class Report
   
   attr_accessor :case
-  attr_accessor :title
-  attr_accessor :output_file
+  attr_accessor :title  
   attr_accessor :template
   attr_accessor :header  
   
@@ -15,8 +14,23 @@ class Report
   def initialize(params = {})
     self.case         = params[:case]
     self.title        = params[:title]
-    self.header       = params[:header]
-    self.output_file  = params[:output_file]
+    self.header       = params[:header]    
+  end
+    
+  def destroy_report    
+    report_pdf_path = reports_output_path    
+    File.delete report_pdf_path if File.exists? report_pdf_path    
+  end
+
+  def self.invalidate_for_case(case_id)    
+    r = Report.new
+    r.case = Case.find(case_id)    
+    r.destroy_report
+    
+  end  
+  
+  def self.invalidate_for_user(user_id)
+    Case.where(:author_id => user_id).each { |c| invalidate_for_case c.id }          
   end
   
   def as_json(options = {})
@@ -46,16 +60,22 @@ class Report
   end
     
   def generate_pdf   
-    options = {
-      :for_pdf => true
-    }
-    path = write_json(options)
-    command = "java -jar #{Rails.root}/script/ReportGen.jar " + path + " 2>&1"
-    Rails::logger.debug command
     
-    run_command_with_retry(command, PDF_RETRY_COUNT)
+    report_pdf_path = reports_output_path
+    unless File.exists? report_pdf_path
     
-    File.unlink(path) if File.exists?(path)        
+      options = {
+        :for_pdf => true
+      }    
+      
+      Rails::logger.debug 'Generate pdf - writing json'    
+      path = write_json(options)
+      command = "java -jar #{Rails.root}/script/ReportGen.jar " + path + " 2>&1"
+      Rails::logger.debug command    
+      run_command_with_retry(command, PDF_RETRY_COUNT)    
+      File.unlink(path) if File.exists?(path)        
+      
+    end
     
   end
   
@@ -83,10 +103,13 @@ class Report
   end
   
   def write_json(options = {})
+    
     dir = reports_root
     FileUtils.mkdir_p(dir) unless File.directory?(dir)
     
-    json_path = reports_output_path.sub(/\.pdf$/, '.json')    
+    json_path = reports_output_path.sub(/\.pdf$/, '.json')
+    Rails::logger.debug "JSON PATH: #{json_path}"
+    
     File.open(json_path, 'w') { |f| f.write(to_json(options)) }
     json_path
   end
@@ -107,6 +130,14 @@ class Report
     normalize_path(files_path_for_author + "/#{name}/")
   end
     
+  def output_file_for_case_id(case_id)
+    "report_#{case_id}.pdf"
+  end
+  
+  def output_file
+    output_file_for_case_id self.case.id    
+  end
+  
   def reports_output_path
     normalize_path("#{reports_root}/#{self.output_file}")
   end

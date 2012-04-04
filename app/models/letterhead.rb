@@ -3,8 +3,10 @@ class Letterhead < ActiveRecord::Base
   belongs_to :user
   
   has_one :logo
-  
+      
   accepts_nested_attributes_for :logo
+  
+  after_save :invalidate_reports
   
   def is_link=(is)    
   end
@@ -50,6 +52,12 @@ class Letterhead < ActiveRecord::Base
     #Rails::logger.debug(result)
     
     result
+  end
+  
+  private
+  
+  def invalidate_reports
+    Report.invalidate_for_user self.user_id
   end
   
 end

@@ -2,6 +2,8 @@ class Footer < ActiveRecord::Base
 
   belongs_to :case
 
+  after_save :invalidate_report
+  
   def lines_count
     self.contents.to_s.lines.count
   end
@@ -40,6 +42,12 @@ class Footer < ActiveRecord::Base
   end
   
   def is_link=(is)    
+  end
+  
+  private 
+  
+  def invalidate_report
+    Report.invalidate_for_case self.case.id
   end
   
 end
