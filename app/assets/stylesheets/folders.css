@@ -10,6 +10,7 @@ li.link-up a {
 
 .case-icons-list li.link-up {
   width: 64px;
+  margin-left: 2em;  
 } 
 
 .case-icons-list li.folder div.link a {  

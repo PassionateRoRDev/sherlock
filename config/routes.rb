@@ -20,7 +20,8 @@ Sherlock::Application.routes.draw do
     resources :notes
   end
   
-  post 'folders/:id/move_case' => 'folders#move_case'
+  post 'folders/:id/move_case'      => 'folders#move_case'
+  post 'folders/:id/move_out_case'  => 'folders#move_out_case'
     
   resource :account, :only => [:show, :update]
  

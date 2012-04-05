@@ -29,12 +29,12 @@ class Case < ActiveRecord::Base
   after_save :invalidate_report
   
   def move_toplevel
-    self.folder_id = nil
+    self.folder = nil
     save
   end
   
-  def move_to_folder(folder_id)
-    self.folder_id = folder_id
+  def move_to_folder(folder)
+    self.folder = folder
     save
   end
   

@@ -48,12 +48,17 @@ class FoldersController < ApplicationController
     @cases_to_move = current_user.cases.select { |c| c.folder != @folder }   
   end
   
-  def move_case
+  def move_out_case
     
-    @case = resolve_case_using_param :case_id    
-    @case.move_to_folder @folder.id if @case    
-    redirect_to @folder, :notice => 'Case was successfully moved'
-    
+    @case = resolve_case_using_param :case_id
+    @case.move_toplevel if @case
+    redirect_to @folder, :notice => 'Case was successfully moved'    
+  end
+  
+  def move_case    
+    @case = resolve_case_using_param :case_id
+    @case.move_to_folder @folder if @case    
+    redirect_to @folder, :notice => 'Case was successfully moved'    
   end
   
   private
