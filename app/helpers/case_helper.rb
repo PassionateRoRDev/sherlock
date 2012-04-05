@@ -7,7 +7,7 @@ module CaseHelper
   def cases_options(cases)
     cases.map { |c| [ c.title, c.id ] }
   end
-  
+    
   def title_alignment_options
     [      
       ['Left', 'left'],

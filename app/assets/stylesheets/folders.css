@@ -20,3 +20,18 @@ li.link-up a {
   padding-left: 28px;
   height: 18px;
 }
+
+.block-move select {
+  margin-right: 1em;
+}
+
+#folder-wrapper .link-buttons {
+  position: absolute;
+  right: 0;
+  top: 4px;
+}
+
+#folder-wrapper {
+  position: relative;
+}
+

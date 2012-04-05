@@ -6,20 +6,27 @@
   Folder
   =@folder.title
 
-%h1 
-  My Cases in folder
-  =@folder.title
+#folder-wrapper
+  %h1 
+    My Cases in folder
+    =@folder.title
 
+  .link-buttons
+    =link_to 'Edit Folder', edit_folder_path(@folder), :class => 'button'
 
--if @cases.empty?
-  %h2{:style => "margin-bottom:0;"}
-    This folder is empty
--else
-  %ul.case-icons-list
-    %li.link-up
-      =link_to 'Go Up', cases_path, :title => 'Back to Cases list'
-    -@cases.each do |c|     
-      =render 'cases/case_icon_block', :c => c
+  -if @cases.empty?
+    %h2{:style => "margin-bottom:0;"}
+      This folder is empty
+  -else
+    %ul.case-icons-list
+      %li.link-up
+        =link_to 'Go Up', cases_path, :title => 'Back to Cases list'
+      -@cases.each do |c|     
+        =render 'cases/case_icon_block', :c => c
 
-
-
+  -unless @cases_to_move.empty?
+    .block-move    
+      =form_tag :action => :move_case do
+        Move selected case to this folder:
+        =select_tag :case_id, options_for_select(cases_options(@cases_to_move))
+        =submit_tag 'Move', :class => 'button'

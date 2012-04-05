@@ -19,6 +19,8 @@ Sherlock::Application.routes.draw do
     resources :footers
     resources :notes
   end
+  
+  post 'folders/:id/move_case' => 'folders#move_case'
     
   resource :account, :only => [:show, :update]
  
