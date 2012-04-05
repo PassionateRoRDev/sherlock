@@ -8,16 +8,15 @@ SHERLOCK.notes.hideCreateForm = function() {
 };
 
 SHERLOCK.notes.init = function() {    
-  tinyMCE.execCommand('mceAddControl', false, 'note_contents');
-  
+  tinyMCE.execCommand('mceAddControl', false, 'note_contents');  
   $('#new_note a.cancel').live('click', function() {   
     SHERLOCK.notes.hideCreateForm();
     return false;
-  });  
+  });
   $("#dialog-note-add" ).dialog({
     resizable: false,
     autoOpen : false,
-    height: 256,
+    height: 270,
     width: 600,
     modal: true,
     buttons: {           
@@ -25,24 +24,16 @@ SHERLOCK.notes.init = function() {
           $(this).dialog('close');
       },      
       'Create Note' : function() {
+        var textareaId = 'note_contents';
         var form = $('#new_note');
-        var ed = tinyMCE.get('note-contents-inline');          
+        var ed = tinyMCE.get(textareaId);
         if (ed) {            
-          $('#note-contents-inline', form).val(ed.getContent());          
-        }        
+          $('#' + textareaId, form).val(ed.getContent());          
+        }  
         form.submit();
         $(this).dialog('close');                  
       }      
     }
   });      
-    
-  $('#note-quick-add').click(function() {    
-    var contents = $('#note-contents-inline').get(0);
-    if (!contents._hasRichEditor) {      
-      tinyMCE.execCommand('mceAddControl', false, 'note-contents-inline');
-      contents._hasRichEditor = true;
-    }
-    $("#dialog-note-add" ).dialog('open');
-    return false;
-  });
+ 
 };

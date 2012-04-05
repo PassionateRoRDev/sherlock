@@ -1,10 +1,12 @@
 =form_for [@case, @note], :remote => true do |f|
   .field
-    =f.label :contents, 'Note Contents', :class => 'inline'
+    -unless inline
+      =f.label :contents, 'Note Contents', :class => 'inline'
     .contents.note-contents
       =f.text_area :contents
-
-  .actions.no-margin
-    =f.submit 'Save', :class => :button
-    =link_to 'Cancel', case_notes_path(@case), :class => :cancel
+  
+  -unless inline
+    .actions.no-margin
+      =f.submit 'Save', :class => :button
+      =link_to 'Cancel', case_notes_path(@case), :class => :cancel
 

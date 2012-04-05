@@ -1,3 +1,14 @@
-$('#create-note-wrapper').after('<%= escape_javascript(render 'form') %>');
-$('#create-note-wrapper').hide();
-tinyMCE.execCommand('mceAddControl', false, 'note_contents');
+tinyMCE.execCommand('mceRemoveControl', false, 'note_contents');
+var quickAddDialog = $('#dialog-note-add');
+if (quickAddDialog.length) {
+  $('.dialog-contents', quickAddDialog).html(
+  '<%= escape_javascript(render 'form', :inline => true) %>'
+  );
+  quickAddDialog.dialog('open');
+  tinyMCE.execCommand('mceAddControl', false, 'note_contents');
+} else {
+  $('#create-note-wrapper').after('<%= escape_javascript(render 'form', :inline => false) %>');
+  $('#create-note-wrapper').hide();
+  tinyMCE.execCommand('mceAddControl', false, 'note_contents');
+}
+

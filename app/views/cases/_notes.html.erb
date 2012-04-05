@@ -21,17 +21,12 @@
       <%= link_to 'See All', case_notes_path(@case) %> |
     </span>
   <% end %>
-  <%= link_to 'Quick Add', case_notes_path(@case), :id => 'note-quick-add' %>
+  <%= link_to 'Quick Add', new_case_note_path(@case), 
+      :id => 'note-quick-add', :remote => true %>
 </div>
   
 <div id="dialog-note-add" title="Create New Note" style="display:none;">  
-  <%= form_for [@case, @case.notes.new], :remote => true do |f| %>
-    <div class="field" style="margin-bottom:0;">
-      <div class="contents note-contents">
-        <%= f.text_area :contents, :id => 'note-contents-inline' %>      
-      </div>
-    </div>
-  <% end %>
+  <div class="dialog-contents"></div>
 </div>
   
 <script type="text/javascript">
