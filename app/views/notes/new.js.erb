@@ -12,5 +12,6 @@ if (quickAddDialog.length) {
   $('#create-note-wrapper').hide();
   tinyMCE.execCommand('mceAddControl', false, 'note_contents');
 }
-
+SHERLOCK.utils.hideAjaxLoading();
 SHERLOCK.utils.formAjaxify($('#new_note'));
+

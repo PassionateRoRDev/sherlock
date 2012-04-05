@@ -1,3 +1,5 @@
+<%= render 'shared/tinymce' %>
+
 <div class="breadcrumb">
   <%= link_to 'Dashboard', dashboard_path %> /
   <%= link_to 'My Cases', cases_path %> / <%= @case.title %>
@@ -73,9 +75,5 @@
   $('.link-preview').attr('target', '_blank');  ;
   SHERLOCK.cases.initCasePage();
   
-</script>
-        
-<div style="clear:both;">
-  <%= render 'shared/tinymce' %>
-</div>
+</script>        
 

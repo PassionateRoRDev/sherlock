@@ -8,6 +8,10 @@ SHERLOCK.notes.hideCreateForm = function() {
 };
 
 SHERLOCK.notes.init = function() {    
+  
+  SHERLOCK.utils.linkAjaxify($('ul.notes a.icon-pencil'));
+  SHERLOCK.utils.linkAjaxify($('#note-quick-add'));
+  
   tinyMCE.execCommand('mceAddControl', false, 'note_contents');  
   $('#new_note a.cancel').live('click', function() {   
     SHERLOCK.notes.hideCreateForm();
@@ -17,7 +21,7 @@ SHERLOCK.notes.init = function() {
     resizable: false,
     autoOpen : false,
     height: 270,
-    width: 650,
+    width: 660,
     modal: true,
     buttons: {           
       'Cancel': function() {

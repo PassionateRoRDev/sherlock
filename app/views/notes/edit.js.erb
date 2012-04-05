@@ -6,4 +6,6 @@ $('.dialog-contents', quickAddDialog).html(
 );
 quickAddDialog.dialog('open');
 tinyMCE.execCommand('mceAddControl', false, 'note_contents');
+
+SHERLOCK.utils.hideAjaxLoading();
 SHERLOCK.utils.formAjaxify($('.edit_note'));

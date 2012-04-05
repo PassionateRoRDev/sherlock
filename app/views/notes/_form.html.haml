@@ -1,3 +1,4 @@
+
 =form_for [@case, @note], :remote => true do |f|
   .field
     -unless inline
@@ -9,4 +10,3 @@
     .actions.no-margin
       =f.submit 'Save', :class => :button
       =link_to 'Cancel', case_notes_path(@case), :class => :cancel
-

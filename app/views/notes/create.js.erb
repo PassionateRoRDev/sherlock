@@ -6,7 +6,10 @@ $('#message-no-notes').remove();
 var note = '<%= escape_javascript render 'note_item', :note => @note %>';
 $('ul.notes').prepend(note);
 
-$('ul.notes li:first').animateHighlight();
+var added = $('ul.notes li:first');
+added.animateHighlight();
 
 SHERLOCK.notes.hideCreateForm();
 SHERLOCK.utils.hideAjaxLoading();
+
+SHERLOCK.utils.linkAjaxify(added.find('a.icon-pencil'));
