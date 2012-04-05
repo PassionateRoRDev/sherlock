@@ -1,6 +1,7 @@
 tinyMCE.execCommand('mceRemoveControl', false, 'note_contents');
 var quickAddDialog = $('#dialog-note-add');
-if (quickAddDialog.length) {
+if (quickAddDialog.length) {  
+  quickAddDialog.dialog('option', 'title', 'Create New Note');
   $('.dialog-contents', quickAddDialog).html(
   '<%= escape_javascript(render 'form', :inline => true) %>'
   );

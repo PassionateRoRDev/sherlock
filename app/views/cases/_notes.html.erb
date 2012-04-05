@@ -25,10 +25,8 @@
       :id => 'note-quick-add', :remote => true %>
 </div>
   
-<div id="dialog-note-add" title="Create New Note" style="display:none;">  
-  <div class="dialog-contents"></div>
-</div>
-  
+<%= render 'notes/dialog' %>
+
 <script type="text/javascript">
   $(function() { SHERLOCK.notes.init(); });
 </script>

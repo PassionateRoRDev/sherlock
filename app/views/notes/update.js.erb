@@ -1,1 +1,6 @@
 SHERLOCK.utils.hideAjaxLoading();
+var item = $('#note-<%= @note.id %>');
+var contents = item.find('.note-contents');
+contents.html('<%= escape_javascript @note.contents.html_safe %>');
+
+item.animateHighlight();

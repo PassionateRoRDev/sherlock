@@ -5,5 +5,8 @@ $('#message-no-notes').remove();
 <% end %>
 var note = '<%= escape_javascript render 'note_item', :note => @note %>';
 $('ul.notes').prepend(note);
+
+$('ul.notes li:first').animateHighlight();
+
 SHERLOCK.notes.hideCreateForm();
 SHERLOCK.utils.hideAjaxLoading();

@@ -4,6 +4,15 @@ $.ajaxSetup({
     }  
 });
 
+$.fn.animateHighlight = function(highlightColor, duration) {
+    var highlightBg = highlightColor || "#FFFF9C";
+    var animateMs = duration || 1500;
+    //var originalBg = this.css("backgroundColor");
+    var originalBg = '#f3f3f3';
+    this.stop().css("background-color", highlightBg)
+               .animate({backgroundColor: originalBg}, animateMs);
+};
+
 var SHERLOCK = SHERLOCK || {};
 SHERLOCK.utils = SHERLOCK.utils || {};
 

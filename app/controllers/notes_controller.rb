@@ -39,7 +39,10 @@ class NotesController < ApplicationController
   end
 
   # GET /notes/1/edit
-  def edit    
+  def edit
+    respond_to do |format|
+      format.js
+    end
   end
 
   # POST /notes
@@ -71,12 +74,16 @@ class NotesController < ApplicationController
   def update
     
     respond_to do |format|
-      if @note.update_attributes(params[:footer])
+      if @note.update_attributes(params[:note])
+        
+        format.js
         format.html { redirect_to(
                       edit_case_note_path(@case, @note),
                       notice: 'Note was successfully updated.') }
         format.json { head :ok }
       else
+        
+        format.js
         format.html { render action: "edit" }
         format.json { render json: @note.errors, status: :unprocessable_entity }
       end

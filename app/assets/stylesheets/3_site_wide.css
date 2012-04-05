@@ -795,6 +795,7 @@ input.link {
 .icon-envelope { background-position: -72px 0; }
 .icon-user { background-position: -168px 0; }
 .icon-camera { background-position: -120px -48px; }
+.icon-pencil { background-position: 0px -72px; }
 
 .container-upper .topbar {
     top:2px;    

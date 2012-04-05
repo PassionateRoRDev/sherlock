@@ -13,18 +13,19 @@ SHERLOCK.notes.init = function() {
     SHERLOCK.notes.hideCreateForm();
     return false;
   });
-  $("#dialog-note-add" ).dialog({
+  $("#dialog-note-add").dialog({
     resizable: false,
     autoOpen : false,
     height: 270,
-    width: 600,
+    width: 650,
     modal: true,
     buttons: {           
       'Cancel': function() {
           $(this).dialog('close');
       },      
-      'Create Note' : function() {
-        $('#new_note').submit();
+      'Save' : function() {
+        var form = $("#dialog-note-add").find('form');
+        form.submit();
         $(this).dialog('close');        
       }      
     }

@@ -1,0 +1,9 @@
+tinyMCE.execCommand('mceRemoveControl', false, 'note_contents');
+var quickAddDialog = $('#dialog-note-add');
+quickAddDialog.dialog('option', 'title', 'Edit Note');
+$('.dialog-contents', quickAddDialog).html(
+  '<%= escape_javascript(render 'form', :inline => true) %>'
+);
+quickAddDialog.dialog('open');
+tinyMCE.execCommand('mceAddControl', false, 'note_contents');
+SHERLOCK.utils.formAjaxify($('.edit_note'));

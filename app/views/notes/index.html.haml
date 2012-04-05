@@ -13,6 +13,7 @@
   - if @notes.empty?
     =render 'none'    
   - else
+    =link_to 'Create Note', new_case_note_path(@case), :remote => true
     %ul.notes
       -@notes.each do |note|
         =render 'note_item', :note => note        
@@ -21,6 +22,7 @@
   =link_to 'Create Note', new_case_note_path(@case), :remote => true
 
 =render 'shared/tinymce'
+=render 'notes/dialog'
 
 :javascript
   $(function() { SHERLOCK.notes.init(); });
