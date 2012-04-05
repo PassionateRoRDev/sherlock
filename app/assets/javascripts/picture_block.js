@@ -85,9 +85,10 @@ SHERLOCK.pictures.initAppletContainer = function(data) {
   {
     var container = $('#appletContainer');
     container.empty();
-    
+    var appletURL = data.urls.root + 'SherlockScreen.jar?v=' + 
+                    new Date().valueOf();                      
     var token = $('meta[name=csrf-token]').attr('content');
-    var code = '<applet archive="' + data.urls.root + 'SherlockScreen.jar?v=' + new Date().valueOf() + '" ' +
+    var code = '<applet archive="' + appletURL + '" ' +
       'code="sherlockscreen.SherlockScreen.class" ' +
       'width="1" height="1" MAYSCRIPT>' +        
       '<param name="type" value="picture"/>' +

@@ -1,0 +1,8 @@
+$('span.notes-count').html(<%= @notes_count %>);
+$('#message-no-notes').remove();
+<% if @notes_count == 1 %>
+  $('.notes-list-wrapper').append($('<ul class="notes"/>'));  
+<% end %>
+var note = '<%= escape_javascript render 'note_item', :note => @note %>';
+$('ul.notes').prepend(note);
+SHERLOCK.notes.hideCreateForm();

@@ -24,6 +24,8 @@ class User < ActiveRecord::Base
   has_one :letterhead, :dependent => :destroy
   has_many :logos, :dependent => :destroy
   
+  has_many :notes, :through => :authored_cases
+  
   has_one :user_address
 
   accepts_nested_attributes_for :user_address

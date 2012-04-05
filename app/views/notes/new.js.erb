@@ -1,0 +1,3 @@
+$('#create-note-wrapper').after('<%= escape_javascript(render 'form') %>');
+$('#create-note-wrapper').hide();
+tinyMCE.execCommand('mceAddControl', false, 'note_contents');

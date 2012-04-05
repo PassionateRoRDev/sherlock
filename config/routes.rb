@@ -16,6 +16,7 @@ Sherlock::Application.routes.draw do
     resources :videos
     resources :invitations
     resources :footers
+    resources :notes
   end
     
   resource :account, :only => [:show, :update]

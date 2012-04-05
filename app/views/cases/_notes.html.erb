@@ -1,0 +1,39 @@
+<h2     
+    style="clear:both;padding-top:0.5em;"
+    >
+    PRIVATE NOTES (<span class="notes-count"><%= @case.notes.count %></span>)
+</h2>
+  
+<div class="notes-list-wrapper">
+  <% if @notes.empty? %>
+    <%= render 'notes/none' %>    
+  <% else %>
+    <ul class="notes">
+      <% @notes.each do |note| %>
+        <%= render 'notes/note_item', :note => note %>      
+      <% end %>
+    </ul>
+  <% end %>
+</div>
+<div>  
+  <% unless @notes.empty? %>
+    <span class="notes-see-all">
+      <%= link_to 'See All', case_notes_path(@case) %> |
+    </span>
+  <% end %>
+  <%= link_to 'Quick Add', case_notes_path(@case), :id => 'note-quick-add' %>
+</div>
+  
+<div id="dialog-note-add" title="Create New Note" style="display:none;">  
+  <%= form_for [@case, @case.notes.new], :remote => true do |f| %>
+    <div class="field" style="margin-bottom:0;">
+      <div class="contents note-contents">
+        <%= f.text_area :contents, :id => 'note-contents-inline' %>      
+      </div>
+    </div>
+  <% end %>
+</div>
+  
+<script type="text/javascript">
+  $(function() { SHERLOCK.notes.init(); });
+</script>

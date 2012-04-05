@@ -31,7 +31,10 @@ class CasesController < ApplicationController
     render :preview, :layout => false
   end
   
-  def show     
+  def show    
+    
+    @notes = @case.notes.order('id DESC').limit(5)
+    
     respond_to do |format|
       #format.xml { render :xml => @case }
       format.html {

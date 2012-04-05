@@ -9,6 +9,8 @@ class Case < ActiveRecord::Base
   has_many :pictures, :through => :blocks
   has_many :videos, :through => :blocks
   
+  has_many :notes
+  
   has_one :footer
   
   attr_accessible :title, :title_alignment,

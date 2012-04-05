@@ -1,4 +1,4 @@
-<div class="midright"> 
+<div id="case-page-options" class="midright"> 
   <div class="inbox-hd">Other Page Options</div>
       
   <%= link_to 'Customize Footer for this report', footer_path(@case), 
@@ -40,10 +40,6 @@
     
   <% end %>
     
-  <h2 
-    class="coming-soon"
-    style="clear:both;padding-top:0.5em;">PRIVATE NOTES</h2>
-  
-  You haven't created any notes yet.
+  <%= render 'notes' %>
     
 </div>

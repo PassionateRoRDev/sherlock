@@ -1,0 +1,8 @@
+$('span.notes-count').html(<%= @notes_count %>);
+<% if @notes_count == 0 %>
+  $('.notes-see-all').remove();
+  $('ul.notes').remove();
+  var message = '<%= escape_javascript render 'notes/none' %>';
+  $('.notes-list-wrapper').append(message);  
+<% end %>
+$('.notes li#note-<%= @note.id %>').remove();

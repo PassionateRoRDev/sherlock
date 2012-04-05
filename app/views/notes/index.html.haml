@@ -1,0 +1,26 @@
+.breadcrumb
+  =link_to 'Dashboard', dashboard_path
+  \/
+  =link_to 'My Cases', cases_path
+  \/
+  =link_to @case.title, @case
+  \/
+  Notes
+
+%h1 Case Notes
+
+.notes-list-wrapper
+  - if @notes.empty?
+    =render 'none'    
+  - else
+    %ul.notes
+      -@notes.each do |note|
+        =render 'note_item', :note => note        
+
+%div{:id => 'create-note-wrapper'}
+  =link_to 'Create Note', new_case_note_path(@case), :remote => true
+
+=render 'shared/tinymce'
+
+:javascript
+  $(function() { SHERLOCK.notes.init(); });

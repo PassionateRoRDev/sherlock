@@ -1,0 +1,29 @@
+
+.notes li p {
+  margin: 0;
+}
+
+.notes li {
+  margin-bottom: 0.5em;
+}
+
+#create-note-wrapper {
+  margin-top:1em;
+}
+
+.note-contents textarea {
+  width: 99%;
+  height: 4em;
+}
+
+ul.notes {
+  margin-left: 0;
+}
+
+ul.notes .date {
+  font-style: italic;
+}
+
+ul.notes .note-contents {
+  margin-left: 20px;
+}
