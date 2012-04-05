@@ -81,11 +81,20 @@ class CasesController < ApplicationController
   def index
     
     @folders = current_user.folders    
-    @cases = current_user.cases.select { |c| c.folder_id == nil }
+    @cases =  cases_for_user
+    
   end
   
   private
     
+  def cases_for_user
+    if current_user.pi?
+      current_user.cases.select { |c| c.folder_id == nil }
+    else
+      current_user.cases
+    end
+  end
+  
   def resolve_case
     resolve_case_using_param(:id)
   end
