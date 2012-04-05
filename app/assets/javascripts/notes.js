@@ -24,14 +24,8 @@ SHERLOCK.notes.init = function() {
           $(this).dialog('close');
       },      
       'Create Note' : function() {
-        var textareaId = 'note_contents';
-        var form = $('#new_note');
-        var ed = tinyMCE.get(textareaId);
-        if (ed) {            
-          $('#' + textareaId, form).val(ed.getContent());          
-        }  
-        form.submit();
-        $(this).dialog('close');                  
+        $('#new_note').submit();
+        $(this).dialog('close');        
       }      
     }
   });      

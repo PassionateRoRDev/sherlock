@@ -1,7 +1,7 @@
 %li{ :id => "note-#{note.id}" }
-  %span.date
-    =format_date note.created_at
   =render 'notes/remove_link', :note => note        
+  %span.date
+    =format_date note.created_at  
   .note-contents
     =note.contents.html_safe
       
