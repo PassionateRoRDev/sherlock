@@ -91,6 +91,59 @@ SHERLOCK.cases.initCasePage = function() {
   
   SHERLOCK.cases.checkBeforeLeavingPage();
   SHERLOCK.utils.formAjaxify(f);
+    
+};
+
+SHERLOCK.cases.makeIconsDraggable = function() {
+  $('.case-icons-list li.case').draggable({
+    containment: 'ul.case-icons-list',
+    stop: function(event, ui) {
+      if (!this._moved) {
+        $(this).css({
+          'left': 0,
+          'top': 0
+        });
+      }
+    }    
+  });
+};
+
+SHERLOCK.cases.makeFoldersDroppable = function() {
+  
+  function moveCase(folder, theCase)
+  {
+    var url = '/folders/' + folder.data('folder-id') + '/move_case';
+    $.ajax({  
+      url: url,
+      data: {
+        case_id: theCase.data('case-id')
+      },
+      'type': 'POST',
+      success: function(data, textStatus, jqXHR) {
+        theCase.remove();          
+      }
+    });
+  }
+  
+  $('.case-icons-list .folder').droppable({  
+    drop: function(event, ui) {      
+      var theCase = ui.draggable;      
+      if (confirm('Do you want to move this Case to folder?')) {
+        theCase.get(0)._moved = true;
+        moveCase($(this), theCase);
+      } else {
+      }
+    }
+  }); 
+  
+};
+
+SHERLOCK.cases.initCasesList = function() {
+  
+  if ($('.case-icons-list').length) {    
+    SHERLOCK.cases.makeIconsDraggable();
+    SHERLOCK.cases.makeFoldersDroppable();    
+  }
 };
 
 SHERLOCK.cases.checkBeforeLeavingPage = function() {

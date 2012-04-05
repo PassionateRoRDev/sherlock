@@ -50,12 +50,14 @@
   </ol>
   <% end %>
 
-  <!--
-  <div class="link-buttons" style="padding-left:2em;clear:both;">
   <%= link_to 'Create a new Case', new_case_path, 
               :class => "button button-wide right" %>
-  </div>
-  -->
   
 <% end %>
+  
+<script type="text/javascript">
+  $(function() {
+    SHERLOCK.cases.initCasesList();
+  });
+</script>
 

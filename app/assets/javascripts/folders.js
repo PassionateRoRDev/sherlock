@@ -13,21 +13,21 @@ SHERLOCK.folders.showInit = function() {
       'type': 'POST',
       success: function(data, textStatus, jqXHR) {
         theCase.remove();
+        var list = $('.case-icons-list');
+        if ($('li', list).length == 1) {
+          var msg = $('<h2>This folder is empty</h2>')
+                    .attr('id', 'folder-is-empty')
+          list.after(msg);
+        }
       }
     });
   }
   
-  $('.case-icons-list li.case').draggable({
-    containment: 'ul.case-icons-list',
-    stop: function(event, ui) {
-      if (!this._moved) {
-        $(this).css({
-          'left': 0,
-          'top': 0
-        });
-      }
-    }    
-  });
+  SHERLOCK.cases.makeIconsDraggable();   
+  
+  //
+  // move case off the current folder
+  //
   $('.case-icons-list .link-up').droppable({  
     drop: function(event, ui) {      
       var theCase = ui.draggable;
