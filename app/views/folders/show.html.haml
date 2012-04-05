@@ -16,6 +16,8 @@
     This folder is empty
 -else
   %ul.case-icons-list
+    %li.link-up
+      =link_to 'Go Up', cases_path, :title => 'Back to Cases list'
     -@cases.each do |c|     
       =render 'cases/case_icon_block', :c => c
 

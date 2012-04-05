@@ -1,9 +1,12 @@
 .folder-small-icons
   = investigators_only do
-    = link_to 'Delete', folder, 
-              :title => 'Delete this folder',
-              :method => :delete, 
-              :confirm => 'Are you sure you want to destroy this folder?',
-              :class => 'icon icon-trash'
+    =link_to 'Edit', edit_folder_path(folder), 
+             :title => 'Edit folder properties',
+             :class => 'icon icon-pencil'
+    =link_to 'Delete', folder, 
+             :title => 'Delete this folder',
+             :method => :delete, 
+             :confirm => 'Are you sure you want to destroy this folder?',
+             :class => 'icon icon-trash'
   
   

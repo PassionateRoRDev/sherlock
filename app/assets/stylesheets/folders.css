@@ -1,9 +1,22 @@
 
+li.link-up a {
+  display: block;
+  width: 64px;
+  margin-top: 20px;
+  height: 80px;
+  text-indent: -1000em;
+  background: url(exit_icon_64.png) no-repeat;
+}
+
+.case-icons-list li.link-up {
+  width: 64px;
+} 
+
 .case-icons-list li.folder div.link a {  
   background-image: url(folder-64.png);
 }
 
 .folder-small-icons {
-  padding-left: 40px;
+  padding-left: 28px;
   height: 18px;
 }

@@ -3,11 +3,12 @@
   \/ 
   =link_to 'My Cases', cases_path
   \/
-  New Folder
+  Folder
+  =@folder.title
 
-%h1 Create New Folder
+%h1 Edit Folder
 
-=render 'form', :btn_label => 'Create'
+=render 'form', :btn_label => 'Save'
 
 :javascript
   $(function() { $('#folder_title').focus(); });

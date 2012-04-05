@@ -25,6 +25,24 @@ class FoldersController < ApplicationController
     redirect_to cases_path
   end
   
+  def update
+    
+    respond_to do |format|      
+      if @folder.update_attributes(params[:folder])
+        format.html { redirect_to cases_path, :notice => 'Folder has been successfully updated' }
+        format.js
+      else
+        foreat.html { render :action => 'edit' }
+        format.js
+      end   
+    end
+    
+  end
+  
+  def edit
+    
+  end
+  
   def show    
     @cases = current_user.cases.select { |c| c.folder == @folder }
   end
