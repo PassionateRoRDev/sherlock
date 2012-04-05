@@ -1,0 +1,23 @@
+.breadcrumb
+  =link_to 'Dashboard', dashboard_path
+  \/ 
+  =link_to 'My Cases', cases_path
+  \/
+  Folder
+  =@folder.title
+
+%h1 
+  My Cases in folder
+  =@folder.title
+
+
+-if @cases.empty?
+  %h2{:style => "margin-bottom:0;"}
+    This folder is empty
+-else
+  %ul.case-icons-list
+    -@cases.each do |c|     
+      =render 'cases/case_icon_block', :c => c
+
+
+

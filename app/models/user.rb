@@ -16,6 +16,8 @@ class User < ActiveRecord::Base
   
   has_many :user_clients
   has_many :clients, :through => :user_clients
+  
+  has_many :folders
     
   has_many :blocks, :through => :authored_cases
   has_many :pictures, :through => :blocks

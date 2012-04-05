@@ -1,0 +1,13 @@
+.breadcrumb
+  =link_to 'Dashboard', dashboard_path
+  \/ 
+  =link_to 'My Cases', cases_path
+  \/
+  New Folder
+
+%h1 Create New Folder
+
+=render 'form'
+
+:javascript
+  $(function() { $('#folder_title').focus(); });

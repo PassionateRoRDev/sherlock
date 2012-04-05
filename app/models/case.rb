@@ -3,6 +3,8 @@ class Case < ActiveRecord::Base
   belongs_to :author, :class_name => 'User'
   has_and_belongs_to_many :viewers, :class_name => 'User', :join_table => 'viewers', :foreign_key => 'case_id', :association_foreign_key => 'viewer_id'
 
+  belongs_to :folder
+  
   has_many :blocks, :dependent => :destroy
   
   has_many :html_details, :through => :blocks
@@ -19,9 +21,22 @@ class Case < ActiveRecord::Base
                   :case_type,
                   :opened_on, :closed_on, :report_date
   
+  scope :readable_by, lambda { |user| user.cases }
+  scope :toplevel, where(:folder_id => nil)
+  
   validates :title, :presence => true
   
   after_save :invalidate_report
+  
+  def move_toplevel
+    self.folder_id = nil
+    save
+  end
+  
+  def move_to_folder(folder_id)
+    self.folder_id = folder_id
+    save
+  end
   
   def copy_picture(picture)
     

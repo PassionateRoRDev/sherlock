@@ -5,7 +5,12 @@
 <div id="my-cases-wrapper">
   <h1>My Cases</h1>
 
-<%= investigators_only do %>  
+<%= investigators_only do %>
+  
+  <div style="position:absolute;right:235px;top:12px;">
+    <%= link_to 'Create new folder', new_folder_path %>
+  </div>
+  
   <div class="link-buttons">
     <%= link_to 'Create a new Case', new_case_path, 
                 :class => "button button-wide right" %>
@@ -15,11 +20,13 @@
 </div>
 
 <% if @cases.empty? %>
-<h2 style="margin-bottom:0;">You haven't created any cases yet</h2>
+  <h2 style="margin-bottom:0;">You haven't created any cases yet</h2>
 <% else %>
 
   <ul class="case-icons-list">
-    <%= render 'folders/folder' %>
+    <% @folders.each do |f| %>
+      <%= render 'folders/folder', :folder => f %>
+    <% end %>
     <% @cases.each do |c| %>
       <%= render 'case_icon_block', :c => c %>
     <% end %>

@@ -5,7 +5,7 @@ class CasesController < ApplicationController
   before_filter :authorize_pi!, :except => [ :index, :preview, :show ]
   
   before_filter :resolve_case, :except => [ :new, :create, :index ]
-  
+    
   def new
     @case = Case.new
   end
@@ -79,7 +79,9 @@ class CasesController < ApplicationController
   end
   
   def index
-    @cases = current_user.cases
+    
+    @folders = current_user.folders    
+    @cases = current_user.cases.select { |c| c.folder_id == nil }
   end
   
   private

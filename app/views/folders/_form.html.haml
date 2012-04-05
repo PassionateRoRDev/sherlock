@@ -1,0 +1,10 @@
+=form_for @folder do |f|
+  .field
+    =f.label :title
+    .boxfield
+      =f.text_field :title, :class => 'txtfield txtfield-wide'
+
+  .actions
+    =f.submit 'Create', :class => 'button'
+    =link_to 'Cancel', cases_path
+  

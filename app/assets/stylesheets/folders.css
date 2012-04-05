@@ -1,0 +1,9 @@
+
+.case-icons-list li.folder div.link a {  
+  background-image: url(folder-64.png);
+}
+
+.folder-small-icons {
+  padding-left: 40px;
+  height: 18px;
+}
