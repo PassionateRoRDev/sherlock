@@ -1,3 +1,4 @@
+
 <div class="form-case">
 <%= form_for(@case) do |f| %>
 
@@ -36,9 +37,10 @@
 </div>
 
 <%= render 'shared/tinymce' %>
+
 <script type="text/javascript">
   $(function() {
-    //tinyMCE.execCommand('mceAddControl', false, 'case_summary');
+    tinyMCE.execCommand('mceAddControl', false, 'case_summary');
     /*
     $('textarea').tinymce({
       theme: 'advanced',
