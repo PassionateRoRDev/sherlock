@@ -34,4 +34,5 @@ test/file_sandbox/*
 Thumbs.db
 tmp/*
 vendor/bundle
-
+assets-*
+features/fixtures/files/tmp

@@ -119,8 +119,10 @@
       class="hidden"
       <% end %>
       >
-    - timecode 
-    <%= f.text_field :thumbnail_pos, :size => 10 %>
+    - timecode    
+    <input type="text" id="video_thumbnail_pos" 
+           name="video[thumbnail_pos]" size="10" 
+           value="<%= thumbnail_pos(f.object) %>"/>        
     (HH:MM:SS.xxx)
     </span>
   </div>

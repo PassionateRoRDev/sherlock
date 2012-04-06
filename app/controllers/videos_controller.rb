@@ -54,9 +54,11 @@ class VideosController < ApplicationController
     end
   end
   
-  def edit
+  def edit    
     @insert_before_id = 0
-    @video = @case.videos.find_by_id(params[:id])        
+    
+    @video = @case.videos.find_by_id(params[:id])    
+    
     @cookie = cookies['_sherlock_session']
     redirect_to cases_path unless @video    
   end
@@ -73,8 +75,9 @@ class VideosController < ApplicationController
     if params[:keep_thumbnail].to_i == 1
       params[:video].delete :thumbnail_pos
       params[:upload].delete :thumbnail if has_upload
-    end    
-    params[:video].delete(:thumbnail_method)    
+    end   
+    params[:video].delete :thumbnail_pos unless method_auto    
+    params[:video].delete :thumbnail_method
     
     if has_upload    
       video     = params[:upload]['video']
@@ -82,11 +85,7 @@ class VideosController < ApplicationController
       params[:video][:uploaded_file] = video if video
       params[:video][:uploaded_thumbnail] = thumbnail if thumbnail
     end
-    
-    
-    logger.debug 'After preprocessing:'
-    logger.debug params
-    
+            
     respond_to do |format|
       if @video.update_attributes(params[:video])                
         format.html { redirect_to(@case, :notice => 'The video has been successfully updated') }

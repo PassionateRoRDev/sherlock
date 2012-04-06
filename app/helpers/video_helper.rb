@@ -4,6 +4,10 @@ module VideoHelper
     file_path(video.block.case_id, 'videos', path)
   end
   
+  def thumbnail_pos(video)
+    video.thumbnail_pos || '00:00:01'
+  end
+  
   def video_alignment_options
     [
       ['None', nil],

@@ -19,7 +19,9 @@ class Video < ActiveRecord::Base
   before_save :process_thumbnail_upload, :if => :has_uploaded_thumbnail?
       
   after_save :invalidate_report
-  after_save :check_for_thumbnail_pos_change
+  
+  # important: after_update not after_save
+  after_update :check_for_thumbnail_pos_change
   
   before_destroy :delete_files
   before_destroy :delete_thumbnail
@@ -135,9 +137,18 @@ class Video < ActiveRecord::Base
   end
   
   def save_first_frame_as_thumbnail(frames_dir)    
+    
     delete_thumbnail
     self.thumbnail = self.path.sub(/([^.]+)$/, 'jpg')    
     first_frame = frame_files(frames_dir).first
+    
+    Rails::logger.debug "Thumbnail: #{self.thumbnail}"
+    
+    Rails::logger.debug "First frame is:"
+    Rails::logger.debug first_frame
+    
+    Rails::logger.debug "Copying to #{full_thumbnail_path}"
+    
     FileUtils.copy_file(first_frame, full_thumbnail_path)
     update_dims_from_thumbnail
   end
@@ -190,6 +201,8 @@ class Video < ActiveRecord::Base
   # - set (and overwrite) thumbnail
   #
   def encode_from_zip
+    
+    Rails::logger.debug 'Encoding from zip'
     
     full_zip_path = full_filepath    
     frames_dir = full_filepath + '_frames'    
@@ -269,8 +282,6 @@ class Video < ActiveRecord::Base
   end
   
   def recode_to_formats
-    #recode_to [:flv, :m4v, :avi]   
-    #recode_to [:flv, :mpg, :mov]
     recode_to [:flv, :mpg]
   end
     
@@ -381,6 +392,9 @@ class Video < ActiveRecord::Base
 
     # if no thumbnail was passed AND it was not a .zip file, extract thumbnail
     # from the movie
+    
+    Rails::logger.debug("Is zip: #{is_zip}")
+    
     extract_thumbnail_from_movie unless (is_zip || has_uploaded_thumbnail?)    
     
   end
@@ -390,18 +404,13 @@ class Video < ActiveRecord::Base
   end
   
   def save_uploaded_file
-      
-    effective_filename = uploaded_file.original_filename      
-    content_type       = uploaded_file.content_type     
+              
+    delete_files if persisted?        
     
-    # remove the old files if persisted
-    self.delete_files if persisted?
-        
-    self.original_filename = effective_filename
-    self.content_type      = content_type
-        
-    self.content_type = content_type    
-    self.path = store_from_source effective_filename, uploaded_file
+    self.content_type       = uploaded_file.content_type
+    self.original_filename  = uploaded_file.original_filename            
+    
+    self.path = store_from_source self.original_filename, uploaded_file
     
   end
   
