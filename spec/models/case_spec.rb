@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Case do
   
   it 'is valid' do
-    FactoryGirl.build(:case).should be_valid
+    Factory.build(:case).should be_valid
   end
   
   context "Existing case" do 

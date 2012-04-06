@@ -7,6 +7,13 @@ describe Picture do
     Picture.new.is_image?(f.read).should be_true
   end
   
+  it "should generate a unique filename, removing the leading hash if present" do
+    p = Factory.build(:picture)
+    new_name = p.generate_new_filename 'original.png'
+    new_name2 = p.generate_new_filename new_name        
+    new_name2.length.should == new_name.length
+  end
+  
   it "should require a file upload for a new object" do
     picture = Factory.build(:picture)    
     picture.valid?.should be_false
