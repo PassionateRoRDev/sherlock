@@ -16,7 +16,7 @@ class Video < ActiveRecord::Base
   validate :require_upload_for_a_new_video, :unless => :persisted?  
   
   before_save :process_upload, :if => :has_uploaded_file?
-  before_save :process_thumbnail, :if => :has_uploaded_thumbnail?
+  before_save :process_thumbnail_upload, :if => :has_uploaded_thumbnail?
       
   after_save :invalidate_report
   after_save :check_for_thumbnail_pos_change
@@ -361,6 +361,14 @@ class Video < ActiveRecord::Base
   end
   
   private
+  
+  def process_thumbnail_upload
+    delete_thumbnail
+    self.thumbnail = self.path.sub(/([^.]+)$/, 'jpg')                 
+    File.open(thumbnail_path, 'wb') { |f| f.write uploaded_thumbnail.read }
+    self.thumbnail_pos = nil
+    update_dims_from_thumbnail
+  end
   
   def process_upload    
     

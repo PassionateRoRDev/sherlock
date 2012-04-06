@@ -127,29 +127,63 @@ describe Video do
       size2.should_not == size1
     end
     
+    context "overwriting the thumbnail manually" do
+      before do
+        filename = 'picture_160_120.png'   
+        @thumbnail_upload = Uploader.new(
+          :filepath           => fixture_file_path(filename),        
+          :original_filename  => filename
+        )                
+      end    
+    
+      it "should overwrite the thumbnail manually if one is passed" do      
+        size1 = File.size @video.thumbnail_path
+        video = Video.find @video.id
+        video.uploaded_thumbnail = @thumbnail_upload
+        video.save
+        size2 = File.size video.thumbnail_path
+        size2.should_not == size1      
+      end
+      
+      it "should overwrite the thumbnail and it should have correct dims" do      
+        video = Video.find @video.id
+        video.uploaded_thumbnail = @thumbnail_upload
+        video.save
+        Dimensions.dimensions(video.thumbnail_path).should == [160, 120]        
+      end
+
+      it "should reset the thumbnail position" do
+        video = Video.find @video.id
+        video.uploaded_thumbnail = @thumbnail_upload
+        video.save      
+        video.thumbnail_pos.should be_blank
+      end
+      
+    end
+    
   end
   
-#  context 'when a different MPG is uploaded' do
-#    before do
-#      filename = 'video2.MPG'   
-#      data = {
-#        :filepath           => fixture_file_path(filename),        
-#        :original_filename  => filename
-#      }
-#      upload = Uploader.new(data)
-#      @video = Factory(:video, 
-#        :uploaded_file      => upload,
-#        :thumbnail_pos      => '00:00:01'
-#      )
-#    end
-#    
-#    it 'should create one FLV copy' do      
-#      Dir[File.join @video.base_dir, '*.flv'].count.should == 1
-#    end
-#    
-#    it 'should create non-empty FLV copy' do      
-#      File.size(File.join @video.base_dir, @video.flv_path).should_not == 0
-#    end
-#  end
+  context 'when a different MPG is uploaded' do
+    before do
+      filename = 'video2.MPG'   
+      data = {
+        :filepath           => fixture_file_path(filename),        
+        :original_filename  => filename
+      }
+      upload = Uploader.new(data)
+      @video = Factory(:video, 
+        :uploaded_file      => upload,
+        :thumbnail_pos      => '00:00:01'
+      )
+    end
+    
+    it 'should create one FLV copy' do      
+      Dir[File.join @video.base_dir, '*.flv'].count.should == 1
+    end
+    
+    it 'should create non-empty FLV copy' do      
+      File.size(File.join @video.base_dir, @video.flv_path).should_not == 0
+    end
+  end
     
 end

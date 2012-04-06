@@ -66,66 +66,35 @@ class VideosController < ApplicationController
     @video = @case.videos.find_by_id(params[:id])    
     redirect_to cases_path unless @video
     
-    thumbnail_method = params[:video][:thumbnail_method]
-    
-    if params[:upload] && (params[:video][:thumbnail_method] == 'auto')
-      params[:upload].delete('thumbnail')
+    has_upload = params[:upload]
+    method_auto = params[:video][:thumbnail_method].to_s == 'auto'
+            
+    params[:upload].delete :thumbnail if has_upload && method_auto      
+    if params[:keep_thumbnail].to_i == 1
+      params[:video].delete :thumbnail_pos
+      params[:upload].delete :thumbnail if has_upload
     end    
     params[:video].delete(:thumbnail_method)    
     
+    if has_upload    
+      video     = params[:upload]['video']
+      thumbnail = params[:upload]['thumbnail']            
+      params[:video][:uploaded_file] = video if video
+      params[:video][:uploaded_thumbnail] = thumbnail if thumbnail
+    end
+    
+    
+    logger.debug 'After preprocessing:'
+    logger.debug params
+    
     respond_to do |format|
-      if @video.update_attributes(params[:video])
-        video = params[:upload] ? params[:upload]['video'] : nil
-        if video
-          
-          start_time = params[:start_time].to_i
-          end_time   = params[:end_time].to_i
-                
-          video_filename = Video.store(current_user, video)
-          
-          if video_filename.end_with?('zip')
-            encoding_info = Video.encode(
-              current_user.id, video_filename, start_time, end_time)
-            video_filename = encoding_info.filename
-            video.content_type = encoding_info.content_type
-            video.fps = encoding_info.fps      
-            video.duration = encoding_info.duration
-          end
-                    
-          @video.delete_file
-          @video.path = video_filename
-          @video.rename_thumbnail if @video.thumbnail
-          @video.recode_to_formats
-          @video.save
-        end
-        
-        unless params[:keep_thumbnail].to_i == 1
-          
-          case thumbnail_method
-          when 'auto'
-            logger.debug('Extracting the thumbnail automatically!')
-            Video.extract_thumbnail_from_movie(current_user.id, @video.path, 
-                                               @video.thumbnail_pos)
-          when 'manual'
-            if params[:upload] && params[:upload]['thumbnail']
-              logger.debug('Updating the thumbnail manually!')
-              thumbnail = params[:upload]['thumbnail']
-              thumbnail_info = 
-                Video.store_thumbnail(current_user.id, @video.path, thumbnail)              
-              @video.thumbnail_pos  = nil
-              @video.width          = thumbnail_info[:width]
-              @video.height         = thumbnail_info[:height]
-              @video.save
-            end
-          end
-          
-        else
-          logger.debug("Keeping the thumbnail!!!!")
-        end
-        
-        format.html { redirect_to(@case, :notice => 'The block has been successfully updated') }
+      if @video.update_attributes(params[:video])                
+        format.html { redirect_to(@case, :notice => 'The video has been successfully updated') }
       else
-        format.html { render :action => 'edit' }
+        format.html do
+          flash[:alert] = 'The video could not be updated'
+          render :action => 'edit'
+        end
       end
     end
     
