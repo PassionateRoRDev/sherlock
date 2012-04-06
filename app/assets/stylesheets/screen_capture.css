@@ -1,3 +1,15 @@
+
+#btn-screen-capture div {
+  height: 22px;
+  line-height: 19px;
+  padding-top: 2px;
+  background: url(capture_28_22.png) no-repeat 3px 0px;
+}
+
+#btn-screen-capture.btn-picture-capture div {
+  background-position: 10px 0;
+}
+
 #accept-java {
   font-size: 110%;
 }
