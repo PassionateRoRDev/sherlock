@@ -45,12 +45,9 @@ class LogosController < ApplicationController
   def create
         
     params[:upload] ||= {}
-    image = params[:upload]['logo']
-    if image
-      params[:logo][:content_type] = image.content_type    
-      params[:logo][:path] = Logo.store(current_user, image)      
-    end      
-    
+    image = params[:upload]['logo']    
+    params[:logo][:uploaded_file] = image if image
+        
     @logo = Logo.new(params[:logo])
     @logo.user = current_user    
     
@@ -72,23 +69,12 @@ class LogosController < ApplicationController
   # PUT /logos/1.json
   def update
     
-    content_type = nil
     params[:upload] ||= {}
-    image = params[:upload]['logo']
-    if image
-      content_type = image.content_type      
-    end
-    
+    image = params[:upload]['logo']    
+    params[:logo][:uploaded_file] = image if image
+        
     respond_to do |format|
-      if @logo.update_attributes(params[:logo])
-        
-        if image
-          @logo.delete_logo
-          @logo.logo_path = Logo.store(current_user, image)
-          @logo.logo_content_type = content_type
-          @logo.save
-        end
-        
+      if @logo.update_attributes(params[:logo])                
         format.html { redirect_to edit_logo_path(@logo), 
                       notice: 'Logo was successfully updated.' }
         format.json { head :ok }

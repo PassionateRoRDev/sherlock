@@ -6,7 +6,13 @@ describe User do
   end
 
   it "should have link to a picture through blocks and cases" do    
-    picture = FactoryGirl.create(:picture)
+    filename = 'sample_image1.bmp'   
+    data = {
+      :filepath           => fixture_file_path(filename),
+      :original_filename  => filename
+    }
+    uploaded = Uploader.new(data)    
+    picture = FactoryGirl.create(:picture, :uploaded_file => uploaded)
     author = picture.block.case.author
     author.pictures.should include(picture)
   end
@@ -78,6 +84,34 @@ describe User do
       :email => 'user@mail.com'
     )
     user.full_name.should == "Smith"
+  end
+  
+  it 'without the cases, should have 0 space usage reported' do
+    user = Factory(:user)
+    user.space_usage.should == 0
+  end
+  
+  it 'should have empty space usage if has a case but without file assets' do
+    c = Factory(:case)
+    c.author.space_usage.should == 0
+  end
+  
+  it 'should have usage equal to the stored picture for one case with 1 pic' do
+    
+    filename = 'sample_image1.bmp'
+    picture_path = fixture_file_path(filename)    
+    block = Factory(:block)    
+    data = {
+      :filepath           => picture_path,
+      :original_filename  => filename
+    }
+    uploaded = Uploader.new(data)    
+    picture = FactoryGirl.create(:picture, :block => block, :uploaded_file => uploaded)    
+    
+    current_size = File.new(picture.full_filepath).size
+    
+    block.case.author.space_usage.should == current_size + File.new(picture_path).size
+    
   end
   
 end

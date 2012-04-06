@@ -1,9 +1,11 @@
 require 'digest/md5'
+require 'RMagick'
 
 class Picture < ActiveRecord::Base
   
-  include FileAsset
   include BlockDetail
+  include FileAsset  
+  include PictureAsset
   
   belongs_to :block 
   
@@ -27,6 +29,20 @@ class Picture < ActiveRecord::Base
     end        
   end
   
+  #
+  # The picture block may contain:
+  # - the original file
+  # - the 'current' version of the file
+  # - the backup copy
+  #
+  def usage        
+     file_size + backup_size + orig_file_size    
+  end
+    
+  def backup_size
+    file_size backup_path    
+  end
+    
   def online_dims
     
     max_width = Report::MAX_PAGE_WIDTH
@@ -76,16 +92,7 @@ class Picture < ActiveRecord::Base
   def self.is_simple_image?(bytes)
     FileAsset::is_simple_image?(bytes)
   end
-  
-  def self.store(author, upload_info)
-    bytes = upload_info.read  
-    if is_image?(bytes)
-      FileAsset::store_for_type(author, upload_info, bytes, 'pictures') 
-    else
-      nil
-    end
-  end  
-  
+    
   def case_id
     block ? block.case_id : 0
   end
@@ -93,25 +100,13 @@ class Picture < ActiveRecord::Base
   def file_type
     'pictures'
   end
-  
-  def has_uploaded_file?
-    !uploaded_file.nil?
-  end
-  
+    
   def backup
     FileUtils.copy_file(full_filepath, backup_path)
   end
   
   def backup_path
     full_filepath + '.bak'
-  end
-  
-  def orig_path
-    full_path_for_suffix(:orig)
-  end
-  
-  def remove_original_file
-    File.delete(orig_path) if File.exists?(orig_path)
   end
   
   def remove_backup
@@ -145,11 +140,7 @@ class Picture < ActiveRecord::Base
     cropped
     
   end
-  
-  def dimensions
-    File.exists?(full_filepath) ? Dimensions.dimensions(full_filepath) : [0, 0]
-  end
-  
+    
   def width_for_preview
     width_for_display Report::MAX_PAGE_WIDTH
   end
@@ -162,7 +153,7 @@ class Picture < ActiveRecord::Base
   def delete_files
     delete_file_for_type(file_type)
     remove_backup
-    remove_original_file    
+    remove_original_file   
   end
 
   def self.populate_missing_codes
@@ -205,53 +196,6 @@ class Picture < ActiveRecord::Base
   
   def self.generate_random_code(len)
     (0...len).map{ ('a'..'z').to_a[rand(26)] }.join
-  end
- 
-  def convert_to_png(bytes)
-    Magick::Image.from_blob(bytes).first.to_blob { |im| im.format = 'PNG' }
-  end
-  
-  def process_upload
-    
-    @uploaded_file_bytes ||= uploaded_file.read
-      
-    effective_filename = uploaded_file.original_filename      
-    content_type       = uploaded_file.content_type     
-    
-    # remove the old files if persisted
-    self.delete_files if persisted?
-        
-    self.original_filename = effective_filename
-    self.content_type      = content_type
-    
-    bytes = @uploaded_file_bytes
-    is_simple_image = Picture.is_simple_image? @uploaded_file_bytes
-    unless is_simple_image 
-      bytes = convert_to_png(bytes)      
-      self.content_type = 'image/png'
-      effective_filename = path_for_suffix(:png, effective_filename)
-    end
-   
-    self.content_type = content_type    
-    self.path = store effective_filename, bytes
-        
-    # store the original file under .orig if we did any conversions    
-    File.open(orig_path, 'wb').write(@uploaded_file_bytes) unless is_simple_image  
-    
-  end
-  
-  #
-  # Custom validator:
-  #
-  
-  def require_upload_for_a_new_image  
-    errors.add :uploaded_file, "has to be provided" unless has_uploaded_file?
-  end
-  
-  def accept_only_image_uploads
-    @uploaded_file_bytes ||= uploaded_file.read        
-    errors.add :image_type, "could not be recognized" unless 
-      Picture.is_image?(@uploaded_file_bytes)     
-  end
+  end           
   
 end

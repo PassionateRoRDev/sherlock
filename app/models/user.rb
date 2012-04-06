@@ -57,6 +57,10 @@ class User < ActiveRecord::Base
     result.empty? ? self.email : result
   end
   
+  def space_usage    
+    cases.empty? ? 0 : cases.map(&:usage).reduce(:+)
+  end
+  
   def cases
     (authored_cases + viewable_cases).uniq
   end

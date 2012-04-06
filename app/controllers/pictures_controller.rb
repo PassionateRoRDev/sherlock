@@ -99,15 +99,7 @@ class PicturesController < ApplicationController
   end
   
   private
-  
-  def handle_image_upload(image)   
-    {
-      :original_filename  => image.original_filename,
-      :content_type       => image.content_type,
-      :path               => Picture.store(current_user, image)
-    }    
-  end
-  
+    
   def resolve_case
     resolve_case_using_param(:case_id)
   end

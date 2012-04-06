@@ -50,6 +50,10 @@ class Block < ActiveRecord::Base
     alignment == 'left' || alignment == 'right'
   end
   
+  def usage
+    self.picture.usage if self.picture    
+  end
+  
   def title
     result = 'Block'
     if self.html_detail

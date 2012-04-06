@@ -28,6 +28,10 @@ class Case < ActiveRecord::Base
   
   after_save :invalidate_report
   
+  def usage
+    blocks.empty? ? 0 : blocks.map(&:usage).reduce(:+)
+  end
+  
   def move_toplevel
     self.folder = nil
     save
@@ -44,14 +48,18 @@ class Case < ActiveRecord::Base
     full_dst_path = picture.filepath_for_type_and_filename('pictures', filename)
     FileUtils.copy_file(picture.full_filepath, full_dst_path)
     
-    Picture.create(
-      :block              => Block.new(:case => self),
-      :unique_code        => Picture.generate_unique_code,      
-      :title              => 'Copy of ' + picture.title,
-      :path               => filename,
-      :original_filename  => 'cropped-' + picture.original_filename,
-      :content_type       => picture.content_type      
-    )    
+    block = Block.new
+    block.picture = Picture.new do |p|        
+        p.unique_code       = Picture.generate_unique_code
+        p.alignment         = picture.alignment
+        p.title             = 'Copy of ' + picture.title
+        p.path              = filename
+        p.original_filename = 'cropped-' + picture.original_filename
+        p.content_type      = picture.content_type      
+    end    
+    self.blocks << block            
+    
+    block.picture
     
   end
   

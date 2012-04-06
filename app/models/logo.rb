@@ -2,179 +2,49 @@ require 'RMagick'
 
 class Logo < ActiveRecord::Base
     
-  PNG_FROM_EPS_HEIGHT = 200
-  
   include FileAsset
+  include PictureAsset
   
   belongs_to :user
   belongs_to :letterhead
   
-  validates :path, :presence => true
+  validate :require_upload_for_a_new_image, :unless => :persisted?
+  validate :accept_only_image_uploads, :if => :has_uploaded_file?
+    
+  attr_accessor :uploaded_file  
+  attr_accessor :original_filename # not really used right now
   
+  before_save :process_upload, :if => :has_uploaded_file?
   after_save :invalidate_reports
-  before_destroy :delete_file    
+  
+  before_destroy :delete_files
   before_destroy :invalidate_reports
-  
-  
-  #
-  # TODO: extend the FileAsset module
-  #
-  def self.is_image?(bytes)
-    File.open('/tmp/uploaded2.bin', 'wb').write(bytes)
-    result = FileAsset::is_image?(bytes)
-    File.open('/tmp/uploaded3.bin', 'wb').write(bytes)
-    result
-  end
-  
-  def self.convert_eps_to_png(eps_bytes)
-    
-    #tmp_source = '/tmp/1.eps'
-    #tmp_dst = '/tmp/1.png'    
-    #File.open(tmp_source, 'wb').write(eps_bytes)
-    #cmd = "convert #{tmp_source} #{tmp_dst}"
-    #result = `#{cmd}`            
-    #result = File.open(tmp_dst).read
-    #File.delete tmp_dst
-    #result    
-    
-    Magick::Image.from_blob(eps_bytes).first.to_blob { |im| im.format = 'PNG' }
-                
-  end
-  
-  def self.scale_to_height(png_bytes, dims, height)
-    im = Magick::Image.from_blob(png_bytes).first
-    new_height = height
-    new_width = ((1.0 * new_height * dims[0]) / dims[1]).round    
-    im.scale!(new_width, new_height)
-    im.to_blob
-  end
-  
-  def self.dimensions_for_bytes(bytes)
-    FileAsset::dimensions_for_bytes(bytes)
-  end
-  
-  def self.store(author, upload_info)
-    
-    bytes = upload_info.read  
-    
-    File.open('/tmp/uploaded.bin', 'wb').write(bytes)
-    
-    if is_image?(bytes)       
-      FileAsset::store_for_type(author, upload_info, bytes, 'logos')      
-    elsif is_eps?(bytes)
-      
-      File.open('/tmp/uploaded10.bin', 'wb').write bytes
-      
-      png_bytes = convert_eps_to_png(bytes)
-      png_dims = dimensions_for_bytes(png_bytes)      
-      png_bytes = scale_to_height(png_bytes, png_dims, PNG_FROM_EPS_HEIGHT) if
-        png_dims[1] > PNG_FROM_EPS_HEIGHT
             
-      upload_info.content_type = 'image/png'
-      upload_info.original_filename = 
-        path_for_format(upload_info.original_filename, :png)      
-      png_path = FileAsset::store_for_type(author, upload_info, png_bytes, 'logos')
-      eps_path = path_for_format(png_path, :eps)
-      full_eps_path = 
-        FileAsset::filepath_for_type_filename_and_author('logos', eps_path, author.id)          
-      File.open(full_eps_path, 'wb').write(bytes)
-      png_path
-    else
-      nil
-    end
-  end
-  
-  #
-  # EPS file can mean several things:
-  # - 'normal' Postscript file, starts with %!PS
-  # 
-  # - DOS EPS file; starts with the 30-byte long header:
-  #   - 0-3 Must be hex C5D0D3C6 (byte 0=C5).
-  #   - 4-7 Byte position in file for start of PostScript language code section.
-  #   - 8-11 Byte length of PostScript language section.
-  #   - 12-15 Byte position in file for start of Metafile screen representation.
-  #   - 16-19 Byte length of Metafile section (PSize).
-  #   - 20-23 Byte position of TIFF representation.
-  #   - 24-27 Byte length of TIFF section.  
-  #   - 28-29 Checksum of header (XOR of bytes 0-27). If Checksum is FFFF 
-  #           then ignore it. 
-  #
-  def self.is_eps?(bytes)
-    is_normal_eps?(bytes) || is_dos_eps?(bytes)
-  end
-  
-  def self.is_normal_eps?(bytes)
-    bytes[0..3] == "%!PS"
-  end
-  
-  def self.is_dos_eps?(bytes)
-    is_dos_eps_header?(bytes) && dos_eps_starts_with_ps?(bytes)  
-  end
-  
-  def self.dos_eps_starts_with_ps?(bytes)
-    offsets = bytes[4..7].unpack 'C*'
-    offset = offsets[0] + (offsets[1] << 4) + (offsets[2] << 8) + (offsets[3] << 12)
-    bytes[offset .. offset + 3] == '%!PS'
-  end
-  
-  def self.is_dos_eps_header?(bytes)        
-    bytes[0..3].unpack('C*') == [0xC5, 0xD0, 0xD3, 0xC6]        
-  end
-  
-  def eps_path
-    path_for_format(:eps)
-  end
-  
-  def self.path_for_format(path, format)
-    path.sub(/([^.]+)$/, format.to_s)
-  end
-  
-  def path_for_format(format)
-    Logo.path_for_format(self.path, format)        
-  end
-  
-  def full_path_for_format(format)
-    filepath_for_type_and_filename(file_type, path_for_format(format))        
-  end
-  
   def file_type
     'logos'
   end
   
   def case_id
     0
-  end
+  end    
   
   # Overrides author from FileAsset  
   def author
     self.user
   end
 
-  def has_file?
-    File.exists?(full_filepath.to_s)
-  end
-  
-  def dims
-    has_file? ? Dimensions.dimensions(full_filepath) : nil  
-  end
-  
   def height_for_display(max_height)
-    the_dims = dims
+    the_dims = dimensions
     the_dims.nil? ? max_height : (the_dims[1] > max_height ? max_height : the_dims[1])
   end  
   
-  def delete_file_for_format(format)
-    full_path = full_path_for_format(format)
-    File.unlink(full_path) if File.exists?(full_path)
-  end
-  
-  def delete_file
+  def delete_files
     delete_file_for_type(file_type)
-    [:eps].each { |format| delete_file_for_format(format) }          
-  end
+    remove_original_file   
+  end  
   
   private
-  
+    
   def invalidate_reports    
     Report.invalidate_for_user(self.letterhead.user_id) if self.letterhead        
   end

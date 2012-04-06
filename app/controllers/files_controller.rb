@@ -10,28 +10,12 @@ class FilesController < ApplicationController
     type      = params[:type]
     filename  = params[:filename]
     
-    kase = nil
+    kase = resolve_case    
+    owner = kase.nil? ? resolve_owner(type, filename) : kase.author
     
-    user = current_user
+    return redirect_to root_path unless owner
     
-    if user.admin
-      kase = resolve_case_using_param(:case_id)
-      user = kase.author
-    else
-      if user.pi?    
-        kase = user.find_case_by_id(params[:case_id]) if params[:case_id]
-      else
-        kase = resolve_case_using_param(:case_id)
-        user = kase.author
-      end
-    end
-    
-    
-    
-    path = "#{Rails.root}/files/#{user.id}/#{type}/" + filename
-    
-    logger.debug("Path: " + path)
-    
+    path = "#{Rails.root}/files/#{owner.id}/#{type}/" + filename    
     return redirect_to root_path unless File.exists?(path)
     
     options = {}
@@ -63,7 +47,7 @@ class FilesController < ApplicationController
         end    
       end
     when 'logos'
-      asset = user.logos.find_by_path(filename)
+      asset = owner.logos.find_by_path(filename)
     end
     
     if asset    
@@ -71,10 +55,37 @@ class FilesController < ApplicationController
       options[:disposition]   = 'inline'
     end
     
-    Rails::logger.debug(options)
+    #Rails::logger.debug(options)
     
     send_file(path, options)
         
+  end
+  
+  private
+   
+  def resolve_case
+    if current_user.admin
+      Case.find_by_id params[:case_id]
+    else    
+      current_user.find_case_by_id params[:case_id]
+    end
+  end
+  
+  def resolve_owner(type, filename)    
+    owner = nil    
+    if type == 'logos'
+      user = current_user    
+      if user.admin
+        logo = Logo.find_by_path(filename)
+        owner = logo.user if logo
+      elsif user.pi?
+        user
+      else
+        logo = Logo.find_by_path(filename)
+        owner = logo.user if logo && logo.user.clients.include?(user)          
+      end
+    end    
+    owner    
   end
   
 end

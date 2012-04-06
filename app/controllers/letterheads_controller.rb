@@ -52,17 +52,8 @@ class LetterheadsController < ApplicationController
   # POST /letterheads
   # POST /letterheads.json
   def create
-        
-    params[:upload] ||= {}
-    image = params[:upload]['logo']
-    if image
-      file_path = Logo.store(current_user, image)
-      params[:letterhead][:logo] = Logo.new(
-          :user         => current_user,
-          :content_type => image.content_type,
-          :path         => file_path
-      )                  
-    end      
+            
+    params = handle_logo_upload_for_create
     
     @letterhead = Letterhead.new(params[:letterhead])
     @letterhead.user = current_user    
@@ -86,11 +77,12 @@ class LetterheadsController < ApplicationController
   # PUT /letterheads/1.json
   def update
     
+    params[:upload] ||= {}
+    image = params[:upload]['logo']        
+    
     respond_to do |format|
       if @letterhead.update_attributes(params[:letterhead])
     
-        params[:upload] ||= {}
-        image = params[:upload]['logo']        
         update_logo(image) if image          
         
         format.html { redirect_to edit_letterhead_path(@letterhead), 
@@ -121,16 +113,30 @@ class LetterheadsController < ApplicationController
     @letterhead = current_user.letterhead || redirect_to(cases_path)
   end    
   
-  def update_logo(image)
-    logo = @letterhead.logo
-    if logo
-      logo.delete_file
+  def init_logo(image)
+    Logo.new(
+      :user           => current_user,
+      :uploaded_file  => image
+    )
+  end
+  
+  def handle_logo_upload_for_create    
+    params[:upload] ||= {}
+    image = params[:upload]['logo']    
+    if image
+      params[:letterhead][:logo] = init_logo(image)
+    end        
+    params
+  end
+  
+  def update_logo(image)    
+    logger.debug 'Updating the logo'
+    if @letterhead.logo
+      @letterhead.logo.uploaded_file = image
+      @letterhead.logo.save
     else
-      logo = Logo.new(:letterhead => @letterhead, :user => @letterhead.user)
-    end    
-    logo.path = Logo.store(current_user, image)
-    logo.content_type = image.content_type
-    logo.save
+      @letterhead.logo = init_logo(image)      
+    end            
   end
   
 end

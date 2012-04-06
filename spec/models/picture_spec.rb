@@ -4,7 +4,7 @@ describe Picture do
   
   it "should classify an image as an image" do
     f = File.open(fixture_file_path('sample_image1.png'))
-    Picture.is_image?(f.read).should be_true
+    Picture.new.is_image?(f.read).should be_true
   end
   
   it "should require a file upload for a new object" do
@@ -52,12 +52,12 @@ describe Picture do
   
   it "should classify a text file as a non-image" do
     f = File.open(fixture_file_path('text_file1.txt'))
-    Picture.is_image?(f.read).should_not be_true
+    Picture.new.is_image?(f.read).should_not be_true
   end
   
   it "should classify a pdf file as an image" do
     f = File.open(fixture_file_path('sample.pdf'))
-    Picture.is_image?(f.read).should be_true
+    Picture.new.is_image?(f.read).should be_true
   end
   
             
@@ -88,12 +88,7 @@ describe Picture do
       }
       @upload = Uploader.new(data)
     end
-    
-    it "should fail" do
-      block = Factory(:block)       
-      filename = Picture.store(block.case.author, @upload)    
-      filename.should == nil
-    end    
+        
   end
   
   context "for uploaded BMP file" do
@@ -103,6 +98,7 @@ describe Picture do
       @original_file_path = fixture_file_path(filename)
       data = {
         :filepath           => @original_file_path,
+        :content_type       => 'application/postscript',
         :original_filename  => filename        
       }
       @upload = Uploader.new(data)
@@ -123,6 +119,10 @@ describe Picture do
     
     it "should return correct dimenions for the file" do
       @picture.dimensions.should == [465, 349]
+    end
+    
+    it "should have image/png content_type after conversion" do
+      @picture.content_type.should == 'image/png'
     end
     
   end  

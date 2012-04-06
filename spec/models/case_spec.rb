@@ -22,25 +22,16 @@ describe Case do
   
     context 'when copying an existing picture' do
 
-      before do
-      
+      before do      
         @filepath = fixture_file_path('sample_image1.png')
-
         data = {
           :filepath           => @filepath,
+          :content_type       => 'image/png',
           :original_filename  => 'sample_image1.png'
         }
-        upload = Uploader.new(data)
-
-        block = Factory(:block, :case => @case)       
-        filename = Picture.store(block.case.author, upload)    
-        
-        @picture = Factory(:picture, 
-          :path               => filename, 
-          :block              => block,          
-          :content_type       => 'image/png',
-          :original_filename  => data[:original_filename])
-        
+        upload = Uploader.new(data)            
+        block = Factory(:block, :case => @case)
+        @picture = Factory(:picture, :block => block, :uploaded_file => upload)        
         @crop_params = [10, 10, 100, 50]
       end
 
