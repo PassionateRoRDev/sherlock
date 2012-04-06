@@ -86,8 +86,7 @@ describe Case do
       
       it 'should create 1 new picture file for this author' do
         picture_copy = @case.create_block_from_picture(@picture, @crop_params)
-        dir = FileAsset::dir_for_author(@picture.author_id, 'pictures')
-        Dir[dir + '/*'].count.should == 2
+        Dir[File.join @picture.base_dir, '*'].count.should == 2
       end
       
       it 'cropped copy should not have a backup' do

@@ -24,7 +24,7 @@ RSpec.configure do |config|
     # clean up any tmp user files
     pics_path = Rails.root.to_s + '/' + APP_CONFIG['files_path']
     Dir[pics_path + '*'].each do |f|       
-      #FileUtils.rm_rf(f)       
+      FileUtils.rm_rf(f)       
     end
   end
   

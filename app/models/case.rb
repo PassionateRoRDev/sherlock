@@ -44,8 +44,8 @@ class Case < ActiveRecord::Base
   
   def copy_picture(picture)
     
-    filename = FileAsset::generate_new_filename(picture.original_filename)                
-    full_dst_path = picture.filepath_for_type_and_filename('pictures', filename)
+    filename = picture.generate_new_filename picture.original_filename
+    full_dst_path = picture.filepath_for_filename filename
     FileUtils.copy_file(picture.full_filepath, full_dst_path)
     
     block = Block.new

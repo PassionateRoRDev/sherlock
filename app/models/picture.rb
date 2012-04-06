@@ -92,11 +92,7 @@ class Picture < ActiveRecord::Base
   def self.is_simple_image?(bytes)
     FileAsset::is_simple_image?(bytes)
   end
-    
-  def case_id
-    block ? block.case_id : 0
-  end
-  
+      
   def file_type
     'pictures'
   end
@@ -151,7 +147,7 @@ class Picture < ActiveRecord::Base
   end
     
   def delete_files
-    delete_file_for_type(file_type)
+    delete_file
     remove_backup
     remove_original_file   
   end

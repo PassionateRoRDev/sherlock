@@ -38,11 +38,7 @@ class Video < ActiveRecord::Base
   def file_type
     'videos'
   end
-  
-  def case_id
-    block ? block.case_id : 0
-  end
-  
+    
   def thumbnail_method
     self.thumbnail_pos.blank? ? :manual : :auto
   end
@@ -63,27 +59,6 @@ class Video < ActiveRecord::Base
     result
   end
   
-  def self.store_thumbnail(author_id, video_filename, thumbnail_upload)
-    
-    thumbnail_upload.original_filename =~ /([^.]+)$/
-    thumbnail_ext = $1
-    thumbnail_filename = video_filename.sub(/([^.]+)$/, thumbnail_ext)
-    #Rails::logger.debug('Thumbnail filename will be: ' + thumbnail_filename)
-    full_thumb_path = FileAsset::dir_for_author(author_id, 'videos') + 
-                          '/' + thumbnail_filename
-    #Rails::logger.debug('Saving video thumbnail at ' + full_thumb_path)
-    File.open(full_thumb_path, 'wb') {|f| f.write(thumbnail_upload.read) }
-    
-    thumbnail_dims = Dimensions.dimensions(full_thumb_path)
-    
-    {
-      :filename => thumbnail_filename,
-      :path     => full_thumb_path,
-      :width    => thumbnail_dims[0],
-      :height   => thumbnail_dims[1]
-    }
-  end
-      
   def extract_thumbnail_from_zip    
     self.thumbnail = path.sub(/([^.]+)$/, 'jpg')
     Zip::ZipFile.open(full_filepath) do |zip_file|      
@@ -255,11 +230,11 @@ class Video < ActiveRecord::Base
   end
   
   def full_thumbnail_path
-    filepath_for_type_and_filename(file_type, thumbnail)    
+    filepath_for_filename thumbnail
   end  
   
   def path_for_format(format)
-    self.path.sub(/([^.]+)$/, format.to_s)
+    path_for_suffix format    
   end
   
   def flv_path
@@ -279,7 +254,11 @@ class Video < ActiveRecord::Base
   end
   
   def full_path_for_format(format)
-    filepath_for_type_and_filename('videos', path_for_format(format))        
+    if format == :original    
+      full_filepath
+    else
+      full_path_for_suffix format
+    end    
   end
   
   def recode_to_formats
@@ -287,23 +266,23 @@ class Video < ActiveRecord::Base
     #recode_to [:flv, :mpg, :mov]
     recode_to [:flv, :mpg]
   end
+    
+  def recode_command(video_path, new_video_path, format)
+    extra_flags = ''
+    if format == :m4v
+        extra_flags += ' -vprofile baseline'
+    end
+    "#{ffmpeg_path} -i #{video_path} #{extra_flags} -strict experimental " +
+    " -deinterlace -ar 44100 -y -r 25 -qmin 3 -qmax 6 #{new_video_path} 2>&1"        
+  end
   
   def recode_to(formats, source_format = :original)    
     
-    video_path = full_filepath
-    
-    # if the source format is something else than the original one, use it
-    # instead
-    video_path = full_path_for_format(source_format) unless source_format == :original
-    
+    video_path = full_path_for_format source_format        
     formats.each do |format|      
       unless self.path == path_for_format(format)        
-        new_video_path = full_path_for_format(format)
-        extra_flags = ''
-        if format == :m4v
-          extra_flags += ' -vprofile baseline'
-        end
-        command = "#{ffmpeg_path} -i #{video_path} #{extra_flags} -strict experimental -deinterlace -ar 44100 -y -r 25 -qmin 3 -qmax 6 #{new_video_path} 2>&1"
+        new_video_path = full_path_for_format(format)        
+        command = recode_command video_path, new_video_path, format        
         Rails::logger.debug("Recode command: " + command)
         ev = Event.create(
                   :event_type => 'video_recode', 
@@ -338,7 +317,7 @@ class Video < ActiveRecord::Base
   end
     
   def delete_files
-    delete_file_for_type(file_type)
+    delete_file
     [:flv, :m4v, :avi, :mpg, :swf, :mov].each do |format|        
       full_path = full_path_for_format(format)
       File.unlink(full_path) if File.exists?(full_path)

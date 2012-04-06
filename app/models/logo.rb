@@ -39,7 +39,7 @@ class Logo < ActiveRecord::Base
   end  
   
   def delete_files
-    delete_file_for_type(file_type)
+    delete_file
     remove_original_file   
   end  
   
