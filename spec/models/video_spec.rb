@@ -109,29 +109,47 @@ describe Video do
       @video.height.should == 120
     end
     
+    it "updating thumbnail_pos should have no effect on the video" do
+      size1 = File.size @video.full_filepath
+      video = Video.find @video.id
+      video.thumbnail_pos = "00:00:10"
+      video.save
+      size2 = File.size video.full_filepath      
+      size2.should == size1
+    end
+    
+    it "should update the thumbnail when thumbnail_pos is changed" do                  
+      size1 = File.size @video.thumbnail_path
+      video = Video.find @video.id
+      video.thumbnail_pos = "00:00:10"
+      video.save
+      size2 = File.size video.thumbnail_path
+      size2.should_not == size1
+    end
+    
   end
   
-  context 'when a different MPG is uploaded' do
-    before do
-      filename = 'video2.MPG'   
-      data = {
-        :filepath           => fixture_file_path(filename),        
-        :original_filename  => filename
-      }
-      upload = Uploader.new(data)
-      @video = Factory(:video, 
-        :uploaded_file      => upload,
-        :thumbnail_pos      => '00:00:01'
-      )
-    end
-    
-    it 'should create one FLV copy' do      
-      Dir[File.join @video.base_dir, '*.flv'].count.should == 1
-    end
-    
-    it 'should create non-empty FLV copy' do      
-      File.size(File.join @video.base_dir, @video.flv_path).should_not == 0
-    end
-  end
+#  context 'when a different MPG is uploaded' do
+#    before do
+#      filename = 'video2.MPG'   
+#      data = {
+#        :filepath           => fixture_file_path(filename),        
+#        :original_filename  => filename
+#      }
+#      upload = Uploader.new(data)
+#      @video = Factory(:video, 
+#        :uploaded_file      => upload,
+#        :thumbnail_pos      => '00:00:01'
+#      )
+#    end
+#    
+#    it 'should create one FLV copy' do      
+#      Dir[File.join @video.base_dir, '*.flv'].count.should == 1
+#    end
+#    
+#    it 'should create non-empty FLV copy' do      
+#      File.size(File.join @video.base_dir, @video.flv_path).should_not == 0
+#    end
+#  end
     
 end

@@ -17,8 +17,9 @@ class Video < ActiveRecord::Base
   
   before_save :process_upload, :if => :has_uploaded_file?
   before_save :process_thumbnail, :if => :has_uploaded_thumbnail?
-  
+      
   after_save :invalidate_report
+  after_save :check_for_thumbnail_pos_change
   
   before_destroy :delete_files
   before_destroy :delete_thumbnail
@@ -69,17 +70,23 @@ class Video < ActiveRecord::Base
     end    
   end
   
-  def extract_thumbnail_from_movie            
-    self.thumbnail = path.sub(/([^.]+)$/, 'png')
-    command = "#{ffmpeg_path} -vframes 1 -i #{full_filepath} " +
-              " -ss #{thumbnail_pos} " +
-              " -f image2 #{full_thumbnail_path} 2>&1"    
-            
-    Rails::logger.debug("Command is: " + command)
-    result = `#{command}`
-    Rails::logger.debug("Result of the thumbnail command: " + result)
+  def extract_thumbnail_from_movie    
+        
+    if thumbnail_pos.to_s.present?      
+      delete_thumbnail
+      
+      self.thumbnail = path.sub(/([^.]+)$/, 'png')
+      command = "#{ffmpeg_path} -i #{full_filepath} -vframes 1 " +
+                " -ss #{thumbnail_pos} " +
+                " -f image2 #{full_thumbnail_path} 2>&1"    
+      
+      Rails::logger.debug("Command is: " + command)
+      result = `#{command}`
+      Rails::logger.debug("Result of the thumbnail command: " + result)
+
+      update_dims_from_thumbnail    
     
-    update_dims_from_thumbnail    
+    end      
   end
   
   def is_zip?    
@@ -128,7 +135,7 @@ class Video < ActiveRecord::Base
   end
   
   def save_first_frame_as_thumbnail(frames_dir)    
-    delete_thumbnail    
+    delete_thumbnail
     self.thumbnail = self.path.sub(/([^.]+)$/, 'jpg')    
     first_frame = frame_files(frames_dir).first
     FileUtils.copy_file(first_frame, full_thumbnail_path)
@@ -369,12 +376,9 @@ class Video < ActiveRecord::Base
     extract_thumbnail_from_movie unless (is_zip || has_uploaded_thumbnail?)    
     
   end
-  
-  #
-  # TODO: 
-  #
-  def process_thumbnail
     
+  def check_for_thumbnail_pos_change
+    extract_thumbnail_from_movie if self.thumbnail_pos_changed?          
   end
   
   def save_uploaded_file
