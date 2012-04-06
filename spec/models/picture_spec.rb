@@ -170,8 +170,7 @@ describe Picture do
     it "should crop not produce any additional files" do
       @picture.crop([10, 10, 100, 50])      
       # there should be 2 files under pictures right now: picture and backup      
-      dir = FileAsset::dir_for_author(@picture.author_id, 'pictures')
-      Dir[dir + '/*'].count.should == 2
+      Dir[@picture.base_dir + '/*'].count.should == 2
     end
     
     it "should not crop if width is 0" do

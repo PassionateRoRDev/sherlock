@@ -1,5 +1,24 @@
 module FormatEps
   
+  #
+  # EPS file can mean several things:
+  # - 'normal' Postscript file, starts with %!PS
+  # 
+  # - DOS EPS file; starts with the 30-byte long header:
+  #   - 0-3 Must be hex C5D0D3C6 (byte 0=C5).
+  #   - 4-7 Byte position in file for start of PostScript language code section.
+  #   - 8-11 Byte length of PostScript language section.
+  #   - 12-15 Byte position in file for start of Metafile screen representation.
+  #   - 16-19 Byte length of Metafile section (PSize).
+  #   - 20-23 Byte position of TIFF representation.
+  #   - 24-27 Byte length of TIFF section.  
+  #   - 28-29 Checksum of header (XOR of bytes 0-27). If Checksum is FFFF 
+  #           then ignore it. 
+  #
+  def self.is_eps?(bytes)
+    is_normal_eps?(bytes) || is_dos_eps?(bytes)
+  end
+  
   def self.is_normal_eps?(bytes)
     bytes[0..3] == "%!PS"
   end

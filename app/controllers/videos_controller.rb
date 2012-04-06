@@ -19,74 +19,26 @@ class VideosController < ApplicationController
   end
   
   def create
-    
-    
+        
     params[:upload] ||= {}
     
-    if params[:video][:thumbnail_method] == 'auto'
-      params[:upload].delete('thumbnail')
-    end    
+    params[:upload].delete('thumbnail') if params[:video][:thumbnail_method] == 'auto'      
     params[:video].delete(:thumbnail_method)
        
     video     = params[:upload]['video']
     thumbnail = params[:upload]['thumbnail']
             
-    if video
-    
-      params[:video][:original_filename] = video.original_filename
-      params[:video][:content_type]      = video.content_type    
-
-      logger.debug("create: storing the video - #{Time.now.to_i}")
-      video_filename = Video.store(current_user, video)
-      
-      start_time = params[:start_time].to_i
-      end_time   = params[:end_time].to_i
-      
-      if video_filename.end_with?('zip')
-        logger.debug("create: encoding the video - #{Time.now.to_i}")
-        encoding_info = Video.encode(
-          current_user.id, video_filename, start_time, end_time)
-        video_filename = encoding_info.filename
-        params[:video][:content_type] = encoding_info.content_type
-        params[:video][:fps] = encoding_info.fps
-        params[:video][:duration] = encoding_info.duration      
-        logger.debug("create: encoding done - #{Time.now.to_i}")
-      end
-              
-      params[:video][:path] = video_filename
-
-      # store thumbnail or automatically generate a new one:
-      thumbnail_info = {}
-
-      logger.debug('Thumbnail is:')
-      logger.debug(thumbnail)
-
-      if thumbnail
-        thumbnail_info = 
-          Video.store_thumbnail(current_user.id, video_filename, thumbnail)
-        params[:video].delete(:thumbnail_pos)
-      else
-        thumbnail_info =
-          Video.extract_thumbnail_from_movie(current_user.id, video_filename, 
-                                             params[:video][:thumbnail_pos])
-      end    
-
-      params[:video][:thumbnail]  = thumbnail_info[:filename]    
-      params[:video][:width]      = thumbnail_info[:width]
-      params[:video][:height]     = thumbnail_info[:height]
-        
-    end
-      
+    params[:video][:uploaded_file] = video if video
+    params[:video][:uploaded_thumbnail] = thumbnail if thumbnail
+          
     @video = Video.new(params[:video])
-    block = Block.new(:case => @case)
-    @insert_before_id = params[:insert_before_id].to_i
-    block.insert_before_id = @insert_before_id    
-    @video.block = block
-    logger.debug("Recoding to FLV")    
+    @video.block = Block.new(
+      :case             => @case,
+      :insert_before_id => params[:insert_before_id].to_i
+    )              
     
     respond_to do |format|
-      if (@video.save) 
-        @video.recode_to_formats
+      if (@video.save)        
         format.html { redirect_to(@case, :notice => 'Video block has been added') }
       else  
         format.html { render :action => 'new' }

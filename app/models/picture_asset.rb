@@ -62,12 +62,14 @@ module PictureAsset
     Magick::Image.from_blob(bytes).first.to_blob { |im| im.format = 'PNG' }
   end
   
+  def store_as_original(bytes)
+    File.open(orig_path, 'wb').write(bytes)
+  end
+  
   def process_upload
     
     @uploaded_file_bytes ||= uploaded_file.read
     
-    Rails::logger.debug 'Processing the bytes: length = ' + @uploaded_file_bytes.size.to_s
-      
     effective_filename = uploaded_file.original_filename      
     content_type       = uploaded_file.content_type     
     
@@ -79,7 +81,9 @@ module PictureAsset
     
     bytes = @uploaded_file_bytes
     is_simple_image = is_simple_image? @uploaded_file_bytes
-    unless is_simple_image 
+    
+    needs_conversion = !is_simple_image    
+    if needs_conversion
       bytes = convert_to_png(bytes)      
       content_type = 'image/png'
       effective_filename = path_for_suffix(:png, effective_filename)
@@ -88,8 +92,7 @@ module PictureAsset
     self.content_type = content_type    
     self.path = store effective_filename, bytes
         
-    # store the original file under .orig if we did any conversions    
-    File.open(orig_path, 'wb').write(@uploaded_file_bytes) unless is_simple_image  
+    store_as_original(@uploaded_file_bytes) if needs_conversion
   end
   
   #

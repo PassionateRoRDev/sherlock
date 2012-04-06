@@ -17,11 +17,12 @@ describe User do
     author.pictures.should include(picture)
   end
   
-  it "should have videos through blocks and cases" do
-    video = FactoryGirl.create(:video)
-    author = video.block.case.author
-    author.videos.should include(video)
-  end
+#  it "should have videos through blocks and cases" do
+#    block = Factory(:block)
+#    video = Factory.build(:video, :block => block)
+#    author = block.case.author
+#    author.videos.should include(video)
+#  end
 
   it 'can not view cases by default' do
     secret = Factory.create(:case)
@@ -106,11 +107,11 @@ describe User do
       :original_filename  => filename
     }
     uploaded = Uploader.new(data)    
-    picture = FactoryGirl.create(:picture, :block => block, :uploaded_file => uploaded)    
+    picture = Factory(:picture, :block => block, :uploaded_file => uploaded)    
     
-    current_size = File.new(picture.full_filepath).size
+    current_size = File.size(picture.full_filepath)
     
-    block.case.author.space_usage.should == current_size + File.new(picture_path).size
+    block.case.author.space_usage.should == current_size + File.size(picture_path)
     
   end
   
