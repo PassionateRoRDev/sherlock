@@ -390,6 +390,9 @@ class Video < ActiveRecord::Base
   private
   
   def process_thumbnail_upload
+    
+    Rails::logger.debug 'Processing the uploaded thumbnail'
+    
     delete_thumbnail
     self.thumbnail = self.path.sub(/([^.]+)$/, 'jpg')                 
     File.open(thumbnail_path, 'wb') { |f| f.write uploaded_thumbnail.read }
