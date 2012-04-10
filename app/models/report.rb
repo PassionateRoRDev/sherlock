@@ -92,6 +92,13 @@ class Report
         Rails::logger.debug "Result of command:"
         Rails::logger.debug result
         success = true
+      rescue Errno::ENOMEM
+        Rails::logger.error "Errno::ENOMEM"
+        Rails::logger.error "Command failed! Retry count = #{try_count}"
+        try_count -= 1
+        Rails::logger.info "Falling asleep..."
+        sleep(RETRY_SLEEP_INTERVAL) if try_count > 0
+        Rails::logger.info "Waking up"
       rescue        
         Rails::logger.error "Command failed! Retry count = #{try_count}"
         try_count -= 1
