@@ -41,6 +41,10 @@ class Video < ActiveRecord::Base
   def file_type
     'videos'
   end
+  
+  def check_if_3gpp
+    self.path.to_s.downcase.end_with? '.3gp'
+  end
     
   def thumbnail_method
     self.thumbnail_pos.blank? ? :manual : :auto
@@ -281,8 +285,17 @@ class Video < ActiveRecord::Base
     end    
   end
   
+  def recode_to_flv_and_then_to_mpg
+    recode_to_format :flv
+    recode_to_format :mpg, :flv
+  end
+  
   def recode_to_formats
-    recode_to [:flv, :mpg]
+    if check_if_3gpp
+      recode_to_flv_and_then_to_mpg
+    else
+      recode_to [:flv, :mpg]
+    end    
   end
     
   def recode_command(video_path, new_video_path, format)
@@ -294,24 +307,27 @@ class Video < ActiveRecord::Base
     " -deinterlace -ar 44100 -y -r 25 -qmin 3 -qmax 6 #{new_video_path} 2>&1"        
   end
   
-  def recode_to(formats, source_format = :original)    
-    
-    video_path = full_path_for_format source_format        
-    formats.each do |format|      
-      unless self.path == path_for_format(format)        
-        new_video_path = full_path_for_format(format)        
-        command = recode_command video_path, new_video_path, format        
-        Rails::logger.debug("Recode command: " + command)
-        ev = Event.create(
-                  :event_type => 'video_recode', 
-                  :detail_s1 => format, 
-                  :detail_i1 => self.id
-        )
-        result = `#{command}`      
-        ev.finish
-        Rails::logger.debug("Recode result: " + result)
-      end
+  def recode_to_format(format, source_format = :original)
+        
+    unless self.path == path_for_format(format)      
+      video_path = full_path_for_format source_format
+      new_video_path = full_path_for_format(format)        
+      command = recode_command video_path, new_video_path, format        
+      Rails::logger.debug("Recode command: " + command)
+      ev = Event.create(
+                :event_type => 'video_recode', 
+                :detail_s1 => format,
+                :detail_s2 => source_format,
+                :detail_i1 => self.id
+      )
+      result = `#{command}`      
+      ev.finish
+      Rails::logger.debug("Recode result: " + result)      
     end
+  end
+  
+  def recode_to(formats, source_format = :original)        
+    formats.each { |format| recode_to_format(format, source_format) }
   end
   
   def thumbnail_path

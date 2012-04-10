@@ -185,5 +185,39 @@ describe Video do
       File.size(File.join @video.base_dir, @video.flv_path).should_not == 0
     end
   end
+  
+  context 'when a 3GPP video is uploaded' do
+    before do
+      filename = 'sample.3gp'   
+      data = {
+        :filepath           => fixture_file_path(filename),        
+        :original_filename  => filename
+      }
+      upload = Uploader.new(data)
+      @video = Factory(:video, 
+        :uploaded_file      => upload,
+        :thumbnail_pos      => '00:00:01'
+      )
+    end
+    
+    it 'should encode FLV from 3GPP' do      
+      recoding_events = Event.where(:event_type => 'video_recode')
+                        .order('id DESC').limit(2)
+      first  = recoding_events.last  
+      first.detail_s1.should == 'flv'
+      first.detail_s2.should == 'original'
+    end
+    
+    it 'should encode MPG from FLV (produced from 3GPP)' do      
+      recoding_events = Event.where(:event_type => 'video_recode')
+                        .order('id DESC').limit(2)
+      last  = recoding_events.first
+      last.detail_s1.should == 'mpg'
+      last.detail_s2.should == 'flv'
+    end
+        
+  end
+  
+  
     
 end
