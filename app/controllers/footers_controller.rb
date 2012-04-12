@@ -13,7 +13,7 @@ class FootersController < ApplicationController
   #
   #  respond_to do |format|
   #    format.html # index.html.erb
-  #    format.json { render json: @footers }
+  #    format.json { render :json => @footers }
   #  end
   #end
 
@@ -22,7 +22,7 @@ class FootersController < ApplicationController
   def show    
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @footer }
+      format.json { render :json => @footer }
     end
   end
 
@@ -42,7 +42,7 @@ class FootersController < ApplicationController
 
     respond_to do |format|
       format.html # new.html.erb
-      format.json { render json: @footer }
+      format.json { render :json => @footer }
     end
   end
 
@@ -59,13 +59,12 @@ class FootersController < ApplicationController
 
     respond_to do |format|
       if @footer.save
-        format.html { redirect_to(
-                      edit_case_footer_path(@case, @footer), 
-                      notice: 'Footer was successfully created.') }
-        format.json { render json: @footer, status: :created, location: @footer }
+        format.html { redirect_to edit_case_footer_path(@case, @footer), 
+                        :notice => 'Footer was successfully created.' }
+        format.json { render :json =>  @footer, :status => :created, :location => @footer }
       else
-        format.html { render action: "new" }
-        format.json { render json: @footer.errors, status: :unprocessable_entity }
+        format.html { render "new" }
+        format.json { render :json => @footer.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -78,11 +77,11 @@ class FootersController < ApplicationController
       if @footer.update_attributes(params[:footer])
         format.html { redirect_to(
                       edit_case_footer_path(@case, @footer),
-                      notice: 'Footer was successfully updated.') }
+                      :notice => 'Footer was successfully updated.') }
         format.json { head :ok }
       else
-        format.html { render action: "edit" }
-        format.json { render json: @footer.errors, status: :unprocessable_entity }
+        format.html { render "edit" }
+        format.json { render :json => @footer.errors, :status => :unprocessable_entity }
       end
     end
   end

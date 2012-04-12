@@ -11,7 +11,7 @@ class LetterheadsController < ApplicationController
 
   #  respond_to do |format|
   #    format.html # index.html.erb
-  #    format.json { render json: @letterheads }
+  #    format.json { render :json => @letterheads }
   #  end
   #end
 
@@ -20,7 +20,7 @@ class LetterheadsController < ApplicationController
   def show    
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @letterhead }
+      format.json { render :json => @letterhead }
     end
   end
 
@@ -41,7 +41,7 @@ class LetterheadsController < ApplicationController
 
     respond_to do |format|
       format.html # new.html.erb
-      format.json { render json: @letterhead }
+      format.json { render :json => @letterhead }
     end
   end
 
@@ -60,15 +60,15 @@ class LetterheadsController < ApplicationController
     
     respond_to do |format|
       if @letterhead.save
-        format.html { redirect_to dashboard_path, notice: 'Letterhead was successfully created.' }
-        format.json { render json: @letterhead, status: :created, location: @letterhead }
+        format.html { redirect_to dashboard_path, :notice => 'Letterhead was successfully created.' }
+        format.json { render :json => @letterhead, :status => :created, :location => @letterhead }
       else
         format.html do
           @letterhead.logo = nil
           flash[:alert] = 'Letterhead could not be created'
-          render action: "new"
+          render 'new'
         end
-        format.json { render json: @letterhead.errors, status: :unprocessable_entity }
+        format.json { render :json => @letterhead.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -86,11 +86,11 @@ class LetterheadsController < ApplicationController
         update_logo(image) if image          
         
         format.html { redirect_to edit_letterhead_path(@letterhead), 
-                      notice: 'Letterhead was successfully updated.' }
+                      :notice => 'Letterhead was successfully updated.' }
         format.json { head :ok }
       else
-        format.html { render action: "edit" }
-        format.json { render json: @letterhead.errors, status: :unprocessable_entity }
+        format.html { render "edit" }
+        format.json { render :json => @letterhead.errors, :status => :unprocessable_entity }
       end
     end
   end
