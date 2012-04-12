@@ -1,4 +1,4 @@
-require 'RMagick'
+require 'digest/md5'
 
 module FileAssetUtils
         
@@ -64,7 +64,8 @@ module FileAssetUtils
     filename = generate_new_filename effective_filename    
     dir = base_dir
     FileUtils.mkdir_p(dir) unless File.directory?(dir)
-    File.open(File.join(dir, filename), 'wb').write(bytes) if File.directory?(dir)    
+    path = File.join(dir, filename)
+    File.open(path, 'wb') { |f| f.write(bytes) } if File.directory?(dir)            
     filename
   end    
   

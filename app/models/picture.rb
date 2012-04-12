@@ -1,13 +1,14 @@
-require 'digest/md5'
-require 'RMagick'
-
 class Picture < ActiveRecord::Base
   
-  include BlockDetail
-  include FileAssetUtils
+  include BlockDetail  
   include PictureAsset
   
+  # at some point we will remove it:
+  include FileAssetUtils
+      
   belongs_to :block 
+  
+  has_many :file_assets, :foreign_key => 'parent_id', :dependent => :destroy
   
   validates :title, :presence => true
   
@@ -17,10 +18,14 @@ class Picture < ActiveRecord::Base
   attr_accessor :uploaded_file
   
   attr_accessible :title, :uploaded_file, :alignment, :unique_code
-  
+    
   before_save :process_upload, :if => :has_uploaded_file?  
+  before_save :update_dims, :if => :has_uploaded_file?
+  
   before_destroy :delete_files  
   after_save :invalidate_report
+  
+  after_save :generate_file_assets, :if => :has_uploaded_file?
   
   def self.generate(block)
     Picture.new do |p|
@@ -29,20 +34,34 @@ class Picture < ActiveRecord::Base
     end        
   end
   
-  #
-  # The picture block may contain:
-  # - the original file
-  # - the 'current' version of the file
-  # - the backup copy
-  #
+  # sum filesize of all the file assets
   def usage        
-     file_size + backup_size + orig_file_size    
+     file_assets.inject(0) { |sum, asset| sum + asset.filesize }
   end
-    
-  def backup_size
-    file_size backup_path    
+        
+  def generate_file_assets
+    if self.file_assets.empty?
+      generate_main_asset
+      generate_orig_asset if File.exists?(orig_path)
+      generate_backup_asset if File.exists?(backup_path)        
+    end
   end
-    
+  
+  #
+  # return path from the 'main' file asset
+  #
+  #def path
+  #  main_file_asset.path
+  #end
+  
+  def main_file_asset
+    self.file_assets.find_by_role :main
+  end
+  
+  def backup_file_asset
+    self.file_assets.find_by_role :bak
+  end
+  
   def online_dims
     
     max_width = Report::MAX_PAGE_WIDTH
@@ -85,11 +104,12 @@ class Picture < ActiveRecord::Base
     'pictures'
   end
     
-  def backup
+  def backup    
     FileUtils.copy_file(full_filepath, backup_path)
+    generate_backup_asset
   end
   
-  def backup_path
+  def backup_path    
     full_filepath + '.bak'
   end
   
@@ -97,8 +117,10 @@ class Picture < ActiveRecord::Base
     File.delete(backup_path) if File.exists?(backup_path)
   end
   
-  def restore_from_backup
-    File.rename(backup_path, full_filepath)
+  def restore_from_backup    
+    File.rename(backup_path, full_filepath)    
+    update_dims_and_save
+    backup_file_asset.destroy if backup_file_asset
   end
     
   def crop(rectangle)   
@@ -111,18 +133,23 @@ class Picture < ActiveRecord::Base
     result = cropper.crop(full_filepath, x, y, w, h)    
     
     # sanity check - the result must exist and its dimensions have to match
-    # the desired ones:
-    
+    # the desired ones:    
     if result.present? && File.exists?(result)
         if Dimensions.dimensions(result) == [w.to_i, h.to_i]          
-          backup
-          File.rename(result, full_filepath)
+          backup          
+          File.rename(result, full_filepath)                      
+          update_dims_and_save
+          update_filesize File.size(full_filepath)
           cropped = true
         end      
-    end
-        
-    cropped
-    
+    end        
+    cropped    
+  end
+  
+  def update_filesize(size)
+    asset = main_file_asset
+    asset.filesize = size
+    asset.save
   end
     
   def width_for_preview
@@ -135,9 +162,13 @@ class Picture < ActiveRecord::Base
   end
     
   def delete_files
-    delete_file
-    remove_backup
-    remove_original_file   
+    if self.file_assets.empty?
+      delete_file
+      remove_backup
+      remove_original_file   
+    else
+      file_assets.destroy_all
+    end
   end
 
   def self.populate_missing_codes
@@ -176,8 +207,8 @@ class Picture < ActiveRecord::Base
     code    
   end
   
-  private
-  
+  private    
+    
   def self.generate_random_code(len)
     (0...len).map{ ('a'..'z').to_a[rand(26)] }.join
   end           

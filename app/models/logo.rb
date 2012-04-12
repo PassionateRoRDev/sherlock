@@ -1,5 +1,3 @@
-require 'RMagick'
-
 class Logo < ActiveRecord::Base
     
   include FileAssetUtils
@@ -8,6 +6,8 @@ class Logo < ActiveRecord::Base
   belongs_to :user
   belongs_to :letterhead
   
+  has_many :file_assets, :foreign_key => 'parent_id', :dependent => :destroy
+  
   validate :require_upload_for_a_new_image, :unless => :persisted?
   validate :accept_only_image_uploads, :if => :has_uploaded_file?
     
@@ -15,6 +15,8 @@ class Logo < ActiveRecord::Base
   attr_accessor :original_filename # not really used right now
   
   before_save :process_upload, :if => :has_uploaded_file?
+  before_save :update_dims, :if => :has_uploaded_file?
+  
   after_save :invalidate_reports
   
   before_destroy :delete_files

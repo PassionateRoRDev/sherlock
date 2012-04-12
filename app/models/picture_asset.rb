@@ -63,7 +63,42 @@ module PictureAsset
   end
   
   def store_as_original(bytes)
-    File.open(orig_path, 'wb').write(bytes)
+    File.open(orig_path, 'wb') { |f| f.write(bytes) }
+  end
+  
+  def generate_main_asset
+    FileAsset.create(        
+        :parent_id    => self.id,
+        :parent_type  => file_type,
+        :user_id      => self.author_id,
+        :content_type => self.content_type,
+        :role         => :main,
+        :path         => self.path,
+        :filesize     => File.size(full_filepath)
+      )      
+  end
+  
+  def generate_orig_asset
+    FileAsset.create(        
+        :parent_id    => self.id,
+        :parent_type  => file_type,
+        :user_id      => self.author_id,
+        :role         => :orig,
+        :path         => path_for_suffix(:orig),
+        :filesize     => File.size(orig_path)
+    )      
+  end
+  
+  def generate_backup_asset
+    FileAsset.create(        
+        :parent_id    => self.id,
+        :parent_type  => file_type,        
+        :user_id      => self.author_id,
+        :content_type => self.content_type,
+        :role         => :bak,
+        :path         => self.path + '.bak',
+        :filesize     => File.size(backup_path)
+    )      
   end
   
   def process_upload
@@ -73,7 +108,7 @@ module PictureAsset
     effective_filename = uploaded_file.original_filename      
     content_type       = uploaded_file.content_type     
     
-    # remove the old files if persisted
+    # remove old files if it's an update (of the image)
     self.delete_files if persisted?
         
     self.original_filename = effective_filename
@@ -91,8 +126,19 @@ module PictureAsset
    
     self.content_type = content_type    
     self.path = store effective_filename, bytes
-        
+                
     store_as_original(@uploaded_file_bytes) if needs_conversion
+  end
+      
+  def update_dims_and_save
+    update_dims
+    save
+  end
+  
+  def update_dims        
+    dims = self.dimensions    
+    self.width  = dims.nil? ? 0 : dims[0]
+    self.height = dims.nil? ? 0 : dims[1]        
   end
   
   #

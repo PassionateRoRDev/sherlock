@@ -124,8 +124,12 @@ describe Picture do
       File.new(@picture.orig_path).size.should == File.new(@original_file_path).size      
     end
     
-    it "should return correct dimenions for the file" do
+    it "should return correct dimensions for the file" do
       @picture.dimensions.should == [465, 349]
+    end
+    
+    it "should store correct dimensions in the record" do
+      [@picture.width, @picture.height].should == [465, 349]
     end
     
     it "should have image/png content_type after conversion" do
@@ -134,22 +138,30 @@ describe Picture do
     
   end  
 
-  context "for the uploaded file picture should" do
+  context "for the uploaded file should" do
   
     before do      
-      @filepath = fixture_file_path('sample_image1.png')      
+      @filepath = fixture_file_path('sample_image1.png')
       data = {
         :filepath           => @filepath,
-        :original_filename  => 'sample_image1.png'
+        :original_filename  => 'sample_image1.png',
+        :content_type       => 'image/png'
       }
       upload = Uploader.new(data)                  
       @picture       = Picture.new(:title => 'New picture', :uploaded_file => upload)      
       @picture.block = Factory(:block)
       @picture.save
+      
+      # reload the pic from the db:
+      @picture = Picture.find @picture.id      
     end
     
     it "return correct dimensions" do
       @picture.dimensions.should == [465, 349]
+    end
+    
+    it "should create one file_asset record" do      
+      @picture.file_assets.count.should == 1
     end
     
     it "store the uploaded file in a proper location" do      
@@ -170,11 +182,21 @@ describe Picture do
       @picture.crop([10, 10, 100, 50]).should be_true      
     end
     
+    it "should crop and update its own dimensions" do
+      @picture.crop [10, 10, 100, 50]
+      [@picture.width, @picture.height].should == [100, 50]
+    end
+    
+    it "should crop and update the main file_asset size" do
+      @picture.crop [10, 10, 100, 50]      
+      @picture.main_file_asset.filesize.should == File.size(@picture.full_filepath)
+    end
+    
     it "should crop and return true if args are strings" do
       @picture.crop(['10', '10', '100', '50']).should be_true      
     end
     
-    it "should crop not produce any additional files" do
+    it "should crop and not produce any additional files" do
       @picture.crop([10, 10, 100, 50])      
       # there should be 2 files under pictures right now: picture and backup      
       Dir[@picture.base_dir + '/*'].count.should == 2
@@ -186,7 +208,22 @@ describe Picture do
     
     it "should save a backup before cropping" do
       @picture.crop([10, 10, 100, 50])
-      File.new(@picture.backup_path).size.should == File.new(@filepath).size      
+      File.new(@picture.backup_path).size.should == File.size(@filepath)
+    end
+    
+    it "should have two file_assets after the crop (2nd being for the backup)" do
+      @picture.crop([10, 10, 100, 50])
+      @picture.file_assets.count.should == 2
+    end
+    
+    it "backup file_asset should store the original filesize" do
+      @picture.crop([10, 10, 100, 50])
+      @picture.backup_file_asset.filesize.should == File.size(@filepath)
+    end
+    
+    it "backup file_asset should store the original content-type" do
+      @picture.crop([10, 10, 100, 50])
+      @picture.backup_file_asset.content_type.should == 'image/png'
     end
     
     it "should be able to restore itself from a backup" do
@@ -195,10 +232,22 @@ describe Picture do
       File.new(@picture.full_filepath).size.should == File.new(@filepath).size      
     end
     
+    it "should have 1 file_asset after restoring from backup" do
+      @picture.crop([10, 10, 100, 50])
+      @picture.restore_from_backup
+      @picture.file_assets.count.should == 1
+    end
+    
+    it "should update dimensions if restored from backup" do
+      @picture.crop([10, 10, 100, 50])
+      @picture.restore_from_backup
+      [@picture.width, @picture.height].should == [465, 349]
+    end
+    
     it "should remove its file when it gets deleted" do
       @picture.destroy
       File.exists?(@picture.full_filepath).should be_false
-    end    
+    end
     
     it "should remove its backup file when it gets deleted" do
       @picture.backup
@@ -207,6 +256,34 @@ describe Picture do
       File.exists?(backup_file).should be_false
     end    
   
+    context "when a new picture is uploaded" do
+        
+      before do      
+        @filepath_new = fixture_file_path('sample_logo1.png')
+        data = {
+          :filepath           => @filepath_new,
+          :original_filename  => 'sample_logo1.png'
+        }
+        upload = Uploader.new(data)                  
+        
+        @picture.uploaded_file = upload  
+        @picture.save
+      
+        # reload the pic from the db:
+        @picture = Picture.find @picture.id      
+        
+      end      
+    
+      it "should update the picture when a new one is uploaded" do
+        File.size(@picture.full_filepath).should == File.size(@filepath_new)
+      end
+
+      it "should update dims when a new picture is uploaded" do
+        [@picture.width, @picture.height].should == Dimensions.dimensions(@filepath_new)
+      end        
+    
+    end
+    
   end
   
   

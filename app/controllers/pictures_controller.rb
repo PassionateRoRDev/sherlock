@@ -69,30 +69,29 @@ class PicturesController < ApplicationController
     params[:upload] ||= {}
     image = params[:upload]['image']
     
-    if (params[:crop_new_block].to_i == 1)
-      @case.create_block_from_picture(@picture, params[:crop])
-    else
-      @picture.crop(params[:crop])
+    params.delete(:crop) if params[:crop] == ["", "", "", ""]
+    
+    logger.debug 'Params crop:'
+    logger.debug params[:crop]
+    
+    if params[:crop]
+      if (params[:crop_new_block].to_i == 1)
+        @case.create_block_from_picture(@picture, params[:crop])
+      else
+        @picture.crop(params[:crop])
+      end
     end
     
     respond_to do |format|      
-      error = true     
-      if @picture.update_attributes(params[:picture])                                
-        error = false
-        if image
-          @picture.uploaded_file = image
-          error = !@picture.save
-        end
-      end
-      
-      if error
+      params[:picture][:uploaded_file] = image if image      
+      if @picture.update_attributes(params[:picture])
+        format.html { redirect_to @case, 
+                      :notice => 'The block has been successfully updated' }                
+      else
         format.html do 
           flash[:alert] = 'The block has not been updated'
           render :action => 'edit'          
-        end        
-      else
-        format.html { redirect_to @case, 
-                      :notice => 'The block has been successfully updated' }        
+        end
       end
     end
     

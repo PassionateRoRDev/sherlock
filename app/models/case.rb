@@ -43,33 +43,34 @@ class Case < ActiveRecord::Base
   end
   
   def copy_picture(picture)
-    
-    filename = picture.generate_new_filename picture.original_filename
-    full_dst_path = picture.filepath_for_filename filename
-    FileUtils.copy_file(picture.full_filepath, full_dst_path)
+        
+    uploader = UploaderFromResource.new(
+      :content_type       => picture.content_type,
+      :original_filename  => picture.original_filename,
+      :filepath           => picture.full_filepath
+    )
     
     block = Block.new
-    block.picture = Picture.new do |p|        
+    block.picture = Picture.new do |p|
         p.unique_code       = Picture.generate_unique_code
         p.alignment         = picture.alignment
         p.title             = 'Copy of ' + picture.title
-        p.path              = filename
-        p.original_filename = 'cropped-' + picture.original_filename
-        p.content_type      = picture.content_type      
+        p.uploaded_file     = uploader
     end    
-    self.blocks << block            
+    self.blocks << block
     
-    block.picture
+    block.picture.uploaded_file = nil
     
+    block.picture    
   end
   
   def create_block_from_picture(picture, crop_params)    
     picture_copy = copy_picture(picture)
-    if picture_copy
-      picture_copy.crop(crop_params) 
-      picture_copy.remove_backup
+    if picture_copy            
+      picture_copy.crop(crop_params)
+      picture_copy.remove_backup            
     end      
-    picture_copy    
+    picture_copy   
   end
   
   def as_json(options = {})  

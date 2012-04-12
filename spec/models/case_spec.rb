@@ -84,6 +84,11 @@ describe Case do
         picture_copy.dimensions.should == @crop_params[2, 3]
       end
       
+      it 'cropped copy should store correct dimensions' do
+        picture_copy = @case.create_block_from_picture(@picture, @crop_params)
+        [picture_copy.width, picture_copy.height].should == @crop_params[2, 3]
+      end
+      
       it 'should create 1 new picture file for this author' do
         picture_copy = @case.create_block_from_picture(@picture, @crop_params)
         Dir[File.join @picture.base_dir, '*'].count.should == 2

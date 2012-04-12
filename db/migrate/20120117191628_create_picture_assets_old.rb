@@ -1,4 +1,4 @@
-class CreatePictureAssets < ActiveRecord::Migration
+class CreatePictureAssetsOld < ActiveRecord::Migration
   def change
     create_table :picture_assets do |t|
       t.references :block, :null => false
