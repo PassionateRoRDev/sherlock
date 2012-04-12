@@ -26,15 +26,15 @@ describe Block do
     block1.prev.should == nil
   end  
   
-  it "Should return alignment of the picture as the block's alignment" do    
-    block = Factory(:block)
-    Factory(:picture, :block => block, :alignment => 'right')
+  it "Should return alignment of the picture as the block's alignment" do        
+    picture = Factory.build(:picture, :alignment => 'right')
+    block = Factory.build(:block, :picture => picture)
     block.alignment.should == 'right'
   end
   
-  it "Should return alignment of the video as the block's alignment" do
-    block = Factory(:block)
-    Factory(:video, :block => block, :alignment => 'left')    
+  it "Should return alignment of the video as the block's alignment" do    
+    video = Factory.build(:video, :alignment => 'left')    
+    block = Factory.build(:block, :video => video)
     block.alignment.should == 'left'
   end
   

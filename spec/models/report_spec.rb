@@ -35,16 +35,10 @@ describe Report do
   
   it 'JSON should have correct number of blocks' do
     
-    c = prepare_case
-    
-    c.blocks << Block.new(
-      :html_detail => HtmlDetail.new(:contents => 'Contents of the first HTML block'))
-    
-    c.blocks << Block.new(
-      :picture =>  Picture.new(:title => 'Title of the picture', :path => 'picture1.png'))
-    
-    r = prepare_report(c)
-        
+    c = prepare_case    
+    c.blocks << Factory(:block, :html_detail => Factory(:html_detail))    
+    c.blocks << Factory(:block, :picture => Factory.build(:picture))    
+    r = prepare_report(c)        
     decoded = ActiveSupport::JSON.decode(r.to_json)
     decoded["case"]['blocks'].count.should == 2
   end
@@ -73,17 +67,14 @@ describe Report do
   
   it 'Picture block should return its title as a caption' do
     
+    picture_title = 'Title of the picture'
+    
     c = prepare_case    
-    c.blocks << Block.new(
-      :html_detail => HtmlDetail.new(:contents => 'Contents of the first HTML block'))    
-    
-    c.blocks << Block.new(
-      :picture => Picture.new(:title => 'Title of the picture', :path => 'picture1.png'))
-    
-    r = prepare_report(c)
-    
+    c.blocks << Factory(:block, :html_detail => Factory(:html_detail))    
+    c.blocks << Factory(:block, :picture => Factory.build(:picture, :title => picture_title))    
+    r = prepare_report(c)    
     decoded = ActiveSupport::JSON.decode(r.to_json)
-    decoded["case"]['blocks'][1]['picture']['caption'].should == 'Title of the picture'
+    decoded["case"]['blocks'][1]['picture']['caption'].should == picture_title
   end
   
   it 'Video block should return its title as a caption' do

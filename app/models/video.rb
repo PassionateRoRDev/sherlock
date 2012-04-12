@@ -3,7 +3,7 @@ require 'zip/zip'
 
 class Video < ActiveRecord::Base
   
-  include FileAsset  
+  include FileAssetUtils
   include BlockDetail
   
   belongs_to :block

@@ -1,6 +1,6 @@
 require 'RMagick'
 
-module FileAsset
+module FileAssetUtils
         
   def author
     self.block ? self.block.case.author : nil

@@ -7,22 +7,7 @@ describe Logo do
     logo = Factory.build(:logo, :user => user)    
     logo.author_id.should == user.id
   end
-  
-  it 'Should detect DOS EPS header' do
-    bytes = File.open(fixture_file_path('sample_dos_eps.eps')).read
-    Logo.is_dos_eps_header?(bytes).should be_true
-  end
-    
-  it 'Should detect DOS EPS file' do
-    bytes = File.open(fixture_file_path('sample_dos_eps.eps')).read
-    Logo.is_dos_eps?(bytes).should be_true
-  end
-  
-  it 'Should detect EPS file' do    
-    bytes = File.open(fixture_file_path('football_logo.eps')).read
-    Logo.is_eps?(bytes).should be_true
-  end
-  
+        
   it 'Should not break on invalid dimensions when height_for_display is called' do
     logo = Factory.build(:logo)
     max_height = 200
@@ -51,23 +36,22 @@ describe Logo do
       @filepath = helper.filepath 
     end
     
-    it "store the original eps version" do
-      eps_path = @logo.full_path_for_format(:eps)
-      File.size(eps_path).should == File.size(@filepath)
+    it "store the original eps version" do      
+      File.size(@logo.orig_path).should == File.size(@filepath)
     end
     
     it "convert itself to be of type PNG" do
       @logo.content_type.should == 'image/png'
     end
     
-    it "create a PNG copy 200 high" do
-      Dimensions.dimensions(@logo.full_filepath)[1].should == 200      
+    it "create a PNG copy as high as the original" do
+      Dimensions.dimensions(@logo.full_filepath)[1].should == 350
     end
     
-    it "delete the EPS file when logo is removed" do
-      eps_path = @logo.full_path_for_format(:eps)
+    it "delete the .orig file when logo is removed" do
+      orig_path = @logo.orig_path
       @logo.destroy
-      File.exists?(eps_path).should be_false
+      File.exists?(orig_path).should be_false
     end
     
   end

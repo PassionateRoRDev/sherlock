@@ -47,7 +47,7 @@ class Footer < ActiveRecord::Base
   private 
   
   def invalidate_report
-    Report.invalidate_for_case self.case.id
+    Report.invalidate_for_case self.case.id if self.case
   end
   
 end

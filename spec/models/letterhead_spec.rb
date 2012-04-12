@@ -40,8 +40,8 @@ describe Letterhead do
   end
   
   it 'JSON should return logo if one has been set' do
-    letterhead = Factory(:letterhead,
-      :logo           => Factory(:logo),
+    letterhead = Factory.build(:letterhead,
+      :logo           => Factory.build(:logo),
       :logo_alignment => :right
     )
     

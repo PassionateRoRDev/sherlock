@@ -4,7 +4,7 @@ require 'RMagick'
 class Picture < ActiveRecord::Base
   
   include BlockDetail
-  include FileAsset  
+  include FileAssetUtils
   include PictureAsset
   
   belongs_to :block 
@@ -81,18 +81,6 @@ class Picture < ActiveRecord::Base
     
   end
   
-  #
-  # TODO: extend the FileAsset module
-  # TODO: OR remove it from FileAsset altogether
-  #
-  def self.is_image?(bytes)
-    FileAsset::is_image?(bytes)
-  end
-  
-  def self.is_simple_image?(bytes)
-    FileAsset::is_simple_image?(bytes)
-  end
-      
   def file_type
     'pictures'
   end

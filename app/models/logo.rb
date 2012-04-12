@@ -2,7 +2,7 @@ require 'RMagick'
 
 class Logo < ActiveRecord::Base
     
-  include FileAsset
+  include FileAssetUtils
   include PictureAsset
   
   belongs_to :user
@@ -28,14 +28,14 @@ class Logo < ActiveRecord::Base
     0
   end    
   
-  # Overrides author from FileAsset  
+  # Overrides author from FileAssetUtils
   def author
     self.user
   end
-
+    
   def height_for_display(max_height)
     the_dims = dimensions
-    the_dims.nil? ? max_height : (the_dims[1] > max_height ? max_height : the_dims[1])
+    the_dims == [0, 0] ? max_height : (the_dims[1] > max_height ? max_height : the_dims[1])
   end  
   
   def delete_files
