@@ -111,7 +111,7 @@ describe User do
     
     current_size = File.size(picture.full_filepath)
     
-    #block.case.author.space_usage.should == current_size + File.size(picture_path)
+    block.case.author.space_usage.should == current_size + File.size(picture_path)
     
   end
   
