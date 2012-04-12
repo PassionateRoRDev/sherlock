@@ -12,7 +12,7 @@ class LogosController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @logos }
+      format.json { render :json => @logos }
     end
   end
 
@@ -21,7 +21,7 @@ class LogosController < ApplicationController
   def show    
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @logo }
+      format.json { render :json => @logo }
     end
   end
 
@@ -32,7 +32,7 @@ class LogosController < ApplicationController
 
     respond_to do |format|
       format.html # new.html.erb
-      format.json { render json: @logo }
+      format.json { render :json => @logo }
     end
   end
 
@@ -53,14 +53,14 @@ class LogosController < ApplicationController
     
     respond_to do |format|
       if @logo.save
-        format.html { redirect_to dashboard_path, notice: 'Logo was successfully created.' }
-        format.json { render json: @logo, status: :created, location: @logo }
+        format.html { redirect_to dashboard_path, :notice => 'Logo was successfully created.' }
+        format.json { render :json => @logo, :status => :created, :location => @logo }
       else
         format.html do
           flash[:alert] = 'Logo could not be created'
-          render action: "new"
+          render "new"
         end
-        format.json { render json: @logo.errors, status: :unprocessable_entity }
+        format.json { render :json => @logo.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -76,11 +76,11 @@ class LogosController < ApplicationController
     respond_to do |format|
       if @logo.update_attributes(params[:logo])                
         format.html { redirect_to edit_logo_path(@logo), 
-                      notice: 'Logo was successfully updated.' }
+                      :notice => 'Logo was successfully updated.' }
         format.json { head :ok }
       else
-        format.html { render action: "edit" }
-        format.json { render json: @logo.errors, status: :unprocessable_entity }
+        format.html { render "edit" }
+        format.json { render :json => @logo.errors, :status => :unprocessable_entity }
       end
     end
   end
