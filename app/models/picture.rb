@@ -8,7 +8,9 @@ class Picture < ActiveRecord::Base
       
   belongs_to :block 
   
-  has_many :file_assets, :foreign_key => 'parent_id', :dependent => :destroy
+  has_many :file_assets, :foreign_key => 'parent_id', 
+           :conditions => "parent_type = 'pictures'", 
+           :dependent => :destroy
   
   validates :title, :presence => true
   

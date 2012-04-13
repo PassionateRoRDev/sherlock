@@ -6,7 +6,9 @@ class Logo < ActiveRecord::Base
   belongs_to :user
   belongs_to :letterhead
   
-  has_many :file_assets, :foreign_key => 'parent_id', :dependent => :destroy
+  has_many :file_assets, :foreign_key => 'parent_id', 
+           :conditions => "parent_type = 'logos'", 
+           :dependent => :destroy
   
   validate :require_upload_for_a_new_image, :unless => :persisted?
   validate :accept_only_image_uploads, :if => :has_uploaded_file?
