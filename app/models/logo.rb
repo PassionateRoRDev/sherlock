@@ -50,14 +50,14 @@ class Logo < ActiveRecord::Base
     end
   end      
   
-  private
-  
   def generate_file_assets        
     if self.file_assets.empty?
       generate_main_asset      
       generate_orig_asset if File.exists?(orig_path)     
     end
   end
+
+  private
     
   def invalidate_reports    
     Report.invalidate_for_user(self.letterhead.user_id) if self.letterhead        

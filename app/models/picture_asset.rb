@@ -1,4 +1,6 @@
 module PictureAsset
+
+  require 'RMagick'
   
   def has_uploaded_file?
     !uploaded_file.nil?
