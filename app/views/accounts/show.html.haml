@@ -72,6 +72,9 @@
       =form.submit 'Update', :class => 'button'
 
 
+  %h2.clear RESOURCE USAGE
+  =number_to_human_size(@account.space_usage)
+
   %h2.clear PERMISSIONS
 
   %table.viewers

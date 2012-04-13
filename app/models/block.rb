@@ -51,7 +51,13 @@ class Block < ActiveRecord::Base
   end
   
   def usage
-    self.picture.usage if self.picture    
+    if self.picture    
+      self.picture.usage 
+    elsif self.video
+      self.video.usage
+    else
+      0
+    end
   end
   
   def title

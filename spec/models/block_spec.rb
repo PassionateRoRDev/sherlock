@@ -7,6 +7,10 @@ describe Block do
     block1.weight.should == 1    
   end  
   
+  it "Space usage of a non_picture / non_video block should be 0" do
+    Factory(:block).usage.should == 0
+  end
+  
   it "2nd block should have weight = 2 assigned when added to a case" do
     kase = Factory(:case)
     block1 = Factory(:block, :case => kase)

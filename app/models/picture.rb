@@ -155,6 +155,8 @@ class Picture < ActiveRecord::Base
       delete_file
       remove_backup
       remove_original_file   
+    else
+      file_assets.destroy_all
     end
   end
 

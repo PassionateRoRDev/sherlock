@@ -36,6 +36,7 @@ module PictureAsset
   def backup_file_asset
     self.file_assets.find_by_role :bak
   end
+  
   def orig_file_asset
     self.file_assets.find_by_role :orig
   end

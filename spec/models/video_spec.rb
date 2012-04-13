@@ -95,6 +95,14 @@ describe Video do
       Dir[File.join @video.base_dir, '*.flv'].count.should == 1
     end
     
+    it 'should create 3 file_assets' do
+      @video.file_assets.count.should == 3
+    end
+    
+    it 'should create the thumbnail_file_asset' do
+      @video.thumbnail_file_asset.should be
+    end
+    
     it 'should extract PNG thumbnail' do      
       Dir[File.join @video.base_dir, '*.png'].count.should == 1
     end
@@ -126,6 +134,11 @@ describe Video do
       size2 = File.size video.thumbnail_path
       size2.should_not == size1
     end
+    
+    it "should remove file_assets when it's destroyed" do
+      @video.destroy
+      @video.file_assets.should be_empty
+    end     
     
     context "overwriting the thumbnail manually" do
       before do

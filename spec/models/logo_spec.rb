@@ -73,13 +73,12 @@ describe Logo do
       @logo.destroy
       File.exists?(orig_path).should be_false
     end
-
-# Can't make this test working somehow    
-#    it "delete file_assets when logo is removed" do
-#      parent_id = @logo.id
-#      @logo.destroy      
-#      FileAsset.where(:parent_id => parent_id).count.should == 0      
-#    end
+    
+    it "delete file_assets when logo is removed" do
+      parent_id = @logo.id
+      @logo.destroy
+      @logo.file_assets.should be_empty            
+    end
     
   end
   

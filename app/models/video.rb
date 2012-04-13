@@ -3,10 +3,21 @@ require 'zip/zip'
 
 class Video < ActiveRecord::Base
   
+  CONTENT_TYPES = {      
+    '3gp'.to_sym  => 'video/3gpp',
+    :mpg          => 'video/mpeg',
+    :flv          => 'video/x-flv',
+    :mov          => 'video/quicktime'
+  }
+  
   include FileAssetUtils
   include BlockDetail
   
   belongs_to :block
+  
+  has_many :file_assets, :foreign_key => 'parent_id', 
+           :conditions => "parent_type = 'videos'", 
+           :dependent => :destroy  
   
   attr_accessor :uploaded_file
   attr_accessor :uploaded_thumbnail
@@ -17,7 +28,9 @@ class Video < ActiveRecord::Base
   
   before_save :process_upload, :if => :has_uploaded_file?
   before_save :process_thumbnail_upload, :if => :has_uploaded_thumbnail?
-      
+  
+  after_save :generate_file_assets, :if => :has_uploaded_file?
+  
   after_save :invalidate_report
   
   # important: after_update not after_save
@@ -95,6 +108,77 @@ class Video < ActiveRecord::Base
     end      
   end
   
+  def generate_file_asset_for_thumbnail
+    if self.thumbnail.present? && File.exists?(thumbnail_path)
+      FileAsset.create(        
+        :parent_id    => self.id,
+        :parent_type  => file_type,
+        :user_id      => self.author_id,
+        :role         => :thumbnail,
+        :path         => self.thumbnail,
+        :filesize     => File.size(thumbnail_path)
+      )  
+    end
+  end  
+  
+  def self.content_type_for_format(format)
+    CONTENT_TYPES[format]
+  end
+  
+  def format_for_path(path)
+    result = nil
+    all_possible_formats.each do |format|
+      if full_path_for_suffix(format) == path
+        result = format
+        break
+      end
+    end
+    result
+  end
+  
+  def generate_file_asset_for_original
+    if File.exists?(full_filepath)
+      FileAsset.create(        
+        :parent_id    => self.id,
+        :parent_type  => file_type,
+        :user_id      => self.author_id,
+        :format       => format_for_path(full_filepath),
+        :role         => :orig,
+        :content_type => self.content_type,
+        :path         => self.path,
+        :filesize     => File.size(full_filepath)
+      )
+    end
+  end
+  
+  def generate_file_asset_for_format(format)
+    full_path = full_path_for_format(format)
+    if File.exists?(full_path)
+      exists = self.file_assets.find_by_format(format)
+      FileAsset.create(        
+        :parent_id    => self.id,
+        :parent_type  => file_type,
+        :user_id      => self.author_id,
+        :format       => format,
+        :content_type => Video.content_type_for_format(format),
+        :path         => path_for_format(format),
+        :filesize     => File.size(full_path)
+      ) unless exists
+    end
+  end
+  
+  def generate_file_assets
+    if self.file_assets.empty?
+      generate_file_asset_for_original
+      all_possible_formats.each { |fmt| generate_file_asset_for_format fmt }
+      generate_file_asset_for_thumbnail
+    end
+  end
+  
+  def thumbnail_file_asset
+    self.file_assets.find_by_role :thumbnail
+  end  
+    
   def is_zip?    
     path.end_with? '.zip'    
   end    
@@ -332,7 +416,7 @@ class Video < ActiveRecord::Base
   
   def thumbnail_path
     File.join base_dir, self.thumbnail
-  end
+  end    
   
   def rename_thumbnail
     thumbnail_path =~ /([^.]+)$/
@@ -349,13 +433,25 @@ class Video < ActiveRecord::Base
       File.unlink(thumbnail_path) if File.exists?(thumbnail_path)
     end
   end
+  
+  def usage        
+     file_assets.inject(0) { |sum, asset| sum + asset.filesize }
+  end    
+  
+  def all_possible_formats
+    [:flv, :m4v, :avi, :mpg, :swf, :mov]
+  end
     
   def delete_files
-    delete_file
-    [:flv, :m4v, :avi, :mpg, :swf, :mov].each do |format|        
-      full_path = full_path_for_format(format)
-      File.unlink(full_path) if File.exists?(full_path)
-    end
+    if self.file_assets.empty?    
+      delete_file
+      all_possible_formats.each do |format|        
+        full_path = full_path_for_format(format)
+        File.unlink(full_path) if File.exists?(full_path)
+      end      
+    else      
+      file_assets.destroy_all    
+    end 
   end
   
   def type_from_content_type(content_type)
