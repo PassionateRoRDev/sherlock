@@ -62,6 +62,10 @@ class Report
   def generate_pdf   
     
     report_pdf_path = reports_output_path
+    
+    # disable report caching:
+    #File.unlink report_pdf_path if File.exists?(report_pdf_path)
+    
     unless File.exists? report_pdf_path
     
       options = {
