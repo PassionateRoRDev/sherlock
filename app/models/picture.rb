@@ -23,8 +23,8 @@ class Picture < ActiveRecord::Base
   before_save :update_dims, :if => :has_uploaded_file?
   
   before_destroy :delete_files  
-  after_save :invalidate_report
   
+  after_save :invalidate_report  
   after_save :generate_file_assets, :if => :has_uploaded_file?
   
   def self.generate(block)
@@ -33,12 +33,7 @@ class Picture < ActiveRecord::Base
       p.unique_code = generate_unique_code
     end        
   end
-  
-  # sum filesize of all the file assets
-  def usage        
-     file_assets.inject(0) { |sum, asset| sum + asset.filesize }
-  end
-        
+          
   def generate_file_assets
     if self.file_assets.empty?
       generate_main_asset
@@ -52,15 +47,7 @@ class Picture < ActiveRecord::Base
   #
   #def path
   #  main_file_asset.path
-  #end
-  
-  def main_file_asset
-    self.file_assets.find_by_role :main
-  end
-  
-  def backup_file_asset
-    self.file_assets.find_by_role :bak
-  end
+  #end    
   
   def online_dims
     
@@ -166,8 +153,6 @@ class Picture < ActiveRecord::Base
       delete_file
       remove_backup
       remove_original_file   
-    else
-      file_assets.destroy_all
     end
   end
 

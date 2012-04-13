@@ -27,6 +27,18 @@ module PictureAsset
     [dims.width.to_i, dims.height.to_i]
   end
   
+  def main_file_asset
+    self.file_assets.find_by_role :main
+  end
+  
+  def backup_file_asset
+    self.file_assets.find_by_role :bak
+  end
+  def orig_file_asset
+    self.file_assets.find_by_role :orig
+  end
+  
+  
   def is_simple_image?(bytes)
     dims = dimensions_for_bytes(bytes)
     (dims[0] > 0) && (dims[1] > 0)    
@@ -66,6 +78,11 @@ module PictureAsset
     File.open(orig_path, 'wb') { |f| f.write(bytes) }
   end
   
+  # sum filesize of all the file assets
+  def usage        
+     file_assets.inject(0) { |sum, asset| sum + asset.filesize }
+  end  
+  
   def generate_main_asset
     FileAsset.create(        
         :parent_id    => self.id,
@@ -83,6 +100,7 @@ module PictureAsset
         :parent_id    => self.id,
         :parent_type  => file_type,
         :user_id      => self.author_id,
+        :content_type => @original_content_type,
         :role         => :orig,
         :path         => path_for_suffix(:orig),
         :filesize     => File.size(orig_path)
@@ -107,6 +125,8 @@ module PictureAsset
     
     effective_filename = uploaded_file.original_filename      
     content_type       = uploaded_file.content_type     
+    
+    @original_content_type = content_type
     
     # remove old files if it's an update (of the image)
     self.delete_files if persisted?

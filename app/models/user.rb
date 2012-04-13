@@ -56,8 +56,16 @@ class User < ActiveRecord::Base
     result.empty? ? self.email : result
   end
   
-  def space_usage    
+  def cases_usage
     cases.empty? ? 0 : cases.map(&:usage).reduce(:+)
+  end
+  
+  def logos_usage
+    logos.empty? ? 0 : logos.map(&:usage).reduce(:+)    
+  end
+  
+  def space_usage    
+    cases_usage + logos_usage
   end
   
   def cases

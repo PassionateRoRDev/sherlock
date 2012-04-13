@@ -19,7 +19,7 @@ class FileAsset < ActiveRecord::Base
   #
   # TODO: expand to S3
   #
-  def delete_file   
+  def delete_file    
     File.delete(full_filepath) if File.exists?(full_filepath)
   end
   

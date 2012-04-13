@@ -105,17 +105,26 @@ describe Picture do
       @original_file_path = fixture_file_path(filename)
       data = {
         :filepath           => @original_file_path,
-        :content_type       => 'application/postscript',
+        :content_type       => 'image/bmp',
         :original_filename  => filename        
       }
       @upload = Uploader.new(data)
       @picture = Picture.new(:title => 'Test picture', :uploaded_file  => @upload)
       @picture.block = Factory(:block)
       @picture.save
+      @picture.reload
     end
     
     it "should save the image with PNG suffix" do            
       @picture.path.end_with?('sample_image1.png').should be_true            
+    end
+    
+    it "should save orig file_asset with original content type" do
+      @picture.orig_file_asset.content_type.should == 'image/bmp'
+    end
+    
+    it "should calculate the total space usage properly" do            
+      @picture.usage.should == @picture.main_file_asset.filesize + @picture.orig_file_asset.filesize            
     end
     
     it "should save the copy with .orig suffix" do
@@ -247,6 +256,11 @@ describe Picture do
     it "should remove its file when it gets deleted" do
       @picture.destroy
       File.exists?(@picture.full_filepath).should be_false
+    end
+    
+    it "should remove its file_asset record when it gets deleted" do
+      @picture.destroy      
+      FileAsset.find_all_by_parent_id(@picture.id).count.should == 0
     end
     
     it "should remove its backup file when it gets deleted" do

@@ -18,6 +18,7 @@ class Logo < ActiveRecord::Base
   before_save :update_dims, :if => :has_uploaded_file?
   
   after_save :invalidate_reports
+  after_save :generate_file_assets, :if => :has_uploaded_file?
   
   before_destroy :delete_files
   before_destroy :invalidate_reports
@@ -40,12 +41,21 @@ class Logo < ActiveRecord::Base
     the_dims == [0, 0] ? max_height : (the_dims[1] > max_height ? max_height : the_dims[1])
   end  
   
-  def delete_files
-    delete_file
-    remove_original_file   
-  end  
+  def delete_files   
+    if self.file_assets.empty?
+      delete_file
+      remove_original_file
+    end
+  end      
   
   private
+  
+  def generate_file_assets        
+    if self.file_assets.empty?
+      generate_main_asset      
+      generate_orig_asset if File.exists?(orig_path)     
+    end
+  end
     
   def invalidate_reports    
     Report.invalidate_for_user(self.letterhead.user_id) if self.letterhead        

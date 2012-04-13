@@ -27,6 +27,14 @@ describe Logo do
       Dimensions.dimensions(@logo.full_filepath).should == original            
     end
     
+    it "store width and height in the record" do
+      [@logo.width, @logo.height].should == Dimensions.dimensions(@filepath)
+    end
+   
+    it "create one file_asset" do
+      @logo.file_assets.count.should == 1
+    end
+        
   end
   
   context "for the uploaded file in EPS format it should" do
@@ -48,11 +56,30 @@ describe Logo do
       Dimensions.dimensions(@logo.full_filepath)[1].should == 350
     end
     
+    it "create 2 file_asset records" do
+      @logo.file_assets.count.should == 2
+    end
+    
+    it "save original content_type in the orig file_asset" do
+      @logo.orig_file_asset.content_type.should == 'application/postscript'
+    end
+    
+    it "store the dims in the record" do
+      [@logo.width, @logo.height].should == Dimensions.dimensions(@logo.full_filepath)
+    end
+    
     it "delete the .orig file when logo is removed" do
       orig_path = @logo.orig_path
       @logo.destroy
       File.exists?(orig_path).should be_false
     end
+
+# Can't make this test working somehow    
+#    it "delete file_assets when logo is removed" do
+#      parent_id = @logo.id
+#      @logo.destroy      
+#      FileAsset.where(:parent_id => parent_id).count.should == 0      
+#    end
     
   end
   
