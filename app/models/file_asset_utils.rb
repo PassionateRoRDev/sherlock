@@ -12,7 +12,7 @@ module FileAssetUtils
   
   def base_dir
     mount_point + "#{author_id}/#{file_type}"
-  end  
+  end
   
   def filepath_for_filename(filename)
     File.join base_dir, filename    
@@ -30,6 +30,14 @@ module FileAssetUtils
     filepath_for_filename path_for_suffix(suffix)    
   end
   
+  def recover_original_filename
+    original_filename_from_path self.path
+  end
+  
+  def original_filename_from_path(p)
+    p.sub(/\A[a-z0-9]{32}-/, '')
+  end
+  
   def file_size(path = nil)
     path = full_filepath if path.nil?
     File.exists?(path) ? File.size(path) : 0
@@ -44,6 +52,9 @@ module FileAssetUtils
     "#{Rails.root}/" + APP_CONFIG['files_path']
   end
             
+  #
+  # TODO: use 'original_filename_from_path' instead of 'sub'
+  #
   def generate_new_filename(original_filename)
     s = Time.now.to_i.to_s + rand(999).to_s
     hash = Digest::MD5.hexdigest(s)    

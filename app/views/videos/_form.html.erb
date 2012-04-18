@@ -1,11 +1,14 @@
 
+<div id="video-form">
+
 <%= render 'shared/form_errors', :errors => @video.errors %>
 
 <%= form_for([@case, @video], 
     :html => { :enctype => 'multipart/form-data' }) do |f| %>
 
-<input type="hidden" name="insert_before_id" 
-       value="<%= @insert_before_id %>"/>
+<input type="hidden" name="insert_before_id" value="<%= @insert_before_id %>"/>
+
+<input type="hidden" name="via_tmp" value="0"/>
 
 <div class="field">      
   <%= f.label :title, 'Title :' %>
@@ -47,23 +50,34 @@
     
 <% end %>
 
-  <div>
+  <div class="field">
     <label for="upload_video">Select Video :</label>
     
+    <% if false %>
     <span class="btn2 fileinput-button">
       <%= file_field 'upload', 'video', 
           :title => 'Select video file to be uploaded' %>                      
           <span>Browse...</span>
     </span>
+    <% end %>
     
-    <strong>OR&nbsp;&nbsp;</strong>
-    <button id="btn-screen-capture"
-            style="padding-left:10px;"
-            type="button" class="button2 button2-wide">
-        <div>
-          Record Screencast
-        </div>
-    </button>    
+    <div style="float:left;margin-right: 1em;">
+      <%= file_field 'upload', 'video', :title => 'Select video file to be uploaded' %>      
+    </div>
+    
+    <div style="float:left;">
+    
+      <strong>OR&nbsp;&nbsp;</strong>
+      <button id="btn-screen-capture"
+              style="padding-left:10px;"
+              type="button" class="button2 button2-wide">
+          <div>
+            Record Screencast
+          </div>
+      </button>
+    
+    </div>
+    
   </div>      
     
   <%= render 'shared/java_detect', 
@@ -155,67 +169,17 @@
 
 <% end %>
 
-<script type="text/javascript">  
+</div>
   
-  $('form#new_video').submit(function() {
-    SHERLOCK.utils.showAjaxLoading();    
-    return true;
-  });  
-  
-  $('#btn-thumbnail-change').click(function(e) {
-    $('#block-thumbnail-change-wrapper').show();
-    $('#link-thumbnail-keep').parent().removeClass('hidden');
-    $('input[name=keep_thumbnail]').val('0');
-    return false;
-  });
-  
-  $('#link-thumbnail-keep').click(function(e) {
-    $('#block-thumbnail-change-wrapper').hide();    
-    $('input[name=keep_thumbnail]').val('1');
-    $('#link-thumbnail-keep').parent().addClass('hidden');
-    return false;
-  });
-  
-  $('#video_thumbnail_method_auto').change(function(e) {
-    var autoSpan = $('span', '#block-thumbnail-method-auto');
-    var manualDiv = $('div', '#block-thumbnail-method-manual');
-    if (!this.selected) {
-      autoSpan.removeClass('hidden');
-      manualDiv.addClass('hidden');
-    } else {
-      autoSpan.addClass('hidden');
-      manualDiv.removeClass('hidden');
+<script type="text/javascript">    
+  var settings = {  
+    token: '<%= form_authenticity_token %>',
+    cookie: '<%= @cookie %>',
+    paths: {
+      tmp_new:    '<%= new_temp_video_path %>',
+      tmp_check:  '<%= check_temp_video_path %>'      
     }
-  });
-  $('#video_thumbnail_method_manual').change(function(e) {
-    var autoSpan = $('span', '#block-thumbnail-method-auto');
-    var manualDiv = $('div', '#block-thumbnail-method-manual');    
-    if (this.selected) {
-      autoSpan.removeClass('hidden');
-      manualDiv.addClass('hidden');
-    } else {
-      autoSpan.addClass('hidden');
-      manualDiv.removeClass('hidden');
-    }
-  });
-  
-  $('#video-change-block a').click(function(e) {
-      $('#video-field-wrapper').hide();
-      $('#video-change-block a').css('visibility', 'hidden');
-      return false;
-  });
-  $('#btn-video-change').click(function(e) {
-      $('#video-field-wrapper').show();
-      $('#video-change-block a').css('visibility', 'visible');
-  });
-  $('#thumbnail-change-block a').click(function(e) {
-      $('#thumbnail-field-wrapper').hide();
-      $('#thumbnail-change-block a').css('visibility', 'hidden');
-      return false;
-  });  
-  $('#btn-thumbnail-change').click(function(e) {
-    $('#thumbnail-field-wrapper').show();
-    $('#thumbnail-change-block a').css('visibility', 'visible');
-  });
+  };        
+  SHERLOCK.videos.initEditForm(settings);  
   
 </script>

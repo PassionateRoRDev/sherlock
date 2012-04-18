@@ -14,6 +14,8 @@ gem 'json'
 gem 'rails_admin', :git => 'git://github.com/sferik/rails_admin.git'
 gem 'valuable'
 
+gem 'flash_cookie_session'
+
 gem 'rmagick'
 
 gem 'raspell'

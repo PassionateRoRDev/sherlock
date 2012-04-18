@@ -4,6 +4,14 @@ class FileAsset < ActiveRecord::Base
   
   before_destroy :delete_file
   
+  def uploaded_resource
+    UploaderFromResource.new(
+      :content_type       => self.content_type,
+      :original_filename  => recover_original_filename,
+      :filepath           => full_filepath
+    )    
+  end
+  
   private
   
   # override from FileAssetUtils  

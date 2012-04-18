@@ -11,6 +11,8 @@ Sherlock::Application.routes.draw do
   resources :clients
   resources :folders
   
+  resources :file_assets  
+  
   resources :cases do
     resources :html_details
     resources :pictures
@@ -29,6 +31,9 @@ Sherlock::Application.routes.draw do
   
   match 'spellcheck/lookup' => 'spellcheck#lookup', 
         :as => :spellcheck, :via => [:get, :post]
+  
+  post  'temp_videos/exists'  => 'temp_videos#exists', :as => :check_temp_video
+  put   'temp_videos'         => 'temp_videos#create', :as => :new_temp_video
   
   get 'dashboard' => 'home#dashboard',  :as => :dashboard
   

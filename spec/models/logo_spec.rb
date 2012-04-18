@@ -74,8 +74,7 @@ describe Logo do
       File.exists?(orig_path).should be_false
     end
     
-    it "delete file_assets when logo is removed" do
-      parent_id = @logo.id
+    it "delete file_assets when logo is removed" do      
       @logo.destroy
       @logo.file_assets.should be_empty            
     end

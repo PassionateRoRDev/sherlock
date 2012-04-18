@@ -487,6 +487,7 @@ label, .boxtxt {
 
 input.button, 
 button.button, 
+div.button2,
 input.button2,
 button.button2 {
     cursor: pointer;
@@ -498,6 +499,7 @@ button.button2 {
     color: #fff;
 }
 
+div.button2,
 button.button2,
 input.button2 {
     color: #000;
@@ -551,6 +553,7 @@ a.button:hover {
 
 input.button-150:hover,
 button.button-150:hover,
+div.button2:hover,
 button.button2:hover,
 input.button2:hover,
 span.btn2:hover {
@@ -581,6 +584,7 @@ a.button-wide {
     background-image:url(btn_218.png);
 }
 
+div.button2-wide,
 button.button2-wide,
 input.button2-wide {
   color: #000;
@@ -869,4 +873,26 @@ ul.ordinary {
 ul.ordinary li {
   list-style: disc;
   margin-left:1em;
+}
+
+/*
+div.uploadify {
+  margin-left: 130px;
+}
+*/
+
+.uploadify .uploadifyButton {
+  height: 30px;
+  line-height: 30px;
+  padding: 0;
+}
+
+.uploadifyQueue {
+  /*
+  margin-left: 125px;   
+  background-color: #cfcfcf;
+  */
+  margin-top: 5px;
+  height: 50px;
+  width: 218px;
 }
