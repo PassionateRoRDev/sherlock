@@ -13,6 +13,7 @@ gem 'fastercsv'
 gem 'json'
 gem 'rails_admin', :git => 'git://github.com/sferik/rails_admin.git'
 gem 'valuable'
+gem 'km'
 
 gem 'flash_cookie_session'
 

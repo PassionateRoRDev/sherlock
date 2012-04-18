@@ -118,6 +118,7 @@ GEM
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
       railties (>= 3.0.0)
+    km (1.1.1)
     libv8 (3.3.10.4)
     mail (2.4.4)
       i18n (>= 0.4.0)
@@ -223,6 +224,7 @@ DEPENDENCIES
   flash_cookie_session
   jquery-rails
   json
+  km
   mysql2
   rails (= 3.2.2)
   rails_admin!
