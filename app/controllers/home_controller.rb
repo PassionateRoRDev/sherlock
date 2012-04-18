@@ -5,16 +5,22 @@ class HomeController < ApplicationController
   
   def index    
     @title = 'SherlockDocs'
-    render 'index', :layout => 'public'
+    render :layout => 'public'
   end
   
   def tour
-    render 'tour', :layout => 'public'
+    @title = 'Tour'
+    render :layout => 'public'
   end
   
   def help
     @title = 'Help & Support'
-    render 'help', :layout => 'public'
+    render :layout => 'public'
+  end
+  
+  def contact
+    @title = 'Contact'
+    render :layout => 'public'
   end
   
   def customers

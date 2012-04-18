@@ -15,7 +15,14 @@
   </div>
 
   <div class="actions">
-    <%= f.submit "Send reset password instructions", 
+    <%= f.submit "Send reset instructions", 
         :class => 'button button-wide' %>
   </div>
+  
+  <script type="text/javascript">
+    $(function() {
+      $('#user_email').focus();
+    });
+  </script>
+  
 <% end %>
