@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
   protected
     
   def after_sign_in_path_for(resource)
-    KM.identify(current_user.id.to_s)
+    KM.init_and_identify(current_user.id)    
     KM.record('signin')
     dashboard_path
   end
