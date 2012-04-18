@@ -13,6 +13,7 @@ class HomeController < ApplicationController
   end
   
   def help
+    @title = 'Help & Support'
     render 'help', :layout => 'public'
   end
   

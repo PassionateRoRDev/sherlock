@@ -63,9 +63,8 @@ filter: progid:DXImageTransform.Microsoft.Alpha(opacity=80);
 	color:#80ae30;
 }
 .navi2 {
-	float:right;
-        text-align: right;
-        height:58px;
+	float:right;	
+	height:58px;
 	color:#9b9e9e;
 	line-height:58px;
 }
@@ -81,6 +80,11 @@ filter: progid:DXImageTransform.Microsoft.Alpha(opacity=80);
 	width:100%;
 	height:631px;
 	background:url(../images/bg.jpg) repeat-x;
+}
+.pricing {
+	margin:auto;
+	width:100%;
+	height:auto;
 }
 #landing {
 	width:100%;
@@ -180,24 +184,58 @@ filter: progid:DXImageTransform.Microsoft.Alpha(opacity=80);
 	color:#2d2d2d;
 	line-height:40px;
 	text-align:center;
-	padding:34px 0;
+	padding:18px 0;
+}
+.pricing-txt1 {
+	margin:auto;
+	width:850px;
+	height:auto;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size:14px;
+	color:#2d2d2d;
+	text-align:center;
+	padding:10px 0 12px 250px;
+	color:#c72f29;
+}
+.pricing-txt2 {
+	margin:auto;
+	width:1000px;
+	height:auto;
+	font-family: "Bookman Old Style";
+	font-size:27px;
+	color:#2d2d2d;
+	line-height:40px;
+	text-align:center;
+	padding:0 0 24px 0;
+}
+.pricing-txt3 {
+	margin:auto;
+	width:885px;
+	height:auto;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size:14px;
+	font-weight:bold;
+	color:#2d2d2d;
+	text-align:center;
+	padding:0 0 10px 215px;
+	color:#04515b;
 }
 .plans {
 	margin:auto;
-	width:1000px;
-	height:335px;
+	width:100%;
+	height:auto;
 }
 .plansbox {
-	float:left;
-	width:850px;
-	height:335px;
-	padding-left:150px;
+	margin:auto;
+	width:990px;
+	height:346px;
+	padding-left:10px;
 }
 .max-plan {
 	float:left;
 	width:225px;
 	height:305px;
-	background:url(https://s3.amazonaws.com/sherlockdocs.com/images/max-plan-bg.jpg) no-repeat;
+	background:url(../images/max-plan-bg.jpg) no-repeat;
 	margin-top:15px;
 	text-align:center;
 }
@@ -212,7 +250,7 @@ filter: progid:DXImageTransform.Microsoft.Alpha(opacity=80);
 	float:left;
 	width:251px;
 	height:335px;
-	background:url(https://s3.amazonaws.com/sherlockdocs.com/images/premium-bg.jpg) no-repeat;
+	background:url(../images/premium-bg.jpg) no-repeat;
 	text-align:center;
 }
 .premium-plan p {
@@ -226,7 +264,7 @@ filter: progid:DXImageTransform.Microsoft.Alpha(opacity=80);
 	float:left;
 	width:223px;
 	height:305px;
-	background:url(https://s3.amazonaws.com/sherlockdocs.com/images/basic-bg.jpg) no-repeat;
+	background:url(../images/basic-bg.jpg) no-repeat;
 	margin-top:15px;
 	text-align:center;
 }
@@ -237,22 +275,11 @@ filter: progid:DXImageTransform.Microsoft.Alpha(opacity=80);
 	font-size:27px;
 	padding-top:13px;
 }
-.pricing-txt2 {
-	margin:auto;
-	width:1000px;
-	height:auto;
-	font-family: "Bookman Old Style";
-	font-size:27px;
-	color:#2d2d2d;
-	line-height:40px;
-	text-align:center;
-	padding:34px 0;
-}
-#midbox {
+/*#midbox {
 	width:100%;
 	height:106px;
 	background:url(../images/mid-bg.jpg) repeat-x;
-}
+}*/
 .midbox {
 	margin:auto;
 	width:1000px;
@@ -285,16 +312,6 @@ filter: progid:DXImageTransform.Microsoft.Alpha(opacity=80);
 .txt:hover {
 	text-decoration:none;
 }
-
-#link-signup-big {
-  color: #64881e; 
-  font-size: 33px;
-}
-
-#link-signup-big:hover {
-  text-decoration: none;
-}
-
 .inbox {
 	float:left;
 	width:1000px;
@@ -313,7 +330,6 @@ filter: progid:DXImageTransform.Microsoft.Alpha(opacity=80);
 	background-color:#f0eeee;
 	padding:33px;
 }
-
 .sub-box {
 	float:left;
 	width:438px;
@@ -322,7 +338,6 @@ filter: progid:DXImageTransform.Microsoft.Alpha(opacity=80);
 	font-size:14px;
 	line-height:21px;
 }
-
 .bottomtxt {
 	float:left;
 	width:1000px;
@@ -432,6 +447,7 @@ filter: progid:DXImageTransform.Microsoft.Alpha(opacity=80);
 .atxt:hover {
 	text-decoration:none;
 }
+
 .copyright {
 	float:left;
 	width:1000px;
@@ -441,8 +457,138 @@ filter: progid:DXImageTransform.Microsoft.Alpha(opacity=80);
 	text-align:center;
 }
 
-.how-it-works-body h4 {
-  font-weight: normal;
-  font-size: 100%;
-  color: #06758d;
+.inbox-body-new {
+	float:left;
+	width:900px;
+	height:auto;
+	padding-left:50px;
+}
+.q-a-heading {
+	float:left;
+	width:840px;
+	height:auto;
+	line-height:22px;
+	font-family:"Candara";
+	font-size:25px;
+	padding:40px 30px;
+	color:#e75c0d;
+	text-align:center;
+}
+.question-part {
+	float:left;
+	width:858px;
+	height:50px;
+        
+	line-height:50px;
+	background-color:#e3e3e3;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:20px;
+	
+        margin-top: 1em;
+        padding:0 20px;        
+	
+        border:1px solid #d6d6d6;
+}
+.answer-part {
+	float:left;
+	width:840px;
+	height:auto;
+	line-height:22px;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:17px;
+	padding:10px 30px;
+	color:#333;
+}
+.plan-one {
+	float:left;
+	width:240px;
+	height:auto;
+}
+.topbox {
+	float:left;
+	width:240px;
+	height:128px;
+	background:url(../images/plan-one-bg.png) no-repeat;
+	color:#FFF;
+	font-family:Arial, Helvetica, sans-serif;
+	text-align:center;
+}
+.topbox2 {
+	float:left;
+	width:240px;
+	height:128px;
+	background:url(../images/plan-two-bg.png) no-repeat;
+	color:#FFF;
+	font-family:Arial, Helvetica, sans-serif;
+	text-align:center;
+}
+.topbox-intro {
+	float:left;
+	width:240px;
+	height:128px;
+}
+.topbox-head {
+	float:left;
+	width:240px;
+	height:50px;
+	line-height:50px;
+	font-size:20px;
+	text-transform:uppercase;
+}
+.topbox-txt {
+	float:left;
+	width:240px;
+	height:53px;
+	color:#333;
+	padding-top:25px;
+}
+.topbox-txt2 {
+	float:left;
+	width:240px;
+	height:53px;
+	color:#333;
+	text-align:center;
+	font-size:20px;
+	padding-top:25px;
+	border-bottom:1px solid #d9d9d9;
+}
+.box-in {
+	float:left;
+	width:239px;
+	height:25px;
+	line-height:25px;
+	border-left:1px solid #d9d9d9;
+	border-bottom:1px solid #d9d9d9;
+	text-align:center;
+	font-size:14px;
+	color:#333333;
+}
+.box-in2 {
+	float:left;
+	width:238px;
+	height:25px;
+	line-height:25px;
+	border-left:1px solid #d9d9d9;
+	border-right:1px solid #d9d9d9;
+	border-bottom:1px solid #d9d9d9;
+	text-align:center;
+	font-size:14px;
+	color:#333333;
+}
+.box-intro {
+	float:left;
+	width:240px;
+	height:25px;
+	line-height:25px;
+	border-bottom:1px solid #d9d9d9;
+	text-align:center;
+	font-size:14px;
+	color:#333333;
+}
+.choose-plan {
+	float:left;
+	width:240px;
+	height:auto;
+	padding-top:15px;
+	text-align:center;
 }
