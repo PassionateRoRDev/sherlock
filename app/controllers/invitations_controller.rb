@@ -9,6 +9,10 @@ class InvitationsController < ApplicationController
     
     @invitation = Invitation.new(:case_id => @case.id)    
   end
+  
+  def index
+    redirect_to clients_path
+  end
 
   def create
     

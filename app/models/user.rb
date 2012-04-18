@@ -28,7 +28,7 @@ class User < ActiveRecord::Base
   
   has_many :notes, :through => :authored_cases
   
-  has_one :user_address
+  has_one :user_address, :dependent => :destroy
 
   accepts_nested_attributes_for :user_address
   

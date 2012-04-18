@@ -2,6 +2,13 @@ class SessionsController < Devise::SessionsController
   
   def destroy
     if current_user
+      
+      Event.create( 
+        :event_type => 'signout',
+        :detail_i1  => current_user.id,
+        :user_id    => current_user.id
+      )
+      
       Kissmetrics.init_and_identify(current_user.id)      
       KM.record('Signed Out')
     end

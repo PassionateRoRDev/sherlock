@@ -59,7 +59,12 @@ class Invitation < Valuable
   #
   # Return true as this call is part of the chained invocation
   #
-  def add_as_client
+  def add_as_client    
+    Event.create( 
+      :event_type => 'invitation',
+      :detail_i1  => guest.id,
+      :user_id    => self.case.author.id
+    )    
     self.case.author.add_client(guest) || true
   end
 

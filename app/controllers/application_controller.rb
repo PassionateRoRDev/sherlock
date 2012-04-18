@@ -16,20 +16,17 @@ class ApplicationController < ActionController::Base
   protected
     
   def after_sign_in_path_for(resource)
-    if current_user
+    if current_user      
+      Event.create( 
+        :event_type => 'signin',      
+        :detail_i1  => current_user.id,
+        :user_id    => current_user.id
+      )      
       Kissmetrics.init_and_identify(current_user.id)    
       KM.record('Signed In')
     end
     dashboard_path
-  end
-  
-  def after_sign_up_path_for(resource)
-    if current_user
-      Kissmetrics.init_and_identify(current_user.id)    
-      KM.record('Signed Up')
-    end
-    dashboard_path    
-  end
+  end    
   
   def resolve_case_using_param(param)
     if current_user.admin
