@@ -2,9 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <title><%= @title %></title>
-  <link href="/public/css/main.css" rel="stylesheet" type="text/css" />  
+  <title><%= @title %></title>      
   <link rel="shortcut icon" href="/public/images/icon.jpg" type="image/x-icon" />
+  
+  <%= yield :head %>
+  
   <script src="/assets/jquery.js?body=1" type="text/javascript"></script>
   <script src="/assets/jquery_ujs.js?body=1" type="text/javascript"></script>
 </head>
@@ -17,7 +19,7 @@
     
     <%= yield  %>
     
-    <%= render 'footer' %>
+    <%= yield :footer %>        
     
   </body>
 </html>
