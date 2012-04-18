@@ -9,14 +9,19 @@ SHERLOCK.videos.initEditForm = function(settings) {
   var utf8_val = $('input[name=utf8]', form).val();
       
   form.submit(function() {
-    // if client-side (or AJAX-based) validation true
-    var queueLength = $('#upload_video_queue .uploadifyQueueItem').length;
-    if (!queueLength) {
-      alert('Please select a file to upload');            
-    } else {        
-      $('#upload_video').uploadifyUpload('*');
-    }                
-    return false;            
+    var result = false;
+    if (! this._uploading) {
+      // if client-side (or AJAX-based) validation true
+      var queueLength = $('#upload_video_queue .uploadifyQueueItem').length;
+      if (!queueLength) {
+        alert('Please select a file to upload');            
+      } else {        
+        this._uploading = true;
+        $(this).find('input[type=submit]').val('Saving...');
+        $('#upload_video').uploadifyUpload('*');
+      }                
+    }
+    return result;
   });  
   
   $('#btn-thumbnail-change').click(function(e) {
