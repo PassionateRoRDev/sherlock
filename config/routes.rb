@@ -25,6 +25,11 @@ Sherlock::Application.routes.draw do
     resources :notes
   end
   
+  scope '/chargify' do
+    get 'subscriptions/new' => 'chargify/subscriptions#new'
+  end
+  
+  
   post 'folders/:id/move_case'      => 'folders#move_case'
   post 'folders/:id/move_out_case'  => 'folders#move_out_case'
     

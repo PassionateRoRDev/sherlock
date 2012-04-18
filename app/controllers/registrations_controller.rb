@@ -1,9 +1,12 @@
 class RegistrationsController < Devise::RegistrationsController
 
   def new    
-    resource = build_resource(params)    
-    resource.init_address if resource.respond_to?(:init_address)        
-    respond_with resource    
+    
+    return redirect_to pricing_path
+    
+    #resource = build_resource(params)    
+    #resource.init_address if resource.respond_to?(:init_address)        
+    #respond_with resource    
   end
   
   protected

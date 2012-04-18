@@ -44,6 +44,13 @@ class HomeController < ApplicationController
   
   def pricing
     @title = 'Plans and Pricing'
+    
+    url_base = 'https://sherlockdocs.chargify.com/'
+    
+    @url_plan1 = url_base + 'h/285859/subscriptions/new'
+    @url_plan2 = url_base + 'h/286025/subscriptions/new'
+    @url_plan3 = url_base + 'h/286061/subscriptions/new'
+    
     render 'pricing', :layout => 'public'
   end
 
