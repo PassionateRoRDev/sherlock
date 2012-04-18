@@ -8,11 +8,7 @@ class RegistrationsController < Devise::RegistrationsController
   
   protected
   
-  def build_resource(hash=nil)
-    
-    Rails::logger.debug("PARAMS:")
-    Rails::logger.debug(params)
-    
+  def build_resource(hash=nil)        
     hash ||= params[resource_name] || {}
     self.resource = resource_class.new_with_session(hash, session)
   end
