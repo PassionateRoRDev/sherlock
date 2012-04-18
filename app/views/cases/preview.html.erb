@@ -121,5 +121,11 @@
 
   </div>
 
+  <script type="text/javascript">
+  _kmq.push(['record', 'viewed case preview', 
+            {'case_id': <%= @case.id %>, 
+              'case_title': '<%= escape_javascript @case.title %>' }]);  
+  </script>
+  
 </body>
 </html>

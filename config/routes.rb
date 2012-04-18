@@ -1,7 +1,8 @@
 Sherlock::Application.routes.draw do
   
   devise_for :users, :controllers => {
-    :registrations => 'registrations'
+    :sessions       => 'sessions',
+    :registrations  => 'registrations'
   }
   
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'

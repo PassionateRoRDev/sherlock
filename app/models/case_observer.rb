@@ -9,7 +9,9 @@ class CaseObserver < ActiveRecord::Observer
       :event_subtype => 'case',
       :detail_i1 => model.id,
       :user_id    => model.author_id
-    )         
+    )
+    KM.identify(model.author_id)
+    KM.record('created case', :case_id => model.id, :case_title => model.title )
   end
   
   def after_destroy(model)
@@ -20,6 +22,8 @@ class CaseObserver < ActiveRecord::Observer
       :detail_i1 => model.id,
       :user_id    => model.author_id
     )
+    KM.identify(model.author_id)
+    KM.record('deleted case', :case_id => model.id, :case_title => model.title )
   end  
 
 end

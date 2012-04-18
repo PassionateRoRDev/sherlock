@@ -10,7 +10,7 @@ class NotesController < ApplicationController
   # GET /notes.json
   
   def index
-    @notes = Note.order('id DESC')
+    @notes = @case.notes.order('id DESC')
   
     respond_to do |format|
       format.html # index.html.erb
@@ -53,6 +53,9 @@ class NotesController < ApplicationController
     
     respond_to do |format|
       if @note.save
+        
+        KM.identify(current_user.id)
+        KM.record('created note', :case_id => @case.id)
         
         @notes_count = @note.case.notes.count
         
