@@ -37,7 +37,7 @@ class HomeController < ApplicationController
   # Disable public pages for now for the production environment
   #
   def check_public_section
-    redirect_to dashboard_path if Rails.env == 'production' || action_name == 'index'
+    redirect_to dashboard_path if (Rails.env == 'production' && action_name == 'index')
   end
   
 end
