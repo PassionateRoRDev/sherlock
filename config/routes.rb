@@ -45,6 +45,8 @@ Sherlock::Application.routes.draw do
   get 'help'      => 'home#help',       :as => :help
   get 'customers' => 'home#customers',  :as => :customers
   get 'contact'   => 'home#contact',    :as => :contact
+  get 'tos'       => 'home#tos',        :as => :tos
+  get 'privacy'   => 'home#privacy',    :as => :privacy
   
   resources :blocks
   

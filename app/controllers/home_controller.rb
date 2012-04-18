@@ -8,6 +8,16 @@ class HomeController < ApplicationController
     render :layout => 'public'
   end
   
+  def tos
+    @title = "Terms of Service"
+    render :layout => 'public'
+  end
+  
+  def privacy
+    @title = "Privacy Policy"
+    render :layout => 'public'
+  end
+  
   def tour
     @title = 'Tour'
     render :layout => 'public'
