@@ -34,6 +34,28 @@ class User < ActiveRecord::Base
 
   accepts_nested_attributes_for :user_address
   
+  RANDOM_PASSWORD_LENGTH = 10
+  
+  def self.create_from_chargify_subscription(subscription)      
+      
+      customer = subscription.customer
+      password = generate_random_password RANDOM_PASSWORD_LENGTH
+      
+      user = User.find_or_create_by_email(
+        :email                  => customer.email,
+        :first_name             => customer.first_name,
+        :last_name              => customer.last_name,
+        :company_name           => customer.organization,
+        :password               => password, 
+        :password_confirmation  => password
+      )
+      
+      user.subscriptions << ::Subscription.create_from_chargify(subscription)    
+      
+      return user
+      
+  end
+  
   def find_case_by_id(case_id)
     authored_cases.find_by_id(case_id) || viewable_cases.find_by_id(case_id)
   end
