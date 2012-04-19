@@ -56,6 +56,11 @@ class User < ActiveRecord::Base
       
   end
   
+  def send_welcome_message    
+    presenter = SignupPresenter.new(self)
+    PostOffice.welcome(presenter).deliver
+  end
+  
   def find_case_by_id(case_id)
     authored_cases.find_by_id(case_id) || viewable_cases.find_by_id(case_id)
   end

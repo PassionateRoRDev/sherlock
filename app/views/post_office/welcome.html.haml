@@ -1,0 +1,23 @@
+!!! 5
+%html
+  %head
+    %meta{:content => 'text/html; charset=UTF-8', 'http-equiv' => 'Content-Type'}
+  %body
+    Dear 
+    =@recipient.first_name 
+    =@recipient.last_name
+    ,
+    %br
+    Welcome to SherlockDocs! You can start using your account and create reports at:
+    %br
+    %br
+    %a{:href => @url_main}Your SherlockDocs Dashboard
+    %br    
+    %br
+    Sincerely,
+    %br
+    SherlockDocs Team
+
+  
+
+

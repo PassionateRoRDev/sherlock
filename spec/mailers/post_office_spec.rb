@@ -2,6 +2,21 @@ require 'spec_helper'
 
 describe PostOffice do
   
+  context "For the welcome email" do
+    
+    before do    
+      user = Factory(:user)
+      @presenter = SignupPresenter.new(user)
+    end
+        
+    it "should contain first name and last name in the greeting" do
+      email = PostOffice.welcome(@presenter).deliver
+      #pp email.parts[0].body
+      #pp email.parts[1].body      
+    end
+    
+  end
+  
   context "For the 1st time invitation email" do
   
     before do
