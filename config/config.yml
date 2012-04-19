@@ -1,5 +1,8 @@
 application:
   sender: SherlockDocs <invitation@sherlockdocs.com>
+  chargify:
+    subdomain: sherlockdocs
+    api_key: dBT3aLoe-aITP9hckTPV
 
 development:    
   files_path: files/

@@ -15,6 +15,8 @@ gem 'rails_admin', :git => 'git://github.com/sferik/rails_admin.git'
 gem 'valuable'
 gem 'km'
 
+gem 'chargify_api_ares'
+
 gem 'flash_cookie_session'
 
 gem 'rmagick'

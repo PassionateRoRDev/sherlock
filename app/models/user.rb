@@ -18,6 +18,8 @@ class User < ActiveRecord::Base
   has_many :clients, :through => :user_clients
   
   has_many :folders
+  
+  has_many :subscriptions
     
   has_many :blocks, :through => :authored_cases
   has_many :pictures, :through => :blocks
@@ -66,6 +68,10 @@ class User < ActiveRecord::Base
   
   def space_usage    
     cases_usage + logos_usage
+  end
+  
+  def self.generate_random_password(len)
+    (0...len).map{ ('a'..'z').to_a[rand(26)] }.join
   end
   
   def cases
