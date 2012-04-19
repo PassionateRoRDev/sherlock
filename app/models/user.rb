@@ -11,6 +11,8 @@ class User < ActiveRecord::Base
                   :user_address_attributes,
                   :skip_invitation
  
+  attr_accessor :password_plain
+  
   has_many :authored_cases, :class_name => 'Case', :foreign_key => 'author_id' 
   has_and_belongs_to_many :viewable_cases, :join_table => 'viewers', :foreign_key => 'viewer_id', :association_foreign_key => 'case_id', :class_name => 'Case'
   
@@ -51,12 +53,13 @@ class User < ActiveRecord::Base
       )
       
       user.subscriptions << ::Subscription.create_from_chargify(subscription)    
+      user.password_plain = password
       
       return user
       
   end
   
-  def send_welcome_message    
+  def send_welcome_message
     presenter = SignupPresenter.new(self)
     PostOffice.welcome(presenter).deliver
   end

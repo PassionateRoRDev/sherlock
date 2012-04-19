@@ -6,6 +6,7 @@ describe PostOffice do
     
     before do    
       user = Factory(:user)
+      user.password_plain = 'ABCDEFGH'
       @presenter = SignupPresenter.new(user)
     end
         
