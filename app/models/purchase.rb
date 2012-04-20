@@ -6,10 +6,23 @@ class Purchase < ActiveRecord::Base
   
   private
   
-  def make_chargify_call    
-    s = Chargify::Subscription.find(self.user.current_subscription.chargify_id)    
+  def make_chargify_call
+    
+    current = self.user.current_subscription
+    
+    ev = Event.create(
+      :event_type     => :purchase,
+      :event_subtype  => :one_time_report,
+      :user           => self.user,
+      :detail_i1      => current.id
+    )
+    
+    s = Chargify::Subscription.find(current.chargify_id)
     memo = 'Pay per-use for a single report'
     s.charge(:amount => self.amount, :memo => memo)
+    
+    ev.finish
+    
   end
   
 end
