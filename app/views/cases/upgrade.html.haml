@@ -1,0 +1,13 @@
+%h1 Purchase Subscription
+
+%p Please select to one of the following plans:
+
+%ul.ordinary{:style => 'margin-bottom:0;'}
+  -@plans.each do |plan|
+    %li
+      =link_to plan.chargify_handle.capitalize, chargify_url(plan)      
+      \-
+      %strong
+        =number_to_currency plan.price
+      per month
+

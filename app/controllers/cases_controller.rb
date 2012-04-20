@@ -15,7 +15,7 @@ class CasesController < ApplicationController
     @case = Case.new(params[:case])
     @case.author = current_user
     respond_to do |format|
-      if (@case.save) 
+      if (@case.save)        
         format.html { redirect_to(cases_path, :notice => 'Case has been successfully created') }
       else  
         format.html { render :action => 'new' }
@@ -121,14 +121,14 @@ class CasesController < ApplicationController
     
     title = title.gsub(/\s+/, '-') + '.pdf'    
     if request.env['HTTP_USER_AGENT'] =~ /msie/i
-      headers['Pragma'] = 'public'
-      headers["Content-type"] = "application/pdf" 
-      headers['Cache-Control'] = 'no-cache, must-revalidate, post-check=0, pre-check=0'
-      headers['Content-Disposition'] = "attachment; filename=\"#{title}\"" 
-      headers['Expires'] = "0" 
+      headers['Pragma']               = 'public'
+      headers["Content-type"]         = "application/pdf" 
+      headers['Cache-Control']        = 'no-cache, must-revalidate, post-check=0, pre-check=0'
+      headers['Content-Disposition']  = "attachment; filename=\"#{title}\"" 
+      headers['Expires']              = "0" 
     else
       headers["Content-Type"] ||= 'application/pdf'
-      headers["Content-Disposition"] = "attachment; filename=\"#{title}\"" 
+      headers["Content-Disposition"]  = "attachment; filename=\"#{title}\"" 
     end
   end
   
@@ -157,8 +157,8 @@ class CasesController < ApplicationController
   
   def upgrade_or_purchase
     @plans        = current_user.plans_to_upgrade
-    @current_plan = current_user.current_subscription.subscription_plan
-    render 'upgrade_or_purchase'
+    @current_plan = current_user.current_plan
+    render @current_plan ? 'upgrade_or_purchase' : 'upgrade'
   end
   
   def authorize_case_create!

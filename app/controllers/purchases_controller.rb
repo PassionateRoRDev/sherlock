@@ -15,7 +15,7 @@ class PurchasesController < ApplicationController
       :label  => :one_time_report,
       :amount => amount
     )    
-    redirect_to dashboard_path, :notice => 'Payment completed successfully'
+    redirect_to new_case_path
     
   end
   

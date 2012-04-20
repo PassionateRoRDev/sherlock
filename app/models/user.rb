@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
                   :user_address_attributes,
                   :skip_invitation
  
-  attr_accessor :password_plain
+  attr_accessor :password_plain, :is_new
   
   has_many :authored_cases, :class_name => 'Case', :foreign_key => 'author_id' 
   has_and_belongs_to_many :viewable_cases, :join_table => 'viewers', :foreign_key => 'viewer_id', :association_foreign_key => 'case_id', :class_name => 'Case'
@@ -44,6 +44,8 @@ class User < ActiveRecord::Base
       customer = subscription.customer
       password = generate_random_password RANDOM_PASSWORD_LENGTH
       
+      exists = User.find_by_email(customer.email)
+    
       user = User.find_or_create_by_email(
         :email                  => customer.email,
         :first_name             => customer.first_name,
@@ -53,8 +55,12 @@ class User < ActiveRecord::Base
         :password_confirmation  => password
       )
       
-      user.subscriptions << ::Subscription.create_from_chargify(subscription)    
-      user.password_plain = password
+      user.subscriptions << ::Subscription.create_from_chargify(subscription)
+      
+      unless exists    
+        user.is_new = true
+        user.password_plain = password
+      end
       
       return user
       
@@ -68,13 +74,31 @@ class User < ActiveRecord::Base
   def current_subscription
     self.subscriptions.last
   end
+  
+  def current_plan
+    current_subscription ? current_subscription.subscription_plan : nil
+  end
     
-  def case_created
-    current_subscription.case_created if current_subscription
+  def case_created(c)    
+    if can_create_from_subscription?
+      current_subscription.case_created(c)
+    else
+      current_subscription.extra_case_created(c)
+      use_up_purchase(c)
+    end        
+  end
+  
+  def use_up_purchase(c)    
+    purchase = oldest_unused_purchase
+    purchase.use_up_for_case(c) if purchase      
+  end
+  
+  def oldest_unused_purchase
+    self.purchases.where(:label => :one_time_report, :used_at => nil).first
   end
   
   def has_unused_purchases?
-    true
+    not oldest_unused_purchase.nil?
   end
   
   def can_create_case?

@@ -107,7 +107,7 @@ class Case < ActiveRecord::Base
   private
   
   def update_stats
-    self.author.case_created
+    self.author.case_created(self)
   end
    
   def invalidate_report

@@ -4,6 +4,12 @@ class Purchase < ActiveRecord::Base
 
   before_create :make_chargify_call
   
+  def use_up_for_case(kase)
+    self.used_at          = Time.now
+    self.used_by_case_id  = kase.id
+    self.save!    
+  end
+  
   private
   
   def make_chargify_call

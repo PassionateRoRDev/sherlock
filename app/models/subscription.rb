@@ -37,7 +37,12 @@ class Subscription < ActiveRecord::Base
     self.subscription_plan.plans_to_upgrade
   end
     
-  def case_created
+  def extra_case_created(c)
+    self.extra_cases_count += 1
+    save!
+  end
+  
+  def case_created(c)
     self.cases_count += 1
     save!
   end
