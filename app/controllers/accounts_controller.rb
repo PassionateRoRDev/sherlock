@@ -7,6 +7,10 @@ class AccountsController < ApplicationController
     @account = current_user
     @account.user_address ||= @account.init_address 
     
+    @my_subscription  = current_user.current_subscription
+    @my_plan          = current_user.current_plan
+    @one_time_credits = current_user.unused_purchases
+    
     @cases = current_user.authored_cases
     
   end

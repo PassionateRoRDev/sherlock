@@ -93,8 +93,12 @@ class User < ActiveRecord::Base
     purchase.use_up_for_case(c) if purchase      
   end
   
+  def unused_purchases
+    self.purchases.where(:label => :one_time_report, :used_at => nil)
+  end
+  
   def oldest_unused_purchase
-    self.purchases.where(:label => :one_time_report, :used_at => nil).first
+    unused_purchases.first
   end
   
   def has_unused_purchases?

@@ -1,0 +1,24 @@
+%h2.clear RESOURCE USAGE
+
+=number_to_human_size(@account.space_usage)
+
+%h3 Subscription Plan
+
+-if @my_plan  
+  Name:
+  =@my_plan.chargify_handle.capitalize
+  %br
+  Max reports:
+  =@my_subscription.cases_max
+  %br
+  Used reports:
+  =@my_subscription.cases_count    
+  %br
+  One-time report credits:
+  =@one_time_credits.count
+    
+-else
+  You have no subscription plan active yet
+
+
+
