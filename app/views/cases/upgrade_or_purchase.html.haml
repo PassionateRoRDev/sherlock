@@ -1,0 +1,9 @@
+%h1 Upgrade or Purchase
+
+%p
+  Blah blah blah
+
+%ul.ordinary
+  -@plans.each do |plan|
+    %li
+      =link_to plan.chargify_handle, chargify_url(plan)

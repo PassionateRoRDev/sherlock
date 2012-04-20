@@ -27,6 +27,7 @@ class Case < ActiveRecord::Base
   validates :title, :presence => true
   
   after_save :invalidate_report
+  after_create :update_stats
   
   def usage
     blocks.empty? ? 0 : blocks.map(&:usage).reduce(:+)
@@ -105,6 +106,10 @@ class Case < ActiveRecord::Base
   
   private
   
+  def update_stats
+    self.author.case_created
+  end
+   
   def invalidate_report
     Report.invalidate_for_case self.id
   end

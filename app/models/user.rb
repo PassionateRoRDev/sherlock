@@ -59,6 +59,26 @@ class User < ActiveRecord::Base
       
   end
   
+  #
+  # TODO: implement
+  #
+  def plans_to_upgrade
+    SubscriptionPlan.all
+  end
+  
+  def current_subscription
+    self.subscriptions.last
+  end
+  
+  def case_created
+    current_subscription.case_created if current_subscription
+  end
+  
+  def can_create_case?
+    s = current_subscription
+    s && (s.cases_count < s.cases_max)
+  end
+  
   def send_welcome_message
     presenter = SignupPresenter.new(self)
     PostOffice.welcome(presenter).deliver

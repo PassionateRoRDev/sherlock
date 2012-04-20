@@ -47,6 +47,10 @@ class HomeController < ApplicationController
     
     url_base = 'https://sherlockdocs.chargify.com/'
     
+    @plan1 = SubscriptionPlan.find_by_chargify_handle(:independent)
+    @plan2 = SubscriptionPlan.find_by_chargify_handle(:agency)
+    @plan3 = SubscriptionPlan.find_by_chargify_handle(:corporate)
+    
     @url_plan1 = url_base + 'h/285859/subscriptions/new'
     @url_plan2 = url_base + 'h/286025/subscriptions/new'
     @url_plan3 = url_base + 'h/286061/subscriptions/new'

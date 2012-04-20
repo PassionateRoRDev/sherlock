@@ -3,7 +3,7 @@ class CasesController < ApplicationController
   before_filter :authenticate_user!
   
   before_filter :authorize_pi!, :except => [ :index, :preview, :show ]
-  
+  before_filter :authorize_case_create!, :only => [:new, :create]
   before_filter :resolve_case, :except => [ :new, :create, :index ]
     
   def new
@@ -155,7 +155,14 @@ class CasesController < ApplicationController
     date_string
   end
   
+  def upgrade_or_purchase
+    @plans = current_user.plans_to_upgrade
+    render 'upgrade_or_purchase'
+  end
   
+  def authorize_case_create!
+    upgrade_or_purchase unless current_user.can_create_case?
+  end
   
   def convert_dates(params)    
     params['opened_on']   = convert_date(params['opened_on'])

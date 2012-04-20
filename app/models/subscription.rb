@@ -2,6 +2,8 @@ class Subscription < ActiveRecord::Base
   belongs_to :user
   belongs_to :subscription_plan
   
+  default_scope :order => 'period_ends_at'
+  
   #
   # Create Subscription record from the ChargifySubscription received from
   # Chargify API
@@ -28,6 +30,11 @@ class Subscription < ActiveRecord::Base
       :extra_cases_count  => 0
     )
     
+  end
+  
+  def case_created
+    self.cases_count += 1
+    save!
   end
     
 end
