@@ -59,11 +59,9 @@ class User < ActiveRecord::Base
       
   end
   
-  #
-  # TODO: implement
-  #
-  def plans_to_upgrade
-    SubscriptionPlan.all
+  def plans_to_upgrade    
+    s = self.current_subscription
+    s ? s.plans_to_upgrade : SubscriptionPlan.all
   end
   
   def current_subscription

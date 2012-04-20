@@ -1,9 +1,25 @@
 %h1 Upgrade or Purchase
 
 %p
-  Blah blah blah
+  You reached maximum number of reports within your current subscription which
+  is
+  %strong
+    =@current_plan.cases_max
+    reports per month.  
+
+%p Please upgrade to one of the following plans:
 
 %ul.ordinary
   -@plans.each do |plan|
     %li
-      =link_to plan.chargify_handle, chargify_url(plan)
+      =link_to plan.chargify_handle.capitalize, chargify_url(plan)      
+      \-
+      %strong
+        =number_to_currency plan.price
+      per month
+
+%p 
+  Alternatively you may pay one-time fee of  
+  %strong
+    =number_to_currency @current_plan.extra_case_price
+  for creating just this report

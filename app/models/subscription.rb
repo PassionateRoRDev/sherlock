@@ -1,4 +1,5 @@
 class Subscription < ActiveRecord::Base
+  
   belongs_to :user
   belongs_to :subscription_plan
   
@@ -32,6 +33,10 @@ class Subscription < ActiveRecord::Base
     
   end
   
+  def plans_to_upgrade
+    self.subscription_plan.plans_to_upgrade
+  end
+    
   def case_created
     self.cases_count += 1
     save!

@@ -156,7 +156,8 @@ class CasesController < ApplicationController
   end
   
   def upgrade_or_purchase
-    @plans = current_user.plans_to_upgrade
+    @plans        = current_user.plans_to_upgrade
+    @current_plan = current_user.current_subscription.subscription_plan
     render 'upgrade_or_purchase'
   end
   
