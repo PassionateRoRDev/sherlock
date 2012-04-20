@@ -12,6 +12,8 @@ Sherlock::Application.routes.draw do
   resources :clients
   resources :folders
   
+  resources :purchases
+  
   resources :events
   
   resources :file_assets  

@@ -17,10 +17,11 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :viewable_cases, :join_table => 'viewers', :foreign_key => 'viewer_id', :association_foreign_key => 'case_id', :class_name => 'Case'
   
   has_many :user_clients
-  has_many :clients, :through => :user_clients
+  has_many :clients, :through => :user_clients  
   
   has_many :folders
   
+  has_many :purchases  
   has_many :subscriptions
     
   has_many :blocks, :through => :authored_cases
@@ -67,12 +68,20 @@ class User < ActiveRecord::Base
   def current_subscription
     self.subscriptions.last
   end
-  
+    
   def case_created
     current_subscription.case_created if current_subscription
   end
   
+  def has_unused_purchases?
+    true
+  end
+  
   def can_create_case?
+    can_create_from_subscription? || has_unused_purchases?
+  end
+  
+  def can_create_from_subscription?
     s = current_subscription
     s && (s.cases_count < s.cases_max)
   end

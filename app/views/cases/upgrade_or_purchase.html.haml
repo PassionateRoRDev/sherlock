@@ -19,7 +19,9 @@
       per month
 
 %p 
-  Alternatively you may pay one-time fee of  
+  Alternatively 
+  =link_to 'you may pay one-time fee', new_purchase_path
+  of  
   %strong
     =number_to_currency @current_plan.extra_case_price
   for creating just this report

@@ -1,0 +1,11 @@
+%h1 
+  Purchase Report for
+  =number_to_currency @purchase.amount
+
+%p
+  Complete the transaction by clicking the button
+
+=form_for @purchase do |f|
+  =f.hidden_field :amount
+  =f.submit 'Purchase', :class => 'button'
+  
