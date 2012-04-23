@@ -5,7 +5,8 @@ class HomeController < ApplicationController
   
   def index    
     @title = 'SherlockDocs'
-    render :layout => 'public'
+    #render :layout => 'public'
+    render 'landing', :layout => false
   end
   
   def tos

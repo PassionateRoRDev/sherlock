@@ -1,0 +1,386 @@
+* {
+	margin:0;
+	padding:0;
+}
+body {
+	width:auto;
+	height:auto;
+	font-family:Arial, Helvetica, sans-serif;
+}
+@font-face {
+	font-family: "calibri";
+	src: url(calibri.ttf);
+}
+@font-face {
+	font-family: 'Bookman Old Style';
+	src: url(BOOKOS.ttf);
+}
+@font-face {
+	font-family: "Candara";
+	src: url(Candara.ttf);
+}
+@font-face {
+	font-family: "Century Gothic";
+	src: url(GOTHIC.ttf);
+}
+.fl {
+	opacity:1
+}
+.fl:hover img {
+filter: progid:DXImageTransform.Microsoft.Alpha(opacity=80);
+	opacity:0.6;
+}
+#landing {
+	float:left;
+	width:100%;
+	height:auto;
+	margin-top:60px;
+}
+.landing {
+	margin:auto;
+	width:1000px;
+	height:auto
+}
+.landing-txt {
+	width:1000px;
+	height:auto;
+	font-family: 'Bookman Old Style';
+	font-size:31px;
+	color:#2d2d2d;
+	line-height:40px;
+	text-align:center;
+	padding:34px 0;
+}
+.landing-txt2 {
+	color:#34818f;
+	font-size:23px;
+	font-family:"Century Gothic";
+}
+#midsection {
+	margin:auto;
+	width:1000px;
+	height:auto;
+}
+.mid-one {
+	float:left;
+	width:313px;
+	height:auto;
+}
+.logoimg {
+	float:left;
+	width:313px;
+	height:auto;
+}
+.plansbtn {
+	float:left;
+	width:313px;
+	height:auto;
+	padding:14px 0 56px 0;
+	text-align:center;
+}
+.mid-two {
+	float:left;
+	width:366px;
+	height:auto;
+	font-size:17px;
+	font-family:"Century Gothic";
+	color:#1c86a9;
+	padding:42px 0 0 22px;
+}
+.boxone {
+	float:left;
+	width:366px;
+	height:auto;
+}
+.boxtwo {
+	float:left;
+	width:366px;
+	height:auto;
+	padding:30px 0;
+}
+.btn {
+	float:left;
+	width:25px;
+	height:22px;
+	padding-right:5px;
+}
+.mid-three {
+	float:left;
+	width:298px;
+	height:auto;
+	padding-top:26px;
+	text-align:center;
+}
+.reportimg {
+	float:left;
+	width:298px;
+	height:auto;
+}
+.reporttxt {
+	float:left;
+	width:298px;
+	height:auto;
+	padding-top:22px;
+	font-size:14px;
+	font-family:"Century Gothic";
+	color:#537918;
+}
+.pricing-txt {
+	margin:auto;
+	width:1000px;
+	height:auto;
+	font-family: "calibri";
+	font-size:32px;
+	color:#2d2d2d;
+	line-height:40px;
+	text-align:center;
+	padding:34px 0;
+}
+.section {
+	margin:0px;
+	min-height:680px;
+	height:auto;
+	width:100%;
+	float:left;/*text-shadow:1px 1px 2px #f0f0f0;*/
+	margin-bottom:10px;
+}
+.section h2 {
+	margin:50px 0px 30px 50px;
+}
+.section p {
+/*margin:20px 0px 0px 50px;
+    width:600px;*/
+}
+.black {
+	color:#fff;/*background:#000 url(../images/black_vert.jpg) repeat-x bottom left;*/
+}
+.white {
+	color:#000;/*background:#fff url(../images/white_vert.jpg) repeat-x bottom left;*/
+}
+.section ul {
+	list-style:none;
+	margin-left:3%;
+}
+.black ul li {
+	float:left;
+	padding:0 15px;
+	color:#aaa;
+}
+.black ul li a {
+	display:block;
+	color:#FFF;
+}
+.black ul li a:hover {
+	text-decoration:none;
+	color: #FFF;
+	text-decoration:underline;
+}
+.white ul li {
+	float:left;
+	padding:0 15px;
+	color:#aaa;
+}
+.white ul li a {
+	display:block;
+	color:#FFF;
+}
+.white ul li a:hover {
+	text-decoration:none;
+	color:#FFF;
+	text-decoration:underline;
+}
+.navigation {
+	background: #333;
+	height: 42px;
+	padding: 0;
+	width: 100%;
+	line-height:42px;
+	position:fixed;
+}
+.navi {
+	margin-left:15%;
+	width:630px;
+	height:48px;
+	background:url(../images/navi-bg.jpg) repeat-x;
+	border-bottom-left-radius:10px;
+	border-bottom-right-radius:10px;
+	position:fixed;
+}
+#security {
+	margin:auto;
+	width:1000px;
+	height:auto;
+	text-align:center;
+	margin-top:60px;
+}
+.security-txt {
+	float:left;
+	margin:20px 70px 0 70px;
+	font-size:40px;
+	font-family: 'Bookman Old Style';
+	text-align:center;
+	width:860px;
+	height:auto;
+	border-bottom:1px solid #999;
+	padding-bottom:10px;
+	color: #333;
+}
+.security-p {
+	float:left;
+	width:900px;
+	height:auto;
+	text-align:justify;
+	margin:20px 50px;
+	font-size:20px;
+	line-height:26px;
+	color:#333333;
+	font-family: Georgia, "Times New Roman", Times, serif;
+}
+.security-body {
+	float:left;
+	width:1000px;
+	height:auto;
+}
+.midwrapper {
+	margin:auto;
+	width:1000px;
+	height:100%;
+}
+.bottomtxt {
+	float:left;
+	width:1000px;
+	height:auto;
+	font-size:25px;
+	font-family:"Candara";
+	color:#262626;
+	text-align:center;
+	padding:25px 0;
+	line-height:29px;
+}
+.txt {
+	color:#06758d;
+	font-size:18px;
+}
+.txt:hover {
+	color:#ff6f1d;
+	text-decoration:none;
+}
+.txt-video {
+	font-size:30px;
+	font-family:Georgia, "Times New Roman", Times, serif;
+	color: #333;
+	text-shadow:2px 2px 2px #CCCCCC;
+	font-style:oblique;
+}
+#bot-navi {
+	float:left;
+	width:100%;
+	height:50px;
+	color:#FFF;
+	background:#000;
+	line-height:18px;
+	text-align:center;
+	margin-bottom:0px;
+	z-index:500;
+	vertical-align:bottom;
+	font-size:12px;
+	padding-top:10px;
+}
+#bot-navi a {
+	color:#FFF;
+	font-size:13px;
+}
+.box {
+	float:left;
+	width:323px;
+	height:auto;
+	min-height:381px;
+	border:1px solid #999;
+	box-shadow:5px 5px 5px 1px #999999;
+}
+.box p {
+	float:left;
+	width:293px;
+	height:auto;
+	text-align:justify;
+	padding: 8px 15px;
+	color:#333333;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	line-height:20px;
+}
+.box-head {
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:26px;
+}
+.box-image {
+	float:left;
+	width:323px;
+	height:auto;
+	text-align:center;
+	padding:5px 0;
+}
+.testimonials {
+	float:left;
+	width:868px;
+	height:auto;
+	text-align:justify;
+	margin:10px 50px 0 50px;
+	font-size:30px;
+	line-height:30px;
+	color:#333333;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	padding:15px;
+}
+.customerbox {
+	float:left;
+	width:868px;
+	height:auto;
+	text-align:justify;
+	margin:20px 50px;
+	font-size:20px;
+	line-height:30px;
+	color:#333333;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	border:1px solid #999;
+	border-radius:5px;
+	padding:15px;
+}
+.featurelist {
+	float:left;
+	width:868px;
+	height:auto;
+	text-align:justify;
+	margin:20px 50px;
+	font-size:20px;
+	line-height:38px;
+	color:#333333;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	border:1px solid #999;
+	border-radius:5px;
+	padding:15px;
+	font-style:italic;
+}
+.customer-detail {
+	float:right;
+	width:232px;
+	height:85px;
+	padding-top:10px;
+	font-size:13px;
+	line-height:20px;
+}
+.cus-name {
+	color:#107f97;
+	font-weight:bold;
+	font-style:oblique;
+}
+.videobox {
+	float:left;
+	width:900px;
+	height:auto;
+	text-align:center;
+	margin:20px 50px;
+	font-size:30px;
+	line-height:30px;
+	color:#333333;
+	font-family: Georgia, "Times New Roman", Times, serif;
+}
