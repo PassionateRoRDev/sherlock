@@ -59,11 +59,15 @@ class User < ActiveRecord::Base
       )
             
       unless user.user_address
+        
+        cc = subscription.credit_card
+      
         user.user_address = UserAddress.new(          
-          :address  => (customer.address.to_s + ' ' + customer.address_2.to_s).strip,
-          :city     => customer.city,
-          :state    => customer.state,
-          :country  => customer.country,
+          :address  => (cc.billing_address.to_s + ' ' + cc.billing_address_2.to_s).strip,
+          :city     => cc.billing_city,
+          :state    => cc.billing_state,
+          :country  => cc.billing_country,
+          :zip      => cc.billing_zip,
           :phone    => customer.phone          
         )
       end
