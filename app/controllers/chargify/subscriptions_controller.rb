@@ -10,7 +10,7 @@ class Chargify::SubscriptionsController < ApplicationController
     else
     
       begin
-        @subscription = Chargify::Subscription.find(params[:subscription_id])
+        @subscription = Chargify::Subscription.find(params[:subscription_id])                
         if @subscription        
           user = User.create_from_chargify_subscription(@subscription)        
           if user

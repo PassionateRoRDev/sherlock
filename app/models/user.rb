@@ -57,6 +57,16 @@ class User < ActiveRecord::Base
         :password               => password, 
         :password_confirmation  => password
       )
+            
+      unless user.user_address
+        user.user_address = UserAddress.new(          
+          :address  => (customer.address.to_s + ' ' + customer.address_2.to_s).strip,
+          :city     => customer.city,
+          :state    => customer.state,
+          :country  => customer.country,
+          :phone    => customer.phone          
+        )
+      end
       
       user.subscriptions << ::Subscription.create_from_chargify(subscription)
       
@@ -86,7 +96,7 @@ class User < ActiveRecord::Base
     if can_create_from_subscription?
       current_subscription.case_created(c)
     else
-      current_subscription.extra_case_created(c)
+      current_subscription.extra_case_created(c) if current_subscription
       use_up_purchase(c)
     end        
   end
