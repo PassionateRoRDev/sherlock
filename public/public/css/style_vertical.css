@@ -197,8 +197,10 @@ a.anchor {
 	background: #333;
 	height: 42px;
 	padding: 0;
-	width: 100%;
-	line-height:42px;
+	
+        width: 100%;
+	
+        line-height:42px;
 	position:fixed;
 }
 .navi {
@@ -210,6 +212,25 @@ a.anchor {
 	border-bottom-right-radius:10px;
 	position:fixed;
 }
+
+.navi2 {
+  float:right;
+  text-align: right;
+  color:#9b9e9e;
+  margin-right: 2em;
+  line-height:42px;
+  height:42px;	
+}
+
+.navi2 a {
+	text-decoration:none;
+	color:#9b9e9e;
+	padding:0 10px;
+}
+.navi2 a:hover {
+	color:#FFF;
+}
+
 #security {
 	margin:auto;
 	width:1000px;

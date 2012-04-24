@@ -1,0 +1,9 @@
+<div class="navi2">
+    <% if signed_in? %>
+      <a href="<%= dashboard_path %>">Dashboard</a> | 
+      <%= link_to 'Logout', destroy_user_session_path, :method => :delete %>
+    <% else %>
+      <a href="<%= new_user_session_path %>">LogIn</a> | 
+      <a href="<%= new_user_registration_path %>">SignUp</a>
+    <% end %>
+</div>
