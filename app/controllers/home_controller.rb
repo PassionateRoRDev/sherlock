@@ -31,7 +31,8 @@ class HomeController < ApplicationController
   
   def contact
     @title = 'Contact'
-    render :layout => 'public'
+    #render :layout => 'public'
+    render 'contact', :layout => false
   end
   
   def customers

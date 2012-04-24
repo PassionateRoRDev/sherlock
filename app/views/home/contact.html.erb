@@ -1,7 +1,60 @@
-<% content_for :head do %>
-  <link href="/public/css/main.css" rel="stylesheet" type="text/css" />
-<% end %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Contact Us</title>
+<link href="/public/css/pricing.css" rel="stylesheet" type="text/css" />
+<link rel="shortcut icon" href="/public/images/icon.jpg" type="image/x-icon" />
+<script type="text/javascript" src="/javascript/jquery-1.7.1.js"></script>
+<script type="text/javascript" src="/javascript/jquery-hint.js"></script>
+<META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW"/>
+</head>
 
-<% content_for :footer do %>
-  <%= render 'footer' %>
-<% end %>
+<body>
+<div id="midbox">
+<div id="header">
+  <div class="head">
+    <div class="navi"><%= link_to 'Home', root_path %>|<a 
+        href="https://www.sherlockdocs.com#Tour">Take a Tour</a>|<a href="https://www.sherlockdocs.com#Customers">Our Customers</a>|<a href="https://www.sherlockdocs.com/help.html">Help & Support</a></div>
+    <div class="navi2"><a href="#">LogIn</a> | <a href="#">SignUp</a></div>
+  </div>
+</div>
+  <div class="midwrapper">
+    <div class="inbox">
+      <div class="inbox-body-new">
+        <div class="termsofservice">Contact - Sherlock Docs</div>
+        <div class="contact">
+          <div class="contactus">
+            <div class="fieldbox">
+              <div class="fieldbox-small">
+                <input class="auto-hint" name="" type="text" title="First Name" />
+              </div>
+              <div class="fieldbox-small">
+                <input class="auto-hint" name="" type="text" title="Last Name" />
+              </div>
+            </div>
+            <div class="fieldbox-big">
+              <input class="auto-hint" name="" type="text" title="Email Address" />
+            </div>
+            <div class="message-box">
+              <textarea class="auto-hint2" name="" cols="" title="Message" rows=""></textarea>
+            </div>
+            <div class="fieldbox"><a class="fl" href="#"><img src="/public/images/contact-us.jpg" width="110" height="40" alt="" border="0" /></a></div>
+          </div>
+          <div class="contactus2">
+            <p class="ptxt"> <font class="cus-name">SherlockDocs </font><br />
+              343 Girdle Rd <br />
+              East Aurora <br />
+              NY 14052<br />
+              <span style="font-size:16px;">or Email to: <a class="txt" href="mailto:info@sherlockdocs.com">info@sherlockdocs.com</a></span> </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="bottomtxt">SherlockDocs focus on <font style="color:#e75c0d;">simplicity,</font> <font style="color:#67911c;">clarity,</font> and <font style="color:#2670b0;">ease of use</font> make it truly unique.<br />
+      You’ll love using SherlockDocs.</div>
+  </div>
+</div>
+<div class="clr"></div>
+</body>
+</html>
