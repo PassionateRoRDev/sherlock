@@ -1,4 +1,7 @@
 class User < ActiveRecord::Base
+  
+  BETA_PERIOD = true
+  
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
   devise :invitable, :database_authenticatable, :registerable,
@@ -106,7 +109,7 @@ class User < ActiveRecord::Base
   end
   
   def can_create_case?
-    can_create_from_subscription? || has_unused_purchases?
+    BETA_PERIOD || can_create_from_subscription? || has_unused_purchases?
   end
   
   def can_create_from_subscription?
