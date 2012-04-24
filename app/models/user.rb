@@ -96,7 +96,7 @@ class User < ActiveRecord::Base
     if can_create_from_subscription?
       current_subscription.case_created(c)
     else
-      current_subscription.extra_case_created(c)
+      current_subscription.extra_case_created(c) if current_subscription
       use_up_purchase(c)
     end        
   end
