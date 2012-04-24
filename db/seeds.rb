@@ -18,6 +18,8 @@ end
 plans = [
   {
     :chargify_handle  => :independent,
+    :chargify_slug    => 'h/285859',
+    :price            => 9,        
     :cases_max        => 2,
     :extra_case_price => 5,
     :clients_max      => 10,
@@ -25,6 +27,8 @@ plans = [
   },
   {
     :chargify_handle  => :agency,
+    :chargify_slug    => 'h/286025',
+    :price            => 29,
     :cases_max        => 10,
     :extra_case_price => 3,
     :clients_max      => 100,
@@ -32,6 +36,8 @@ plans = [
   },
   {
     :chargify_handle  => :corporate,
+    :chargify_slug    => 'h/286061',
+    :price            => 99,    
     :cases_max        => 50,
     :extra_case_price => 2,
     :clients_max      => 0,

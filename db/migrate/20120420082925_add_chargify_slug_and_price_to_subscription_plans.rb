@@ -11,9 +11,11 @@ class AddChargifySlugAndPriceToSubscriptionPlans < ActiveRecord::Migration
     }    
     mapping.each do |handle, fields|
       s = SubscriptionPlan.find_by_chargify_handle(handle)
-      s.chargify_slug   = fields[:slug]
-      s.price           = fields[:price]
-      s.save!
+      if s
+        s.chargify_slug   = fields[:slug]
+        s.price           = fields[:price]
+        s.save!
+      end
     end
     
     
