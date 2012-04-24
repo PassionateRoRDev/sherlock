@@ -48,9 +48,7 @@ Sherlock::Application.routes.draw do
   get 'dashboard' => 'home#dashboard',  :as => :dashboard
   
   get 'pricing'   => 'home#pricing',    :as => :pricing
-  get 'tour'      => 'home#tour',       :as => :tour
-  get 'help'      => 'home#help',       :as => :help
-  get 'customers' => 'home#customers',  :as => :customers
+  get 'help'      => 'home#help',       :as => :help  
   get 'contact'   => 'home#contact',    :as => :contact
   get 'tos'       => 'home#tos',        :as => :tos
   get 'privacy'   => 'home#privacy',    :as => :privacy

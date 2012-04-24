@@ -88,21 +88,8 @@ span.reference a:hover {
   </div>
 </div>
   
-<a name="tour"></a>  
+<a class="anchor" name="tour"></a>
 <div class="section white">
-  <div class="navigation">
-    <div class="navi">
-      <ul class="nav">
-        <li><a href="#section1">Home</a></li>
-        <li>Tour</li>
-        <li><a href="#section3">Customers</a></li>
-        <li><a href="#section4">Security</a></li>
-        <li><a href="#section5">Features</a></li>
-        <li><a href="pricing.html">Sign-Up</a></li>
-        <li><a href="#section6">Pricing</a></li>
-      </ul>
-    </div>
-  </div>
   <div id="security">
     
     <div class="videobox"> Take The Tour of Sherlock Docs    
@@ -121,35 +108,12 @@ span.reference a:hover {
       s1.addVariable("file","/SherlockTutorial.flv");
       s1.write("video-container");
     </script>
-   
-    <!--
-    <div class="videobox"> Take The Tour of Sherlock Docs<br />
-      <br />
-      <a href="#"><img src="/public/images/video-box.png" alt="" 
-                       width="900" height="400" border="0" /></a>
-    </div>    
-    <br />
-    <br />
-    <span class="txt-video">See How Sherlock Docs can Solve your problem.</span> 
-    -->
+       
   </div>
 </div>
 
-<a name="customers"></a>
-<div class="section black">
-  <div class="navigation">
-    <div class="navi">
-      <ul class="nav">
-        <li><a href="#">Home</a></li>
-        <li><a href="#section2">Tour</a></li>
-        <li>Customers</li>
-        <li><a href="#section4">Security</a></li>
-        <li><a href="#section5">Features</a></li>
-        <li><a href="pricing.html">Sign-Up</a></li>
-        <li><a href="#section6">Pricing</a></li>
-      </ul>
-    </div>
-  </div>
+<a class="anchor" name="customers"></a>
+<div class="section black">  
   <div id="security">
     <div class="testimonials"><span class="cus-name">Testimonials</span></div>
     <div class="customerbox">"<strong>With the new tools SherlockDocs provides I save an hour or more per report</strong>. I love it so far... it's been terrific. It cuts 3 or 4 steps out of my report writing process. My clients like the format of the reports and it's easy for them to create their own private account."
@@ -168,22 +132,8 @@ I like the features - <strong>its fun to use</strong> - so easy to upload or cap
   </div>
 </div>
 
-<a name="security"></a>
-<div class="section white">
-  <div class="navigation">
-    <div class="navi">
-      <ul class="nav">
-        <li><a href="#section1">Home</a></li>
-        <li><a href="#section2">Tour</a></li>
-        <li><a href="#section3">Customers</a></li>
-        <li>Security</li>
-        <li><a href="#section5">Features</a></li>
-        <li><a href="pricing.html">Sign-Up</a></li>
-        <li><a href="#section6">Pricing</a></li>
-      </ul>
-    </div>
-  </div>
-  
+<a class="anchor" name="security"></a>
+<div class="section white">  
   <div id="security">
     <div class="security-txt">110% Commitment to Safety and Security</div>
     <div class="security-p"> Utilizing 256-bit SSL encryption by GoDaddy and the world-class server infrastructure of Amazon Web Services (AWS), Sherlock Docs ensures the absolute privacy of our users' data. Sherlock Docs incorporates the most advanced security solutions, giving you the same level of data protection and redundancy as an online bank. </div>
@@ -211,21 +161,8 @@ I like the features - <strong>its fun to use</strong> - so easy to upload or cap
 </div>
   
 
-<a name="features"></a>
+<a class="anchor" name="features"></a>
 <div class="section black">
-  <div class="navigation">
-    <div class="navi">
-      <ul class="nav">
-        <li><a href="#section1">Home</a></li>
-        <li><a href="#section2">Tour</a></li>
-        <li><a href="#section3">Customers</a></li>
-        <li><a href="#section4">Security</a></li>
-        <li>Features</li>
-        <li><a href="pricing.html">Sign-Up</a></li>
-        <li><a href="#section6">Pricing</a></li>
-      </ul>
-    </div>
-  </div>
   <div id="security">
     <div class="featurelist"> <span class="cus-name">Features</span><br />
       <img src="/public/images/bullet-icon.gif" alt="" width="15" height="13" />&nbsp;Secure link for your clients - never worry about emailing confidential information<br />
@@ -410,7 +347,7 @@ body {
                     if (href != '/') {
                       var sel = 'a[name=' + href.substr(1) + ']';
                       var jumpTo =  $(sel).next();
-                      jumpOffset = jumpTo.offset().top;                      
+                      jumpOffset = jumpTo.offset().top - 35;
                     }                    
                     
                     $('html, body').stop().animate({
