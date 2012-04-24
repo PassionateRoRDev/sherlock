@@ -29,7 +29,7 @@ body {
 .fl:hover img {
 filter: progid:DXImageTransform.Microsoft.Alpha(opacity=80);
 	opacity:0.6;
-}
+} 
 #landing {
 	float:left;
 	width:100%;
@@ -366,7 +366,7 @@ filter: progid:DXImageTransform.Microsoft.Alpha(opacity=80);
 	height:85px;
 	padding-top:10px;
 	font-size:13px;
-	line-height:20px;
+	line-height:20px; text-align:right;
 }
 .cus-name {
 	color:#107f97;
