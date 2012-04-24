@@ -11,12 +11,14 @@ class HomeController < ApplicationController
   
   def tos
     @title = "Terms of Service"
-    render :layout => 'public'
+    #render :layout => 'public'
+    render :layout => false
   end
   
   def privacy
     @title = "Privacy Policy"
-    render :layout => 'public'
+    #render :layout => 'public'
+    render :layout => false
   end
   
   def tour

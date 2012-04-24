@@ -5,7 +5,7 @@
 <title>Contact Us</title>
 <link href="/public/css/pricing.css" rel="stylesheet" type="text/css" />
 <link rel="shortcut icon" href="/public/images/icon.jpg" type="image/x-icon" />
-<script type="text/javascript" src="/javascript/jquery-1.7.1.js"></script>
+<script type="text/javascript" src="/javascript/jquery-1.7.1.min.js"></script>
 <script type="text/javascript" src="/javascript/jquery-hint.js"></script>
 <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW"/>
 </head>
@@ -13,11 +13,7 @@
 <body>
 <div id="midbox">
 <div id="header">
-  <div class="head">
-    <div class="navi"><%= link_to 'Home', root_path %>|<a 
-        href="https://www.sherlockdocs.com#Tour">Take a Tour</a>|<a href="https://www.sherlockdocs.com#Customers">Our Customers</a>|<a href="https://www.sherlockdocs.com/help.html">Help & Support</a></div>
-    <div class="navi2"><a href="#">LogIn</a> | <a href="#">SignUp</a></div>
-  </div>
+  <%= render 'navi' %>  
 </div>
   <div class="midwrapper">
     <div class="inbox">
