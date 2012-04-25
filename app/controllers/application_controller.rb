@@ -9,6 +9,10 @@ class ApplicationController < ActionController::Base
       :alert => 'You are not authorized to view that page.'
   end
     
+  def user_is_admin?
+    (current_user && current_user.admin)
+  end  
+  
   def user_is_pi?
     (current_user && current_user.pi?)
   end  
@@ -36,6 +40,10 @@ class ApplicationController < ActionController::Base
     end
   end
     
+  def authenticate_admin!
+    redirect_to dashboard_path unless user_is_admin?
+  end
+  
   def authorize_pi!
     redirect_to dashboard_path unless user_is_pi?
   end

@@ -16,7 +16,9 @@ Sherlock::Application.routes.draw do
   
   resources :events
   
-  resources :file_assets  
+  resources :file_assets
+    
+  resources :impersonations  
   
   resources :cases do
     resources :html_details
