@@ -19,7 +19,7 @@
 
 </div>
 
-<% if @cases.empty? %>
+<% if @cases.empty? && @folders.empty? %>
   <h2 style="margin-bottom:0;">No cases found</h2>
 <% else %>
 
@@ -50,10 +50,6 @@
   </ol>
   <% end %>
 
-  <div class="link-buttons">
-  <%= link_to 'Create a new Case', new_case_path, 
-              :class => "button button-wide right" %>
-  </div>
   
 <% end %>
   
