@@ -55,9 +55,9 @@ class HomeController < ApplicationController
     @plan2 = SubscriptionPlan.find_by_chargify_handle(:agency)
     @plan3 = SubscriptionPlan.find_by_chargify_handle(:corporate)
     
-    @url_plan1 = url_base + 'h/285859/subscriptions/new'
-    @url_plan2 = url_base + 'h/286025/subscriptions/new'
-    @url_plan3 = url_base + 'h/286061/subscriptions/new'
+    @url_plan1 = url_base + @plan1.chargify_slug + '/subscriptions/new'
+    @url_plan2 = url_base + @plan2.chargify_slug + '/subscriptions/new'
+    @url_plan3 = url_base + @plan3.chargify_slug + '/subscriptions/new'
     
     render 'pricing', :layout => 'public'
   end
