@@ -31,6 +31,8 @@ class Chargify::SubscriptionsController < ApplicationController
           render_error
         end
       rescue
+        Rails::logger.error $!
+        Rails::logger.error $!.backtrace
         render_error
       end
       

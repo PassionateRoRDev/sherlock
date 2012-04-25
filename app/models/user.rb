@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
   
-  BETA_PERIOD = true
+  BETA_PERIOD = false
   
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
