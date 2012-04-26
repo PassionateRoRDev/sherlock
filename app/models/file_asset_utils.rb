@@ -58,7 +58,7 @@ module FileAssetUtils
   def generate_new_filename(original_filename)
     s = Time.now.to_i.to_s + rand(999).to_s
     hash = Digest::MD5.hexdigest(s)    
-    hash += ('-' + original_filename.sub(/\A[a-z0-9]{32}-/, ''))
+    hash += ('-' + original_filename.gsub('#', '').sub(/\A[a-z0-9]{32}-/, ''))
     hash.downcase    
   end
     
