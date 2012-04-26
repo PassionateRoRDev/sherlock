@@ -1,18 +1,24 @@
 application:
-  sender: SherlockDocs <invitation@sherlockdocs.com>
-  chargify:
-    subdomain: sherlockdocs
-    api_key: dBT3aLoe-aITP9hckTPV
+  sender: SherlockDocs <invitation@sherlockdocs.com>  
 
 development:    
   files_path: files/
-  templates_path: templates/  
+  templates_path: templates/
+  chargify:
+    subdomain: sherlockdocs-test
+    api_key: dBT3aLoe-aITP9hckTPV
 
 test:
   files_path: tmp/files/
   templates_path: templates/  
+  chargify:
+    subdomain: sherlockdocs-test
+    api_key: dBT3aLoe-aITP9hckTPV
 
 production:  
   files_path: files/
   templates_path: templates/  
+  chargify:
+    subdomain: sherlockdocs
+    api_key: dBT3aLoe-aITP9hckTPV
 

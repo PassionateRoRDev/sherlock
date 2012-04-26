@@ -9,11 +9,15 @@ gem 'mysql2'
 gem 'devise'
 gem 'devise_invitable'
 
+gem 'dynamic_form'
+
 gem 'fastercsv'
 gem 'json'
 gem 'rails_admin', :git => 'git://github.com/sferik/rails_admin.git'
 gem 'valuable'
 gem 'km'
+
+gem 'httpclient'
 
 gem 'chargify_api_ares'
 

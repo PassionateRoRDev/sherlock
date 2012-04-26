@@ -866,13 +866,17 @@ h2.case-title {
   background-color: #F9F9F9;
 }
 
-ul.ordinary {
+#errorExplanation ul, ul.ordinary {
   margin-left: 0;
 }
 
-ul.ordinary li {
+#errorExplanation ul li, ul.ordinary li {
   list-style: disc;
   margin-left:1em;
+}
+
+#errorExplanation li {
+  color: red;
 }
 
 /*

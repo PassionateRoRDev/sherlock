@@ -6,6 +6,9 @@
   Complete the transaction by clicking the button
 
 =form_for @purchase do |f|
+
+  =f.error_messages :header_message => 'Transaction failed with the following error:', :message => nil
+
   =f.hidden_field :amount
   =f.submit 'Purchase', :class => 'button'
   

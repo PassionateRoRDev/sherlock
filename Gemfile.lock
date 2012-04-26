@@ -90,6 +90,7 @@ GEM
       rails (~> 3.0)
     diff-lcs (1.1.3)
     dimensions (1.0.0)
+    dynamic_form (1.1.4)
     erubis (2.7.0)
     execjs (1.3.0)
       multi_json (~> 1.0)
@@ -107,6 +108,7 @@ GEM
     haml (3.1.4)
     hike (1.2.1)
     hpricot (0.8.6)
+    httpclient (2.2.4)
     i18n (0.6.0)
     journey (1.0.3)
     jquery-rails (2.0.1)
@@ -221,10 +223,12 @@ DEPENDENCIES
   devise
   devise_invitable
   dimensions
+  dynamic_form
   execjs
   factory_girl_rails
   fastercsv
   flash_cookie_session
+  httpclient
   jquery-rails
   json
   km

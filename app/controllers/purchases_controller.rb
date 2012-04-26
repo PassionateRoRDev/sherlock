@@ -5,17 +5,21 @@ class PurchasesController < ApplicationController
   
   def new    
     s = current_user.current_subscription
-    @purchase = Purchase.new(:amount => s.extra_case_price)
+    @purchase = Purchase.new(:amount => s.extra_case_price)    
   end
   
   def create    
-    
     amount = params[:purchase][:amount]    
-    current_user.purchases.create(
+    @purchase = current_user.purchases.new(
       :label  => :one_time_report,
       :amount => amount
     )    
-    redirect_to new_case_path
+    if @purchase.save           
+      redirect_to new_case_path
+    else     
+      Rails::logger.error 'Purchase create failed!'      
+      render 'new'
+    end
     
   end
   
