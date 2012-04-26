@@ -334,6 +334,8 @@ ol.cases h2 {
     right: 0em;
     font-size: 300%;
     top: 1em;
+    width: 650px;
+    text-align: right;
 }
 
 .midleft {
