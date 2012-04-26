@@ -1,0 +1,16 @@
+<div class="videobox"> Take The Tour of Sherlock Docs    
+  <div id="video-container" style="margin-top:20px;margin-left:0;"></div>
+  <br />
+  <br />
+  <span class="txt-video">See How Sherlock Docs can Solve your problem.</span>
+</div>
+
+<script type="text/javascript" src="/public/swfobject.js"></script>
+<script type="text/javascript">      
+  var s1 = new SWFObject('/public/mediaplayer.swf', "mediaplayer", "900","400","8");
+  s1.addParam("allowfullscreen","true");
+  s1.addVariable("width","900");
+  s1.addVariable("height","400");
+  s1.addVariable("file","/SherlockTutorial.flv");
+  s1.write("video-container");
+</script>
