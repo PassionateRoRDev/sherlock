@@ -86,6 +86,14 @@ class Case < ActiveRecord::Base
     result
   end
   
+  def video_asset_by_path(filename)
+    FileAsset.where(
+      :user_id      => self.author.id, 
+      :parent_type  => :videos,       
+      :path         => filename
+    ).first    
+  end
+  
   def video_thumbnail_by_path(filename)
     FileAsset.where(
       :user_id      => self.author.id, 

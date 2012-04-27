@@ -2,6 +2,8 @@ require 'digest/md5'
 
 module FileAssetUtils
         
+  DEFAULT_MOUNT_POINT = "#{Rails.root}/" + APP_CONFIG['files_path']
+  
   def author
     self.block ? self.block.case.author : nil
   end
@@ -9,13 +11,13 @@ module FileAssetUtils
   def author_id
     author ? author.id : 0   
   end
+      
+  def base_dir_with_mount(mnt)
+    File.join(mnt, "#{author_id}/#{file_type}")    
+  end
   
-  def move_to_storage
-    
-  end  
-    
   def base_dir
-    mount_point + "#{author_id}/#{file_type}"
+    base_dir_with_mount(mount_point)    
   end
   
   def filepath_for_filename(filename)
@@ -51,12 +53,12 @@ module FileAssetUtils
     filepath = full_filepath
     File.unlink(filepath) if filepath && File.exists?(filepath)
   end
-    
+      
   def mount_point    
     if self.storage
-      "#{Rails.root}/" + APP_CONFIG['files_path']
+      File.join(self.storage.mount_point, 'files') + '/'
     else
-      "#{Rails.root}/" + APP_CONFIG['files_path']
+      DEFAULT_MOUNT_POINT
     end
     
   end

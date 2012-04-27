@@ -5,7 +5,7 @@
 <% end %>
   <div id="logo-wrapper" 
        style="<%= letterhead_logo_wrapper_style(letterhead) %>">  
-    <img src="<%= file_logo_path(kase, letterhead.logo) %>"
+    <img src="<%= file_logo_path(letterhead.logo) %>"
          height="<%= letterhead.logo.height_for_display(80) %>"/>        
   </div>
 <% if letterhead.is_link %>

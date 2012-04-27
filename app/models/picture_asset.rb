@@ -19,7 +19,7 @@ module PictureAsset
   end
   
   def dimensions
-    main_file_asset.dimensions    
+    main_file_asset ? main_file_asset.dimensions : [0, 0]
   end  
   
   def dimensions_for_bytes(bytes)
@@ -87,6 +87,7 @@ module PictureAsset
   end  
   
   def generate_main_asset
+        
     FileAsset.create(        
         :parent_id    => self.id,
         :parent_type  => file_type,
@@ -146,6 +147,10 @@ module PictureAsset
       content_type = 'image/png'
       effective_filename = path_for_suffix(:png, effective_filename)
     end
+    
+    dimensions  = dimensions_for_bytes(bytes)
+    self.width  = dimensions[0]
+    self.height = dimensions[1]
    
     self.content_type = content_type    
     self.path = store effective_filename, bytes

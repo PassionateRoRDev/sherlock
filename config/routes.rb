@@ -57,6 +57,9 @@ Sherlock::Application.routes.draw do
   
   resources :blocks
   
+  get 'logo/:filename' => 'files#logo',
+    :constraints => { :filename => /.*/ }, :as => :logo
+  
   get 'files/:case_id/:type/:filename' => 'files#show',
     :constraints => { :filename => /.*/ }, :as => :file
   

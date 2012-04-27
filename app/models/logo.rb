@@ -17,11 +17,11 @@ class Logo < ActiveRecord::Base
   attr_accessor :uploaded_file  
   attr_accessor :original_filename # not really used right now
   
-  before_save :process_upload, :if => :has_uploaded_file?
-  before_save :update_dims, :if => :has_uploaded_file?
+  before_save :process_upload, :if => :has_uploaded_file?  
   
   after_save :invalidate_reports
-  after_save :generate_file_assets, :if => :has_uploaded_file?
+  
+  after_save :generate_file_assets, :if => :has_uploaded_file?  
   
   before_destroy :delete_files
   before_destroy :invalidate_reports

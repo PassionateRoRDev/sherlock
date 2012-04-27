@@ -23,9 +23,18 @@ RSpec.configure do |config|
   config.after(:each) do
     # clean up any tmp user files
     pics_path = Rails.root.to_s + '/' + APP_CONFIG['files_path']
-    Dir[pics_path + '*'].each do |f|       
-      FileUtils.rm_rf(f)       
+    Dir[pics_path + '*'].each { |f| FileUtils.rm_rf(f) }
+    
+    vol1_path = File.join(Rails.root, 'tmp', 'mnt', 'vol1')
+    Dir[File.join(vol1_path, '*')].each do |f|      
+      #FileUtils.rm_rf(f)
     end
+    
+    vol2_path = File.join(Rails.root, 'tmp', 'mnt', 'vol2')
+    Dir[File.join(vol2_path, '*')].each do |f|       
+      #FileUtils.rm_rf(f)      
+    end
+    
   end
   
   # If you're not using ActiveRecord, or you'd prefer not to run each of your

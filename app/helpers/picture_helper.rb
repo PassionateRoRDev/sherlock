@@ -42,18 +42,13 @@ module PictureHelper
     
   end
   
-  def image_tag_constrained(obj, max_dims)    
-    
-    dims = Picture.scale_to_bounds(obj.dims, max_dims)
-    
-    case_id = obj.case_id    
-    link = file_path(case_id, obj.file_type, obj.path)
-    
-    size_string = dims[0].floor.to_s + 'x' + dims[1].floor.to_s
-    title = obj.dims ?  "Original Dimensions: #{obj.dims[0]}x#{obj.dims[1]}" : ""
-        
+  def image_logo_tag_constrained(logo, max_dims)
+    dims = Picture.scale_to_bounds(logo.dims, max_dims)
+    link = logo_path(logo.path)
+    size_string = dims[0].floor.to_s + 'x' + dims[1].floor.to_s    
+    title = logo.dims ?  "Original Dimensions: #{logo.dims[0]}x#{logo.dims[1]}" : ""    
     link_to(image_tag(url_for(link), :size => size_string, :title => title), 
             link, :target => '_blank')
-  end    
-  
+  end
+    
 end

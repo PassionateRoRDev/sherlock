@@ -5,21 +5,43 @@ class FilesController < ApplicationController
   
   before_filter :authenticate_user!
 
-  def video_thumbnail
+  def logo
     
-    type      = 'videos'
     filename  = params[:filename]
-    kase      = resolve_case
-    owner = kase.nil? ? resolve_owner(type, filename) : kase.author
     
+    owner     = resolve_owner_for_logo(filename)    
     return redirect_to root_path unless owner
     
-    asset = kase.video_thumbnail_by_path(filename)
-        
+    logo = owner.logos.find_by_path(filename)
+    return redirect_to root_path unless logo
+    
+    asset = logo.main_file_asset
     return redirect_to root_path unless asset
     
-    options = {}        
+    options = {}            
+    options[:content_type]  = asset.content_type if asset.content_type
+    options[:disposition]   = 'inline'
     
+    path = asset.full_filepath
+    
+    send_file(path, options)
+    
+  end
+  
+  def video_thumbnail
+        
+    filename  = params[:filename]
+    
+    kase      = resolve_case    
+    return redirect_to root_path unless kase
+    
+    owner     = kase.author    
+    return redirect_to root_path unless owner
+    
+    asset = kase.video_thumbnail_by_path(filename)        
+    return redirect_to root_path unless asset
+    
+    options = {}            
     options[:content_type]  = asset.content_type if asset.content_type
     options[:disposition]   = 'inline'
     
@@ -34,9 +56,10 @@ class FilesController < ApplicationController
     type      = params[:type]
     filename  = params[:filename]
     
-    kase = resolve_case
-    owner = kase.nil? ? resolve_owner(type, filename) : kase.author
+    kase  = resolve_case
+    return redirect_to root_path unless kase
     
+    owner = kase.author    
     return redirect_to root_path unless owner
     
     asset = resolve_asset(kase, owner, filename, type)
@@ -60,9 +83,7 @@ class FilesController < ApplicationController
     when 'pictures'
       kase.pictures.find_by_path(filename)
     when 'videos'
-      kase.videos.find_by_path(filename)
-    when 'logos'
-      owner.logos.find_by_path(filename)      
+      kase.video_asset_by_path(filename)     
     else
       nil
     end
@@ -76,21 +97,16 @@ class FilesController < ApplicationController
     end
   end
   
-  def resolve_owner(type, filename)    
-    owner = nil    
-    if type == 'logos'
-      user = current_user    
-      if user.admin
-        logo = Logo.find_by_path(filename)
-        owner = logo.user if logo
-      elsif user.pi?
-        user
-      else
-        logo = Logo.find_by_path(filename)
-        owner = logo.user if logo && logo.user.clients.include?(user)          
-      end
+  def resolve_owner_for_logo(filename)        
+    user = current_user    
+    logo = Logo.find_by_path(filename)        
+    if user.admin      
+      logo ? logo.user : nil
+    elsif user.pi?
+      user
+    else
+      (logo && logo.user.clients.include?(user)) ? logo.user : nil                  
     end    
-    owner    
   end
   
 end

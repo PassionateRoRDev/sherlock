@@ -4,6 +4,37 @@ class FileAsset < ActiveRecord::Base
   
   before_destroy :delete_file
   
+  def move_to_storage(s)
+        
+    old_path = full_filepath
+    new_path = base_dir_with_mount(File.join(s.mount_point, 'files')) + '/' + self.path    
+        
+    new_dir = File.dirname(new_path)
+    FileUtils.mkdir_p(new_dir) unless File.exists?(new_dir)
+    
+    FileUtils.mv(old_path, new_path)
+    
+  end
+  
+  def parent_class_name    
+    case parent_type.to_sym
+    when :videos
+      Video      
+    when :pictures
+      Picture
+    when :logos
+      Logo
+    end
+  end
+  
+  def parent
+    parent_class_name.find_by_id(parent_id)    
+  end
+  
+  def storage
+    parent.storage
+  end
+  
   def uploaded_resource
     UploaderFromResource.new(
       :content_type       => self.content_type,
@@ -15,6 +46,10 @@ class FileAsset < ActiveRecord::Base
   def dimensions
     File.exists?(full_filepath) ? Dimensions.dimensions(full_filepath) : [0, 0]
   end  
+  
+  def copy_with_suffix(suffix)
+    
+  end
   
   private
   

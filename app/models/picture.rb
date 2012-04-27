@@ -23,7 +23,6 @@ class Picture < ActiveRecord::Base
   attr_accessible :title, :uploaded_file, :alignment, :unique_code
     
   before_save :process_upload, :if => :has_uploaded_file?  
-  before_save :update_dims, :if => :has_uploaded_file?
   
   before_destroy :delete_files  
   
@@ -93,8 +92,8 @@ class Picture < ActiveRecord::Base
   def file_type
     'pictures'
   end
-    
-  def backup    
+      
+  def backup
     FileUtils.copy_file(full_filepath, backup_path)
     generate_backup_asset
   end
@@ -136,8 +135,10 @@ class Picture < ActiveRecord::Base
     cropped    
   end
   
-  def move_to_storage(storage)
+  def move_to_storage(storage)    
     file_assets.each { |asset| asset.move_to_storage storage }
+    self.storage = storage
+    self.save
   end
   
   def update_filesize(size)
