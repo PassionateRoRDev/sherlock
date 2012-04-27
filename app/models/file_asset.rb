@@ -5,9 +5,17 @@ class FileAsset < ActiveRecord::Base
   before_destroy :delete_file
   
   def move_to_storage(s)
-        
+    
     old_path = full_filepath
-    new_path = base_dir_with_mount(File.join(s.mount_point, 'files')) + '/' + self.path    
+    
+    new_path = s ? base_dir_with_mount(File.join(s.mount_point, 'files')) 
+                 : base_dir_with_mount(nil)
+    
+    new_path += ('/' + self.path)
+    
+    #pp "Moving:"
+    #pp "old: #{old_path}"
+    #pp "new: #{new_path}"
         
     new_dir = File.dirname(new_path)
     FileUtils.mkdir_p(new_dir) unless File.exists?(new_dir)

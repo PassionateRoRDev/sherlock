@@ -13,6 +13,7 @@ module FileAssetUtils
   end
       
   def base_dir_with_mount(mnt)
+    mnt = DEFAULT_MOUNT_POINT if mnt.nil?
     File.join(mnt, "#{author_id}/#{file_type}")    
   end
   

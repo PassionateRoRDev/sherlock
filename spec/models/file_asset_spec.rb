@@ -45,6 +45,30 @@ describe FileAsset do
       Dir[@picture.base_dir + '/*'].count.should == 1
     end
     
+    it "should have the same full_filepath after moving back" do
+      path1 = @picture.main_file_asset.full_filepath
+      @picture.move_to_storage(@storage1)
+      @picture.move_to_storage(nil)
+      path2 = @picture.main_file_asset.full_filepath
+      
+      path2.should == path1
+      
+    end
+    
+    it "should delete files in the new location after moving back" do                              
+      @picture.move_to_storage(@storage1)
+      new_dir = @picture.base_dir
+      @picture.move_to_storage(nil)
+      Dir[new_dir + '/*'].count.should == 0
+    end
+    
+    it "should contain files the old location after moving back" do                              
+      old_dir = @picture.base_dir
+      @picture.move_to_storage(@storage1)
+      @picture.move_to_storage(nil)
+      Dir[old_dir + '/*'].count.should == 1
+    end
+    
   end
   
 end
