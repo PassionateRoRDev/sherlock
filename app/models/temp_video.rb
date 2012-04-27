@@ -3,7 +3,7 @@ class TempVideo
   include FileAssetUtils
   
   attr_accessor :user_id, :upload, :path
-  
+    
   def self.for_user(user)
     TempVideo.new { |v| v.user_id = user.id }
   end
@@ -28,6 +28,10 @@ class TempVideo
     'tmp'
   end
       
+  def storage
+    nil
+  end  
+  
   def uploaded_resource
     asset = self.exists?
     asset ? asset.uploaded_resource : nil    

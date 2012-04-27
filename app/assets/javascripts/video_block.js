@@ -11,10 +11,18 @@ SHERLOCK.videos.initEditForm = function(settings) {
   form.submit(function() {
     var result = false;
     if (! this._uploading) {
+      
       // if client-side (or AJAX-based) validation true
       var queueLength = $('#upload_video_queue .uploadifyQueueItem').length;
       if (!queueLength) {
-        alert('Please select a file to upload');            
+        
+        // if it's not a new video, just submit the form:
+        if (settings.video_id == '0') {        
+          alert('Please select a file to upload');            
+        } else {
+          result = true;
+        }
+        
       } else {        
         this._uploading = true;
         $(this).find('input[type=submit]').val('Saving...');

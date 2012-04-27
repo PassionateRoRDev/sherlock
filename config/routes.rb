@@ -57,8 +57,11 @@ Sherlock::Application.routes.draw do
   
   resources :blocks
   
-  match 'files/:case_id/:type/:filename' => 'files#show',
+  get 'files/:case_id/:type/:filename' => 'files#show',
     :constraints => { :filename => /.*/ }, :as => :file
+  
+  get 'video_thumbnails/:case_id/:filename' => 'files#video_thumbnail',
+    :constraints => { :filename => /.*/ }, :as => :file_video_thumbnail
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

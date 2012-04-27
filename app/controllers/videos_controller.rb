@@ -78,8 +78,7 @@ class VideosController < ApplicationController
     
     has_upload = params[:upload]
     method_auto = params[:video][:thumbnail_method].to_s == 'auto'
-               
-    
+                   
     params[:upload].delete :thumbnail if has_upload && method_auto      
     if params[:keep_thumbnail].to_i == 1
       params[:video].delete :thumbnail_pos

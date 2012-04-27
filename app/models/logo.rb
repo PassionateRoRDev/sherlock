@@ -5,6 +5,7 @@ class Logo < ActiveRecord::Base
   
   belongs_to :user
   belongs_to :letterhead
+  belongs_to :storage
   
   has_many :file_assets, :foreign_key => 'parent_id', 
            :conditions => "parent_type = 'logos'", 

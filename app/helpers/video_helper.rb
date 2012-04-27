@@ -4,6 +4,11 @@ module VideoHelper
     file_path(video.block.case_id, 'videos', path)
   end
   
+  def video_thumbnail_path(video)    
+    asset = video.thumbnail_file_asset
+    file_video_thumbnail_path(video.block.case_id, asset.path)
+  end
+  
   def thumbnail_pos(video)
     video.thumbnail_pos || '00:00:01'
   end

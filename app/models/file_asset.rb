@@ -12,6 +12,10 @@ class FileAsset < ActiveRecord::Base
     )    
   end
   
+  def dimensions
+    File.exists?(full_filepath) ? Dimensions.dimensions(full_filepath) : [0, 0]
+  end  
+  
   private
   
   # override from FileAssetUtils  

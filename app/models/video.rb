@@ -14,6 +14,7 @@ class Video < ActiveRecord::Base
   include BlockDetail
   
   belongs_to :block
+  belongs_to :storage
   
   has_many :file_assets, :foreign_key => 'parent_id', 
            :conditions => "parent_type = 'videos'", 
@@ -23,6 +24,7 @@ class Video < ActiveRecord::Base
   attr_accessor :uploaded_thumbnail
   
   attr_accessor :capture_start, :capture_end
+  attr_accessor :thumbnail_content_type
     
   validate :require_upload_for_a_new_video, :unless => :persisted?  
   
@@ -46,7 +48,7 @@ class Video < ActiveRecord::Base
       :thumbnail_pos  => '00:00:01'
     )
   end
-
+    
   def ffmpeg_path
     '/usr/local/bin/ffmpeg'
   end
@@ -91,8 +93,9 @@ class Video < ActiveRecord::Base
   
   def extract_thumbnail_from_movie    
         
-    if thumbnail_pos.to_s.present?      
-      delete_thumbnail
+    if thumbnail_pos.to_s.present?     
+      
+      delete_thumbnail_file_asset
       
       self.thumbnail = path.sub(/([^.]+)$/, 'png')
       command = "#{ffmpeg_path} -i #{full_filepath} -vframes 1 " +
@@ -103,16 +106,19 @@ class Video < ActiveRecord::Base
       result = `#{command}`
       Rails::logger.debug("Result of the thumbnail command: " + result)
 
+      self.thumbnail_content_type = 'image/png'
+      
       update_dims_from_thumbnail    
     
     end      
   end
-  
+    
   def generate_file_asset_for_thumbnail
     if self.thumbnail.present? && File.exists?(thumbnail_path)
       FileAsset.create(        
         :parent_id    => self.id,
         :parent_type  => file_type,
+        :content_type => self.thumbnail_content_type,
         :user_id      => self.author_id,
         :role         => :thumbnail,
         :path         => self.thumbnail,
@@ -226,8 +232,11 @@ class Video < ActiveRecord::Base
   
   def save_first_frame_as_thumbnail(frames_dir)    
     
-    delete_thumbnail
+    delete_thumbnail_file_asset
+    
     self.thumbnail = self.path.sub(/([^.]+)$/, 'jpg')    
+    self.thumbnail_content_type = 'image/jpeg'
+    
     first_frame = frame_files(frames_dir).first
     
     Rails::logger.debug "Thumbnail: #{self.thumbnail}"
@@ -483,16 +492,26 @@ class Video < ActiveRecord::Base
     code    
   end
   
+  def delete_thumbnail_file_asset
+    thumbnail_file_asset.destroy if thumbnail_file_asset
+  end
+  
   private
   
   def process_thumbnail_upload
     
     Rails::logger.debug 'Processing the uploaded thumbnail'
     
-    delete_thumbnail
+    delete_thumbnail_file_asset
+    
     self.thumbnail = self.path.sub(/([^.]+)$/, 'jpg')                 
+    self.thumbnail_content_type = uploaded_thumbnail.content_type
+    
     File.open(thumbnail_path, 'wb') { |f| f.write uploaded_thumbnail.read }
-    self.thumbnail_pos = nil
+    self.thumbnail_pos = nil    
+    
+    generate_file_asset_for_thumbnail    
+    
     update_dims_from_thumbnail
   end
   

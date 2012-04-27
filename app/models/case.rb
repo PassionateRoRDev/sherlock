@@ -86,7 +86,17 @@ class Case < ActiveRecord::Base
     result
   end
   
-   def create_event_for_creation
+  def video_thumbnail_by_path(filename)
+    FileAsset.where(
+      :user_id      => self.author.id, 
+      :parent_type  => :videos,
+      :role         => :thumbnail, 
+      :path         => filename
+    ).first    
+  end    
+  
+  def create_event_for_creation
+    
       exists = Event.where(
         :event_type     => 'create', 
         :event_subtype  => 'case', 

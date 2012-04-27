@@ -19,7 +19,7 @@ module PictureAsset
   end
   
   def dimensions
-    File.exists?(full_filepath) ? Dimensions.dimensions(full_filepath) : [0, 0]
+    main_file_asset.dimensions    
   end  
   
   def dimensions_for_bytes(bytes)

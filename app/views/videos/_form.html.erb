@@ -91,7 +91,7 @@
 <h4 class="label">Thumbnail :</h4>
 <div class="field-right">  
   <% if @video.thumbnail %>  
-    <img src="<%= file_video_path(@video, @video.thumbnail) %>"
+    <img src="<%= video_thumbnail_path(@video) %>"
          width="<%= @video.online_dims[0] %>"
          /> 
   <% end %>  
@@ -172,7 +172,8 @@
 </div>
   
 <script type="text/javascript">    
-  var settings = {  
+  var settings = {
+    video_id: '<%= @video.id.to_i %>',
     token: '<%= form_authenticity_token %>',
     cookie: '<%= @cookie %>',
     paths: {

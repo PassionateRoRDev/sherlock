@@ -10,6 +10,10 @@ module FileAssetUtils
     author ? author.id : 0   
   end
   
+  def move_to_storage
+    
+  end  
+    
   def base_dir
     mount_point + "#{author_id}/#{file_type}"
   end
@@ -48,8 +52,13 @@ module FileAssetUtils
     File.unlink(filepath) if filepath && File.exists?(filepath)
   end
     
-  def mount_point
-    "#{Rails.root}/" + APP_CONFIG['files_path']
+  def mount_point    
+    if self.storage
+      "#{Rails.root}/" + APP_CONFIG['files_path']
+    else
+      "#{Rails.root}/" + APP_CONFIG['files_path']
+    end
+    
   end
             
   #

@@ -6,7 +6,8 @@ class Picture < ActiveRecord::Base
   # at some point we will remove it:
   include FileAssetUtils
       
-  belongs_to :block 
+  belongs_to :block  
+  belongs_to :storage
   
   has_many :file_assets, :foreign_key => 'parent_id', 
            :conditions => "parent_type = 'pictures'", 
@@ -43,7 +44,7 @@ class Picture < ActiveRecord::Base
       generate_backup_asset if File.exists?(backup_path)        
     end
   end
-  
+    
   #
   # return path from the 'main' file asset
   #
@@ -133,6 +134,10 @@ class Picture < ActiveRecord::Base
         end      
     end        
     cropped    
+  end
+  
+  def move_to_storage(storage)
+    file_assets.each { |asset| asset.move_to_storage storage }
   end
   
   def update_filesize(size)
