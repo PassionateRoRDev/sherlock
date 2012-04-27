@@ -346,6 +346,10 @@ class Video < ActiveRecord::Base
     end  
   end
   
+  def mpg_file_asset
+    file_assets.find_by_format :mpg
+  end
+  
   def full_thumbnail_path
     filepath_for_filename thumbnail
   end  
@@ -367,7 +371,7 @@ class Video < ActiveRecord::Base
   end
   
   def mpg_path
-    path_for_format(:mpg)
+    mpg_file_asset.full_filepath    
   end
   
   def full_path_for_format(format)
@@ -468,16 +472,19 @@ class Video < ActiveRecord::Base
   end
   
   def as_json(options = {})
+    
     options[:except] ||= []
     options[:except] += [:original_filename]
     result = super(options)        
+    
     result['caption'] = result['title']
     result['type']    = type_from_content_type(self.content_type)
     
-    if options[:for_pdf]      
+    if options[:for_pdf]
       # apply MPG for the PDF format:      
-      result['path'] = self.mpg_path 
-      result['type'] = 'mpeg'      
+      result['path']      = self.mpg_path 
+      result['thumbnail'] = self.thumbnail_file_asset.full_filepath
+      result['type']      = 'mpeg'      
     end
     
     result
@@ -494,6 +501,12 @@ class Video < ActiveRecord::Base
   
   def delete_thumbnail_file_asset
     thumbnail_file_asset.destroy if thumbnail_file_asset
+  end
+  
+  def move_to_storage(storage)    
+    file_assets.each { |asset| asset.move_to_storage storage }
+    self.storage = storage
+    self.save
   end
   
   private

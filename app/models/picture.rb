@@ -186,6 +186,10 @@ class Picture < ActiveRecord::Base
         
     result['caption'] = result['title']
     
+    if options[:for_pdf]
+      result['path'] = main_file_asset.full_filepath
+    end
+    
     dims = dimensions
     result['width'] = dims[0]
     result['height'] = dims[1]

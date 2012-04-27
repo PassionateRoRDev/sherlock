@@ -51,18 +51,29 @@ describe Report do
     decoded['templatesRoot'].should == "#{Rails.root}/templates/"
     decoded['template'].should == 'template.xhtml'    
   end
-  
-  it 'picturesRoot should be absolute path' do
-    r = prepare_report
-    files_path = "#{Rails.root}/#{APP_CONFIG['files_path']}"
-    r.pictures_root.should == "#{files_path}#{r.case.author.id}/pictures/"
-  end
-  
-  it 'JSON should contain picturesRoot' do    
+    
+  it 'JSON should not contain picturesRoot' do    
     r = prepare_report
     r.template = 'template.xhtml'    
-    decoded = ActiveSupport::JSON.decode(r.to_json)    
-    decoded['picturesRoot'].should == r.pictures_root
+    
+    pp r.to_json
+    
+    decoded = ActiveSupport::JSON.decode(r.to_json)
+    decoded['picturesRoot'].should == nil
+  end
+  
+  it 'JSON should not contain videosRoot' do    
+    r = prepare_report
+    r.template = 'template.xhtml'    
+    decoded = ActiveSupport::JSON.decode(r.to_json)
+    decoded['videosRoot'].should == nil
+  end
+  
+  it 'JSON should not contain logosRoot' do
+    r = prepare_report
+    r.template = 'template.xhtml'    
+    decoded = ActiveSupport::JSON.decode(r.to_json)
+    decoded['logosRoot'].should == nil
   end
   
   it 'Picture block should return its title as a caption' do

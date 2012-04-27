@@ -37,6 +37,7 @@ class Report
     
     header_options = {
       :camelize => true,
+      :for_pdf  => true,
       :except => [:id, :user_id, :created_at, :updated_at],
       :include  => [:logo]
     }
@@ -50,9 +51,6 @@ class Report
       'header'        => self.header.as_json(header_options),
       'footer'        => self.case.footer.as_json(footer_options),
       'outputFile'    => reports_output_path,
-      'logosRoot'     => logos_root,
-      'picturesRoot'  => pictures_root,
-      'videosRoot'    => videos_root,      
       'templatesRoot' => templates_root,
       'template'      => self.template,
       'case'          => self.case.as_json(options)
@@ -77,6 +75,7 @@ class Report
       command = "java -jar #{Rails.root}/script/ReportGen.jar " + path + " 2>&1"
       Rails::logger.debug command    
       run_command_with_retry(command, PDF_RETRY_COUNT)    
+      
       File.unlink(path) if File.exists?(path)        
       
     end

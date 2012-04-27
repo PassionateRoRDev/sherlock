@@ -38,7 +38,7 @@ class Logo < ActiveRecord::Base
   def author
     self.user
   end
-    
+      
   def height_for_display(max_height)
     the_dims = dimensions
     the_dims == [0, 0] ? max_height : (the_dims[1] > max_height ? max_height : the_dims[1])
@@ -49,7 +49,13 @@ class Logo < ActiveRecord::Base
       delete_file
       remove_original_file
     end
-  end      
+  end
+  
+  def move_to_storage(storage)    
+    file_assets.each { |asset| asset.move_to_storage storage }
+    self.storage = storage
+    self.save
+  end
   
   def generate_file_assets        
     if self.file_assets.empty?

@@ -24,8 +24,15 @@ class Letterhead < ActiveRecord::Base
   end
   
   def as_json(options = {})
+    
+    Rails::logger.debug("Letterhead as json - options")
+    Rails::logger.debug(options)
 
     result = super(options)
+    
+    Rails::logger.debug("Letterhead - result logo:::")
+    Rails::logger.debug(result['logo'])
+    Rails::logger.debug(result[:logo])
     
     result[:text] = result['contents']
     
@@ -45,7 +52,8 @@ class Letterhead < ActiveRecord::Base
       dims = logo.dims            
       result['logo'][:width]  = dims ? dims[0] : 0
       result['logo'][:height] = dims ? dims[1] : 0      
-      result['logo'][:align] = logo_alignment        
+      result['logo'][:align] = logo_alignment              
+      result['logo'][:path]  = logo.main_file_asset.full_filepath      
     end
     
     #Rails::logger.debug('RESULT:')
