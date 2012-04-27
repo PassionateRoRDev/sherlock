@@ -3,7 +3,7 @@
   Take The Tour of Sherlock Docs 
 
 <div id="jp_container_tour" class="jp-video" 
-     style="width:900px;position:relative;margin-left:50px;margin-top:20px;">
+     style="width:900px;position:relative;margin-left:0px;margin-top:20px;">
   <div class="jp-type-single">
     <div class="jp-jplayer"></div>
     <div class="jp-gui">
@@ -80,6 +80,7 @@ $(function() {
               //webmv: "http://www.jplayer.org/video/webm/Big_Buck_Bunny_Trailer.webm",
               //poster: "http://www.jplayer.org/video/poster/Big_Buck_Bunny_Trailer_480x270.png"              
               flv : '/SherlockTutorial.flv',
+              m4v : '/SherlockTutorial.mp4',
               //m4v : '/files/8/videos/d5a71722733f928784225506c07744ba-viv.m4v',
               //ogv : '/files/videos/bb2702a6d21685d193b7803dc93eaa7d-sample_video.ogv',
               poster: '/images/tour_video.png'
@@ -92,8 +93,9 @@ $(function() {
     swfPath: "/javascript/",
     //supplied: "webmv, ogv, m4v"
     //supplied: 'flv, m4v, ogv'
-    //supplied: 'flv, m4v'
-    supplied: 'flv'
+    //supplied: 'flv, m4v'    
+    supplied: 'm4v, flv'
+    //supplied: 'flv'
   });
 });
 
