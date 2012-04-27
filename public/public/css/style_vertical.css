@@ -161,6 +161,7 @@ a.anchor {
 .white {
 	color:#000;/*background:#fff url(../images/white_vert.jpg) repeat-x bottom left;*/
 }
+
 .section ul {
 	list-style:none;
 	margin-left:3%;
@@ -179,6 +180,7 @@ a.anchor {
 	color: #FFF;
 	text-decoration:underline;
 }
+
 .white ul li {
 	float:left;
 	padding:0 15px;
@@ -196,13 +198,31 @@ a.anchor {
 .navigation {
 	background: #333;
 	height: 42px;
-	padding: 0;
-	
-        width: 100%;
-	
+	padding: 0;	
+        width: 100%;	
         line-height:42px;
 	position:fixed;
 }
+
+.navigation ul {
+	list-style:none;
+	margin-left:3%;
+}
+.navigation ul li {
+	float:left;
+	padding:0 15px;
+	color:#aaa;
+}
+.navigation ul li a {
+	display:block;
+	color:#FFF;
+}
+.navigation ul li a:hover {
+	text-decoration:none;
+	color: #FFF;
+	text-decoration:underline;
+}
+
 .navi {
 	margin-left:15%;
 	width:630px;
