@@ -51,11 +51,25 @@ filter: progid:DXImageTransform.Microsoft.Alpha(opacity=80);
 	text-align:center;
 	padding:34px 0;
 }
-.landing-txt2 {
-	color:#34818f;
-	font-size:23px;
-	font-family:"Century Gothic";
+
+h1.landing-txt {
+  padding-top: 94px;
+  font-weight:normal;
+  width:100%;
+  margin-bottom:0;
+  padding-bottom:0;
 }
+
+.section h2.landing-txt2 {
+  text-align: center;
+  font-weight: normal;
+  color:#34818f;
+  font-size:23px;
+  font-family:"Century Gothic";
+  margin-top: 7px;
+  margin-left:0;
+}
+
 #midsection {
 	margin:auto;
 	width:1000px;
