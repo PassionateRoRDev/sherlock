@@ -156,8 +156,13 @@ class CasesController < ApplicationController
   end
   
   def upgrade_or_purchase
+    
     @plans        = current_user.plans_to_upgrade
     @current_plan = current_user.current_plan
+    
+    subscription = current_user.current_subscription
+    @subscription_inactive = subscription && subscription.is_inactive?
+    
     render @current_plan ? 'upgrade_or_purchase' : 'upgrade'
   end
   

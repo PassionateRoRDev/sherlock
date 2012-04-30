@@ -5,6 +5,8 @@ class Subscription < ActiveRecord::Base
   
   default_scope :order => 'period_ends_at'
   
+  INACTIVE_STATES = %w{past_due unpaid canceled expired suspended}
+  
   #
   # Create Subscription record from the ChargifySubscription received from
   # Chargify API
@@ -31,6 +33,14 @@ class Subscription < ActiveRecord::Base
       :extra_cases_count  => 0
     )
     
+  end
+  
+  def is_inactive?
+    INACTIVE_STATES.include? self.status
+  end
+  
+  def is_active?    
+    !is_inactive?
   end
   
   def plans_to_upgrade

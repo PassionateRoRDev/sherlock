@@ -1,11 +1,15 @@
 %h1 Upgrade or Purchase
 
-%p
-  You reached maximum number of reports within your current subscription which
-  is
-  %strong
-    =@current_plan.cases_max
-    reports per month.  
+-if @subscription_inactive
+  %p
+    Your subscription is not active anymore.
+-else  
+  %p
+    You reached maximum number of reports within your current subscription which
+    is
+    %strong
+      =@current_plan.cases_max
+      reports per month.  
 
 %p Please upgrade to one of the following plans:
 
