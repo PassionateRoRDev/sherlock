@@ -17,8 +17,6 @@ class Chargify::EventsController < ApplicationController
     c = ::Sherlock::Chargify.new
     calculated = c.calculate_webhook_signature(body)
     
-    signature = calculated
-    
     if signature.present? 
       unless (signature == calculated)
         logger.error("Webhook signature not valid (expected #{calculated})")
