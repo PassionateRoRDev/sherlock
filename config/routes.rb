@@ -30,9 +30,9 @@ Sherlock::Application.routes.draw do
   end
   
   scope '/chargify' do
-    get 'subscriptions/new' => 'chargify/subscriptions#new'
-  end
-  
+    get  'subscriptions/new'  => 'chargify/subscriptions#new'
+    post 'events/create'      => 'chargify/events#create'
+  end  
   
   post 'folders/:id/move_case'      => 'folders#move_case'
   post 'folders/:id/move_out_case'  => 'folders#move_out_case'

@@ -1,3 +1,5 @@
+require 'digest/md5'
+
 class Sherlock::Chargify
 
   HEADERS = { 'Accept' => 'application/json', 'Content-Type' => 'application/json' }
@@ -14,6 +16,10 @@ class Sherlock::Chargify
   
   def errors
     @errors    
+  end
+  
+  def calculate_webhook_signature(raw_post)    
+    Digest::MD5.hexdigest(config['shared_site_key'] + raw_post)    
   end
   
   def config

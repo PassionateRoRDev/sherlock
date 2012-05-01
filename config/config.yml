@@ -7,6 +7,7 @@ development:
   chargify:
     subdomain: sherlockdocs-test
     api_key: dBT3aLoe-aITP9hckTPV
+    shared_site_key: 5pw6dtHeJUzxRk87SNzN
 
 test:
   files_path: tmp/files/
@@ -14,6 +15,7 @@ test:
   chargify:
     subdomain: sherlockdocs-test
     api_key: dBT3aLoe-aITP9hckTPV
+    shared_site_key: 5pw6dtHeJUzxRk87SNzN
 
 production:  
   files_path: files/
@@ -21,4 +23,5 @@ production:
   chargify:
     subdomain: sherlockdocs
     api_key: dBT3aLoe-aITP9hckTPV
+    shared_site_key: CPHbAq-pO8M7HXTFsGAt
 
