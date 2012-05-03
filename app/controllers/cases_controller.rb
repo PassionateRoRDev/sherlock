@@ -109,7 +109,8 @@ class CasesController < ApplicationController
     
     report.generate_pdf        
     
-    title = the_case.title.gsub(/\s+/, '-') + '.pdf'    
+    title = the_case.title.gsub(/\s+/, '-') + '.pdf'
+    title = title.gsub('"', '')
     send_pdf_headers(title)
     
     send_file(report.reports_output_path,
@@ -119,7 +120,6 @@ class CasesController < ApplicationController
   
   def send_pdf_headers(title)
     
-    title = title.gsub(/\s+/, '-') + '.pdf'    
     if request.env['HTTP_USER_AGENT'] =~ /msie/i
       headers['Pragma']               = 'public'
       headers["Content-type"]         = "application/pdf" 
