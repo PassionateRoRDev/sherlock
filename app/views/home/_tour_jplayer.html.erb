@@ -90,8 +90,8 @@ $(function() {
   });
   
   <%= kissmetrics_track do %>  
-    $(".jp-jplayer", ancestor).bind($.jPlayer.event.play, function(event) {    
-      alert('Playing!');
+    $(".jp-jplayer", ancestor).bind($.jPlayer.event.play, function(event) {
+      _kmq.push(['record', 'played tour video']);      
       $(".jp-jplayer", ancestor).unbind($.jPlayer.event.play);
     });
   <% end %>
