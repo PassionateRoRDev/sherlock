@@ -122,10 +122,14 @@
   </div>
 
   <script type="text/javascript">
+  <% if Rails.env == 'production' %>
   _kmq.push(['record', 'viewed case preview', 
             {'case_id': <%= @case.id %>, 
               'case_title': '<%= escape_javascript @case.title %>' }]);  
   </script>
+  <% end %>  
+  <%= render 'statcounter' %>
+  <%= render 'crazyegg' %>
   
 </body>
 </html>
