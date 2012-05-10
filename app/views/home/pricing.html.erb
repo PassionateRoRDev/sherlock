@@ -116,6 +116,9 @@
   </div>
 </div>
 <div class="clr"></div>
-<script type="text/javascript">
-_kmq.push(['record', 'viewed pricing page']);
+
+<% if Rails.env == 'production' %>
+<script type="text/javascript">  
+    _kmq.push(['record', 'viewed pricing page']);  
 </script>
+<% end %>
