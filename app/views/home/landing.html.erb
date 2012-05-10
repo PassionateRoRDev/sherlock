@@ -190,7 +190,7 @@ I like the features - <strong>its fun to use</strong> - so easy to upload or cap
 <script type="text/javascript" src="/javascript/jquery.easing.1.3.js"></script> 
 
 <script type="text/javascript">
-  <% if Rails.env == 'production' %>    
+  <%= kissmetrics_track do %>  
     _kmq.push(['record', 'viewed landing page']);
   <% end %>
   $(function() {

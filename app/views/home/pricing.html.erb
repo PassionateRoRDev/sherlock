@@ -117,7 +117,7 @@
 </div>
 <div class="clr"></div>
 
-<% if Rails.env == 'production' %>
+<%= kissmetrics_track do %>
 <script type="text/javascript">  
     _kmq.push(['record', 'viewed pricing page']);  
 </script>

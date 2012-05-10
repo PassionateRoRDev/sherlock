@@ -1,6 +1,6 @@
 <script type="text/javascript">
     var _kmq = _kmq || [];
-    <% if Rails.env == 'production' %>
+    <%= kissmetrics_track do %>    
       function _kms(u){
         setTimeout(function(){
         var s = document.createElement('script'); 
