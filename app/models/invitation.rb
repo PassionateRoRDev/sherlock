@@ -8,6 +8,8 @@ class Invitation < Valuable
   has_value :message
   has_value :case_id
   
+  attr_accessor :current_user
+  
   attr_writer :url_invitation
   attr_writer :url_cases 
   
