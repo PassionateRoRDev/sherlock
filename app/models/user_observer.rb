@@ -10,7 +10,7 @@ class UserObserver < ActiveRecord::Observer
         :user_id    => user.id
       )      
       Rails::logger.debug('Sending data to kissmetrics')
-      Kissmetrics.init_and_identify(user.id)  
+      KM.identify(user.id)  
       KM.record('Signed Up')  
       Rails::logger.debug('Data sent')
     end

@@ -9,7 +9,7 @@ class SessionsController < Devise::SessionsController
         :user_id    => current_user.id
       )
       
-      Kissmetrics.init_and_identify(current_user.id)      
+      KM.identify(current_user.id)      
       KM.record('Signed Out')
     end
     super

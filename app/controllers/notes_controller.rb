@@ -54,7 +54,7 @@ class NotesController < ApplicationController
     respond_to do |format|
       if @note.save
         
-        Kissmetrics.init_and_identify(current_user.id)        
+        KM.identify current_user.id
         KM.record('created note', :case_id => @case.id)
         
         @notes_count = @note.case.notes.count

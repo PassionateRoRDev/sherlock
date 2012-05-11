@@ -15,7 +15,7 @@
       <% if current_user %>
       _kmq.push(['identify', '<%= current_user.id %>']);
       <% else %>
-      _kmq.push(['identify', '0']);
+      _kmq.push(['identify', '<%= @km_visitor_id %>']);
       <% end %>      
     <% end %>    
 </script>

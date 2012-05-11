@@ -17,7 +17,10 @@ class Chargify::SubscriptionsController < ApplicationController
             if user.is_new
               logger.info("New user purchased a subscription")
               user.send_welcome_message        
-              sign_in(:user, user)
+              
+              km_alias_identity_for user
+              
+              sign_in(:user, user)              
             else
               logger.info("Existing user purchased a subscription")
             end

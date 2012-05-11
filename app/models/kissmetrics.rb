@@ -1,6 +1,13 @@
 class Kissmetrics
-  def self.init_and_identify(identity)
-    KM.init("536e73d0a9cf1146c1718b6c44e7d555855e8493")
-    KM.identify(identity)
+    
+  def self.generate_anonymous_id(request)
+    now = Time.now.to_i  
+    Digest::MD5.hexdigest(
+      (request.referrer || '') + 
+      rand(now).to_s + 
+      now.to_s + 
+      (request.user_agent || '')
+    )
   end
+  
 end
