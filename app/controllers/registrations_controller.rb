@@ -1,7 +1,7 @@
 class RegistrationsController < Devise::RegistrationsController
    
   def new    
-    unless User::BETA_PERIOD
+    if User::BETA_PERIOD
       resource = build_resource(params)    
       resource.init_address if resource.respond_to?(:init_address)        
       respond_with resource    
