@@ -37,6 +37,7 @@ class ApplicationController < ActionController::Base
     logger.info 'IDENTITY:'
     logger.info km_get_identity_from_cookie
     @km_visitor_id = km_get_identity_from_cookie
+    KM.identify(@km_visitor_id)
   end
   
   def km_alias_identity_for(user)
