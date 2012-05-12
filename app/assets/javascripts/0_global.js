@@ -112,6 +112,27 @@ SHERLOCK.utils.linkAjaxify = function(link) {
   link.bind('ajax:error', SHERLOCK.utils.showAjaxError);  
 };
 
+SHERLOCK.utils.richEditorRemove = function(eltId) {
+  var ed = tinyMCE.get(eltId);
+  if (ed != null) {
+    tinyMCE.execCommand('mceRemoveControl', false, eltId);
+  }
+};
+
+SHERLOCK.utils.richEditorInitialized = function(inst) {  
+  setTimeout(function() {
+    var textarea = $('#' + inst.id);
+    var newBlock = textarea.parents('.new-block:first');    
+    if ((newBlock.length > 0) && $.browser.mozilla) {
+      // do not focus - TinyMCE inserts a bogus BR which breaks the experience
+      // only in Firefox for empty blocks      
+    } else {
+      tinyMCE.execCommand('mceFocus',true, inst.id);
+    }
+  }, 500);
+  //alert('Initialized!');
+};
+
 SHERLOCK.utils.formAjaxify = function(form) {
   form.bind('ajax:before', function() {
     var f = this;
@@ -146,15 +167,6 @@ SHERLOCK.focusOnField = function(element) {
         focusField = errorFields[0];        
     }
     focusField.focus();    
-};
-
-SHERLOCK.utils.removeTinyMCE = function(eltId) {
-    if (tinyMCE && eltId) {
-        var exists = tinyMCE.get(eltId);
-        if (exists) {
-            tinyMCE.remove(exists);
-        }
-    }
 };
 
 SHERLOCK.utils.cookie = function(cookieName) {

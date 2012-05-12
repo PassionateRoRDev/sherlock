@@ -3,13 +3,22 @@
 
 <div class="block text" id="block-<%= block.id %>" 
      data-block_id="<%= block.id %>"
-     style="background-color:#efefef;padding:1em;margin:1em 0;">
+>
         
-  <div style="float:right;">
+  <div class="block-action-links">
   <% if block.html_detail %>    
+    <span class="links-for-editable" style="display:none;">      
+      <%= link_to 'Save', 
+          case_html_detail_path(block.case, block.html_detail),
+          :class => 'link-save' %> |            
+      <a class="link-cancel" href="#">Cancel</a> |
+    </span>
+    
+    <span class="links-for-static">
     <%= link_to 'Edit', 
         edit_case_html_detail_path(block.case, block.html_detail),
         :class => 'block-edit-ajax' %> |
+    </span>
   <% end %>
   <% if block.picture %>
     <%= link_to 'Edit', edit_case_picture_path(block.case, block.picture) %> |

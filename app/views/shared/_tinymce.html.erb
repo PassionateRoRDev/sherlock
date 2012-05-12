@@ -2,7 +2,12 @@
 
 <script type="text/javascript">
 var tinyMCEParams = {
-  mode: 'none',
+  
+  mode: 'specific_textareas',
+  editor_selector : "rich",
+  
+  init_instance_callback : SHERLOCK.utils.richEditorInitialized,
+
   theme: 'advanced',
   plugins : "spellchecker",
   spellchecker_rpc_url : "<%= spellcheck_path %>",

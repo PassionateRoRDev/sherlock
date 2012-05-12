@@ -13,57 +13,32 @@ SHERLOCK.ajaxHtmlDo = function(url, success) {
 
 SHERLOCK.cases = SHERLOCK.cases || {};
 
-SHERLOCK.cases.removeInjectedForm = function() {
-    var f = $('.injected-form');
-    f.hide();
-    var textarea = $('textarea', f);
-    SHERLOCK.utils.removeTinyMCE(textarea.attr('id'));
-    f.remove();        
-    
-    // deselect block type from the lists:
-    $('.form-insert-block select').each(function() {
-       this.selectedIndex = 0; 
-    });    
-    return false;
+SHERLOCK.cases.resetBlockTypeLists = function() {
+  $('.form-insert-block select').each(function() {
+     this.selectedIndex = 0; 
+  });
 };
 
 SHERLOCK.cases.insertBlockBefore = function(insertBefore) {
+                        
+    var url = SHERLOCK.urls.create_block_text;    
             
-    var url = SHERLOCK.urls.new_block_text;
-    var exists = $('.injected-form-new');
-    if (!exists.length) {          
-        
-        var next = insertBefore.next();
-        if (next.hasClass('block')) {
-            var blockId = next.data('block_id');
-            url += ('?insert_before_id=' + blockId);            
-        }                
-        
-        SHERLOCK.utils.showAjaxLoading();
-                
-        SHERLOCK.ajaxHtmlDo(url, function(responseText, textStatus, XMLHttpRequest) {
-            var newBlock = $('.blocks-area .new-block');
-            insertBefore.before(newBlock);            
-            newBlock.html(responseText);
-            
-            $('.no-blocks-msg').hide();
-            
-            SHERLOCK.utils.hideAjaxLoading();
-            
-            var f = $('.injected-form', newBlock);
-            var textarea = $('textarea', f);
-            var form = $('form', f); 
-            SHERLOCK.utils.formAjaxify(form);      
-
-            $('.link-cancel', newBlock).click(function(e) {
-              $('.no-blocks-msg').show();
-              SHERLOCK.cases.removeInjectedForm();
-              return false;
-            });
-                
-            SHERLOCK.utils.focusTinyMCE(textarea.attr('id'));                
-        });
+    var next = insertBefore.next();
+    if (next.hasClass('block')) {
+        var blockId = next.data('block_id');
+        url += ('?insert_before_id=' + blockId);            
     }
+    
+    var newBlock = $('.blocks-area .new-block');
+    newBlock.data('form-url', url);
+    
+    newBlock.find('.block-editable').html('');
+    
+    SHERLOCK.utils.richEditorRemove('form-tinymce-textarea');    
+    insertBefore.before(newBlock);
+    newBlock.show();
+    SHERLOCK.cases.startEditingBlockInline(newBlock);
+            
 };
 
 SHERLOCK.cases.updatePageInfoOrigValues = function() {
@@ -146,6 +121,93 @@ SHERLOCK.cases.initCasesList = function() {
   }
 };
 
+SHERLOCK.cases.finishEditingCurrentBlock = function() {  
+  var currentBlock = $('#form-tinymce').parents('.block:first');
+  if (currentBlock.length > 0) {
+    SHERLOCK.cases.finishEditingBlockInline(currentBlock);
+  }      
+};
+
+SHERLOCK.cases.finishEditingBlockInline = function(block) {
+  
+  block.find('.links-for-static').show();
+  block.find('.links-for-editable').hide();
+  
+  var editable = block.find('.block-editable');
+  editable.show();
+  
+  var isNewBlock = block.parent().hasClass('new-block');
+  if (isNewBlock) {
+    SHERLOCK.utils.richEditorRemove('form-tinymce-textarea');
+    block.parent().hide();  
+  } else {
+    var ed = tinyMCE.get('form-tinymce-textarea');
+    if (ed != null) {
+      ed.setContent(editable.html());        
+    }
+    $('#form-tinymce').hide();
+  }
+  
+  
+};
+
+SHERLOCK.cases.startEditingBlockInline = function(block) {
+    
+    block.find('.links-for-static').hide();
+
+    var editable = block.find('.block-editable');
+    var form = $('#form-tinymce');
+    var editableParent = editable.get(0).parentNode;
+
+    SHERLOCK.utils.richEditorRemove('form-tinymce-textarea');            
+    editableParent.insertBefore(form.get(0), editable.get(0));        
+    tinyMCE.execCommand('mceAddControl', false, 'form-tinymce-textarea');
+
+    var ed = tinyMCE.get('form-tinymce-textarea');        
+    if (ed != null) {
+      ed.setContent(editable.html());
+    }
+
+    form.show();
+    editable.hide();
+
+    block.find('.links-for-editable').show();
+};
+
+SHERLOCK.cases.editableCancelClicked = function(link) {      
+      var block = $(link).parents('.block:first');      
+      SHERLOCK.cases.finishEditingBlockInline(block);
+      return false;
+ };
+ 
+SHERLOCK.cases.editableSaveClicked = function(link) {  
+    
+  var url = link.href;  
+  var method = 'put';
+  var ed = tinyMCE.get('form-tinymce-textarea');        
+  var html = ed.getContent();
+
+  var newBlock = $(link).parents('.new-block:first');
+  if (newBlock.length) {
+    url = newBlock.data('form-url');    
+    method = 'post'
+  }    
+  
+  SHERLOCK.utils.showAjaxLoading();
+  $.ajax({  
+    url: url,        
+    data: {
+      _method: method,
+      'html_detail[contents]': html
+    },
+    'type': 'POST',
+    error : function() {
+      SHERLOCK.utils.showAjaxError();
+    }        
+  });
+
+};
+
 SHERLOCK.cases.checkBeforeLeavingPage = function() {
   
   function checkPageInfoSection()
@@ -169,7 +231,7 @@ SHERLOCK.cases.checkBeforeLeavingPage = function() {
     return result;
   }
   
-  $(window).bind('beforeunload', function() {    
+  $(window).bind('beforeunload', function() {
     var confirm = checkPageInfoSection();
     if (confirm) {
         return 'Do you want to leave the page without saving info?';
@@ -202,6 +264,7 @@ $(function() {
                 alert('Please select a block type');
                 break;
             case 'text':
+                SHERLOCK.cases.finishEditingCurrentBlock();
                 SHERLOCK.cases.insertBlockBefore(wrapper);
                 break;
             case 'picture':
@@ -216,37 +279,22 @@ $(function() {
         return false;
     });
     
-    $('.block-add-ajax').click(function(e) {        
-        var insertBefore = $('.form-insert-block-wrapper:last');                
-        SHERLOCK.cases.insertBlockBefore(insertBefore);                
-        return false;
+    $('.links-for-editable .link-save').live('click', function(e) {      
+      SHERLOCK.cases.editableSaveClicked(this);      
+      return false;
     });
     
+    $('.links-for-editable .link-cancel').live('click', function(e) {        
+        SHERLOCK.cases.editableCancelClicked(this);
+        return false;
+    });
+                
     $('.block-edit-ajax').live('click', function(e) {
-        var url = this.href;
-        var block = $(this).parents('.block:first');
-        var exists  = $('.injected-form', block);
-        if (!exists.length) {
-            SHERLOCK.utils.showAjaxLoading();
-          
-            SHERLOCK.ajaxHtmlDo(url, function(responseText, textStatus, XMLHttpRequest) {
-                var editable = $('.block-editable', block);
-                editable.hide();
-                editable.after(responseText);
-                
-                SHERLOCK.utils.hideAjaxLoading();
-                
-                var form = $('form', '.injected-form');
-                SHERLOCK.utils.formAjaxify(form);                
-                
-                $('.link-cancel', block).click(function() {
-                    SHERLOCK.cases.removeInjectedForm();
-                    editable.show();
-                    return false;
-                });                    
-            });
-        }
-        return false; 
+      
+        SHERLOCK.cases.finishEditingCurrentBlock();        
+        var block = $(this).parents('.block:first');                
+        SHERLOCK.cases.startEditingBlockInline(block);                
+        return false;                      
     });
     
         

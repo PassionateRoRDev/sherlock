@@ -259,6 +259,20 @@ textarea.rich {
 
 .blocks-area .block {
     clear: both;
+    background-color:#efefef;
+    padding:1em;
+    margin:1em 0;
+}
+
+.blocks-area .block .block-action-links {
+  float:right;
+}
+
+.blocks-area .block .block-action-links .link-save {
+  font-weight: bold;
+  color: white;
+  background-color: #686868;
+  padding: 2px 8px;
 }
 
 .blocks-area .block h3.block-title {
