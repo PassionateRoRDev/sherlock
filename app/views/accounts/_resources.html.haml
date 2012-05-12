@@ -9,7 +9,7 @@
   =@my_plan.chargify_handle.capitalize
   %br
   Period End:
-  =@my_subscription.period_ends_at
+  =print_date_or @my_subscription.period_ends_at, 'never'  
   %br
   Max reports:
   =@my_subscription.cases_max

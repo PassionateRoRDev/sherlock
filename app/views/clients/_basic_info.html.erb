@@ -9,8 +9,8 @@
   <dd><%= @client.email %></dd>
   <dt>Phone:</dt>
   <dd><%= print_or @client.user_address.phone %></dd>  
-  <dt>Last Login On:</dt>
-  <dd><%= @client.last_sign_in_at %></dd>
+  <dt>Last Signed On:</dt>
+  <dd><%= print_date_or @client.last_sign_in_at, 'never' %></dd>
 </dl>
 
 <div class="link-buttons" style="clear:both;margin-left:30%;">

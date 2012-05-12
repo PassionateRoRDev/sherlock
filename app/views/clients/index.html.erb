@@ -32,7 +32,7 @@
           <%= print_or client.phone %>
         </td>        
         <td style="text-align:center;">
-          <%= print_or client.last_sign_in_at, 'never' %>
+          <%= print_date_or client.last_sign_in_at, 'never' %>
         </td>
       </tr>
     <% end %>
