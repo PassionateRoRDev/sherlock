@@ -82,7 +82,7 @@
         %th.viewers.last Viewers                                  
     %tbody     
       -@cases.each do |c|
-        %tr
+        %tr{:class => "case-#{c.id}"}
           %td  
             =link_to 'Share', new_case_invitation_path(c), 
              :title => 'Share Report',
@@ -90,7 +90,10 @@
             =link_to c.title, c
           %td
             -c.viewers.each do |viewer|
-              .viewer{:style => 'margin-bottom:2px;'}
+              .viewer{:style => 'margin-bottom:2px;', :class => "viewer-#{viewer.id}"}
                 =link_to viewer.email, client_path(viewer)
+                =link_to 'x', case_viewer_path(c, viewer), :remote => true, 
+                 :method => :delete, 
+                 :confirm => "Remove access for client #{viewer.full_name}?"
 
  

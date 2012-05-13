@@ -29,6 +29,7 @@ Sherlock::Application.routes.draw do
     resources :invitations
     resources :footers
     resources :notes
+    resources :viewers
   end
   
   scope '/chargify' do
