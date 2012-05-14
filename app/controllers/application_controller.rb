@@ -5,6 +5,8 @@ class ApplicationController < ActionController::Base
   helper_method :user_is_pi?
   
   before_filter :km_init_anonymous
+
+  force_ssl :if => :secure_area?
   
   rescue_from RailsAdmin::AccessDenied do |exception|
     redirect_to main_app.dashboard_path, 
@@ -20,6 +22,10 @@ class ApplicationController < ActionController::Base
   end  
   
   protected
+
+  def secure_area?
+    controller_name != 'home'
+  end
       
   def km_get_identity_from_cookie
     cookies[:km_anon_identity]
