@@ -64,7 +64,7 @@
 <div class="link-buttons" style="padding-left:5em;">
   <%= link_to 'Preview', case_preview_path(@case),
               :class => "link-preview button" %>
-  <%= link_to 'PDF', case_path(@case, :format => :pdf),
+  <%= link_to 'PDF', report_path(@case.id),
               :class => "button" %>
 </div>
   

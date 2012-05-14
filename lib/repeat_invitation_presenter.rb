@@ -28,7 +28,8 @@ class RepeatInvitationPresenter
   end
 
   def link_target
-    "#{url_cases}/#{@invitation.case.id}.pdf"
+    #"#{url_cases}/#{@invitation.case.id}.pdf"
+    report_url(@invitation.case.id)
   end
 end
 

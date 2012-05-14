@@ -4,7 +4,7 @@
               :title => 'Preview Report',
               :class => 'icon icon-eye-open' %>
   
-  <%= link_to 'Get PDF', case_path(c, :pdf), 
+  <%= link_to 'Get PDF', report_path(c.id), 
       :class =>'icon icon-pdf', 
       :title => 'Download as PDF' %>    
   
