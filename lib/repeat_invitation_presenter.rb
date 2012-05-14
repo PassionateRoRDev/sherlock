@@ -1,10 +1,10 @@
 class RepeatInvitationPresenter
 
-  attr_accessor :url_cases
+  attr_accessor :url_report
   
   def initialize(invitation, url)
     @invitation = invitation
-    @url_cases = url
+    @url_report = url
   end
 
   def user
@@ -29,7 +29,7 @@ class RepeatInvitationPresenter
 
   def link_target
     #"#{url_cases}/#{@invitation.case.id}.pdf"
-    report_url(@invitation.case.id)
+    url_report    
   end
 end
 

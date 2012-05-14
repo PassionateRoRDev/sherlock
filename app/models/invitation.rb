@@ -11,7 +11,7 @@ class Invitation < Valuable
   attr_accessor :current_user
   
   attr_writer :url_invitation
-  attr_writer :url_cases 
+  attr_writer :url_report
   
   attr_accessor :current_user
 
@@ -78,7 +78,7 @@ class Invitation < Valuable
     if self.guest.invited?
       IntroductoryInvitationPresenter.new(self, @url_invitation)
     else
-      RepeatInvitationPresenter.new( self, @url_cases )
+      RepeatInvitationPresenter.new( self, @url_report )
     end
   end
 end

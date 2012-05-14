@@ -24,7 +24,9 @@ class InvitationsController < ApplicationController
     
       @invitation.current_user = current_user
 
-      @invitation.url_cases = cases_url
+      #"#{cases_url}/#{@invitation.case.id}.pdf"      
+      @invitation.url_report = report_url(@invitation.case.id)
+      
       @invitation.url_invitation = accept_user_invitation_url
     
       if @invitation.deliver
