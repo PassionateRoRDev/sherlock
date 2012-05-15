@@ -7,6 +7,9 @@ class InvitationsController < ApplicationController
     
     initialize_case        
     @invitation = Invitation.new(:case_id => @case.id)    
+    
+    @existing_clients = existing_clients
+    
   end
   
   def index
@@ -32,15 +35,27 @@ class InvitationsController < ApplicationController
       if @invitation.deliver
         flash[:notice] = "Sent invitation to view the report."
         redirect_to @invitation.case
-      else
+      else       
+        @existing_clients = existing_clients
         render 'new'
       end
     else
+      @existing_clients = existing_clients
       render 'new'
     end
   end
   
   protected
+  
+  def existing_clients    
+    current_user.clients.map do |c|
+      {
+        :email      => c.email,
+        :first_name => c.first_name,
+        :last_name  => c.last_name
+      }
+    end
+  end
   
   def initialize_case
     

@@ -1,0 +1,108 @@
+<div class="breadcrumb">
+  <%= link_to 'Dashboard', dashboard_path %>
+  /
+  <%= link_to 'My Cases', cases_path %>
+  /
+  <%=  link_to @case.title, @case %>
+  /
+  Invite Client
+</div>
+
+<h1>Invite Client to View Report</h1>
+
+<%= @url1 %><br/><%= @url2 %>
+
+
+<%= form_for @invitation, :url => case_invitations_path( @invitation.case_id ) do |form| %>
+  <div class="field email required">
+    <%= form.label :email, 'Client Email' %>
+    <div class="boxfield">    
+      <%= form.text_field :email, :class => :txtfield %>
+    </div>
+    <% unless form.object.errors[:email].empty? %>
+      <div class="error_message">      
+        <%= form.object.errors[:email].join(', ') %>
+      </div>
+    <% end %>
+  </div>
+        
+  <div class="field name required">
+    <%= form.label :name, 'Client Name' %>
+    <div class="boxfield">    
+      <%=  form.text_field :name, :class => :txtfield %>
+    </div>
+    <% unless form.object.errors[:name].empty? %>
+      <div class="error_message">      
+        <%=  form.object.errors[:name].join(', ') %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="field message required">  
+    <%= form.label :message %>
+    <%= form.text_area :message, :rows => 5, :cols => 100 %>
+    
+    <% unless form.object.errors[:message].empty? %>
+      <div class="error_message">
+        Message
+        <%= form.object.errors[:message].join(', ') %>
+      </div>
+    <% end %>
+        
+    <%= form.hidden_field :case_id, :value => @invitation.case_id %>
+  </div>
+  <div class="controls">
+    <%= form.submit 'Send', :class => 'button' %>
+  </div>
+<% end %> 
+
+<script type="text/javascript">
+
+  $(function() { 
+
+    var existing_clients = [];
+    <% @existing_clients.each do |c| %>
+        existing_clients.push({
+          email: '<%= escape_javascript(c[:email]) %>',
+          first_name: '<%= escape_javascript(c[:first_name]) %>',
+          last_name: '<%= escape_javascript(c[:last_name]) %>'
+        });
+    <% end %>
+    
+    var client_emails = [];
+    var mapping = {};
+
+    for (var i = 0; i < existing_clients.length; i++) {
+      client_emails.push(existing_clients[i].email);
+      mapping[existing_clients[i].email] = existing_clients[i];
+    }
+
+    if (existing_clients.length > 0) {
+      $('#invitation_email').autocomplete({
+        source: client_emails,
+        select: function(event, ui) {        
+          var mapped = mapping[ui.item.value];
+          if (mapped) {
+            var full_name = mapped.first_name;
+            if ((mapped.last_name != '') && (full_name != '')) {
+              full_name += ' ';
+            }
+            full_name += mapped.last_name;            
+            $('#invitation_name').val(full_name);
+          }
+          
+          if ($('#invitation_name').val() == '') {
+            $('#invitation_name').focus();
+          } else {
+            $('#invitation_message').focus();
+          }
+          
+          
+        }
+      });
+    }
+
+    $('#invitation_email').focus(); 
+  });
+  
+</script>
