@@ -1,5 +1,17 @@
 module LetterheadHelper
   
+  def letterhead_style_for_header(letterhead)
+    
+    if letterhead.logo && letterhead.contents.to_s.blank?
+      height = letterhead.logo.height
+      height = 80 if height > 80
+      "height:#{height}px;"
+    else
+      ''
+    end
+    
+  end
+  
   def letterhead_style(letterhead)
   
     result = "text-align:#{letterhead.text_align};"
