@@ -3,17 +3,21 @@
   <%= render 'letterheads/logo', 
       :letterhead => @letterhead, :kase => kase if @letterhead.logo %>
   
-  <div id="letterhead-text" style="<%= letterhead_style(@letterhead) %>">    
-    <% if @letterhead.is_link %>
-      <a href="<%= @letterhead.link %>"
-         title="<%= @letterhead.link %>"
-         style="color:<%= @letterhead.font_color %>;">
-    <% end %>
-      <%= @letterhead.contents.gsub(/(\r\n)|(\r)|(\n)/, '<br/>').html_safe %>            
-    <% if @letterhead.is_link %>    
-      </a>
-    <% end %>
-  </div>
+  <% if @letterhead.contents.to_s.present? %>
+  
+    <div id="letterhead-text" style="<%= letterhead_style(@letterhead) %>">    
+      <% if @letterhead.is_link %>
+        <a href="<%= @letterhead.link %>"
+           title="<%= @letterhead.link %>"
+           style="color:<%= @letterhead.font_color %>;">
+      <% end %>
+        <%= @letterhead.contents.gsub(/(\r\n)|(\r)|(\n)/, '<br/>').html_safe %>            
+      <% if @letterhead.is_link %>    
+        </a>
+      <% end %>
+    </div>
+  
+  <% end %>
   
   <% if @letterhead.divider_above %>  
     <hr style="height:<%= @letterhead.divider_size %>px;
