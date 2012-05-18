@@ -443,3 +443,70 @@ a.anchor {
 	color:#333333;
 	font-family: Georgia, "Times New Roman", Times, serif;
 }
+
+#newbox {
+	width:100%;
+	height:550px;
+	background:url(../images/home-bg.jpg) repeat;
+}
+.newbox {
+	margin:auto;
+	width:1000px;
+	height:auto;
+}
+.newbox-heading {
+	float:left;
+	width:1000px;
+	height:auto;
+	margin-top:90px;
+}
+.head-left {
+	float:left;
+	width:300px;
+	height:auto;
+	font-size:50px;
+	font-family: Arial, Helvetica, sans-serif;
+	text-shadow:2px 2px 2px #333333;
+}
+.head-right {
+	float:left;
+	width:650px;
+	height:auto;
+	padding-left:50px;
+	font-family:Georgia, "Times New Roman", Times, serif;
+	font-size:30px;
+	text-align:center;
+}
+.newbox-body {
+	float:left;
+	width:1000px;
+	height:auto;
+	margin-top:60px;
+}
+.newbox-body-left {
+	float:left;
+	width:445px;
+	height:277px;
+}
+.newbox-body-right {
+	float:left;
+	width:520px;
+	padding-left:35px;
+	height:auto;
+}
+.new-txtbox {
+	float:left;
+	width:320px;
+	height:auto;
+	font-size:28px;
+	font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+	text-align:left;
+}
+.new-imagebox {
+	float:left;
+	width:200px;
+	height:auto;
+	font-size:13px;
+	text-align:center;
+	font-family:Georgia, "Times New Roman", Times, serif;
+}
