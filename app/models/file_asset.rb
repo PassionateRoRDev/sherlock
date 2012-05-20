@@ -35,12 +35,12 @@ class FileAsset < ActiveRecord::Base
     end
   end
   
-  def parent
-    parent_class_name.find_by_id(parent_id)    
+  def parent  
+    parent_class_name ? parent_class_name.find_by_id(parent_id) : nil
   end
   
   def storage
-    parent.storage
+    parent ? parent.storage : nil
   end
   
   def uploaded_resource

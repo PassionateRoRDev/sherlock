@@ -13,6 +13,13 @@ module PictureHelper
     ]
   end
   
+  def image_scaling_options
+    [
+      ['None', nil],
+      ['50%', '50']      
+    ]
+  end
+  
   def picture_dynamic_style(picture)
     
     online_width = picture.online_dims[0]

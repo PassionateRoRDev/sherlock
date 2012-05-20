@@ -1,11 +1,7 @@
 <div>  
   <h4 style="margin-bottom:1em;">
     <%= block.title %>
-    <% if block.alignment.to_s.present? %>
-      <span style="font-weight:normal;">
-        [ alignment: <%= block.alignment %> ]
-      </span>
-    <% end %>  
+    <%= render 'blocks/meta', :block => block %>
   </h4>
   <% if block.html_detail %>  
     <div class="block-editable" id="block-editable-<%= block.id %>">

@@ -16,12 +16,32 @@ class Block < ActiveRecord::Base
   
   default_scope :order => 'weight'
   
+  def scaling
+    if self.picture
+      self.picture.scaling
+    elsif self.video
+      self.video.scaling
+    end    
+  end
+  
   def alignment
     if self.picture
       self.picture.alignment
     elsif self.video
       self.video.alignment
     end
+  end
+  
+  def has_meta?
+    has_scaling? || has_alignment?
+  end
+  
+  def has_scaling?
+    scaling.to_s.present?
+  end
+  
+  def has_alignment?
+    alignment.to_s.present?
   end
   
   # Layout strategy - used during the Preview and PDF:

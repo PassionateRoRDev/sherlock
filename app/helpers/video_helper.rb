@@ -22,6 +22,13 @@ module VideoHelper
     ]
   end
   
+  def video_scaling_options
+    [
+      ['None', nil],
+      ['50%', '50']      
+    ]
+  end
+  
   def video_dynamic_style(video)
         
     online_width = video.online_dims[0]

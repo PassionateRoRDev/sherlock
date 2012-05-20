@@ -1,0 +1,12 @@
+<% if block.has_meta? %>
+  <span style="font-weight:normal;">
+  [
+  <% if block.has_alignment? %>      
+    alignment: <%= block.alignment %>
+  <% end %>  
+  <% if block.has_scaling? %>      
+    scaling: <%= block.scaling %>%
+  <% end %>  
+  ]
+  </span>
+<% end %>

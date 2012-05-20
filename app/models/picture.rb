@@ -20,7 +20,7 @@ class Picture < ActiveRecord::Base
   
   attr_accessor :uploaded_file
   
-  attr_accessible :title, :uploaded_file, :alignment, :unique_code
+  attr_accessible :title, :uploaded_file, :alignment, :scaling, :unique_code
     
   before_save :process_upload, :if => :has_uploaded_file?  
   

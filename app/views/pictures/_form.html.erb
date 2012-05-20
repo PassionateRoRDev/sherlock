@@ -21,6 +21,13 @@
   </div>
 </div>
 
+<div class="field">
+  <%= f.label :scaling, 'Scaling (report) :' %>  
+  <div class="rich-dropdown-wrapper rich-dropdown-wrapper-x">
+    <%= f.select :scaling, image_scaling_options %>
+  </div>
+</div>
+
   <%= f.hidden_field :unique_code unless @picture.id %>
 
   <% if @picture.id %>
