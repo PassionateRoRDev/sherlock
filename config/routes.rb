@@ -13,6 +13,8 @@ Sherlock::Application.routes.draw do
   resources :folders
   resources :reports
   
+  resources :captured_emails
+  
   resources :purchases
   
   resources :subscription_plans

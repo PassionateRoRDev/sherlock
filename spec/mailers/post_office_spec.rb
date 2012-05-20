@@ -2,6 +2,20 @@ require 'spec_helper'
 
 describe PostOffice do
   
+  context "For the sample report email" do
+    before do
+      email = 'user1@mail.com'
+      link_signup = 'http://sherlockdocs.com/signup'
+      @presenter = SampleReportPresenter.new(email, link_signup)
+    end
+    
+    it "should send proper email" do      
+      email = PostOffice.sample_report(@presenter).deliver              
+      pp email.parts[0].body
+      pp email.parts[1].body      
+    end
+  end
+  
   context "For the welcome email" do
     
     before do    

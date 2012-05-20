@@ -26,7 +26,31 @@
       your ipad with Courts </div>
   </div>
   <div class="mid-three">
-    <div class="reportimg"><img src="/public/images/report.jpg" width="177" height="193" /></div>
-    <div class="reporttxt">this report was made in minutes not hours</div>
+    <div class="reportimg">
+      <a href="#" class="link-sample-report"        
+         title="Click to see a sample report">
+        <img src="/public/images/report.jpg" width="177" height="193" />
+      </a>
+    </div>
+    <div class="reporttxt">
+      <a title="Click to see a sample report" class="link-sample-report"
+         href="#">this report was made in minutes not hours</a>
+    </div>
   </div>
+  
+  <div style="display:none;" id="sample-report-form">
+    
+    <%= form_for(@email, :remote => true) do |f| %>          
+    
+      <%= f.label :email, 'Your Email:' %>                      
+      <%= f.text_field :email %>            
+          
+      <div class="actions">    
+        <%= f.submit 'Get Your Sample Report', :title => 'Get Your Sample Report' %>
+      </div>                        
+    
+    <% end %>
+        
+  </div>
+  
 </div>

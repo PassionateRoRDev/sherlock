@@ -6,6 +6,9 @@ class HomeController < ApplicationController
   def index    
     @title = 'SherlockDocs'
     #render :layout => 'public'
+    
+    @email = CapturedEmail.new
+    
     render 'landing', :layout => false
   end
   
