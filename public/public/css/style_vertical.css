@@ -134,11 +134,15 @@ h1.landing-txt {
 	float:left;
 	width:298px;
 	height:auto;
-	padding-top:22px;
-	font-size:14px;
-	font-family:"Century Gothic";
-	color:#537918;
+	padding-top:22px;	
 }
+
+.reporttxt, .reporttxt a {
+  font-size:14px;
+  font-family:"Century Gothic";
+  color:#537918;
+}
+
 .pricing-txt {
 	margin:auto;
 	width:1000px;
@@ -502,6 +506,7 @@ a.anchor {
 	font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
 	text-align:left;
 }
+
 .new-imagebox {
 	float:left;
 	width:200px;
@@ -509,4 +514,30 @@ a.anchor {
 	font-size:13px;
 	text-align:center;
 	font-family:Georgia, "Times New Roman", Times, serif;
+}
+
+#sample-report-form {
+  padding: 1em;
+}
+
+#sample-report-form label {
+  font-weight: bold;
+}
+
+#sample-report-form #captured_email_email {
+  padding: 2px 3px;
+}
+
+#sample-report-form .actions {
+  margin: 1em 0 0 120px;
+}
+
+#sample-report-form .actions input {
+  cursor: pointer;
+  width: 273px;
+  height: 44px;
+  font-family: "Century Gothic";
+  background: url(/public/images/green-button.jpg) no-repeat;  
+  border: none;
+  color: white;
 }
