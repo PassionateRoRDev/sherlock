@@ -243,7 +243,7 @@ a.anchor {
 
 .navi {
 	margin-left:15%;
-	width:630px;
+	padding-right: 23px;
 	height:48px;
 	background:url(../images/navi-bg.jpg) repeat-x;
 	border-bottom-left-radius:10px;
