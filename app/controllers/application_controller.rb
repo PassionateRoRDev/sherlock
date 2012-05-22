@@ -24,7 +24,7 @@ class ApplicationController < ActionController::Base
   protected
 
   def secure_area?
-    controller_name != 'home'
+    (controller_name != 'home') && (controller_name != 'captured_emails')
   end
       
   def km_get_identity_from_cookie
