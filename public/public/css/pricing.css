@@ -602,13 +602,29 @@ filter: progid:DXImageTransform.Microsoft.Alpha(opacity=80);
 	font-size:35px;
 }
 .plan-one {
-	float:left;
-	width:240px;
-	height:auto;
+  float:left;	  
 }
+
+.plan-labels {
+    float: left;
+    width:240px;
+}
+
+.plan-one, .topbox, topbox2,
+.topbox-intro, .topbox-head, .topbox-txt, .topbox-txt2 {
+  width:240px;
+}
+
+.box-in {
+  width: 239px;
+}
+
+.box-in2 {
+  width: 238px;
+}
+
 .topbox {
 	float:left;
-	width:240px;
 	height:128px;
 	background:url(../images/plan-one-bg.png) no-repeat;
 	color:#FFF;
@@ -617,7 +633,6 @@ filter: progid:DXImageTransform.Microsoft.Alpha(opacity=80);
 }
 .topbox2 {
 	float:left;
-	width:240px;
 	height:128px;
 	background:url(../images/plan-two-bg.png) no-repeat;
 	color:#FFF;
@@ -626,27 +641,26 @@ filter: progid:DXImageTransform.Microsoft.Alpha(opacity=80);
 }
 .topbox-intro {
 	float:left;
-	width:240px;
 	height:128px;
 }
+
 .topbox-head {
 	float:left;
-	width:240px;
 	height:50px;
 	line-height:50px;
 	font-size:20px;
 	text-transform:uppercase;
 }
+
 .topbox-txt {
 	float:left;
-	width:240px;
 	height:53px;
 	color:#333;
 	padding-top:25px;
 }
+
 .topbox-txt2 {
-	float:left;
-	width:240px;
+	float:left;	
 	height:53px;
 	color:#333;
 	text-align:center;
@@ -654,9 +668,9 @@ filter: progid:DXImageTransform.Microsoft.Alpha(opacity=80);
 	padding-top:25px;
 	border-bottom:1px solid #d9d9d9;
 }
+
 .box-in {
-	float:left;
-	width:239px;
+	float:left;	
 	height:25px;
 	line-height:25px;
 	border-left:1px solid #d9d9d9;
@@ -665,9 +679,9 @@ filter: progid:DXImageTransform.Microsoft.Alpha(opacity=80);
 	font-size:14px;
 	color:#333333;
 }
+
 .box-in2 {
 	float:left;
-	width:238px;
 	height:25px;
 	line-height:25px;
 	border-left:1px solid #d9d9d9;
@@ -677,6 +691,7 @@ filter: progid:DXImageTransform.Microsoft.Alpha(opacity=80);
 	font-size:14px;
 	color:#333333;
 }
+
 .box-intro {
 	float:left;
 	width:240px;
@@ -687,6 +702,7 @@ filter: progid:DXImageTransform.Microsoft.Alpha(opacity=80);
 	font-size:14px;
 	color:#333333;
 }
+
 .choose-plan {
 	float:left;
 	width:240px;
