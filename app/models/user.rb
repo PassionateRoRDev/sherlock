@@ -128,7 +128,7 @@ class User < ActiveRecord::Base
   
   def can_create_from_subscription?
     s = current_subscription
-    s && s.is_active? && (s.cases_count < s.cases_max)
+    s && s.is_active? && (s.cases_count < s.cases_max) && (s.period_ends_at > Time.now)
   end
   
   def send_welcome_message

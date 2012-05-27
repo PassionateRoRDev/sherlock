@@ -16,6 +16,17 @@ admins.each do |e|
 end
 
 plans = [
+  
+  {
+    :chargify_handle  => :free_trial,
+    :chargify_slug    => nil,
+    :price            => 0,    
+    :cases_max        => 3,
+    :extra_case_price => 0,
+    :clients_max      => 0,
+    :storage_max_mb   => 1024 * 25
+  },
+  
   {
     :chargify_handle  => :independent,
     :chargify_slug    => 'h/285859',
@@ -53,7 +64,7 @@ plans = [
     :extra_case_price => 1,
     :clients_max      => 0,
     :storage_max_mb   => 1024 * 25
-  }
+  }    
   
 ]
 

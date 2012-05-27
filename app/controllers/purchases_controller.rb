@@ -5,11 +5,18 @@ class PurchasesController < ApplicationController
   
   def new    
     s = current_user.current_subscription
-    @purchase = Purchase.new(:amount => s.extra_case_price)    
+    
+    if s.extra_case_price.to_i == 0
+      redirect_to new_case_path
+    else
+      @purchase = Purchase.new(:amount => s.extra_case_price)    
+    end
+    
+    
   end
   
   def create    
-    amount = params[:purchase][:amount]    
+    amount = params[:purchase][:amount]   
     @purchase = current_user.purchases.new(
       :label  => :one_time_report,
       :amount => amount

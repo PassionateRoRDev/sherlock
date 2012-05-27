@@ -98,6 +98,10 @@ class Subscription < ActiveRecord::Base
     !is_inactive?
   end
   
+  def is_expired?
+    self.period_ends_at < Time.now
+  end
+  
   def plans_to_upgrade
     self.subscription_plan.plans_to_upgrade
   end

@@ -2,8 +2,12 @@
 
 -if @subscription_inactive
   %p
-    Your subscription is not active anymore.
--else  
+    Your subscription is not active anymore.    
+-elsif @subscription_expired
+  %p
+    Your subscription expired on
+    =format_date(@subscription.period_ends_at)
+-else
   %p
     You reached maximum number of reports within your current subscription which
     is
@@ -13,7 +17,7 @@
 
 %p Please upgrade to one of the following plans:
 
-%ul.ordinary
+%ul.ordinary{:style => 'margin-bottom:0;'}
   -@plans.each do |plan|
     %li
       =link_to plan.chargify_handle.capitalize, chargify_url(plan)      
@@ -22,10 +26,11 @@
         =number_to_currency plan.price
       per month
 
-%p{:style => 'margin-bottom:0;'}
-  Alternatively 
-  =link_to 'you may pay one-time fee', new_purchase_path
-  of  
-  %strong
-    =number_to_currency @current_plan.extra_case_price
-  for creating just this report
+-if @subscription && @subscription.extra_case_price.to_i > 0
+  %p{:style => 'margin-bottom:0;margin-top:1em;'}
+    Alternatively 
+    =link_to 'you may pay one-time fee', new_purchase_path
+    of  
+    %strong
+      =number_to_currency @current_plan.extra_case_price
+    for creating just this report

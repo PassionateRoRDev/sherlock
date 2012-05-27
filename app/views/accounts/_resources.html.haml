@@ -6,7 +6,7 @@
 
 -if @my_plan  
   Name:
-  =@my_plan.chargify_handle.capitalize
+  =@my_plan.chargify_handle.gsub('_', ' ').capitalize
   %br
   Period End:
   =print_date_or @my_subscription.period_ends_at, 'never'  
