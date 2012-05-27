@@ -214,16 +214,14 @@ describe Video do
     end
     
     it 'should encode FLV from 3GPP' do      
-      recoding_events = Event.where(:event_type => 'video_recode')
-                        .order('id DESC').limit(2)
+      recoding_events = Event.where(:event_type => 'video_recode').order('id DESC').limit(2)
       first  = recoding_events.last  
       first.detail_s1.should == 'flv'
       first.detail_s2.should == 'original'
     end
     
     it 'should encode MPG from FLV (produced from 3GPP)' do      
-      recoding_events = Event.where(:event_type => 'video_recode')
-                        .order('id DESC').limit(2)
+      recoding_events = Event.where(:event_type => 'video_recode').order('id DESC').limit(2)
       last  = recoding_events.first
       last.detail_s1.should == 'mpg'
       last.detail_s2.should == 'flv'

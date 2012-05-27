@@ -8,8 +8,7 @@ class FileAsset < ActiveRecord::Base
     
     old_path = full_filepath
     
-    new_path = s ? base_dir_with_mount(File.join(s.mount_point, 'files')) 
-                 : base_dir_with_mount(nil)
+    new_path = s ? base_dir_with_mount(File.join(s.mount_point, 'files')) : base_dir_with_mount(nil)
     
     new_path += ('/' + self.path)
     

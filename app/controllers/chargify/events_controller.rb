@@ -14,6 +14,8 @@ class Chargify::EventsController < ApplicationController
     
     signature = params[:signature].to_s    
     
+    #pp "Signature: #{signature}"
+    
     c = ::Sherlock::Chargify.new
     calculated = c.calculate_webhook_signature(body)
     
@@ -32,10 +34,8 @@ class Chargify::EventsController < ApplicationController
             local = ::Subscription.find_by_chargify_id(subscription[:id])
             unless local
               logger.error("Subscription record not found in the database (id=#{subscription[:id]})")
-            else
-              logger.debug('Updating signatures state')
-              local.status = subscription[:state]
-              local.save
+            else              
+              local.apply_chargify_event(subscription)
             end
           end
         end
