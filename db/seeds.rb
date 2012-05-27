@@ -24,7 +24,7 @@ plans = [
     :cases_max        => 3,
     :extra_case_price => 0,
     :clients_max      => 0,
-    :storage_max_mb   => 1024 * 25
+    :storage_max_mb   => 1024 * 2
   },
   
   {

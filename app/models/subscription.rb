@@ -35,6 +35,29 @@ class Subscription < ActiveRecord::Base
     
   end
   
+  def self.create_free_trial
+    plan = SubscriptionPlan.find_by_chargify_handle(:free_trial)
+    if plan
+      Subscription.create(        
+        :product_handle     => plan.chargify_handle,
+        :subscription_plan  => plan,
+        
+        :period_ends_at     => Setting.trial_days.days.from_now,
+        
+        :status             => :trialing,
+
+        :cases_max          => plan.cases_max,
+        :cases_count        => 0,
+        :clients_max        => plan.clients_max,
+        :clients_count      => 0,
+        :storage_max_mb     => plan.storage_max_mb,
+
+        :extra_case_price   => plan.extra_case_price,
+        :extra_cases_count  => 0
+      )
+    end
+  end
+  
   def apply_chargify_event(subscription_payload)
     
     if self.period_ends_at != subscription_payload[:current_period_ends_at]      

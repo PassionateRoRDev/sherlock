@@ -51,19 +51,10 @@ class ApplicationController < ActionController::Base
     logger.info("Aliasing: #{anonymous} with #{user.id}")    
     KM.alias(anonymous, user.id) if anonymous      
   end
-  
-  def after_sign_up_path_for(resource)
     
-    logger.info 'Controller: after sign_up_path_for: user:'
-    logger.info current_user
-    
-    km_alias_identity_for current_user if current_user
-    dashboard_path    
-  end
-  
   def after_sign_in_path_for(resource)
     
-    logger.debug 'Controller: after sign_up_path_for: user:'
+    logger.debug 'Controller: after sign_in_path_for: user:'
     logger.debug current_user    
     
     if current_user      

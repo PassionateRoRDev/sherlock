@@ -83,6 +83,10 @@ class User < ActiveRecord::Base
       
   end
   
+  def setup_free_trial    
+    self.subscriptions << ::Subscription.create_free_trial        
+  end
+  
   def plans_to_upgrade    
     s = self.current_subscription
     s ? s.plans_to_upgrade : SubscriptionPlan.all
