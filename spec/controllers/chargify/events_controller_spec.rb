@@ -53,6 +53,14 @@ describe Chargify::EventsController do
         @subscription.user.subscriptions.count.should == 2
       end
       
+      it "should create subscription/renewal event" do        
+        current = @subscription.user.current_subscription        
+        event = Event.find_by_event_type(:subscription)
+        event.event_subtype.should == 'renewal'
+        event.detail_s1.should == current.period_ends_at.to_s
+        event.detail_i1.should == current.id
+      end
+      
     end
     
     context "update of the subscription to an canceled state (same period)" do
@@ -73,6 +81,12 @@ describe Chargify::EventsController do
 
       it "should not create a new subscription record" do
         @subscription.user.subscriptions.count.should == 1
+      end
+      
+      it "should create subscription/cancel event" do
+        event = Event.find_by_event_type(:subscription)
+        event.event_subtype.should == 'canceled'
+        event.detail_i1.should == @subscription.user.current_subscription.id
       end
       
     end

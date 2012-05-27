@@ -37,11 +37,18 @@ class Subscription < ActiveRecord::Base
   
   def apply_chargify_event(subscription_payload)
     
-    if self.period_ends_at != subscription_payload[:current_period_ends_at]
+    if self.period_ends_at != subscription_payload[:current_period_ends_at]      
       self.extend(subscription_payload[:current_period_ends_at], subscription_payload[:state])
     else
       self.status = subscription_payload[:state]
       save
+      
+      Event.create(
+        :event_type     => :subscription,
+        :event_subtype  => self.status,
+        :detail_i1      => self.id   
+      )
+      
     end
                 
   end
@@ -49,7 +56,7 @@ class Subscription < ActiveRecord::Base
   def extend(period_end, status)
     
     plan = self.subscription_plan
-    Subscription.create(
+    s = Subscription.create(
       :chargify_id        => self.chargify_id,
       :product_handle     => plan.chargify_handle,
       :user               => self.user,
@@ -72,6 +79,15 @@ class Subscription < ActiveRecord::Base
       :storage_max_mb     => plan.storage_max_mb
     )
     
+    subtype = (status.to_s == 'active') ? :renewal : status
+    
+    Event.create(
+        :event_type     => :subscription,
+        :event_subtype  => subtype,
+        :detail_s1      => s.period_ends_at.to_s,
+        :detail_i1      => s.id        
+    )
+        
   end
   
   def is_inactive?
