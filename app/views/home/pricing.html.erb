@@ -115,8 +115,22 @@
       <a class="txt" href="#">SherlockDocs starts at $9/month</a> </div>
     <div class="inbox">
       
-        <div class="question-part">How does the 30-day free trial work?</div>
-        <div class="answer-part">Simply sign up and create reports within your plan. Experiment with the reports for 30 days - change them, play with them, see what they can do.</div>
+        <% if Setting.has_non_cc_trial? %>
+          <div class="question-part">How does the <%= Setting.trial_days %>-day free trial work?</div>
+          <div class="answer-part">
+            You can create 3 free reports and share them with your clients. 
+            Once you try to create a fourth report you will be redirected 
+            to a sign up page to choose a plan. No obligation required 
+            to try this service out.</div>
+      
+        <% else %>
+          <div class="question-part">How does the 30-day free trial work?</div>
+          <div class="answer-part">
+          Simply sign up and create reports within your plan. 
+          Experiment with the reports for 30 days - change them, play with them, 
+          see what they can do.</div>
+        <% end %>
+        
         <div class="question-part">Do I get a 30-day free trial if I upgrade?</div>
         <div class="answer-part">No. </div>
         <div class="question-part">Can I change plans at any time?</div>
