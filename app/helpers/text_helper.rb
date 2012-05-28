@@ -12,4 +12,8 @@ module TextHelper
     s.in_time_zone('Eastern Time (US & Canada)').to_formatted_s(:date_time)
   end
   
+  def signup_link_label
+    Setting.has_non_cc_trial? ? 'Free Trial' : 'SignUp'
+  end
+  
 end

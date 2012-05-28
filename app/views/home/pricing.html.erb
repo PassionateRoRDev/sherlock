@@ -5,12 +5,21 @@
 <% end %>
 
 <div id="pricing">
-<div class="pricing">
-  <div class="pricing-txt">CheckOut SherlockDocs Plans & Pricing<br />
-    <font style="color:#64881e;">30-day Free Trial on All Accounts.</font></div>
-  <div class="pricing-txt3">Create Your Reports in Half the Time</div>
-  <div class="plans">
     <div class="plansbox">
+      <div class="pricing-txt">CheckOut SherlockDocs Plans & Pricing<br />
+          <font style="color:#64881e;">
+        <% if Setting.has_non_cc_trial? %>
+          <%= link_to Setting.trial_days.to_s + '-day Free Trial - 3 reports, no credit card required',
+              new_user_registration_path,
+              :title => 'Free Trial - 3 reports, no credit card required' %>  
+        <% else %>
+          30-day Free Trial on All Accounts.
+        <% end %>
+        </font>
+      </div>
+      <div class="pricing-txt3">Create Your Reports in Half the Time</div>      
+    </div>
+    <div class="plansbox">    
       <div class="plan-labels">
         <div class="topbox-intro">
           <div class="topbox-head">&nbsp;</div>
@@ -19,9 +28,6 @@
         <div class="box-intro"># Reports/month included</div>
         <div class="box-intro">Price/report for additional reports</div>
         <div class="box-intro">Storage</div>
-        <!--
-        <div class="box-intro"># users</div>
-        -->
         <div class="box-intro"># clients per months</div>
         <div class="box-intro"># reports to consider upgrade</div>
       </div>
@@ -34,9 +40,6 @@
         <div class="box-in2">60</div>
         <div class="box-in2">$1</div>
         <div class="box-in2">25 GB</div>
-        <!--
-        <div class="box-in2">10</div>
-        -->
         <div class="box-in2">unlimited</div>
         <div class="box-in2">&nbsp;</div>
         <div class="choose-plan"><a class="fl"
@@ -67,9 +70,6 @@
         <div class="box-in">12</div>
         <div class="box-in">$3</div>
         <div class="box-in">5 GB</div>
-        <!--
-        <div class="box-in">3</div>
-        -->
         <div class="box-in">100</div>
         <div class="box-in">21</div>
         <div class="choose-plan"><a class="fl"
@@ -96,11 +96,14 @@
                       width="150" height="43" alt="" border="0" /></a></div>
       </div>
     </div>
-  </div>
-  <div class="pricing-txt1">Users have access to their reports for as long your account is active +90 days</div>
-  <div class="pricing-txt2"><font style="color:#64881e; font-size:33px;">Sign up in 60 seconds.</font><br />
-    Upgrade, downgrade, or cancel anytime.</div>
+  
+    <div class="plansbox">  
+  
+      <div class="pricing-txt1">Users have access to their reports for as long your account is active +90 days</div>
+      <div class="pricing-txt2"><font style="color:#64881e; font-size:33px;">Sign up in 60 seconds.</font><br />
+      Upgrade, downgrade, or cancel anytime.</div>
     </div>
+    
 </div>
 <div class="clr"></div>
 <div id="midbox">

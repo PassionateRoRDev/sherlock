@@ -12,9 +12,7 @@
       <%= link_to 'Admin area', '/admin' %> |
     <%- end %>
     <%= link_to 'Logout', destroy_user_session_path, :method => :delete %>      
-  <% else %>    
-    <%= link_to 'Login', new_user_session_path %> |
-    <%= link_to 'Register', new_user_registration_path %>   
+  <% else %>        
   <% end %>
   </div>
   <% if signed_in? %>
