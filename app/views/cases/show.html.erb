@@ -43,17 +43,15 @@
 <script type="text/javascript" src="/javascript/jquery.jplayer.js"></script>
 
 <div class="blocks-area">
-    
+      
   <% if @case.blocks.empty? %>
-    <h3 class="no-blocks-msg">This case doesn't have any blocks yet</h3>
-  <% else %>        
-    
-    <%= render 'tinymce' %>
-    
-    <%= render 'new_text_block' %>
-    
-    <%= render @case.blocks %>
-  <% end %>      
+    <h3 class="no-blocks-msg">This case doesn't have any blocks yet</h3>    
+  <% end %>
+  
+  <%= render 'tinymce' %>    
+  <%= render 'new_text_block' %>
+  
+  <%= render @case.blocks %>  
     
   <%= render 'blocks/form_insert' %>
       
