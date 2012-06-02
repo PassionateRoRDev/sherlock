@@ -59,7 +59,7 @@ module AddressHelper
   end
   
   def countries_options
-    ['USA', 'Canada', 'UK'] 
+    ['USA', 'Australia', 'Canada', 'Germany', 'UK']    
   end
   
 end
