@@ -916,3 +916,7 @@ div.uploadify {
   height: 50px;
   width: 218px;
 }
+
+td.c {
+  text-align: center;
+}

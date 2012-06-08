@@ -99,6 +99,10 @@ class User < ActiveRecord::Base
   def current_plan
     current_subscription ? current_subscription.subscription_plan : nil
   end
+  
+  def current_subscription_name
+    current_subscription ? current_subscription.product_handle : ''
+  end
     
   def case_created(c)    
     if can_create_from_subscription?

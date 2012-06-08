@@ -1,0 +1,31 @@
+<h1>Private Investigators</h1>
+
+<table style="margin-bottom:0;width:100%;">  
+  <thead>    
+    <tr>
+      <th rowspan="2" style="width:250px;">Email</th>
+      <th colspan="2">Sign On</th>      
+      <th rowspan="2" style="width:135px;">Created</th>
+      <th rowspan="2">Subscription</th>
+      <th rowspan="2" style="width:55px;"># Cases</th>
+    </tr>
+    <tr>
+      <th style="width:25px;">#</th>
+      <th style="width:135px;">Last</th>
+    </tr>    
+  </thead>  
+  
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= link_to user.email, user %></td>
+        <td class="c"><%= user.sign_in_count %></td>
+        <td class="c"><%= format_date(user.current_sign_in_at) %></td>
+        <td class="c"><%= format_date(user.created_at) %></td>
+        <td><%= user.current_subscription_name %></td>
+        <td class="c"><%= user.cases.count %></td>
+      </tr>
+    <% end %>
+  </tbody>
+  
+</table>

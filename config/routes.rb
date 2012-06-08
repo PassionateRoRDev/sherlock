@@ -35,6 +35,10 @@ Sherlock::Application.routes.draw do
     resources :viewers
   end
   
+  namespace :dashboard do
+    resources :users    
+  end
+  
   scope '/chargify' do
     get  'subscriptions/new'  => 'chargify/subscriptions#new'
     post 'events/create'      => 'chargify/events#create'
