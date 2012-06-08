@@ -15,21 +15,18 @@ class AccountsController < ApplicationController
     @should_upgrade = @my_subscription && @my_subscription.is_used?
     @expired = @my_subscription && @my_subscription.is_expired?
     
+    @renew = @my_subscription && (@my_subscription.is_expired? || @my_subscription.is_inactive?)
+    
     @cases = current_user.authored_cases
     
   end
   
-  def upgrade
-    @plans        = current_user.plans_to_upgrade
-    @current_plan = current_user.current_plan
-    
-    @subscription = current_user.current_subscription
-    @subscription_inactive = @subscription && @subscription.is_inactive?
-    
-    @subscription_expired = @subscription && @subscription.is_expired?
-    
-    render 'cases/upgrade_or_purchase'
-    
+  def renew    
+    renew_or_upgrade    
+  end
+  
+  def upgrade    
+    renew_or_upgrade    
   end
 
   def update
@@ -49,5 +46,22 @@ class AccountsController < ApplicationController
       render :action => 'show'
     end
   end
+  
+  private
+  
+  def renew_or_upgrade
+    
+    @plans        = current_user.plans_to_upgrade
+    @current_plan = current_user.current_plan
+    
+    @subscription = current_user.current_subscription
+    
+    @subscription_inactive  = @subscription && @subscription.is_inactive?    
+    @subscription_expired   = @subscription && @subscription.is_expired?    
+    
+    render 'cases/upgrade_or_purchase'
+    
+  end
+  
 end
 

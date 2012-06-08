@@ -46,6 +46,7 @@ Sherlock::Application.routes.draw do
   resource :account, :only => [:show, :update]
  
   get 'account/upgrade' => 'accounts#upgrade', :as => :upgrade
+  get 'account/renew' => 'accounts#renew', :as => :renew
   
   get 'cases/preview/:id' => 'cases#preview', :as => :case_preview
   

@@ -1,10 +1,10 @@
 %h1 Upgrade or Purchase
 
 -if @subscription_inactive
-  %p
+  %p.subscription-inactive
     Your subscription is not active anymore.    
 -elsif @subscription_expired
-  %p
+  %p.subscription-expired
     Your subscription expired on
     =format_date(@subscription.period_ends_at)
 -else

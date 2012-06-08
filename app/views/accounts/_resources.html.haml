@@ -8,6 +8,13 @@
   Name:
   =@my_plan.chargify_handle.gsub('_', ' ').capitalize
   %br 
+  State:
+  -if @my_subscription.is_inactive?
+    %span.subscription-inactive
+      =@my_subscription.status
+  -else
+    =@my_subscription.status
+  %br  
   Period Ends:
   -if @expired
     %span.subscription-expired
@@ -30,6 +37,10 @@
 -if @should_upgrade
   %div{:style => 'margin-top:0.5em;height: 2em;'}
     =link_to 'Upgrade', upgrade_path, :class => :button
+
+-if @renew
+  %div{:style => 'margin-top:0.5em;height: 2em;'}
+    =link_to 'Renew', renew_path, :class => :button
 
 
 
