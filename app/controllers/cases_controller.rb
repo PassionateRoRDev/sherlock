@@ -109,7 +109,7 @@ class CasesController < ApplicationController
     
     report.generate_pdf        
     
-    title = the_case.title.gsub(/\s+/, '-') + '.pdf'
+    title = the_case.title.strip.gsub(/\s+/, '-') + '.pdf'
     title = title.gsub('"', '')
     send_pdf_headers(title)
     
