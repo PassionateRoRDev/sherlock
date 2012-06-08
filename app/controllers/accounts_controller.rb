@@ -4,6 +4,7 @@ class AccountsController < ApplicationController
   before_filter :authorize_pi!
 
   def show
+    
     @account = current_user
     @account.user_address ||= @account.init_address 
     
@@ -11,7 +12,22 @@ class AccountsController < ApplicationController
     @my_plan          = current_user.current_plan
     @one_time_credits = current_user.unused_purchases
     
+    @should_upgrade = @my_subscription && @my_subscription.is_used?
+    
     @cases = current_user.authored_cases
+    
+  end
+  
+  def upgrade
+    @plans        = current_user.plans_to_upgrade
+    @current_plan = current_user.current_plan
+    
+    @subscription = current_user.current_subscription
+    @subscription_inactive = @subscription && @subscription.is_inactive?
+    
+    @subscription_expired = @subscription && @subscription.is_expired?
+    
+    render 'cases/upgrade_or_purchase'
     
   end
 

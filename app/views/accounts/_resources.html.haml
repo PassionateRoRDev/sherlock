@@ -8,7 +8,7 @@
   Name:
   =@my_plan.chargify_handle.gsub('_', ' ').capitalize
   %br
-  Period End:
+  Period Ends:
   =print_date_or @my_subscription.period_ends_at, 'never'  
   %br
   Max reports:
@@ -22,6 +22,10 @@
     
 -else
   You have no subscription plan active yet
+
+-if @should_upgrade
+  %div{:style => 'margin-top:0.5em;height: 2em;'}
+    =link_to 'Upgrade', upgrade_path, :class => :button
 
 
 

@@ -45,6 +45,8 @@ Sherlock::Application.routes.draw do
     
   resource :account, :only => [:show, :update]
  
+  get 'account/upgrade' => 'accounts#upgrade', :as => :upgrade
+  
   get 'cases/preview/:id' => 'cases#preview', :as => :case_preview
   
   match 'spellcheck/lookup' => 'spellcheck#lookup', 

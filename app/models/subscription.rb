@@ -128,6 +128,13 @@ class Subscription < ActiveRecord::Base
   def plans_to_upgrade
     self.subscription_plan.plans_to_upgrade
   end
+  
+  #
+  # When subscription is 'used', it means the user can't create any more cases 
+  #
+  def is_used?
+    self.cases_count == self.cases_max
+  end
     
   def extra_case_created(c)
     self.extra_cases_count += 1
