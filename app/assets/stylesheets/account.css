@@ -43,3 +43,7 @@ table.viewers td .viewer {
 table.viewers td .viewer a {
   color: #397A89;
 }
+
+.subscription-expired {
+  color: red;
+}

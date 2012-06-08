@@ -7,9 +7,13 @@
 -if @my_plan  
   Name:
   =@my_plan.chargify_handle.gsub('_', ' ').capitalize
-  %br
+  %br 
   Period Ends:
-  =print_date_or @my_subscription.period_ends_at, 'never'  
+  -if @expired
+    %span.subscription-expired
+      =print_date_or @my_subscription.period_ends_at, 'never'  
+  -else
+    =print_date_or @my_subscription.period_ends_at, 'never'  
   %br
   Max reports:
   =@my_subscription.cases_max

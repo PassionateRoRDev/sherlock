@@ -13,6 +13,7 @@ class AccountsController < ApplicationController
     @one_time_credits = current_user.unused_purchases
     
     @should_upgrade = @my_subscription && @my_subscription.is_used?
+    @expired = @my_subscription && @my_subscription.is_expired?
     
     @cases = current_user.authored_cases
     
