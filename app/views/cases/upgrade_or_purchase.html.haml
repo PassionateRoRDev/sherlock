@@ -20,7 +20,7 @@
 %ul.ordinary{:style => 'margin-bottom:0;'}
   -@plans.each do |plan|
     %li
-      =link_to plan.chargify_handle.capitalize, chargify_url(plan)      
+      =link_to plan.chargify_handle.capitalize, chargify_url(plan, @current_user)      
       \-
       %strong
         =number_to_currency plan.price

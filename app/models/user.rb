@@ -46,8 +46,10 @@ class User < ActiveRecord::Base
       
       customer = subscription.customer
       password = generate_random_password RANDOM_PASSWORD_LENGTH
-      
+            
       exists = User.find_by_email(customer.email)
+      
+      existing_subscription = exists ? exists.current_subscription : nil
     
       user = User.find_or_create_by_email(
         :email                  => customer.email,
@@ -74,7 +76,10 @@ class User < ActiveRecord::Base
       
       user.subscriptions << ::Subscription.create_from_chargify(subscription)
       
-      unless exists    
+      if exists
+        Rails::logger.debug('The user already existed')
+        existing_subscription.cancel if existing_subscription
+      else
         user.is_new = true
         user.password_plain = password
       end
@@ -196,6 +201,18 @@ class User < ActiveRecord::Base
     ! self.invitation_token.blank?  
   end
   
+  def billing_zip
+    from_address :zip    
+  end
+  
+  def billing_city
+    from_address :city
+  end
+  
+  def phone
+    from_address :phone
+  end
+  
   #
   # PI's are uses who haven't been invited
   #
@@ -211,6 +228,12 @@ class User < ActiveRecord::Base
       false
     end
   end 
+  
+  private
+  
+  def from_address(name)
+    self.user_address ? self.user_address.send(name) : ''
+  end
       
   
 end

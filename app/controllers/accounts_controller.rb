@@ -51,8 +51,10 @@ class AccountsController < ApplicationController
   
   def renew_or_upgrade
     
+    @current_user = current_user
     @plans        = current_user.plans_to_upgrade
     @current_plan = current_user.current_plan
+    
     
     @subscription = current_user.current_subscription
     

@@ -130,6 +130,31 @@ class Subscription < ActiveRecord::Base
   end
   
   #
+  # Cancel the subscription on the Chargify end:
+  #
+  def cancel    
+    unless self.status == 'canceled'
+      ev = Event.create(
+          :event_type     => :subscription,
+          :event_subtype  => :cancel,
+          :user           => self.user,
+          :detail_i1      => self.id
+      )      
+      
+      Rails::logger.debug "Calling chargify to cancel subscription ID #{self.chargify_id}"      
+      Sherlock::Chargify.new.cancel(self.chargify_id)            
+      
+      Rails::logger.debug "Adjusting my own status to 'canceled'"      
+      
+      self.status = 'canceled'
+      self.save
+      
+      ev.finish      
+    end
+    
+  end
+  
+  #
   # When subscription is 'used', it means the user can't create any more cases 
   #
   def is_used?

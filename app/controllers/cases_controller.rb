@@ -157,6 +157,7 @@ class CasesController < ApplicationController
   
   def upgrade_or_purchase
     
+    @current_user = current_user
     @plans        = current_user.plans_to_upgrade
     @current_plan = current_user.current_plan
     
