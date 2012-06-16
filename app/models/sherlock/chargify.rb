@@ -37,7 +37,7 @@ class Sherlock::Chargify
   def charge(subscription_id, amount, memo)  
     path = "subscriptions/#{subscription_id}/charges.json"
     body = { :charge => { :amount => amount, :memo   => memo } }    
-    do_post(path, body)
+    do_post(path, body) 
   end
   
   private

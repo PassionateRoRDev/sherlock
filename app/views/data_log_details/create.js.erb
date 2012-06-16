@@ -1,0 +1,11 @@
+$('.blocks-area .no-blocks-msg').remove();
+$('.new-block').after('<%= escape_javascript(render @block) %>');
+$('.new-block').next().find('select.rich-dropdown').msDropDown();
+
+$('.new-block').hide();
+
+SHERLOCK.cases.resetBlockTypeLists();
+
+SHERLOCK.utils.hideAjaxLoading();
+SHERLOCK.utils.flashMessage('notice', 'New Data Logs Block has been created');
+

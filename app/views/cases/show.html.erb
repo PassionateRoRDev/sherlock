@@ -48,8 +48,10 @@
     <h3 class="no-blocks-msg">This case doesn't have any blocks yet</h3>    
   <% end %>
   
-  <%= render 'tinymce' %>    
+  <%= render 'tinymce' %>
+  
   <%= render 'new_text_block' %>
+  <%= render 'new_data_log_block' %>
   
   <%= render @case.blocks %>  
     
@@ -71,6 +73,7 @@
 <script type="text/javascript">
   SHERLOCK.urls = {
     new_block_text    : '<%= new_case_html_detail_path(@case) %>',
+    create_block_data_log : '<%= case_data_log_details_path(@case) %>',
     create_block_text    : '<%= case_html_details_path(@case) %>',
     new_block_picture : '<%= new_case_picture_path(@case) %>',
     new_block_video   : '<%= new_case_video_path(@case) %>'

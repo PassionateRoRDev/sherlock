@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120527192540) do
+ActiveRecord::Schema.define(:version => 20120616093224) do
 
   create_table "blocks", :force => true do |t|
     t.integer  "case_id",                   :null => false
@@ -42,6 +42,16 @@ ActiveRecord::Schema.define(:version => 20120527192540) do
     t.date     "report_date"
     t.string   "case_type"
     t.integer  "folder_id"
+  end
+
+  create_table "data_log_details", :force => true do |t|
+    t.integer  "block_id",                       :null => false
+    t.string   "day"
+    t.string   "hour"
+    t.string   "location"
+    t.text     "contents",   :limit => 16777215, :null => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
   end
 
   create_table "events", :force => true do |t|
@@ -100,8 +110,8 @@ ActiveRecord::Schema.define(:version => 20120527192540) do
   end
 
   create_table "html_details", :force => true do |t|
-    t.integer  "block_id",   :null => false    
-    t.text     "contents",   :limit => 16777215, :null => false
+    t.integer  "block_id",                       :null => false
+    t.text     "contents",   :limit => 16777215
     t.datetime "created_at"
     t.datetime "updated_at"
   end

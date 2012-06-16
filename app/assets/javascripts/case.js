@@ -19,17 +19,36 @@ SHERLOCK.cases.resetBlockTypeLists = function() {
   });
 };
 
-SHERLOCK.cases.insertBlockBefore = function(insertBefore) {
-                        
-    var url = SHERLOCK.urls.create_block_text;    
-            
+SHERLOCK.cases.insertDataLogBlockBefore = function(insertBefore) {
+  
+    var url = SHERLOCK.urls.create_block_data_log;    
     var next = insertBefore.next();
     if (next.hasClass('block')) {
         var blockId = next.data('block_id');
         url += ('?insert_before_id=' + blockId);            
     }
     
-    var newBlock = $('.blocks-area .new-block');
+    var newBlock = $('.blocks-area .new-data-log-block');
+    newBlock.data('form-url', url);
+    
+    newBlock.find('.block-editable').html('');
+    
+    SHERLOCK.utils.richEditorRemove('form-tinymce-textarea');    
+    insertBefore.before(newBlock);
+    newBlock.show();
+    SHERLOCK.cases.startEditingBlockInline(newBlock);
+};
+
+SHERLOCK.cases.insertTextBlockBefore = function(insertBefore) {
+                        
+    var url = SHERLOCK.urls.create_block_text;                
+    var next = insertBefore.next();
+    if (next.hasClass('block')) {
+        var blockId = next.data('block_id');
+        url += ('?insert_before_id=' + blockId);            
+    }
+    
+    var newBlock = $('.blocks-area .new-text-block');
     newBlock.data('form-url', url);
     
     newBlock.find('.block-editable').html('');
@@ -182,30 +201,48 @@ SHERLOCK.cases.editableCancelClicked = function(link) {
  
 SHERLOCK.cases.editableSaveClicked = function(link) {  
     
-  var url = link.href;  
+  var url = link.href;
   var method = 'put';
-  var ed = tinyMCE.get('form-tinymce-textarea');        
-  var html = ed.getContent();
-
   var newBlock = $(link).parents('.new-block:first');
   if (newBlock.length) {
     url = newBlock.data('form-url');    
     method = 'post'
-  }    
+  }
   
+  var ed;
+  var data = {};
+  
+  var blockWrapper = $(link).parents('.block-wrapper:first');
+  var blockType = blockWrapper.data('block_type');
+        
+  switch (blockType) {
+    case 'data-log':
+      ed = tinyMCE.get('form-tinymce-textarea');        
+      data = { 
+        'data_log_detail[contents]': ed.getContent()
+      }
+      break;
+    case 'text':
+      ed = tinyMCE.get('form-tinymce-textarea');      
+      data = { 
+        'html_detail[contents]': ed.getContent()
+      }
+      break;
+  }
+  
+  data['_method'] = method;
   SHERLOCK.utils.showAjaxLoading();
+  
   $.ajax({  
-    url: url,        
-    data: {
-      _method: method,
-      'html_detail[contents]': html
-    },
+    url: url,
+    data: data,      
     'type': 'POST',
     error : function() {
       SHERLOCK.utils.showAjaxError();
     }        
   });
-
+  
+  return;
 };
 
 SHERLOCK.cases.checkBeforeLeavingPage = function() {
@@ -263,9 +300,13 @@ $(function() {
             case '':
                 alert('Please select a block type');
                 break;
+            case 'data_log':
+                SHERLOCK.cases.finishEditingCurrentBlock();
+                SHERLOCK.cases.insertDataLogBlockBefore(wrapper);
+                break;
             case 'text':
                 SHERLOCK.cases.finishEditingCurrentBlock();
-                SHERLOCK.cases.insertBlockBefore(wrapper);
+                SHERLOCK.cases.insertTextBlockBefore(wrapper);                
                 break;
             case 'picture':
                 location.href = SHERLOCK.urls.new_block_picture +

@@ -8,6 +8,7 @@ class Case < ActiveRecord::Base
   has_many :blocks, :dependent => :destroy
   
   has_many :html_details, :through => :blocks
+  has_many :data_log_details, :through => :blocks
   has_many :pictures, :through => :blocks
   has_many :videos, :through => :blocks
   

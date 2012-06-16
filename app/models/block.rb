@@ -5,6 +5,7 @@ class Block < ActiveRecord::Base
   has_one :html_detail, :dependent => :destroy    
   has_one :picture, :dependent => :destroy
   has_one :video, :dependent => :destroy
+  has_one :data_log_detail, :dependent => :destroy
   
   attr_accessor :insert_before_id
   
@@ -80,10 +81,25 @@ class Block < ActiveRecord::Base
     end
   end
   
+  def block_type
+    if self.html_detail
+      'text'
+    elsif self.data_log_detail
+      'data-log'
+    elsif self.picture
+      'picture'
+    elsif self.video
+      'video'
+    end
+  end
+  
   def title
     result = 'Block'
     if self.html_detail
       result = 'Text Block'
+    end
+    if self.data_log_detail
+      result = 'Data Log'
     end
     if self.picture
       result = 'Picture Block'

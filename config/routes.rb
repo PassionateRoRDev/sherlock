@@ -27,6 +27,7 @@ Sherlock::Application.routes.draw do
   
   resources :cases do
     resources :html_details
+    resources :data_log_details
     resources :pictures
     resources :videos
     resources :invitations

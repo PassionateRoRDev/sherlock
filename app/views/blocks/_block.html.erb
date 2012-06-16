@@ -1,9 +1,10 @@
 
 <%= render 'blocks/form_insert' %>
 
-<div class="block text" id="block-<%= block.id %>" 
-     data-block_id="<%= block.id %>"
->
+<div class="block block-wrapper <%= block.block_type %>-block"
+     id="block-<%= block.id %>" 
+     data-block_type="<%= block.block_type %>"
+     data-block_id="<%= block.id %>">
         
   <div class="block-action-links">
   <% if block.html_detail %>    
@@ -20,6 +21,22 @@
         :class => 'block-edit-ajax' %> |
     </span>
   <% end %>
+    
+  <% if block.data_log_detail %>
+    <span class="links-for-editable" style="display:none;">      
+      <%= link_to 'Save', 
+          case_data_log_detail_path(block.case, block.data_log_detail),
+          :class => 'link-save' %> |            
+      <a class="link-cancel" href="#">Cancel</a> |
+    </span>
+    
+    <span class="links-for-static">
+    <%= link_to 'Edit', 
+        edit_case_data_log_detail_path(block.case, block.data_log_detail),
+        :class => 'block-edit-ajax' %> |
+    </span>
+  <% end %>
+    
   <% if block.picture %>
     <%= link_to 'Edit', edit_case_picture_path(block.case, block.picture) %> |
   <% end %>

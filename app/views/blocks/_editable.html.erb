@@ -8,6 +8,11 @@
       <%= block.html_detail.contents.to_s.html_safe %>
     </div>
   <% end %>
+  <% if block.data_log_detail %>  
+    <div class="block-editable" id="block-editable-<%= block.id %>">
+      <%= block.data_log_detail.contents.to_s.html_safe %>
+    </div>
+  <% end %>
   <%= render 'blocks/editable_picture', 
       :picture => block.picture if block.picture %>    
   <% if block.video %>
