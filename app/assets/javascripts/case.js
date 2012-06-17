@@ -31,7 +31,7 @@ SHERLOCK.cases.insertDataLogBlockBefore = function(insertBefore) {
     var newBlock = $('.blocks-area .new-data-log-block');
     newBlock.data('form-url', url);
     
-    newBlock.find('.block-editable').html('');
+    newBlock.find('.block-editable .block-editable-html').html('');
     
     SHERLOCK.utils.richEditorRemove('form-tinymce-textarea');    
     insertBefore.before(newBlock);
@@ -147,12 +147,66 @@ SHERLOCK.cases.finishEditingCurrentBlock = function() {
   }      
 };
 
+SHERLOCK.cases.moveBackCustomForm = function() {
+  var form = $('#form-tinymce');
+  var customForm = form.find('.custom-form');
+  if (customForm.length) {
+    switch (customForm.data('block_type')) {
+      case 'data-log':
+        $('.new-data-log-block .block-editable form').prepend(customForm);
+        break;
+    }
+  }
+};
+
+SHERLOCK.cases.moveCustomFormFieldsIntoInjectedForm = function(block) {  
+  
+  var form, customForm;
+  
+  var blockWrapper = block;
+  if (!blockWrapper.hasClass('block-wrapper')) {
+    blockWrapper = block.find('.block-wrapper');
+  }
+  
+  var isNewBlock, editable;  
+  var blockType = blockWrapper.data('block_type');
+  
+  switch (blockType) {
+    case 'data-log':      
+      isNewBlock = blockWrapper.parent().hasClass('new-block');
+      form = $('#form-tinymce');      
+      
+      editable = blockWrapper.find('.block-editable');
+      
+      customForm = $('.new-data-log-block .block-editable form .custom-form');            
+      var init = isNewBlock ? {        
+        'day'     : '',
+        'hour'    : '',
+        'location': ''      
+      } : {
+        'day'     : $.trim($('.data-log-day-value', editable).text()),
+        'hour'    : $.trim($('.data-log-hour-value', editable).text()),
+        'location': $.trim($('.data-log-location-value', editable).text())
+      }
+      
+      customForm.find('input[name=location]').val(init.location);
+      customForm.find('input[name=day]').val(init.day);
+      customForm.find('input[name=hour]').val(init.hour);
+            
+      form.prepend(customForm);
+      break;    
+  }    
+};
+
 SHERLOCK.cases.finishEditingBlockInline = function(block) {
   
   block.find('.links-for-static').show();
   block.find('.links-for-editable').hide();
   
   var editable = block.find('.block-editable');
+  
+  SHERLOCK.cases.moveBackCustomForm();  
+  
   editable.show();
   
   var isNewBlock = block.parent().hasClass('new-block');
@@ -188,6 +242,8 @@ SHERLOCK.cases.startEditingBlockInline = function(block) {
     if (ed != null) {
       ed.setContent(htmlToEdit);
     }
+    
+    SHERLOCK.cases.moveCustomFormFieldsIntoInjectedForm(block);    
 
     form.show();
     editable.hide();
@@ -212,7 +268,10 @@ SHERLOCK.cases.blockUpdated = function(msg) {
   var editable = block.find('.block-editable');
   var ed = tinyMCE.get('form-tinymce-textarea');
   editable.find('.block-editable-html').html(ed.getContent());
-  $('.injected-form').hide();
+  
+  $('#form-tinymce').hide();
+  SHERLOCK.cases.moveBackCustomForm();
+  
   editable.show();
   block.find('.links-for-editable').hide();
   block.find('.links-for-static').show();
@@ -235,13 +294,14 @@ SHERLOCK.cases.editableSaveClicked = function(link) {
   var blockType = blockWrapper.data('block_type');
         
   switch (blockType) {
-    case 'data-log':
-      ed = tinyMCE.get('form-tinymce-textarea');        
+    case 'data-log':      
+      var form = $('#form-tinymce').get(0);      
+      ed = tinyMCE.get('form-tinymce-textarea');
       data = { 
         'data_log_detail[contents]': ed.getContent(),
-        'data_log_detail[day]': '2012-05-10',
-        'data_log_detail[hour]': '14:00:00',
-        'data_log_detail[location]': 'Gardena, CA'
+        'data_log_detail[day]':   form.day.value,
+        'data_log_detail[hour]': form.hour.value,
+        'data_log_detail[location]': form.location.value
       }
       break;
     case 'text':

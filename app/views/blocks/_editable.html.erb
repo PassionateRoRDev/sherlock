@@ -10,12 +10,13 @@
   <% end %>
   <% if block.data_log_detail %>
     <div class="block-editable" id="block-editable-<%= block.id %>">
-      <div class="data-log-location">
-          Location: 
-        <div class="data-log-location-value">
+      <div class="data-log-fields" style="margin-bottom: 5px;">
+        <span class="data-log-day-value"><%= block.data_log_detail.day %></span>        
+        <span class="data-log-hour-value"><%= block.data_log_detail.hour %></span>,
+        <span class="data-log-location-value">
           <%= block.data_log_detail.location %>
-        </div>
-      </div>        
+        </span>
+      </div>      
       <div class="block-editable-html">
         <%= block.data_log_detail.contents.to_s.html_safe %>
       </div>
