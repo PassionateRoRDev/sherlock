@@ -51,7 +51,7 @@ SHERLOCK.cases.insertTextBlockBefore = function(insertBefore) {
     var newBlock = $('.blocks-area .new-text-block');
     newBlock.data('form-url', url);
     
-    newBlock.find('.block-editable').html('');
+    newBlock.find('.block-editable .block-editable-html').html('');
     
     SHERLOCK.utils.richEditorRemove('form-tinymce-textarea');    
     insertBefore.before(newBlock);
@@ -162,7 +162,7 @@ SHERLOCK.cases.finishEditingBlockInline = function(block) {
   } else {
     var ed = tinyMCE.get('form-tinymce-textarea');
     if (ed != null) {
-      ed.setContent(editable.html());        
+      ed.setContent(editable.find('.block-editable-html').html());        
     }
     $('#form-tinymce').hide();
   }
@@ -175,6 +175,8 @@ SHERLOCK.cases.startEditingBlockInline = function(block) {
     block.find('.links-for-static').hide();
 
     var editable = block.find('.block-editable');
+    var htmlToEdit = editable.find('.block-editable-html').html();
+    
     var form = $('#form-tinymce');
     var editableParent = editable.get(0).parentNode;
 
@@ -184,7 +186,7 @@ SHERLOCK.cases.startEditingBlockInline = function(block) {
 
     var ed = tinyMCE.get('form-tinymce-textarea');        
     if (ed != null) {
-      ed.setContent(editable.html());
+      ed.setContent(htmlToEdit);
     }
 
     form.show();
@@ -197,7 +199,24 @@ SHERLOCK.cases.editableCancelClicked = function(link) {
       var block = $(link).parents('.block:first');      
       SHERLOCK.cases.finishEditingBlockInline(block);
       return false;
- };
+};
+ 
+/**
+ * Called by the update.js.erb template after block update.
+ */
+SHERLOCK.cases.blockUpdated = function(msg) {
+  
+  SHERLOCK.utils.hideAjaxLoading();
+  SHERLOCK.utils.flashMessage('notice', msg);
+  var block = $('.injected-form').parents('.block:first');
+  var editable = block.find('.block-editable');
+  var ed = tinyMCE.get('form-tinymce-textarea');
+  editable.find('.block-editable-html').html(ed.getContent());
+  $('.injected-form').hide();
+  editable.show();
+  block.find('.links-for-editable').hide();
+  block.find('.links-for-static').show();
+};
  
 SHERLOCK.cases.editableSaveClicked = function(link) {  
     
@@ -219,7 +238,10 @@ SHERLOCK.cases.editableSaveClicked = function(link) {
     case 'data-log':
       ed = tinyMCE.get('form-tinymce-textarea');        
       data = { 
-        'data_log_detail[contents]': ed.getContent()
+        'data_log_detail[contents]': ed.getContent(),
+        'data_log_detail[day]': '2012-05-10',
+        'data_log_detail[hour]': '14:00:00',
+        'data_log_detail[location]': 'Gardena, CA'
       }
       break;
     case 'text':

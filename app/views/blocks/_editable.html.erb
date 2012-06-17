@@ -8,9 +8,17 @@
       <%= block.html_detail.contents.to_s.html_safe %>
     </div>
   <% end %>
-  <% if block.data_log_detail %>  
+  <% if block.data_log_detail %>
     <div class="block-editable" id="block-editable-<%= block.id %>">
-      <%= block.data_log_detail.contents.to_s.html_safe %>
+      <div class="data-log-location">
+          Location: 
+        <div class="data-log-location-value">
+          <%= block.data_log_detail.location %>
+        </div>
+      </div>        
+      <div class="block-editable-html">
+        <%= block.data_log_detail.contents.to_s.html_safe %>
+      </div>
     </div>
   <% end %>
   <%= render 'blocks/editable_picture', 
