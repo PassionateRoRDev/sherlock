@@ -1,4 +1,6 @@
-Factory.define :storage do |storage|
-  storage.mount_point '/mnt/vol1'
-  storage.size        0
+FactoryGirl.define do
+  factory :storage do
+    mount_point '/mnt/vol1'
+    size        0
+  end
 end

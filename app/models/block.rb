@@ -129,6 +129,9 @@ class Block < ActiveRecord::Base
       :except => [:id, :block_id, :updated_at, :created_at]
     }        
     
+    if self.data_log_detail
+      result['dataLogDetail'] = self.data_log_detail.as_json(options)
+    end
     if self.html_detail 
       result['htmlDetail'] = self.html_detail.as_json(options)
     end
