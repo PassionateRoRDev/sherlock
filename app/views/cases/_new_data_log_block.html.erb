@@ -16,7 +16,9 @@
           <form>
             <div class="custom-form" data-block_type="data-log" style="margin-bottom:5px;">
               Date:
-                <input type="text" name="day" size="10"/>
+                <input type="text" 
+                       class="data-log-date-field"
+                       name="day" size="10"/>
                 (MM/DD/YYYY)
               &nbsp;
               &nbsp;
@@ -40,3 +42,10 @@
   </div>
     
 </div>
+
+<script type="text/javascript">
+    $(function() {    
+      $('.data-log-date-field').datepicker({
+      });
+    });
+</script>

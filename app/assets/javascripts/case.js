@@ -252,11 +252,20 @@ SHERLOCK.cases.startEditingBlockInline = function(block) {
 };
 
 SHERLOCK.cases.editableCancelClicked = function(link) {      
-      var block = $(link).parents('.block:first');      
-      SHERLOCK.cases.finishEditingBlockInline(block);
-      return false;
+    var block = $(link).parents('.block:first');      
+    SHERLOCK.cases.finishEditingBlockInline(block);
+    return false;
 };
- 
+
+SHERLOCK.cases.dataLogUpdated = function(day, hour, location) {        
+  var block = $('.injected-form').parents('.block:first');
+  var editable = block.find('.block-editable');
+  var fields = $('.data-log-fields', editable);
+  $('.data-log-day-value', fields).text(day);
+  $('.data-log-hour-value', fields).text(hour);
+  $('.data-log-location-value', fields).text(location);    
+};
+
 /**
  * Called by the update.js.erb template after block update.
  */
@@ -287,8 +296,10 @@ SHERLOCK.cases.editableSaveClicked = function(link) {
     method = 'post'
   }
   
-  var ed;
+  var ed, contents;  
   var data = {};
+  
+  var error = false;
   
   var blockWrapper = $(link).parents('.block-wrapper:first');
   var blockType = blockWrapper.data('block_type');
@@ -297,32 +308,48 @@ SHERLOCK.cases.editableSaveClicked = function(link) {
     case 'data-log':      
       var form = $('#form-tinymce').get(0);      
       ed = tinyMCE.get('form-tinymce-textarea');
-      data = { 
-        'data_log_detail[contents]': ed.getContent(),
-        'data_log_detail[day]':   form.day.value,
-        'data_log_detail[hour]': form.hour.value,
-        'data_log_detail[location]': form.location.value
+      contents = ed.getContent();
+      if ($.trim(contents) == '') {
+        alert('Please provide the description.');
+        error = true;
+      } else {
+        data = { 
+          'data_log_detail[contents]': contents,
+          'data_log_detail[day]':   form.day.value,
+          'data_log_detail[hour]': form.hour.value,
+          'data_log_detail[location]': form.location.value
+        }
       }
       break;
     case 'text':
-      ed = tinyMCE.get('form-tinymce-textarea');      
-      data = { 
-        'html_detail[contents]': ed.getContent()
+      ed = tinyMCE.get('form-tinymce-textarea');
+      contents = ed.getContent();
+      if ($.trim(contents) == '') {
+        alert('Please provide block contents');
+        error = true;
+      } else {
+        data = { 
+          'html_detail[contents]': contents
+        }
       }
       break;
   }
   
-  data['_method'] = method;
-  SHERLOCK.utils.showAjaxLoading();
+  if (!error) {
   
-  $.ajax({  
-    url: url,
-    data: data,      
-    'type': 'POST',
-    error : function() {
-      SHERLOCK.utils.showAjaxError();
-    }        
-  });
+    data['_method'] = method;
+    SHERLOCK.utils.showAjaxLoading();
+
+    $.ajax({  
+      url: url,
+      data: data,      
+      'type': 'POST',
+      error : function() {
+        SHERLOCK.utils.showAjaxError();
+      }        
+    });
+  
+  }
   
   return;
 };
