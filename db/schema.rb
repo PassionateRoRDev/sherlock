@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120616093224) do
+ActiveRecord::Schema.define(:version => 20120626090700) do
 
   create_table "blocks", :force => true do |t|
     t.integer  "case_id",                   :null => false
@@ -203,6 +203,14 @@ ActiveRecord::Schema.define(:version => 20120616093224) do
   end
 
   add_index "rails_admin_histories", ["item", "table", "month", "year"], :name => "index_rails_admin_histories"
+
+  create_table "sent_emails", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "subscription_id"
+    t.string   "label",           :null => false
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
 
   create_table "settings", :force => true do |t|
     t.integer "non_cc_trial", :default => 0, :null => false

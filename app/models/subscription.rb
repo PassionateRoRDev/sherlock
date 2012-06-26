@@ -3,9 +3,11 @@ class Subscription < ActiveRecord::Base
   belongs_to :user
   belongs_to :subscription_plan
   
+  has_many :sent_emails
+  
   default_scope :order => 'period_ends_at'
   
-  INACTIVE_STATES = %w{past_due unpaid canceled expired suspended}
+  INACTIVE_STATES = %w{past_due unpaid canceled expired suspended}    
   
   #
   # Create Subscription record from the ChargifySubscription received from
@@ -33,6 +35,14 @@ class Subscription < ActiveRecord::Base
       :extra_cases_count  => 0
     )
     
+  end
+  
+  def self.free_trials
+    where(:product_handle => :free_trial)
+  end
+  
+  def self.expiring_on(day)
+    where('period_ends_at BETWEEN ? AND ?', day.beginning_of_day, day.end_of_day)
   end
   
   def self.create_free_trial
