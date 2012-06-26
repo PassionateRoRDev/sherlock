@@ -11,15 +11,15 @@ describe PostOffice do
     
     it "should send proper email" do      
       email = PostOffice.sample_report(@presenter).deliver              
-      pp email.parts[0].body
-      pp email.parts[1].body      
+      #pp email.parts[0].body
+      #pp email.parts[1].body      
     end
   end
   
   context "For the welcome email" do
     
     before do    
-      user = Factory(:user)
+      user = FactoryGirl.create(:user)
       user.password_plain = 'ABCDEFGH'
       @presenter = SignupPresenter.new(user)
     end
@@ -32,10 +32,46 @@ describe PostOffice do
     
   end
   
+  context "For the 1-week left of free_trial email" do
+    before do
+      user = FactoryGirl.create(:user)
+      @presenter = FreeTrialPresenter.new(user)
+    end
+    
+    it "should contain user's first name" do
+      email = PostOffice.free_trial_1_week(@presenter).deliver
+      email.parts[0].body.should include 'Dear John,'
+    end    
+  end
+  
+  context "For the 4-days left of free_trial email" do
+    before do
+      user = FactoryGirl.create(:user)
+      @presenter = FreeTrialPresenter.new(user)
+    end
+    
+    it "should contain user's first name" do
+      email = PostOffice.free_trial_4_days(@presenter).deliver      
+      email.parts[0].body.should include 'Dear John,'            
+    end    
+  end
+  
+  context "For the free_trial expiration email" do
+    before do
+      user = FactoryGirl.create(:user)
+      @presenter = FreeTrialPresenter.new(user)
+    end
+    
+    it "should contain user's first name" do
+      email = PostOffice.free_trial_expiration(@presenter).deliver
+      email.parts[0].body.should include 'Dear John,'
+    end    
+  end
+  
   context "For the 1st time invitation email" do
   
     before do
-      @invitation = Factory.build(:invitation)
+      @invitation = FactoryGirl.build(:invitation)
       url = 'http://host.com/invitations'    
       @presenter = IntroductoryInvitationPresenter.new(@invitation, url)            
     end

@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :invitation do
-    case_id { Factory.create(:case).id }
+    case_id { FactoryGirl.create(:case).id }
     email   'jw@mustmodify.com'
     name    'Johnathon Wright'
     message 'Please come look at this cool new report.'

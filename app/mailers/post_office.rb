@@ -29,10 +29,49 @@ class PostOffice < ActionMailer::Base
     
   end
   
+  def free_trial_1_week(presenter)
+    
+    @user = presenter.user
+    email = @user.email
+    
+    mail(
+      :to => email,
+      :subject => 'Your free trial of SherlockDocs - 1 week left', 
+      :from => APP_CONFIG['sender'],
+      :return_path => APP_CONFIG['sender']
+    )
+    
+  end
+  
+  def free_trial_4_days(presenter)
+    @user = presenter.user
+    email = @user.email
+    
+    mail(
+      :to => email,
+      :subject => 'Your free trial of SherlockDocs - 4 days left', 
+      :from => APP_CONFIG['sender'],
+      :return_path => APP_CONFIG['sender']
+    )
+    
+  end
+  
+  def free_trial_expiration(presenter)    
+    @user = presenter.user
+    email = @user.email
+    
+    mail(
+      :to => email,
+      :subject => 'Your free trial of SherlockDocs - expiring today!', 
+      :from => APP_CONFIG['sender'],
+      :return_path => APP_CONFIG['sender']
+    )
+    
+  end
+  
   def welcome(presenter)
     
-    @recipient = presenter.user
-    email = @recipient.email
+    @recipient = presenter.user    
     @url_main = dashboard_url
     
     mail(
