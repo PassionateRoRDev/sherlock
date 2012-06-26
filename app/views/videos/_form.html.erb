@@ -58,6 +58,14 @@
 <% end %>
 
   <div class="field">
+    
+    <div style="padding-top: 10px;margin-left: 130px;margin-bottom:5px;">
+      
+      <strong style="color:#aa0000;">NOTE:</strong> 
+      uploading files over 50MB may take long time to upload - 
+      consider recording a screencast.
+    </div>    
+    
     <label for="upload_video">Select Video :</label>
     
     <% if false %>
@@ -85,8 +93,8 @@
     
     </div>
     
-  </div>      
-    
+  </div>
+        
   <%= render 'shared/java_detect', 
       :func_name => 'video capture', :app_name => 'Recorder' %>
     
