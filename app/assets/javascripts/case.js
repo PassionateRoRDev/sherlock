@@ -39,10 +39,10 @@ SHERLOCK.cases.insertDataLogBlockBefore = function(insertBefore) {
     SHERLOCK.cases.startEditingBlockInline(newBlock);
 };
 
-SHERLOCK.cases.insertTextBlockBefore = function(insertBefore) {
+SHERLOCK.cases.insertTextBlockBefore = function(blocktypeSelectWrapper) {
                         
     var url = SHERLOCK.urls.create_block_text;                
-    var next = insertBefore.next();
+    var next = blocktypeSelectWrapper.next();
     if (next.hasClass('block')) {
         var blockId = next.data('block_id');
         url += ('?insert_before_id=' + blockId);            
@@ -54,7 +54,7 @@ SHERLOCK.cases.insertTextBlockBefore = function(insertBefore) {
     newBlock.find('.block-editable .block-editable-html').html('');
     
     SHERLOCK.utils.richEditorRemove('form-tinymce-textarea');    
-    insertBefore.before(newBlock);
+    blocktypeSelectWrapper.before(newBlock);
     newBlock.show();
     SHERLOCK.cases.startEditingBlockInline(newBlock);
             

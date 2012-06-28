@@ -1,8 +1,9 @@
 $('.blocks-area .no-blocks-msg').remove();
-$('.new-block').after('<%= escape_javascript(render @block) %>');
-$('.new-block').next().find('select.rich-dropdown').msDropDown();
+var temporaryNewBlock = $('.new-data-log-block');
+temporaryNewBlock.after('<%= escape_javascript(render @block) %>');
+temporaryNewBlock.next().find('select.rich-dropdown').msDropDown();
 
-$('.new-block').hide();
+temporaryNewBlock.hide();
 
 SHERLOCK.cases.resetBlockTypeLists();
 
