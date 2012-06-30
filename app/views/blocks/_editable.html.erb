@@ -5,7 +5,9 @@
   </h4>
   <% if block.html_detail %>  
     <div class="block-editable" id="block-editable-<%= block.id %>">
-      <%= block.html_detail.contents.to_s.html_safe %>
+      <div class="block-editable-html">
+        <%= block.html_detail.contents.to_s.html_safe %>
+      </div>
     </div>
   <% end %>
   <% if block.data_log_detail %>
