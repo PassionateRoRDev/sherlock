@@ -3,13 +3,13 @@ require 'spec_helper'
 describe Case do
   
   it 'is valid' do
-    Factory.build(:case).should be_valid
+    FactoryGirl.build(:case).should be_valid
   end
   
   context "Existing case" do 
   
     before do
-      @case = Factory(:case)
+      @case = FactoryGirl.create(:case)
     end
     
     it 'should have 0 blocks initially' do
@@ -20,6 +20,42 @@ describe Case do
       @case.pictures.should be_empty
     end
   
+    context 'when swapping 2 blocks' do      
+      before do      
+        FactoryGirl.create(:block, 
+          :case => @case,
+          :html_detail => FactoryGirl.create(:html_detail))    
+
+        FactoryGirl.create(:block, 
+          :case => @case,
+          :html_detail => FactoryGirl.create(:html_detail))    
+        
+      end
+      
+      it "first block should have weight 1" do        
+        @case.blocks.first.weight.should == 1
+      end
+      
+      it "second block should have weight 2" do        
+        @case.blocks.last.weight.should == 2
+      end
+      
+      it "first block should have weight 2 after the swap" do        
+        block1 = @case.blocks.first
+        block2 = @case.blocks.last
+        @case.swap_blocks block1, block2
+        @case.blocks.find_by_id(block1.id).weight.should == 2
+      end
+      
+      it "second block should have weight 1 after the swap" do
+        block1 = @case.blocks.first
+        block2 = @case.blocks.last
+        @case.swap_blocks block1, block2
+        @case.blocks.find_by_id(block2.id).weight.should == 1
+      end      
+    
+    end
+    
     context 'when copying an existing picture' do
 
       before do      
@@ -30,8 +66,8 @@ describe Case do
           :original_filename  => 'sample_image1.png'
         }
         upload = Uploader.new(data)            
-        block = Factory(:block, :case => @case)
-        @picture = Factory(:picture, :block => block, :uploaded_file => upload)        
+        block = FactoryGirl.create(:block, :case => @case)
+        @picture = FactoryGirl.create(:picture, :block => block, :uploaded_file => upload)        
         @crop_params = [10, 10, 100, 50]
       end
 

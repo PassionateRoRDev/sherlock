@@ -13,6 +13,8 @@ Sherlock::Application.routes.draw do
   resources :folders
   resources :reports
   
+  resources :block_swaps, :only => [ :create ]  
+  
   resources :captured_emails
   
   resources :purchases

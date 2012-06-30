@@ -1,0 +1,8 @@
+<%= link_to 'Move up',
+        block_swaps_path(
+          :block1_id => block.prev_id, 
+          :block2_id => block.id
+        ),          
+        :remote => true,
+        :method => :post
+%>

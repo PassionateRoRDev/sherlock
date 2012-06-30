@@ -13,10 +13,10 @@
           case_html_detail_path(block.case, block.html_detail),
           :class => 'link-save' %> |            
       <a class="link-cancel" href="#">Cancel</a> |
-    </span>
-    
+    </span>    
     <span class="links-for-static">
-    <%= link_to 'Edit', 
+      <%= render 'blocks/move_links', :block => block %>
+      <%= link_to 'Edit', 
         edit_case_html_detail_path(block.case, block.html_detail),
         :class => 'block-edit-ajax' %> |
     </span>
@@ -31,17 +31,20 @@
     </span>
     
     <span class="links-for-static">
-    <%= link_to 'Edit', 
+      <%= render 'blocks/move_links', :block => block %>
+      <%= link_to 'Edit', 
         edit_case_data_log_detail_path(block.case, block.data_log_detail),
         :class => 'block-edit-ajax' %> |
     </span>
   <% end %>
     
   <% if block.picture %>
+    <%= render 'blocks/move_links', :block => block %>
     <%= link_to 'Edit', edit_case_picture_path(block.case, block.picture) %> |
   <% end %>
   <% if block.video %>
     <%= link_to 'Download', file_video_path(block.video) %> |  
+    <%= render 'blocks/move_links', :block => block %>
     <%= link_to 'Edit', edit_case_video_path(block.case, block.video) %> |    
   <% end %>
     

@@ -115,6 +115,18 @@ class Block < ActiveRecord::Base
     self.case.blocks.where(:weight => self.weight - 1).first
   end
   
+  def prev_id
+    prev.present? ? prev.id : 0
+  end
+    
+  def next_sibling
+    self.case.blocks.where(:weight => self.weight + 1).first
+  end
+  
+  def next_id
+    next_sibling.present? ? next_sibling.id : 0
+  end
+  
   def as_json(options = {})    
     
     #Rails::logger.debug("as_json: options")

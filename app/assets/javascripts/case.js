@@ -224,6 +224,25 @@ SHERLOCK.cases.finishEditingBlockInline = function(block) {
   
 };
 
+SHERLOCK.cases.blocksSwapped = function(block1, block2) {
+  var b1 = $('#block-' + block1.id);
+  var b2 = $('#block-' + block2.id);
+  var before2 = b2.prev();
+  b1.before(b2);  
+  before2.after(b1);      
+
+  b1.find('.move-links a:eq(0)').attr('href', 
+    '/block_swaps?block1_id=' + block1.prev_id + '&block2_id=' + block1.id);
+  b1.find('.move-links a:eq(1)').attr('href', 
+    '/block_swaps?block1_id=' + block1.id + '&block2_id=' + block1.next_id);
+  
+  b2.find('.move-links a:eq(0)').attr('href', 
+    '/block_swaps?block1_id=' + block2.prev_id + '&block2_id=' + block2.id);
+  b2.find('.move-links a:eq(1)').attr('href', 
+    '/block_swaps?block1_id=' + block2.id + '&block2_id=' + block2.next_id);  
+  
+};
+
 SHERLOCK.cases.startEditingBlockInline = function(block) {
     
     block.find('.links-for-static').hide();

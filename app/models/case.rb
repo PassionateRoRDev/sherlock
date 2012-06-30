@@ -30,6 +30,12 @@ class Case < ActiveRecord::Base
   after_save :invalidate_report
   after_create :update_stats
   
+  def swap_blocks(block1, block2)    
+    block1.weight, block2.weight = block2.weight, block1.weight
+    block1.save!   
+    block2.save!
+  end
+  
   def usage
     blocks.empty? ? 0 : blocks.map(&:usage).reduce(:+)
   end
