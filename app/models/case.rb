@@ -35,6 +35,7 @@ class Case < ActiveRecord::Base
     block1.weight, block2.weight = block2.weight, block1.weight
     block1.save!   
     block2.save!
+    invalidate_report
   end
   
   def usage

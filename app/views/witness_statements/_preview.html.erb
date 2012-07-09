@@ -1,0 +1,11 @@
+<h2><%= statement.block.title %></h2>
+<div style='font-weight:bold;'>
+    <%= statement.day %>
+    <%= statement.hour %>
+</div>
+<strong>Witness Information</strong>
+<div>Name: <%= statement.name %></div>
+<div>Address: <%= statement.address %></div>
+<div>City, State, Zip: <%= statement.city_state_zip %></div>
+
+<%= statement.contents.to_s.html_safe %>  

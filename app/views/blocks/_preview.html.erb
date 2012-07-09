@@ -3,6 +3,14 @@
   <%= block.html_detail.contents.to_s.html_safe %>  
   </div>
 <% end %>
+
+<% if block.data_log_detail %>
+  <%= render 'data_log_details/preview', :detail => block.data_log_detail %>  
+<% end %>
+
+<% if block.witness_statement %>
+  <%= render 'witness_statements/preview', :statement => block.witness_statement %>  
+<% end %>
   
 <% if block.picture %>
   <div class="picture-block"
