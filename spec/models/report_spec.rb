@@ -45,6 +45,21 @@ describe Report do
     log_detail['location'] == 'New York City'        
   end
   
+  it 'JSON should contain witness report block details' do
+    c = prepare_case
+    witness_statement = FactoryGirl.create(:witness_statement)
+    c.blocks << Block.new(:witness_statement => witness_statement)
+    r = prepare_report(c)        
+    decoded = ActiveSupport::JSON.decode(r.to_json)
+    
+    block = decoded['case']['blocks'][0]
+    
+    witness_statement = block['witnessStatement']
+    witness_statement['day'] == '05/03/2012'
+    witness_statement['hour'] == '3:00 pm'
+    witness_statement['name'] == 'John Smith'        
+  end
+  
   it 'JSON should have correct number of blocks' do
     
     c = prepare_case    
@@ -66,10 +81,7 @@ describe Report do
     
   it 'JSON should not contain picturesRoot' do    
     r = prepare_report
-    r.template = 'template.xhtml'    
-    
-    pp r.to_json
-    
+    r.template = 'template.xhtml'        
     decoded = ActiveSupport::JSON.decode(r.to_json)
     decoded['picturesRoot'].should == nil
   end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120626090700) do
+ActiveRecord::Schema.define(:version => 20120709140743) do
 
   create_table "blocks", :force => true do |t|
     t.integer  "case_id",                   :null => false
@@ -333,6 +333,20 @@ ActiveRecord::Schema.define(:version => 20120626090700) do
   create_table "viewers", :id => false, :force => true do |t|
     t.integer "case_id"
     t.integer "viewer_id"
+  end
+
+  create_table "witness_statements", :force => true do |t|
+    t.integer  "block_id"
+    t.string   "day"
+    t.string   "hour"
+    t.string   "name"
+    t.string   "address"
+    t.string   "city"
+    t.string   "state"
+    t.string   "zip"
+    t.text     "contents",   :limit => 16777215
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
   end
 
 end

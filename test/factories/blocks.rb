@@ -15,6 +15,14 @@ FactoryGirl.define do
     location 'New York City'
     contents 'Sample contents for the data log block'
   end
+  
+  factory :witness_statement, :class => BlockTypes::WitnessStatement do
+    association :block
+    day '05/03/2012'
+    hour '02:30pm'
+    name 'John Smith'    
+    contents 'This is my testimonial'
+  end
 
   factory :picture do
     association :block    

@@ -5,7 +5,10 @@ class Block < ActiveRecord::Base
   has_one :html_detail, :dependent => :destroy    
   has_one :picture, :dependent => :destroy
   has_one :video, :dependent => :destroy
-  has_one :data_log_detail, :dependent => :destroy
+  has_one :data_log_detail, :dependent => :destroy  
+  
+  has_one :witness_statement, :class_name => 'BlockTypes::WitnessStatement',  
+          :dependent => :destroy
   
   attr_accessor :insert_before_id
   
@@ -144,6 +147,9 @@ class Block < ActiveRecord::Base
     if self.data_log_detail
       result['dataLogDetail'] = self.data_log_detail.as_json(options)
     end
+    if self.witness_statement
+      result['witnessStatement'] = self.witness_statement.as_json(options)
+    end    
     if self.html_detail 
       result['htmlDetail'] = self.html_detail.as_json(options)
     end
