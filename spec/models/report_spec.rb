@@ -41,8 +41,8 @@ describe Report do
     decoded = ActiveSupport::JSON.decode(r.to_json)
     block = decoded['case']['blocks'][0]
     log_detail = block['dataLogDetail']
-    log_detail['day'] == '05/03/2012'
-    log_detail['location'] == 'New York City'        
+    log_detail['day'].should == '05/03/2012'
+    log_detail['location'].should == 'New York City'        
   end
   
   it 'JSON should contain witness report block details' do
@@ -55,9 +55,26 @@ describe Report do
     block = decoded['case']['blocks'][0]
     
     witness_statement = block['witnessStatement']
-    witness_statement['day'] == '05/03/2012'
-    witness_statement['hour'] == '3:00 pm'
-    witness_statement['name'] == 'John Smith'        
+    witness_statement['day'].should == '05/03/2012'
+    witness_statement['hour'].should == '02:30pm'
+    witness_statement['name'].should == 'John Smith'        
+  end
+  
+  it 'JSON should contain witness statement cityStateZip' do
+    c = prepare_case
+    
+    city_state_zip = 'Chicago, IL, 112233'
+    
+    witness_statement = FactoryGirl.create(:witness_statement, 
+      :city_state_zip => city_state_zip)
+    c.blocks << Block.new(:witness_statement => witness_statement)
+    r = prepare_report(c)        
+    decoded = ActiveSupport::JSON.decode(r.to_json)
+    
+    block = decoded['case']['blocks'][0]    
+    witness_statement = block['witnessStatement']    
+    witness_statement['cityStateZip'].should == city_state_zip       
+    
   end
   
   it 'JSON should have correct number of blocks' do

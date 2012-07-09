@@ -12,4 +12,12 @@ class BlockTypes::WitnessStatement < ActiveRecord::Base
                   :name, :address, :city_state_zip,
                   :contents
                 
+  def as_json(options = {})
+    postprocess(super(options))
+  end
+  
+  def postprocess(json)   
+    json.merge('cityStateZip' => json['city_state_zip'])
+  end
+  
 end
