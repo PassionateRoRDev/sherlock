@@ -1,0 +1,21 @@
+<div class="block-editable" id="block-editable-<%= statement.block.id %>">
+  <div class="statement-fields">  
+    <div style="margin-bottom: 5px;">
+      <strong>Date:</strong>
+      <span class="day-value"><%= statement.day %></span>        
+      &nbsp;&nbsp;
+      <strong>Hour:</strong>
+      <span class="hour-value"><%= statement.hour %></span>       
+    </div>
+    <strong>Witness Information:</strong>
+    <div style="margin: 5px 0;">      
+      <div class="name-value"><%= statement.name %></div>   
+      <div class="address-value"><%= statement.address %></div>
+      <div class="city_state_zip-value"><%= statement.city_state_zip %></div>
+    </div>
+  </div>
+  
+  <div class="block-editable-html">
+    <%= statement.contents.to_s.html_safe %>
+  </div>
+</div>

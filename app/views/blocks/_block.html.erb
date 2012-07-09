@@ -9,9 +9,9 @@
   <div class="block-action-links">
   <% if block.html_detail %>    
     <span class="links-for-editable" style="display:none;">      
-      <%= link_to 'Save', 
+      <%= link_to 'Save',
           case_html_detail_path(block.case, block.html_detail),
-          :class => 'link-save' %> |            
+          :class => 'link-save', :title => 'Click to save changes' %> |   
       <a class="link-cancel" href="#">Cancel</a> |
     </span>    
     <span class="links-for-static">
@@ -22,11 +22,27 @@
     </span>
   <% end %>
     
+  <% if block.witness_statement %>
+    <span class="links-for-editable" style="display:none;">      
+      <%= link_to 'Save', 
+          case_witness_statement_path(block.case, block.witness_statement),
+          :class => 'link-save', :title => 'Click to save changes' %> |            
+      <a class="link-cancel" href="#">Cancel</a> |
+    </span>
+    
+    <span class="links-for-static">
+      <%= render 'blocks/move_links', :block => block %>
+      <%= link_to 'Edit', 
+        edit_case_witness_statement_path(block.case, block.witness_statement),
+        :class => 'block-edit-ajax' %> |
+    </span>
+  <% end %>
+    
   <% if block.data_log_detail %>
     <span class="links-for-editable" style="display:none;">      
       <%= link_to 'Save', 
           case_data_log_detail_path(block.case, block.data_log_detail),
-          :class => 'link-save' %> |            
+          :class => 'link-save', :title => 'Click to save changes' %> |            
       <a class="link-cancel" href="#">Cancel</a> |
     </span>
     

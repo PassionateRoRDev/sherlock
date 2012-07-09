@@ -1,0 +1,10 @@
+
+.form-row {
+  overflow: hidden;
+  margin-bottom: 5px;
+}
+
+.form-row label {
+  color: black;
+  font-size: 100%;
+}

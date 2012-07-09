@@ -19,6 +19,26 @@ SHERLOCK.cases.resetBlockTypeLists = function() {
   });
 };
 
+SHERLOCK.cases.insertWitnessStatementBlockBefore = function(insertBefore) {
+    var url = SHERLOCK.urls.create_witness_statement;    
+    var next = insertBefore.next();
+    if (next.hasClass('block')) {
+        var blockId = next.data('block_id');
+        url += ('?insert_before_id=' + blockId);            
+    }
+    
+    var newBlock = $('.blocks-area .new-witness-statement-block');
+    newBlock.data('form-url', url);
+    
+    newBlock.find('.block-editable .block-editable-html').html('');
+    
+    SHERLOCK.utils.richEditorRemove('form-tinymce-textarea');    
+    insertBefore.before(newBlock);
+    newBlock.show();
+    SHERLOCK.cases.startEditingBlockInline(newBlock);
+    
+};
+
 SHERLOCK.cases.insertDataLogBlockBefore = function(insertBefore) {
   
     var url = SHERLOCK.urls.create_block_data_log;    
@@ -155,47 +175,58 @@ SHERLOCK.cases.moveBackCustomForm = function() {
       case 'data-log':
         $('.new-data-log-block .block-editable form').prepend(customForm);
         break;
+      case 'witness-statement':
+        $('.new-witness-statement-block .block-editable form').prepend(customForm);
+        break;
     }
   }
 };
 
 SHERLOCK.cases.moveCustomFormFieldsIntoInjectedForm = function(block) {  
   
-  var form, customForm;
-  
   var blockWrapper = block;
   if (!blockWrapper.hasClass('block-wrapper')) {
     blockWrapper = block.find('.block-wrapper');
   }
   
-  var isNewBlock, editable;  
   var blockType = blockWrapper.data('block_type');
   
+  var mapping = null;
+  var value;
+  
+  var isNewBlock = blockWrapper.parent().hasClass('new-block');
+  var form = $('#form-tinymce');           
+  var editable = blockWrapper.find('.block-editable');
+  
   switch (blockType) {
-    case 'data-log':      
-      isNewBlock = blockWrapper.parent().hasClass('new-block');
-      form = $('#form-tinymce');      
-      
-      editable = blockWrapper.find('.block-editable');
-      
-      customForm = $('.new-data-log-block .block-editable form .custom-form');            
-      var init = isNewBlock ? {        
-        'day'     : '',
-        'hour'    : '',
-        'location': ''      
-      } : {
-        'day'     : $.trim($('.data-log-day-value', editable).text()),
-        'hour'    : $.trim($('.data-log-hour-value', editable).text()),
-        'location': $.trim($('.data-log-location-value', editable).text())
-      }
-      
-      customForm.find('input[name=location]').val(init.location);
-      customForm.find('input[name=day]').val(init.day);
-      customForm.find('input[name=hour]').val(init.hour);
-            
+    case 'witness-statement':
+      mapping = {
+        'day': 'day-value',
+        'hour': 'hour-value',
+        'name': 'name-value',
+        'address': 'address-value',
+        'city_state_zip': 'city_state_zip-value'
+      };      
+      break;
+    case 'data-log':
+      mapping = {
+        'day': 'day-value',
+        'hour': 'hour-value',
+        'location': 'location-value'
+      }            
+      break;
+  }
+  
+  if (mapping != null) {      
+      var customForm = $('.new-' + blockType + '-block .block-editable form .custom-form');
+      for (var field in mapping) {        
+        value = isNewBlock ? '' 
+                : $.trim($('.' + mapping[field], editable).text())
+        customForm.find('input[name=' + field + ']').val(value);
+      }                      
       form.prepend(customForm);
-      break;    
-  }    
+  }
+             
 };
 
 SHERLOCK.cases.finishEditingBlockInline = function(block) {
@@ -276,13 +307,35 @@ SHERLOCK.cases.editableCancelClicked = function(link) {
     return false;
 };
 
-SHERLOCK.cases.dataLogUpdated = function(day, hour, location) {        
+SHERLOCK.cases.blockDetailCreated = function(blockName, blockHtml, msg) {
+  $('.blocks-area .no-blocks-msg').remove();
+  var temporaryNewBlock = $('.' + blockName);
+  temporaryNewBlock.after(blockHtml);
+  temporaryNewBlock.next().find('select.rich-dropdown').msDropDown();
+  temporaryNewBlock.hide();
+
+  SHERLOCK.cases.resetBlockTypeLists();
+
+  SHERLOCK.utils.hideAjaxLoading();
+  SHERLOCK.utils.flashMessage('notice', msg);
+}
+
+SHERLOCK.cases.blockDetailUpdated = function(fieldNames, values) {
   var block = $('.injected-form').parents('.block:first');
   var editable = block.find('.block-editable');
-  var fields = $('.data-log-fields', editable);
-  $('.data-log-day-value', fields).text(day);
-  $('.data-log-hour-value', fields).text(hour);
-  $('.data-log-location-value', fields).text(location);    
+  var fields = $('.' + fieldNames, editable);  
+  for (var fieldName in values) {
+    $('.' + fieldName + '-value', fields).text(values[fieldName]);
+  }
+  
+};
+
+SHERLOCK.cases.witnessStatementUpdated = function(values) {
+  SHERLOCK.cases.blockDetailUpdated('witness-statement-fields', values);        
+};
+
+SHERLOCK.cases.dataLogUpdated = function(values) {        
+  SHERLOCK.cases.blockDetailUpdated('data-log-fields', values);    
 };
 
 /**
@@ -322,10 +375,12 @@ SHERLOCK.cases.editableSaveClicked = function(link) {
   
   var blockWrapper = $(link).parents('.block-wrapper:first');
   var blockType = blockWrapper.data('block_type');
-        
+      
+  var form;
+            
   switch (blockType) {
     case 'data-log':      
-      var form = $('#form-tinymce').get(0);      
+      form = $('#form-tinymce').get(0);  
       ed = tinyMCE.get('form-tinymce-textarea');
       contents = ed.getContent();
       if ($.trim(contents) == '') {
@@ -340,6 +395,27 @@ SHERLOCK.cases.editableSaveClicked = function(link) {
         }
       }
       break;
+    
+    case 'witness-statement':      
+      form = $('#form-tinymce').get(0);      
+      ed = tinyMCE.get('form-tinymce-textarea');
+      contents = ed.getContent();
+      if ($.trim(contents) == '') {
+        alert('Please provide statement contents.');
+        error = true;
+      } else {
+        data = { 
+          'witness_statement[contents]': contents,
+          'witness_statement[day]':   form.day.value,
+          'witness_statement[hour]': form.hour.value,
+          'witness_statement[name]': form.name.value,
+          'witness_statement[address]': form.address.value,
+          'witness_statement[city_state_zip]': form.city_state_zip.value
+        }
+      }
+      
+      break;
+      
     case 'text':
       ed = tinyMCE.get('form-tinymce-textarea');
       contents = ed.getContent();
@@ -432,6 +508,10 @@ $(function() {
                 SHERLOCK.cases.finishEditingCurrentBlock();
                 SHERLOCK.cases.insertDataLogBlockBefore(wrapper);
                 break;
+            case 'witness_statement':
+                SHERLOCK.cases.finishEditingCurrentBlock();
+                SHERLOCK.cases.insertWitnessStatementBlockBefore(wrapper);
+                break;               
             case 'text':
                 SHERLOCK.cases.finishEditingCurrentBlock();
                 SHERLOCK.cases.insertTextBlockBefore(wrapper);                

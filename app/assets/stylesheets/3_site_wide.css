@@ -271,7 +271,10 @@ textarea.rich {
 .blocks-area .block .block-action-links .link-save {
   font-weight: bold;
   color: white;
+  /*
   background-color: #686868;
+  */
+  background-color: #00aa00;
   padding: 2px 8px;
 }
 

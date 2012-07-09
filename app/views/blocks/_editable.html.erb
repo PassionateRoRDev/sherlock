@@ -10,20 +10,10 @@
       </div>
     </div>
   <% end %>
-  <% if block.data_log_detail %>
-    <div class="block-editable" id="block-editable-<%= block.id %>">
-      <div class="data-log-fields" style="margin-bottom: 5px;">
-        <span class="data-log-day-value"><%= block.data_log_detail.day %></span>        
-        <span class="data-log-hour-value"><%= block.data_log_detail.hour %></span>,
-        <span class="data-log-location-value">
-          <%= block.data_log_detail.location %>
-        </span>
-      </div>      
-      <div class="block-editable-html">
-        <%= block.data_log_detail.contents.to_s.html_safe %>
-      </div>
-    </div>
-  <% end %>
+  <%= render 'blocks/editable_data_log', 
+      :detail => block.data_log_detail if block.data_log_detail %>  
+  <%= render 'blocks/editable_witness_statement', 
+      :statement => block.witness_statement if block.witness_statement %>      
   <%= render 'blocks/editable_picture', 
       :picture => block.picture if block.picture %>    
   <% if block.video %>

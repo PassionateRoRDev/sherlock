@@ -89,6 +89,8 @@ class Block < ActiveRecord::Base
       'text'
     elsif self.data_log_detail
       'data-log'
+    elsif self.witness_statement
+      'witness-statement'
     elsif self.picture
       'picture'
     elsif self.video
@@ -103,6 +105,9 @@ class Block < ActiveRecord::Base
     end
     if self.data_log_detail
       result = 'Data Log'
+    end
+    if self.witness_statement
+      result = 'Witness Statement'
     end
     if self.picture
       result = 'Picture Block'

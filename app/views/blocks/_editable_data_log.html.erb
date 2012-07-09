@@ -1,0 +1,12 @@
+<div class="block-editable" id="block-editable-<%= detail.block.id %>">
+  <div class="data-log-fields" style="margin-bottom: 5px;">
+    <span class="day-value"><%= detail.day %></span>        
+    <span class="hour-value"><%= detail.hour %></span>,
+    <span class="location-value">
+      <%= detail.location %>
+    </span>
+  </div>      
+  <div class="block-editable-html">
+    <%= detail.contents.to_s.html_safe %>
+  </div>
+</div>

@@ -8,8 +8,8 @@ class BlockTypes::WitnessStatement < ActiveRecord::Base
   
   after_save :invalidate_report
   
-  attr_accessible :day, :time, 
-                  :name, :address, :city, :state, :zip,
+  attr_accessible :day, :hour, 
+                  :name, :address, :city_state_zip,
                   :contents
                 
 end
