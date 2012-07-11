@@ -19,6 +19,9 @@ $(function() {
     $('ul.nav a').bind('click',function(event){                    
         var $anchor = $(this);
         var href = $anchor.attr('href');                    
+
+        if (href != '/pricing') {
+
         var jumpOffset = 0;                    
         if (href != '/') {
           var sel = 'a[name=' + href.substr(1) + ']';
@@ -36,5 +39,7 @@ $(function() {
         }, 1000);
         */
         event.preventDefault();                    
+
+        }
     });
 });
