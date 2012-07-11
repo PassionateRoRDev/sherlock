@@ -341,7 +341,9 @@ ActiveRecord::Schema.define(:version => 20120709140743) do
     t.string   "hour"
     t.string   "name"
     t.string   "address"
-    t.string   "city_state_zip"
+    t.string   "city"
+    t.string   "state"
+    t.string   "zip"
     t.text     "contents",   :limit => 16777215
     t.datetime "created_at",                     :null => false
     t.datetime "updated_at",                     :null => false

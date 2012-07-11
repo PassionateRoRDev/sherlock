@@ -6,6 +6,8 @@ class ApplicationController < ActionController::Base
   
   before_filter :km_init_anonymous
 
+  before_filter :check_domain
+
   force_ssl :if => :secure_area?
   
   rescue_from RailsAdmin::AccessDenied do |exception|
@@ -22,6 +24,13 @@ class ApplicationController < ActionController::Base
   end  
   
   protected
+
+  def check_domain
+    if request.protocol.include? 'https'
+      host = request.host_with_port
+      redirect_to request.protocol + host.sub(/^www\./, '') + request.path if host =~ /^www\./
+    end
+  end
 
   def secure_area?
     (controller_name != 'home') && (controller_name != 'captured_emails')
