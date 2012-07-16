@@ -89,7 +89,14 @@ SHERLOCK.videos.initEditForm = function(settings) {
     $('#thumbnail-change-block a').css('visibility', 'visible');
   });
         
-  $('#upload_video').uploadify({        
+  initUploadify();
+        
+  function initUploadify()
+  {
+    //alert(settings.paths.tmp_check);
+    //alert(settings.paths.tmp_new + '.js');
+    
+    $('#upload_video').uploadify({        
       buttonText: 'Select File...',
       buttonClass: 'button2 button2-wide',
       uploader : settings.paths.tmp_new + '.js',
@@ -126,5 +133,7 @@ SHERLOCK.videos.initEditForm = function(settings) {
         form.get(0).via_tmp.value = 1;        
         form.get(0).submit();
       }
-  });
+    });
+  }
+    
 };
