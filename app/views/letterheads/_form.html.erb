@@ -120,7 +120,7 @@
                     
                     <% if f.object.logo %>
                     
-                      <%= link_to 'Remove Logo', f.object.logo,                           
+                      <%= link_to 'Remove Logo', "#{logos_path}/#{f.object.logo.id}", 
                           :confirm => 'Are you sure you want to remove the logo?', 
                           :class  => 'link-remove-logo',
                           :remote => true,
