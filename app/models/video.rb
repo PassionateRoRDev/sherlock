@@ -555,7 +555,7 @@ class Video < ActiveRecord::Base
     delete_files if persisted?        
     
     self.content_type       = uploaded_file.content_type
-    self.original_filename  = uploaded_file.original_filename            
+    self.original_filename  = uploaded_file.original_filename.gsub(' ', '_')          
     
     self.path = store_from_source self.original_filename, uploaded_file
     
