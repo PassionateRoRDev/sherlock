@@ -56,6 +56,16 @@ describe PostOffice do
     end    
   end
   
+  context "For a new contact message" do
+    
+    it "should send email" do    
+      c = FactoryGirl.build(:contact_message)    
+      email = c.deliver
+      pp email.parts[1].body
+    end
+    
+  end
+  
   context "For the free_trial expiration email" do
     before do
       user = FactoryGirl.create(:user)

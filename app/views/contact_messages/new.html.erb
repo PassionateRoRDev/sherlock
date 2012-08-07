@@ -17,29 +17,50 @@
 <body>
 <div id="midbox">
 <div id="header">
-  <%= render 'navi' %>  
+  <%= render 'home/navi' %>  
 </div>
   <div class="midwrapper">
     <div class="inbox">      
         <div class="termsofservice">Contact - Sherlock Docs</div>
+        
+        <div style="text-align:center;color:#00aa00;">
+          <%= render('shared/flash', :flash => flash) %>
+        </div>
+        
         <div class="contact">
+          
           <div class="contactus">
+          
+            <%= form_for @contact_message do |f| %>
+                        
+            <%= f.error_messages :header_message => nil, :message => nil %>
+                        
             <div class="fieldbox">
               <div class="fieldbox-small">
-                <input class="auto-hint" name="" type="text" title="First Name" />
+                <%= f.text_field :first_name, 
+                    :class => 'auto-hint', :title => 'First Name' %>                
               </div>
               <div class="fieldbox-small">
-                <input class="auto-hint" name="" type="text" title="Last Name" />
+                <%= f.text_field :last_name,
+                    :class => 'auto-hint', :title => 'Last Name' %>                
               </div>
             </div>
             <div class="fieldbox-big">
-              <input class="auto-hint" name="" type="text" title="Email Address" />
-            </div>
+              <%= f.text_field :email, 
+                  :class => 'auto-hint', :title => 'Email Address' %>              
+            </div>            
             <div class="message-box">
-              <textarea class="auto-hint2" name="" cols="" title="Message" rows=""></textarea>
+              <%= f.text_area :message, :class => 'auto-hint2', :title => 'Message' %>              
             </div>
-            <div class="fieldbox"><a class="fl" href="#"><img src="/public/images/contact-us.jpg" width="110" height="40" alt="" border="0" /></a></div>
+            <div class="fieldbox"><a class="fl" id="contact-form-send"
+                                     href="#"><img src="/public/images/contact-us.jpg" width="110" height="40" alt="" border="0" /></a></div>
+          
+            <% end %>
+          
           </div>
+          
+          
+          
           <div class="contactus2">
             <p class="ptxt"> <font class="cus-name">SherlockDocs </font><br />
               343 Girdle Rd <br />
@@ -55,5 +76,16 @@
   </div>
 </div>
 <div class="clr"></div>
+
+<script type="text/javascript">
+  $(function() {
+    $('#contact-form-send').click(function(e) {
+      $('form#new_contact_message').submit();
+      return false;
+    });
+  });
+  
+</script>
+
 </body>
 </html>

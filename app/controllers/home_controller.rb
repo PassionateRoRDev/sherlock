@@ -33,13 +33,7 @@ class HomeController < ApplicationController
     @title = 'Help & Support'
     render :layout => 'public'
   end
-  
-  def contact
-    @title = 'Contact'
-    #render :layout => 'public'
-    render 'contact', :layout => false
-  end
-  
+    
   def customers
     render 'customers', :layout => 'public'
   end

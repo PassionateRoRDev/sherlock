@@ -11,6 +11,20 @@ class PostOffice < ActionMailer::Base
     )
   end
   
+  def contact_message(contact_message)
+    
+    @first_name = contact_message.first_name
+    @last_name = contact_message.last_name
+    @message = contact_message.message
+    
+    mail(
+      :to => APP_CONFIG['sender'],
+      :subject => 'Message from SherlockDocs client', 
+      :from => contact_message.email,
+      :return_path => contact_message.email
+    )
+  end
+  
   def sample_report(presenter)
     
     email         = presenter.email
