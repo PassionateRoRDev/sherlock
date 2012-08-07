@@ -12,6 +12,10 @@ class HomeController < ApplicationController
     render 'landing', :layout => false
   end
   
+  def contact
+    redirect_to new_contact_message_path
+  end
+  
   def tos
     @title = "Terms of Service"
     #render :layout => 'public'
