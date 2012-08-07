@@ -91,6 +91,24 @@ class Video < ActiveRecord::Base
     end    
   end
   
+  def recreate_thumbnail_file
+    #pp self.thumbnail
+    #pp full_thumbnail_path
+    
+    thumb_pos = '00:00:01' if self.thumbnail_pos.blank?
+    
+    command = "#{ffmpeg_path} -i #{full_filepath} -vframes 1 " +
+                " -ss #{thumb_pos} " +
+                " -f image2 #{full_thumbnail_path} 2>&1"    
+    #pp "Command:"
+    #pp command
+    
+    Rails::logger.debug("Command is: " + command)
+    result = `#{command}`
+    Rails::logger.debug("Result of the thumbnail command: " + result)
+    
+  end
+  
   def extract_thumbnail_from_movie    
         
     if thumbnail_pos.to_s.present?     
