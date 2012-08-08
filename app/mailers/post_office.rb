@@ -3,11 +3,15 @@ class PostOffice < ActionMailer::Base
   def invitation( invitation )
 
     @invitation = invitation
+    case_author = @invitation.invitation.case.author
+    #sender = APP_CONFIG['sender']
+    sender = case_author.email
+    
     mail(
       :to => @invitation.recipient, 
       :subject => 'Link to View the Report', 
-      :from => APP_CONFIG['sender'],
-      :return_path => APP_CONFIG['sender']
+      :from => sender,
+      :return_path => sender
     )
   end
   

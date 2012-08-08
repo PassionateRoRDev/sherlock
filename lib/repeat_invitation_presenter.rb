@@ -15,6 +15,10 @@ class RepeatInvitationPresenter
     "#{@invitation.name} <#{@invitation.email}>"
   end
 
+  def invitation
+    @invitation
+  end
+  
   def message
     @invitation.message
   end

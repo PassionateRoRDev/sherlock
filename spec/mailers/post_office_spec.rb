@@ -60,8 +60,7 @@ describe PostOffice do
     
     it "should send email" do    
       c = FactoryGirl.build(:contact_message)    
-      email = c.deliver
-      pp email.parts[1].body
+      email = c.deliver      
     end
     
   end
@@ -109,10 +108,13 @@ describe PostOffice do
     
     it "Test version should contain the invitation message" do
       email = PostOffice.invitation(@presenter).deliver
-      email.parts[0].body.should include @presenter.message            
-      
-      #pp email.parts[1].body
-      
+      email.parts[0].body.should include @presenter.message                  
+      #pp email.parts[1].body      
+    end
+    
+    it "should be sent FROM author of the case (PI)" do
+      email = PostOffice.invitation(@presenter).deliver
+      email.from.first.should == @presenter.invitation.case.author.email
     end
     
   end  
