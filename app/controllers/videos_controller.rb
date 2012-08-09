@@ -50,9 +50,16 @@ class VideosController < ApplicationController
     
   end
   
+  #
+  # Uploadify makes this strange call to /cases/<case_id>/videos/false - not
+  # sure why
+  #
   def show
-    @video = @case.videos.find_by_unique_code(params[:id])
+    video_id = params[:id]
+    @video = video_id.to_s == 'false' ? nil : @case.videos.find_by_unique_code(video_id)
+    
     respond_to do |format|
+      format.html { render :text => 'json call expected' }
       format.js { render :json => @video }
     end
   end

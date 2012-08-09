@@ -8,10 +8,10 @@ class TempVideosController < ApplicationController
   #
   # used to check for existence (by uploadify)
   #
-  def show
+  def exists
     render :text => '0'
   end
-  
+    
   def create
             
     temp_video = TempVideo.new do |video|        
