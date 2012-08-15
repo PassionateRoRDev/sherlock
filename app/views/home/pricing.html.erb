@@ -10,7 +10,7 @@
           <font style="color:#64881e;">
         <% if Setting.has_non_cc_trial? %>
           <%= link_to Setting.trial_days.to_s + '-day Free Trial - 3 reports, no credit card required',
-              'http://forms.aweber.com/form/55/548944255.htm',
+              new_user_registration_path,
               :title => 'Free Trial - 3 reports, no credit card required' %>  
         <% else %>
           30-day Free Trial on All Accounts.
