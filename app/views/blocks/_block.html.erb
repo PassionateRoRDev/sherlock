@@ -7,7 +7,7 @@
      data-block_id="<%= block.id %>">
         
   <div class="block-action-links">
-  <% if block.html_detail %>    
+  <% if block.html_detail %>        
     <span class="links-for-editable" style="display:none;">      
       <%= link_to 'Save',
           case_html_detail_path(block.case, block.html_detail),
@@ -16,10 +16,12 @@
     </span>    
     <span class="links-for-static">
       <%= render 'blocks/move_links', :block => block %>
-      <%= link_to 'Edit', 
+      <%= case_author_only(block.case) do %>
+      | <%= link_to 'Edit', 
         edit_case_html_detail_path(block.case, block.html_detail),
-        :class => 'block-edit-ajax' %> |
-    </span>
+        :class => 'block-edit-ajax' %>
+      <% end %>
+    </span>    
   <% end %>
     
   <% if block.witness_statement %>
@@ -32,9 +34,11 @@
     
     <span class="links-for-static">
       <%= render 'blocks/move_links', :block => block %>
-      <%= link_to 'Edit', 
+      <%= case_author_only(block.case) do %>
+      | <%= link_to 'Edit', 
         edit_case_witness_statement_path(block.case, block.witness_statement),
-        :class => 'block-edit-ajax' %> |
+        :class => 'block-edit-ajax' %>
+      <% end %>
     </span>
   <% end %>
     
@@ -48,27 +52,40 @@
     
     <span class="links-for-static">
       <%= render 'blocks/move_links', :block => block %>
-      <%= link_to 'Edit', 
+      <%= case_author_only(block.case) do %>
+      | <%= link_to 'Edit', 
         edit_case_data_log_detail_path(block.case, block.data_log_detail),
-        :class => 'block-edit-ajax' %> |
+        :class => 'block-edit-ajax' %>
+      <% end %>
     </span>
   <% end %>
     
   <% if block.picture %>
     <%= render 'blocks/move_links', :block => block %>
-    <%= link_to 'Edit', edit_case_picture_path(block.case, block.picture) %> |
+    <%= case_author_only(block.case) do %>
+    | <%= link_to 'Edit', edit_case_picture_path(block.case, block.picture) %>
+    <% end %>
   <% end %>
   <% if block.video %>
-    <%= link_to 'Download', file_video_path(block.video) %> |  
+    <%= link_to 'Download', file_video_path(block.video) %> 
+    <%= case_author_only(block.case) do %>    
+    |  
+    <% end %>
     <%= render 'blocks/move_links', :block => block %>
-    <%= link_to 'Edit', edit_case_video_path(block.case, block.video) %> |    
+    <%= case_author_only(block.case) do %>
+      | <%= link_to 'Edit', edit_case_video_path(block.case, block.video) %>
+    <% end %>
   <% end %>
     
+  <%= case_author_only(block.case) do %>
+  |
   <%= link_to 'Delete', block, 
                :confirm => 'Are you sure you want to remove this block?',
                :class  => 'remote-block-delete',
                :remote => true,
                :method => :delete %>
+  <% end %>
+    
   </div>
   
   <div class="block-editable-wrapper">

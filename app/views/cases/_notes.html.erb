@@ -21,8 +21,12 @@
       <%= link_to 'See All', case_notes_path(@case) %> |
     </span>
   <% end %>
-  <%= link_to 'Quick Add', new_case_note_path(@case), 
-      :id => 'note-quick-add', :remote => true %>
+  
+  <%= case_author_only(@case) do %>
+    <%= link_to 'Quick Add', new_case_note_path(@case), 
+        :id => 'note-quick-add', :remote => true %>
+  <% end %>
+  
 </div>
   
 <%= render 'notes/dialog' %>

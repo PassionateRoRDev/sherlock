@@ -5,4 +5,10 @@ module AuthHelper
     nil
   end
   
+  def case_author_only(kase)
+    is_author = (current_user && (kase.author == current_user))
+    yield if is_author    
+    nil
+  end
+  
 end

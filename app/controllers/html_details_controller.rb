@@ -4,6 +4,7 @@ class HtmlDetailsController < ApplicationController
   before_filter :authorize_pi!
   
   before_filter :resolve_case, :only => [ :new, :edit, :update, :create ]
+  before_filter :verify_case_author!, :only => [ :new, :edit, :update, :create ]
   
   respond_to :html, :json, :except => :update
   
@@ -62,6 +63,11 @@ class HtmlDetailsController < ApplicationController
   
   def resolve_case
     resolve_case_using_param(:case_id)    
+  end
+  
+  def verify_case_author!    
+    is_author = (@case.author == current_user)
+    redirect_to @case unless is_author    
   end
   
 end

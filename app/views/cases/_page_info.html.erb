@@ -67,9 +67,11 @@
         </div>
       </div>
   
-    <div class="actions">
-      <%= f.submit 'Save', :class => 'button', :title => 'Save Page Information' %>
-    </div>
+    <%= case_author_only(caze) do %>      
+      <div class="actions">
+        <%= f.submit 'Save', :class => 'button', :title => 'Save Page Information' %>
+      </div>      
+    <% end %>
     
     <% end %>
     

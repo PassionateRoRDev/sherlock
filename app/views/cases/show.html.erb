@@ -25,9 +25,11 @@
 <div style="clear:both;padding-top:2em;">
   <div style="position:relative;">
     <div class="inbox-hd">Title &amp; Summary</div>
-    <div style="position:absolute;left:355px;top:10px;">
-      <%= link_to 'Edit', edit_case_path(@case) %>
-    </div>
+    <%= case_author_only(@case) do %>
+      <div style="position:absolute;left:355px;top:10px;">
+        <%= link_to 'Edit', edit_case_path(@case) %>
+      </div>
+    <% end %>
   </div>
 </div>
 

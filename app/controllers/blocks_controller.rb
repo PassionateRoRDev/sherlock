@@ -2,8 +2,9 @@ class BlocksController < ApplicationController
 
   before_filter :authenticate_user!
   before_filter :authorize_pi!
-  
+    
   before_filter :resolve_block
+  before_filter :verify_case_author!
   
   def destroy
     
@@ -22,6 +23,11 @@ class BlocksController < ApplicationController
   def resolve_block
     @block = current_user.blocks.find_by_id(params[:id]) || 
       redirect_to(cases_path)
+  end
+  
+  def verify_case_author!    
+    is_author = (@block.case.author == current_user)
+    redirect_to @block.case unless is_author    
   end
   
 end

@@ -8,6 +8,7 @@ class VideosController < ApplicationController
   #       used to upload videos unlinked with any blocks/cases
   #
   before_filter :resolve_case, :only => [ :new, :edit, :show, :update, :create ]
+  before_filter :verify_case_author!, :only => [ :new, :edit, :update, :create ]
   
   def new
     
@@ -123,6 +124,11 @@ class VideosController < ApplicationController
   
   def resolve_case
     resolve_case_using_param(:case_id)    
+  end
+  
+  def verify_case_author!    
+    is_author = (@case.author == current_user)
+    redirect_to @case unless is_author    
   end
   
 end
