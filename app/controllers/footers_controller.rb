@@ -4,6 +4,8 @@ class FootersController < ApplicationController
   before_filter :authorize_pi!
   
   before_filter :resolve_case
+  before_filter :verify_case_author!
+  
   before_filter :resolve_footer, :except => [ :new, :create ]
   
   # GET /footers
@@ -107,5 +109,10 @@ class FootersController < ApplicationController
   def resolve_footer    
     @footer = @case.footer || redirect_to(root_path)
   end    
+  
+  def verify_case_author!    
+    is_author = (@case.author == current_user)
+    redirect_to @case unless is_author    
+  end
   
 end

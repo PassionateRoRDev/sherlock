@@ -29,14 +29,16 @@
     <% end %>
     </ul>
     
-    <div style="margin-top: 0.5em;">      
-      <%= link_to 'Share Report with a Client', 
-        new_case_invitation_path(@case), 
-        :title => 'Share Report with a Client',
-        :class => 'icon icon-envelope' %>
-      <%= link_to 'Invite another client', 
-        new_case_invitation_path(@case) %>    
-    </div>
+    <%= case_author_only(@case) do %>
+      <div style="margin-top: 0.5em;">      
+          <%= link_to 'Share Report with a Client', 
+            new_case_invitation_path(@case), 
+            :title => 'Share Report with a Client',
+            :class => 'icon icon-envelope' %>
+          <%= link_to 'Invite another client', 
+            new_case_invitation_path(@case) %>    
+      </div> 
+    <% end %>
     
   <% end %>
     

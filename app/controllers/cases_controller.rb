@@ -5,6 +5,7 @@ class CasesController < ApplicationController
   before_filter :authorize_pi!, :except => [ :index, :preview, :show ]
   before_filter :authorize_case_create!, :only => [:new, :create]
   before_filter :resolve_case, :except => [ :new, :create, :index ]
+  before_filter :verify_case_author!, :only => [ :edit, :update, :destroy ]
     
   def new
     @case = Case.new
@@ -66,9 +67,9 @@ class CasesController < ApplicationController
     end
   end
   
-  def destroy   
-    @case.destroy
+  def destroy
     
+    @case.destroy    
     respond_to do |format|
       format.html { redirect_to(cases_path, :notice => 'The case was successfully deleted') }
     end
@@ -93,6 +94,11 @@ class CasesController < ApplicationController
     else
       current_user.cases
     end
+  end
+  
+  def verify_case_author!    
+    is_author = (@case.author == current_user)
+    redirect_to @case unless is_author    
   end
   
   def resolve_case
