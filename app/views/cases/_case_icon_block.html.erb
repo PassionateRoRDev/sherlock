@@ -1,6 +1,6 @@
 
 <li class="case" data-case-id="<%= c.id %>">  
-  <%= render 'cases/case_small_icons', :c => c %>
+  <%= render 'cases/case_small_icons', :c => c, :single_case => false %>
   <div class="link">
   <%= link_to c.title, c, :title => 'See details of: ' + c.title %>  
   </div>  
