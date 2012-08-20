@@ -19,9 +19,10 @@
     </div>
   </div>
 
-  <%= render 'text_snippets/select' %>  
-  
   <div class="field">    
+    
+      <%= render 'text_snippets/select' %>
+    
       <%= f.label :summary, 'Summary :', :class => :inline %>
       <div class="summary textarea-99">
         <%= f.text_area :summary, :rows => 10 %>
