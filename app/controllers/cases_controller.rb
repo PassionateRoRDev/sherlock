@@ -8,7 +8,8 @@ class CasesController < ApplicationController
   before_filter :verify_case_author!, :only => [ :edit, :update, :destroy ]
     
   def new
-    @case = Case.new
+    @text_snippets = current_user.text_snippets
+    @case = Case.new    
   end
   
   def create
@@ -76,7 +77,8 @@ class CasesController < ApplicationController
     
   end
   
-  def edit    
+  def edit
+    @text_snippets = current_user.text_snippets
   end
   
   def index

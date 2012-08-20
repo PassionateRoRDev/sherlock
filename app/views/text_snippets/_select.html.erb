@@ -1,0 +1,10 @@
+<div style="float:right;">
+  <div class="rich-dropdown-wrapper rich-dropdown-wrapper-x">
+      <select class="rich-dropdown insert-snippet-dropdown">
+          <option value="" selected="selected">Insert Snippet</option>            
+          <% @text_snippets.each do |snippet| %>
+            <option value="<%= snippet.id %>"><%= snippet.title %></option>            
+          <% end %>
+      </select>
+  </div>
+</div>
