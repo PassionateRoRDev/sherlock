@@ -44,6 +44,17 @@ class User < ActiveRecord::Base
   
   RANDOM_PASSWORD_LENGTH = 10
   
+  def self.investigators
+    joins(:subscriptions).group('users.id')
+  end
+  
+  def self.clients
+    joins('LEFT JOIN subscriptions ON subscriptions.user_id = users.id')
+    .where(:admin => 0)
+    .group('users.id')
+    .having('count(subscriptions.id) = 0')    
+  end
+    
   def self.create_from_chargify_subscription(subscription)      
       
       customer = subscription.customer
