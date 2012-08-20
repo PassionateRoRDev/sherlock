@@ -1,0 +1,16 @@
+<div class="breadcrumb">  
+  <%= link_to 'Dashboard', dashboard_path %> / 
+  <%= link_to 'Text Snippets', text_snippets_path %> / 
+  <%= @text_snippet.title %>
+</div>
+
+<h1>  
+  <%= @text_snippet.title %>
+</h1>
+
+<p>
+  <%= @text_snippet.body.html_safe %>
+</p>
+
+
+<%= link_to 'Edit', edit_text_snippet_path(@text_snippet) %>
