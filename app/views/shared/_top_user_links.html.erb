@@ -2,7 +2,8 @@
   <div class="links-list">
   <% if signed_in? %>     
     <%= investigators_only do %>
-      <%= render 'letterhead_link' %> |    
+      <%= render 'letterhead_link' %> |   
+      <%= link_to 'Text Snippets', text_snippets_path %> |
     <% end %>
     <%= link_to 'My Cases', cases_path %> |    
     <%= investigators_only do %>

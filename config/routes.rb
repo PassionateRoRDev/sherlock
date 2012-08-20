@@ -1,5 +1,5 @@
 Sherlock::Application.routes.draw do
-  
+    
   devise_for :users, :controllers => {
     :sessions       => 'sessions',
     :registrations  => 'registrations'
@@ -7,6 +7,7 @@ Sherlock::Application.routes.draw do
   
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
   
+  resources :text_snippets
   resources :letterheads
   resources :logos
   resources :clients

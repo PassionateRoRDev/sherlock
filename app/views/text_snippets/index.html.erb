@@ -1,0 +1,19 @@
+<div class="breadcrumb">  
+  <%= link_to 'Dashboard', dashboard_path %> / Text Snippets
+</div>
+
+<h1>My Text Snippets</h1>
+
+<% if @text_snippets.empty? %>
+<div style="margin:1em 0;">
+  You have not created any snippets yet.
+</div>
+<% else %>
+  <ul class="ordinary">  
+    <% @text_snippets.each do |text_snippet| %>  
+      <li><%= link_to text_snippet.title, text_snippet %></li> 
+    <% end %>
+  </ul>
+<% end %>
+
+<%= link_to 'Create New Text Snippet', new_text_snippet_path %>

@@ -29,6 +29,8 @@ class User < ActiveRecord::Base
   has_many :purchases  
   has_many :subscriptions
     
+  has_many :text_snippets
+  
   has_many :blocks, :through => :authored_cases
   has_many :pictures, :through => :blocks
   has_many :videos, :through => :blocks

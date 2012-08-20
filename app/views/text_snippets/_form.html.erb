@@ -1,0 +1,45 @@
+<%= form_for(@text_snippet) do |f| %>
+  <% if @text_snippet.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@text_snippet.errors.count, "error") %> prohibited this text_snippet from being saved:</h2>
+
+      <ul>
+      <% @text_snippet.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :title, 'Title :' %>
+    <div class="boxfield">
+      <%= f.text_field :title, :class => 'txtfield txtfield-wide' %>
+    </div>
+  </div>
+
+  <div class="field">    
+      <%= f.label :body, 'Body :', :class => :inline %>
+      <div class="textarea-99">
+        <%= f.text_area :body, :rows => 10 %>
+      </div>
+  </div>
+
+  <div class="actions no-margin">
+    <%= f.submit "Save", :class => :button %>
+    <% if @text_snippet.id %>
+      <%= link_to 'Cancel', @text_snippet %>
+    <% else %>
+      <%= link_to 'Cancel', text_snippets_path %>
+    <% end %>
+  </div>
+
+<% end %>
+
+<%= render 'shared/tinymce' %>
+
+<script type="text/javascript">
+  $(function() {
+    tinyMCE.execCommand('mceAddControl', false, 'text_snippet_body');
+  });
+</script>
