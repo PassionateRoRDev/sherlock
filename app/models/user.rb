@@ -216,10 +216,15 @@ class User < ActiveRecord::Base
   end
   
   #
-  # PI's are uses who haven't been invited
+  # PI's are uses who haven't been invited OR those that have subscriptions
+  # linked
   #
   def pi?
-    invitation_accepted_at.blank? && (!invited?)
+    (invitation_accepted_at.blank? && (!invited?)) || has_subscriptions?
+  end
+  
+  def has_subscriptions?
+    !self.subscriptions.empty?
   end
 
   def can_view?( object )

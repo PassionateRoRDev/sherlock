@@ -18,59 +18,75 @@ describe User do
   end
   
 #  it "should have videos through blocks and cases" do
-#    block = Factory(:block)
-#    video = Factory.build(:video, :block => block)
+#    block = FactoryGirl.create(:block)
+#    video = FactoryGirl.create.build(:video, :block => block)
 #    author = block.case.author
 #    author.videos.should include(video)
 #  end
 
   it 'can not view cases by default' do
-    secret = Factory.create(:case)
-    snoop = Factory.create(:user)
+    secret = FactoryGirl.create(:case)
+    snoop = FactoryGirl.create(:user)
     snoop.can_view?( secret ).should == false
+  end
+  
+  it 'is PI by default' do
+    pi = FactoryGirl.create(:user)
+    pi.pi?.should == true
+  end
+  
+  it 'is a Client, if he has invitation token' do
+    client = FactoryGirl.create(:user, :invitation_token => 'token')
+    client.pi?.should == false
+  end
+  
+  it 'is PI, if he has subscriptions linked' do
+    pi = FactoryGirl.create(:user, :invitation_token => 'token')
+    FactoryGirl.create(:subscription, :product_handle => 'free_trial', :user => pi)        
+    pi.pi?.should == true
   end
 
   it 'can view cases when it is on the viewer list' do
-    client = Factory.create(:user)
-    info = Factory.create(:case, :viewers => [client])
+    client = FactoryGirl.create(:user)
+    info = FactoryGirl.create(:case, :viewers => [client])
     
     client.can_view?( info ).should == true
   end
 
   it 'can view cases when listed as the author' do
-    author = Factory.create(:user)
-    great_am_tale = Factory.create(:case, :author => author)
+    author = FactoryGirl.create(:user)
+    great_am_tale = FactoryGirl.create(:case, :author => author)
 
     author.can_view?( great_am_tale ).should == true
   end
 
   it 'will not see duplicate cases when a viewer and an author.' do
-    author = Factory.create(:user)
-    casework = Factory.create(:case, :author => author, :viewers => [author])
+    author = FactoryGirl.create(:user)
+    casework = FactoryGirl.create(:case, :author => author, :viewers => [author])
     casework.reload.viewers.should include author
     author.reload.should have(1).cases
   end
   
   it 'has a list of authored cases' do
-    c = Factory.create(:case)
+    c = FactoryGirl.create(:case)
     c.author.authored_cases.should include(c)
   end
   
   it 'should have 0 clients initially' do
-    investigator = Factory(:user)
+    investigator = FactoryGirl.create(:user)
     investigator.clients.should == []    
   end
   
   it 'should have 1 client added when asked to do so twice' do
-    investigator = Factory(:user)
-    client = Factory(:user, :email => 'client1@aol.com')
+    investigator = FactoryGirl.create(:user)
+    client = FactoryGirl.create(:user, :email => 'client1@aol.com')
     investigator.add_client(client)
     investigator.add_client(client)
     investigator.clients.count.should == 1
   end
   
   it 'should return email as full name if first name and last name are blank' do
-    user = Factory(:user, 
+    user = FactoryGirl.create(:user, 
       :first_name => nil, 
       :last_name => nil, 
       :email => 'user@mail.com'
@@ -79,7 +95,7 @@ describe User do
   end
   
   it 'should return last name as full name if first name is blank' do
-    user = Factory(:user, 
+    user = FactoryGirl.create(:user, 
       :first_name => nil, 
       :last_name => 'Smith', 
       :email => 'user@mail.com'
@@ -88,26 +104,26 @@ describe User do
   end
   
   it 'without the cases, should have 0 space usage reported' do
-    user = Factory(:user)
+    user = FactoryGirl.create(:user)
     user.space_usage.should == 0
   end
   
   it 'should have empty space usage if has a case but without file assets' do
-    c = Factory(:case)
+    c = FactoryGirl.create(:case)
     c.author.space_usage.should == 0
-  end
+  end  
   
   it 'should have usage equal to the stored picture for one case with 1 pic' do
     
     filename = 'sample_image1.bmp'
     picture_path = fixture_file_path(filename)    
-    block = Factory(:block)    
+    block = FactoryGirl.create(:block)    
     data = {
       :filepath           => picture_path,
       :original_filename  => filename
     }
     uploaded = Uploader.new(data)    
-    picture = Factory(:picture, :block => block, :uploaded_file => uploaded)    
+    picture = FactoryGirl.create(:picture, :block => block, :uploaded_file => uploaded)    
     
     current_size = File.size(picture.full_filepath)
     
