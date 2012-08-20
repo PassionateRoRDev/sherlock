@@ -1,7 +1,15 @@
 
 <div class="form-case">
-<%= form_for(@case) do |f| %>
 
+  <form>
+    <select class="rich-dropdown" style="width:412px;">
+        <option value="" selected="selected">Insert Snippet</option>
+        <option value="1">Standard Title 1</option>        
+    </select>
+  </form>
+  
+<%= form_for(@case) do |f| %>  
+  
   <%= render 'shared/form_errors', :errors => @case.errors %>    
 
   <div class="field">
