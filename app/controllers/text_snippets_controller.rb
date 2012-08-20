@@ -74,7 +74,7 @@ class TextSnippetsController < ApplicationController
   def destroy
     @text_snippet.destroy
     respond_to do |format|
-      format.html { redirect_to text_snippets_url }
+      format.html { redirect_to text_snippets_url, :notice => 'Snippet has been removed' }
       format.json { head :no_content }
     end
   end

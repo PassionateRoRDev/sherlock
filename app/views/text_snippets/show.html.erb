@@ -13,4 +13,7 @@
 </p>
 
 
-<%= link_to 'Edit', edit_text_snippet_path(@text_snippet) %>
+<%= link_to 'Edit', edit_text_snippet_path(@text_snippet) %> |
+<%= link_to 'Destroy', @text_snippet, 
+            :method => :delete, 
+            :confirm => 'Do you want to remove this snippet?' %>    
