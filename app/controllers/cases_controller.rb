@@ -13,13 +13,13 @@ class CasesController < ApplicationController
   end
   
   def create
-    
+    @text_snippets = current_user.text_snippets
     @case = Case.new(params[:case])
     @case.author = current_user
     respond_to do |format|
       if (@case.save)        
         format.html { redirect_to(cases_path, :notice => 'Case has been successfully created') }
-      else  
+      else
         format.html { render :action => 'new' }
       end
     end        
@@ -54,7 +54,7 @@ class CasesController < ApplicationController
       params[:case] = convert_dates(params[:case])
       params[:case] = preparse_hinted(params[:case], params[:hinted])
       
-      logger.debug params
+      @text_snippets = current_user.text_snippets
             
       respond_to do |format|
         if @case.update_attributes(params[:case])

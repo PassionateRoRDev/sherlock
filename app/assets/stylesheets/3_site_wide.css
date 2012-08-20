@@ -102,6 +102,10 @@ input.txtfield {
     padding-top: 0px;
 }
 
+input.txtfield:focus {
+  outline: none;
+}
+
 label {
     display: block;    
     color: #397A89;
