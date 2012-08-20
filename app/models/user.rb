@@ -44,6 +44,17 @@ class User < ActiveRecord::Base
   
   RANDOM_PASSWORD_LENGTH = 10
   
+  def self.investigators
+    joins(:subscriptions).group('users.id')
+  end
+  
+  def self.clients
+    joins('LEFT JOIN subscriptions ON subscriptions.user_id = users.id')
+    .where(:admin => 0)
+    .group('users.id')
+    .having('count(subscriptions.id) = 0')    
+  end
+    
   def self.create_from_chargify_subscription(subscription)      
       
       customer = subscription.customer
@@ -216,10 +227,15 @@ class User < ActiveRecord::Base
   end
   
   #
-  # PI's are uses who haven't been invited
+  # PI's are uses who haven't been invited OR those that have subscriptions
+  # linked
   #
   def pi?
-    invitation_accepted_at.blank? && (!invited?)
+    (invitation_accepted_at.blank? && (!invited?)) || has_subscriptions?
+  end
+  
+  def has_subscriptions?
+    !self.subscriptions.empty?
   end
 
   def can_view?( object )

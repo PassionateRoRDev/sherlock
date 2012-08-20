@@ -1,0 +1,12 @@
+<h1>Convert Client to PI</h1>
+
+<div>
+  ID: <%= @client.id %> <br/>
+  Email: <%= @client.email %><br/>
+</div>
+
+<%= form_tag(dashboard_client_conversions_path, :method => :post) do %>
+  <%= hidden_field_tag :client_id, @client.id %>
+  <%= submit_tag 'Convert' %>
+<% end %>
+
