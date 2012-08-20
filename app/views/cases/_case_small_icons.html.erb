@@ -1,8 +1,14 @@
 <div class="case-small-icons">
   
+  <% if single_case %>  
+    <%= link_to 'Create new case', new_case_path,
+              :title => 'Create New Case',
+              :class => 'icon icon-plus' %>   
+  <% end %>
+  
   <%= link_to 'Preview', case_preview_path(c), 
               :title => 'Preview Report',
-              :class => 'icon icon-eye-open' %>
+              :class => 'icon icon-eye-open' %>  
   
   <%= link_to 'Get PDF', report_path(c.id), 
       :class =>'icon icon-pdf', 

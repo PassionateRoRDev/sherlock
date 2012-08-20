@@ -39,7 +39,7 @@
             
         <h2 style="margin-bottom:0.5em;"><%= link_to c.title, c %></h2>                
       
-        <%= render 'case_small_icons', :c => c %>
+        <%= render 'case_small_icons', :c => c, :single_case => false %>
                 
         <%= render 'summary', :c => c if false %>
         

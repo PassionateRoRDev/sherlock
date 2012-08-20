@@ -4,8 +4,8 @@
   <%= link_to 'Dashboard', dashboard_path %> /
   <%= link_to 'My Cases', cases_path %> / <%= @case.title %>
   
-  <div style="float:right;">
-    <%= render 'case_small_icons', :c => @case %>
+  <div style="float:right;">             
+    <%= render 'case_small_icons', :c => @case, :single_case => true %>
   </div>
   
 </div>
