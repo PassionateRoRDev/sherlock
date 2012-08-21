@@ -17,6 +17,7 @@ SHERLOCK.snippets.created = function(snippet, dropdownHtml)
     };    
     block.find('select.rich-dropdown').msDropDown(options);    
   }
+  $("#dialog-snippet-title").dialog('close');
   alert('Snippet successfully created!');
 }
 
@@ -24,6 +25,52 @@ SHERLOCK.snippets.init = function(options) {
       
   setupInsertLink();
   setupCreateLink();
+  initPromptForTitleDialog();
+  
+  function initPromptForTitleDialog()
+  {
+    var dialog = $("#dialog-snippet-title");
+    if (dialog.length) {
+      
+      dialog.dialog({
+        autoOpen: false,
+        draggable: false,
+        resizable: false,
+        width : 500,
+        position : ['center', 150],
+        modal : true,
+        title: 'Snippet Title'
+      });
+      
+      dialog.find('input.submit').click(function() {    
+        var titleElt = dialog.find('#snippet-title');
+        var title = titleElt.val();        
+        if (title == '') {
+          alert('Please provide a title');
+          titleElt.focus();
+        } else {        
+          var selection = dialog.find('#snippet-body').val();
+          var url = dialog.find('form').attr('action');
+          url += '?ts=' + new Date().valueOf();        
+          createSnippetDo(url, title, selection);                
+        }
+        
+      });    
+    }
+    
+  }
+  
+  function createSnippetDo(url, title, body) 
+  {
+    var data = {
+      'text_snippet[title]': title,
+      'text_snippet[body]': body
+    };   
+    $.post(url, data, function(data, textStatus, jqXHR) {
+      eval(data);              
+    }, 'text'); 
+    
+  }
   
   function setupCreateLink()
   {
@@ -34,24 +81,24 @@ SHERLOCK.snippets.init = function(options) {
       if (ed) {
                 
         var selection = ed.selection.getContent();
+        
         if (selection == '') {
           alert('Please select some text first');
         } else {        
-                  
-          var title = prompt('Enter snippet title:');
+          var dialog = $("#dialog-snippet-title");
+          dialog.find('#snippet-body').val(selection);
+          dialog.find('#snippet-title').val('');
+          $("#dialog-snippet-title").dialog('open');
+                 
+          //var title = prompt('Enter snippet title:');          
+          /*
           if (title !== null) {      
-        
             var url = options.urls.snippets + '.json';
             url += '?ts=' + new Date().valueOf();            
-            var data = {
-              'text_snippet[title]': title,
-              'text_snippet[body]': selection
-            };
-          
-            $.post(url, data, function(data, textStatus, jqXHR) {
-              eval(data);              
-            }, 'text'); 
+            createSnippetDo(url, title, selection);                                          
           }
+          */
+         
         }
       }
       return false;
