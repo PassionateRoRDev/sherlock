@@ -8,9 +8,9 @@
   <%= @text_snippet.title %>
 </h1>
 
-<p>
+<div class="snippet">
   <%= @text_snippet.body.html_safe %>
-</p>
+</div>
 
 
 <%= link_to 'Edit', edit_text_snippet_path(@text_snippet) %> |

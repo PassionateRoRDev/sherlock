@@ -45,8 +45,11 @@ class TextSnippetsController < ApplicationController
 
     respond_to do |format|
       if @text_snippet.save
+        
+        @text_snippets = current_user.text_snippets
+        
         format.html { redirect_to @text_snippet, notice: 'Text snippet was successfully created.' }
-        format.json { render json: @text_snippet, status: :created, location: @text_snippet }
+        format.json          
       else
         format.html { render action: "new" }
         format.json { render json: @text_snippet.errors, status: :unprocessable_entity }

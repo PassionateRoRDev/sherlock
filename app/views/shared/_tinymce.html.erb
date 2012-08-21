@@ -9,6 +9,8 @@ var tinyMCEParams = {
   init_instance_callback : SHERLOCK.utils.richEditorInitialized,
 
   theme: 'advanced',
+  //theme_advanced_statusbar_location : 'top',
+  theme_advanced_toolbar_location : 'top',
   plugins : "spellchecker",
   spellchecker_rpc_url : "<%= spellcheck_path %>",
   spellchecker_languages : 'English=en',

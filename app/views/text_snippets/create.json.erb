@@ -1,0 +1,6 @@
+SHERLOCK.snippets.created({
+    id: <%= @text_snippet.id %>,
+    title: '<%= escape_javascript(@text_snippet.title) %>'
+  },
+  '<%= escape_javascript(render 'dropdown.html.erb') %>'
+);

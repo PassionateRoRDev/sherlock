@@ -56,6 +56,11 @@ h1 {
     margin-bottom: 17px;
 }
 
+.block h1, .snippet h1 {
+  border-bottom: none;
+  box-shadow: none;
+}
+
 h1 {    
     margin-bottom: 12px;
 }
@@ -111,6 +116,11 @@ label {
     color: #397A89;
     font-size: 16px;
     float: left;    
+}
+
+label.small-black {
+  color: #000;
+  font-size: 100%;
 }
 
 label.inline {

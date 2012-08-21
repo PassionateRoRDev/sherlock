@@ -3,7 +3,7 @@
     <%= block.title %>
     <%= render 'blocks/meta', :block => block %>
   </h4>
-  <% if block.html_detail %>  
+  <% if block.html_detail %>    
     <div class="block-editable" id="block-editable-<%= block.id %>">
       <div class="block-editable-html">
         <%= block.html_detail.contents.to_s.html_safe %>
