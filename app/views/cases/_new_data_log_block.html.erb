@@ -15,22 +15,28 @@
         <div class="block-editable">
           <form>
             <div class="custom-form" data-block_type="data-log" style="margin-bottom:5px;">
-              Date:
-                <input type="text" 
-                       class="data-log-date-field"
-                       name="day" size="10"/>
-                (MM/DD/YYYY)
-              &nbsp;
-              &nbsp;
-              Time:
-                <input type="text" name="hour" size="6"/>                          
-                (HH:MM am/pm)
-              &nbsp;
-              &nbsp;
-              &nbsp;              
-              &nbsp;
-              Location: 
-                <input type="text" name="location" size="20"/>
+              <div class="data-log-row">
+                <label class="small-black" 
+                       for="data-log-date-field">Date:</label>
+                <div class="left">
+                  <input type="text" 
+                         id="data-log-date-field"
+                         class="data-log-date-field"
+                         name="day" size="10"/>
+                  (MM/DD/YYYY)
+                </div>
+                <label class="small-black label-time">Time:</label>
+                <div class="left">
+                  <input type="text" name="hour" size="6"/>                          
+                  (HH:MM am/pm)
+                </div>
+              </div>
+              <div class="data-log-row">
+                <label class="small-black">Location:</label>
+                <div class="left">
+                  <input type="text" name="location" size="20"/>
+                </div>
+              </div>
             </div>            
           </form>
           <div class="block-editable-html"></div>          

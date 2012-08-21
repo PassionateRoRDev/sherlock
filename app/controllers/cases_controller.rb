@@ -37,6 +37,8 @@ class CasesController < ApplicationController
     
     @notes = @case.notes.order('id DESC').limit(5)
     
+    @text_snippets = current_user.text_snippets
+    
     respond_to do |format|
       #format.xml { render :xml => @case }
       format.html {

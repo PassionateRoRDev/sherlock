@@ -1,3 +1,21 @@
-// Place all the styles related to the TextSnippets controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.text-snippet-insert-block {
+  float: right;
+  height: 32px;
+  .text-snippet-dropdown-wrapper {
+    height: 3em;
+    .paste-wrapper {
+      padding-right: 6px;
+    }
+  }
+  .separator, .paste-wrapper, .create-wrapper, .no-snippets-msg {
+    padding-top: 8px;
+  }
+  .separator {
+    margin: 0 5px;
+  
+  }  
+  .no-snippets-msg {  
+    text-align: right;
+  }
+}

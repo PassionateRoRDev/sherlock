@@ -93,3 +93,17 @@ h2.coming-soon {
 .block-move {
   margin-top: 1em;
 }
+
+.data-log-row {
+  margin-bottom: 5px;
+  overflow: hidden;
+}
+
+.data-log-row label {
+  width: 80px;
+}
+
+.data-log-row label.label-time {
+  margin-left: 30px;
+  width: 40px;
+}

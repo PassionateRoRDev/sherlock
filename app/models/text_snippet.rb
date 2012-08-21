@@ -7,4 +7,6 @@ class TextSnippet < ActiveRecord::Base
   validates :title, :presence => true
   validates :body, :presence => true
   
+  default_scope :order => 'title'
+  
 end

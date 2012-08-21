@@ -1,5 +1,20 @@
 <form id="form-tinymce" style="display:none;" class="injected-form">
+  <div style="height:2.5em;">
+    <%= render 'text_snippets/select' %>
+  </div>        
   <textarea 
     id="form-tinymce-textarea"
     class="rich" style="height:12em;width:100%;"></textarea>
 </form>
+
+<script type="text/javascript">
+$(function() {
+  var options = {
+    urls: {
+      snippets: '<%= text_snippets_path %>'
+    },
+    editor_id: 'form-tinymce-textarea'
+  };
+  SHERLOCK.snippets.init(options);
+});
+</script>
