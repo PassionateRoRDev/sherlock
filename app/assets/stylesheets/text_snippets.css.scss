@@ -2,11 +2,18 @@
 .text-snippet-insert-block {
   float: right;
   height: 32px;
+  
+  .create-wrapper {
+    margin-right: 6px;
+  }
+  
   .text-snippet-dropdown-wrapper {
     height: 3em;
+    /*
     .paste-wrapper {
       padding-right: 6px;
     }
+    */    
   }
   .separator, .paste-wrapper, .create-wrapper, .no-snippets-msg {
     padding-top: 8px;
@@ -18,4 +25,17 @@
   .no-snippets-msg {  
     text-align: right;
   }
+}
+
+#dialog-snippet-title {
+  text-align:left;
+  .field {
+    margin-top:1em;
+    height:40px;
+    padding-top:5px;
+  }
+  .buttons {
+    margin-left:130px;
+    margin-bottom:1em;
+  } 
 }

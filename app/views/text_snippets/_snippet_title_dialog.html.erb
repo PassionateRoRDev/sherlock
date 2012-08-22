@@ -1,12 +1,18 @@
-<div style="display:none;" id="dialog-snippet-title">
+<div id="dialog-snippet-title" style="display:none;">
   <form action="<%= text_snippets_path %>.json">  
+    
     <div class="field">
-      <label for="snippet-title">Snippet Title:</label>
-      <input type="text" id="snippet-title" style="width:15em;"/>    
+      <label for="snippet-title">Snippet Title:</label>      
+      <input type="text" id="snippet-title" style="width:20em;"/>      
     </div>      
         
-        <input type="hidden" id="snippet-body"/>
+    <div class="buttons">    
+      <input type="hidden" id="snippet-body"/>      
         <input class="button submit" type="button" value="Create"/>    
+        &nbsp;
+        <a class="close" href="#">Cancel</a>
+      
+    </div>
 
   </form>
 </div>
