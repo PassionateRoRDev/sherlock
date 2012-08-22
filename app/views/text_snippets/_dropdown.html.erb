@@ -1,12 +1,14 @@
 <div class="text-snippet-dropdown-wrapper left">
+  <!--
   <div class="left paste-wrapper">
     <a href="#" 
        title="Click to paste the selected snippet">Paste Snippet:</a>
   </div>
+  -->
   <div class="left">
     <div class="rich-dropdown-wrapper rich-dropdown-wrapper-x">
         <select class="rich-dropdown insert-snippet-dropdown">
-            <option value="" selected="selected">Select Snippet ...</option>            
+            <option value="" selected="selected">Insert Snippet ...</option>            
             <% @text_snippets.each do |snippet| %>
               <option value="<%= snippet.id %>"><%= snippet.title %></option>            
             <% end %>

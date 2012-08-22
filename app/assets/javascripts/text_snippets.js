@@ -4,26 +4,34 @@ SHERLOCK.snippets = SHERLOCK.snippets || {};
 
 SHERLOCK.snippets.created = function(snippet, dropdownHtml)
 {
+  SHERLOCK.utils.hideAjaxLoading();
+  
   var block = $('.text-snippet-insert-block');
   var dropdown = $('.text-snippet-dropdown-wrapper');
   if (dropdown.length) {
-     
+    dropdown.remove();
   } else {
-    $('.no-snippets-msg', block).remove();
-    block.append(dropdownHtml);    
-    var options = {
-      rowHeight: 19,
-      selectWidth: 218
-    };    
-    block.find('select.rich-dropdown').msDropDown(options);    
+    $('.no-snippets-msg', block).remove();    
   }
+  block.append(dropdownHtml);    
+  var options = {
+    rowHeight: 19,
+    selectWidth: 218
+  };    
+  block.find('select.rich-dropdown').msDropDown(options);    
+  
   $("#dialog-snippet-title").dialog('close');
-  alert('Snippet successfully created!');
+  //alert('Snippet successfully created!');
 }
 
 SHERLOCK.snippets.init = function(options) {
       
-  setupInsertLink();
+  var wrapper = $('.text-snippet-dropdown-wrapper');
+      
+  var dropdown = wrapper.find('select.insert-snippet-dropdown');
+      
+  //setupInsertLink();
+  setupItemClick();
   setupCreateLink();
   initPromptForTitleDialog();
   
@@ -40,6 +48,11 @@ SHERLOCK.snippets.init = function(options) {
         position : ['center', 150],
         modal : true,
         title: 'Snippet Title'
+      });
+      
+      dialog.find('a.close').click(function() {
+        dialog.dialog('close');
+        return false;
       });
       
       dialog.find('input.submit').click(function() {    
@@ -66,10 +79,17 @@ SHERLOCK.snippets.init = function(options) {
       'text_snippet[title]': title,
       'text_snippet[body]': body
     };   
-    $.post(url, data, function(data, textStatus, jqXHR) {
-      eval(data);              
-    }, 'text'); 
+    SHERLOCK.utils.showAjaxLoading();    
     
+    $.ajax({
+      type: 'POST',
+      url: url,
+      data: data,
+      success: function(data, textStatus, jqXHR) { eval(data); },
+      error: function() { SHERLOCK.utils.showAjaxError(); },
+      dataType: 'text'
+    });
+            
   }
   
   function setupCreateLink()
@@ -105,23 +125,39 @@ SHERLOCK.snippets.init = function(options) {
     });
   }
       
-  function setupInsertLink()
-  {    
-    var wrapper = $('.text-snippet-dropdown-wrapper');
-    $('a', wrapper).click(function() {
-      var dropdown = $('select', wrapper);
-      var snippetId = dropdown.val();
-      if (snippetId != '') {
-        var url = options.urls.snippets + '/' + snippetId + '.json';
-        url += '?ts=' + new Date().valueOf();
-        $.get(url, function(data, textStatus, jqXHR) {
-          var snippetBody = data.body;
-          var ed = getEditor();
-          if (ed) {
-            ed.execCommand('mceInsertContent', false, snippetBody);
-          }                  
-        });          
+  function insertSnippet(snippetId)
+  {
+    if (snippetId != '') {
+      var ed = getEditor();
+      var url = options.urls.snippets + '/' + snippetId + '.json';
+      url += '?ts=' + new Date().valueOf();
+      $.get(url, function(data, textStatus, jqXHR) {
+        var snippetBody = data.body;
+        var ed = getEditor();
+        if (ed) {
+          ed.focus();
+          ed.execCommand('mceInsertContent', false, snippetBody);
+        }                  
+      });          
+    }
+  }
+      
+  function setupItemClick()
+  {
+    wrapper.find('.ddChild a').live('click', function() {
+      var index = $(this).index();
+      if (index > 0) {
+        var snippetId = dropdown.get(0).options[index].value;
+        insertSnippet(snippetId); 
       }
+    });
+  }
+      
+  function setupInsertLink()
+  {        
+    $('a', wrapper).click(function() {
+      var snippetId = dropdown.val();    
+      insertSnippet(snippetId);      
       return false;
     });
   }
