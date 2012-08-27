@@ -4,8 +4,18 @@ SHERLOCK.snippets = SHERLOCK.snippets || {};
 
 SHERLOCK.snippets.created = function(snippet, dropdownHtml)
 {
-  SHERLOCK.utils.hideAjaxLoading();
+  SHERLOCK.utils.hideAjaxLoading();  
   
+  var ed = tinymce.activeEditor;
+  var listbox = ed.controlManager.get('snippetDropdown');  
+  listbox.add(snippet.title, snippet.id);    
+  
+  if ( listbox.isMenuRendered ) {
+    listbox.menu.destroy();
+    listbox.isMenuRendered = false;
+  }          
+    
+  /*
   var block = $('.text-snippet-insert-block');
   var dropdown = $('.text-snippet-dropdown-wrapper');
   if (dropdown.length) {
@@ -19,9 +29,11 @@ SHERLOCK.snippets.created = function(snippet, dropdownHtml)
     selectWidth: 218
   };    
   block.find('select.rich-dropdown').msDropDown(options);    
-  
+  */
+ 
   $("#dialog-snippet-title").dialog('close');
-  //alert('Snippet successfully created!');
+  //alert('Snippet successfully created!');  
+  
 }
 
 SHERLOCK.snippets.init = function(options) {
@@ -104,7 +116,8 @@ SHERLOCK.snippets.init = function(options) {
         
         if (selection == '') {
           alert('Please select some text first');
-        } else {        
+        } else {
+                    
           var dialog = $("#dialog-snippet-title");
           dialog.find('#snippet-body').val(selection);
           dialog.find('#snippet-title').val('');
@@ -116,7 +129,7 @@ SHERLOCK.snippets.init = function(options) {
             var url = options.urls.snippets + '.json';
             url += '?ts=' + new Date().valueOf();            
             createSnippetDo(url, title, selection);                                          
-          }
+          }          
           */
          
         }
