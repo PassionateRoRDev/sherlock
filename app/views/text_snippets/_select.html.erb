@@ -5,11 +5,13 @@
        >Create snippet from selection</a>    
   </div>
   <!-- <div class="left separator">|</div> -->
-  <% if @text_snippets.empty? %>
-    <div class="no-snippets-msg left">
-      You don't have any snippets yet.      
-    </div>
-  <% else %>  
-    <%= render 'text_snippets/dropdown' %>
+  <% if false %>
+    <% if @text_snippets.empty? %>
+      <div class="no-snippets-msg left">
+        You don't have any snippets yet.      
+      </div>
+    <% else %>  
+      <%= render 'text_snippets/dropdown' %>
+    <% end %>
   <% end %>
 </div>

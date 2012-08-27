@@ -1,0 +1,8 @@
+<script type="text/javascript">
+window.tinyMCECustomInit = function(ed) {
+  var dropdown = ed.controlManager.get('snippetDropdown');
+  <% @text_snippets.each do |snippet| %>
+      dropdown.add('<%= escape_javascript(snippet.title) %>', '<%= snippet.id %>');
+  <% end %>    
+}
+</script>
