@@ -52,6 +52,8 @@ span.reference a:hover {
 
 </style>
 
+<%= render 'sharethis_init' %>
+
 </head>
 <body>
   
@@ -71,12 +73,9 @@ span.reference a:hover {
     
 <a class="anchor" name="tour"></a>
 <div class="section white">
-  <div id="security">
-    
-    <%= render 'tour_jplayer' if true %>
-    
-    <%= render 'tour_mediaplayer' if false %>        
-       
+  <div id="security">    
+    <%= render 'tour_jplayer' if true %>    
+    <%= render 'tour_mediaplayer' if false %>    
   </div>
 </div>
 
