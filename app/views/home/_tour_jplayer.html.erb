@@ -76,14 +76,21 @@ $(function() {
     cssSelectorAncestor: ancestor,
     ready: function () {
       $(this).jPlayer("setMedia", {              
+              /*
               flv : 'https://s3.amazonaws.com/sherlockdocs-public/SherlockTutorial.flv',
               m4v : 'https://s3.amazonaws.com/sherlockdocs-public/SherlockTutorial.mp4',
               poster: '/images/tour_video.png'
+              */
+              flv : 'https://s3.amazonaws.com/sherlockdocs-public/sherlockdocsintroduction.flv',
+              m4v : 'https://s3.amazonaws.com/sherlockdocs-public/sherlockdocsintroduction.mp4',
+              poster: 'https://s3.amazonaws.com/sherlockdocs-public/sherlockdocsintroduction.jpg'
       });
     },        
     size: {
-      width: '900px',
-      height: '400px'      
+      //width: '900px',
+      //height: '400px'      
+      width: '730px',
+      height: '576px'      
     },    
     swfPath: "/javascript/",
     supplied: 'flv, m4v'    
