@@ -3,9 +3,12 @@
       <a href="<%= dashboard_path %>">Dashboard</a> | 
       <%= link_to 'Logout', destroy_user_session_path, :method => :delete %>
     <% else %>
-      <a href="<%= new_user_session_path %>" rel="nofollow">LogIn</a> |      
+      <a href="<%= new_user_session_path %>" rel="nofollow">LogIn</a> 
+      <!--
+      |      
       <%= link_to signup_link_label, 
         new_user_registration_path,
         :rel => 'nofollow' %>            
+      -->
     <% end %>
 </div>
