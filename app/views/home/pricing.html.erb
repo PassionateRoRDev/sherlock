@@ -100,7 +100,10 @@
     <div class="plansbox">  
   
       <div class="pricing-txt1">Users have access to their reports for as long your account is active +90 days</div>
-      <div class="pricing-txt2"><font style="color:#64881e; font-size:33px;">Sign up in 60 seconds.</font><br />
+      <div class="pricing-txt2">
+        <a style="color:#64881e; font-size:33px;" 
+           title="Free Trial - 3 reports, no credit card required"
+           href="<%= new_user_registration_path %>">Sign up in 60 seconds.</a><br />
       Upgrade, downgrade, or cancel anytime.</div>
     </div>
     
@@ -110,8 +113,12 @@
   <!--<div class="midbox"> SherlockDocs is so simple that you can't do anything wrong.<br />
     SherlockDocs is addictively easy-to-use. </div>-->
   <div class="midwrapper">
-    <div class="contract-btn"><img src="/public/images/contract-btn.jpg" 
-                                   width="247" height="34" /><br />
+    <div class="contract-btn">
+      <a href="<%= new_user_registration_path %>"
+         title="Free Trial - 3 reports, no credit card required">
+        <img src="/public/images/contract-btn.jpg"
+           style="border: 0;"
+           width="247" height="34" /></a><br />
       <a class="txt" href="#">SherlockDocs starts at $9/month</a> </div>
     <div class="inbox">
       

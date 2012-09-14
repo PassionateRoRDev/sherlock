@@ -937,3 +937,17 @@ div.uploadify {
 td.c {
   text-align: center;
 }
+
+ul.register-why {
+  list-style-type: disc; 
+  margin-left: 0.7em; 
+  font-family: "Candara"; 
+  font-size: 22px; 
+  line-height: 30px;
+}
+
+ul.register-why li {
+  list-style-type: disc;
+  padding-left: 5px;
+}
+
