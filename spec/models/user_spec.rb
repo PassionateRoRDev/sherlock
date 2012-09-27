@@ -131,5 +131,59 @@ describe User do
     
   end
   
+  context "When having 3 subscription plans available" do    
+    
+    def init_plans
+      [
+        { :handle => :free_trial, :price => 0, :slug => nil },
+        { :handle => :independent, :price => 9, :slug => 'h/1' },
+        { :handle => :agency, :price => 29, :slug => 'h/2' },
+        { :handle => :corporate, :price => 99, :slug => 'h/3' }
+      ].each do |plan|
+        FactoryGirl.create(:subscription_plan, 
+          :chargify_handle  => plan[:handle], 
+          :chargify_slug    => plan[:slug], 
+          :price            => plan[:price])
+      end    
+    end
+    
+    before do        
+      init_plans
+      @pi = FactoryGirl.create(:user, :invitation_token => 'token')                  
+    end
+    
+    it 'if the current subscription expired, PI can upgrade/renew using any plan' do               
+      @pi.subscriptions << Subscription.create(
+        :product_handle => 'agency', 
+        :period_ends_at => Time.now - 1.month,
+        :subscription_plan => SubscriptionPlan.find_by_chargify_handle(:agency)
+      )    
+            
+      @pi.plans_to_upgrade.size.should == 3   
+    end
+    
+    context "and the current subscription has not expired" do
+      before do
+        @pi.subscriptions << Subscription.create(
+          :product_handle => 'agency', 
+          :period_ends_at => Time.now + 1.month,     
+          :subscription_plan => SubscriptionPlan.find_by_chargify_handle(:agency)
+        )
+      end
+      
+      it 'PI can upgrade to 1 plan' do           
+        @pi.plans_to_upgrade.size.should == 1
+      end    
+      
+      it 'PI can upgrade to Corporate plan' do           
+        @pi.plans_to_upgrade.first.chargify_handle.to_sym.should == :corporate
+      end    
+      
+    end
+    
+    
+        
+  end    
+  
 end
 

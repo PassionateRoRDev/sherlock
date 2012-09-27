@@ -109,7 +109,7 @@ class User < ActiveRecord::Base
   
   def plans_to_upgrade    
     s = self.current_subscription
-    s ? s.plans_to_upgrade : SubscriptionPlan.all
+    (s && !s.is_expired?) ? s.plans_to_upgrade : SubscriptionPlan.all_but_free
   end
   
   def current_subscription

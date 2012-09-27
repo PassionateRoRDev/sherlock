@@ -5,6 +5,7 @@ FactoryGirl.define do
     cases_max 2
     extra_case_price 5
     clients_max 10
+    price 9
   end
   
   factory :subscription do
