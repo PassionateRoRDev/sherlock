@@ -31,14 +31,19 @@
       </div>
     </div>
 
-    <div class="field" id="static-file-upload-row" 
-         style="display:none;height:30px;">
-      <%= f.label :static_file, 'File to Upload :' %>
-      <span class="btn2 fileinput-button">
-        <%= file_field 'upload', 'static_file', 
-          :title => 'Select file to be uploaded' %>                      
-          <span>Browse...</span>
-      </span>      
+    <div class="field" id="static-file-upload-row"
+         <% unless @case.is_static %>
+         style="display:none;"
+         <% end %>
+    >
+      <div style="height:30px;">
+        <%= f.label :static_file, 'File to Upload :' %>
+        <span class="btn2 fileinput-button">
+          <%= file_field 'upload', 'static_file', 
+            :title => 'Select file to be uploaded' %>                      
+            <span>Browse...</span>
+        </span>      
+      </div>
     </div>
   
   <% end %>

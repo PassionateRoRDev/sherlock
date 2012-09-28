@@ -24,17 +24,17 @@ class Document < ActiveRecord::Base
   def usage
     file_assets.map(&:filesize).reduce(:+)
   end
-          
-  private
-    
-  def delete_files
-    file_assets.destroy_all unless file_assets.empty?    
-  end
   
   def has_uploaded_file?
     !uploaded_file.nil?
   end
   
+  private
+    
+  def delete_files
+    file_assets.destroy_all unless file_assets.empty?    
+  end
+      
   def upload_before_save
     delete_files if persisted?
     store_original_filename

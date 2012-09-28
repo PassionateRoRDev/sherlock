@@ -128,13 +128,20 @@ class User < ActiveRecord::Base
     current_subscription ? current_subscription.period_ends_at : nil
   end
     
-  def case_created(c)    
-    if can_create_from_subscription?
-      current_subscription.case_created(c)
-    else
-      current_subscription.extra_case_created(c) if current_subscription
-      use_up_purchase(c)
-    end        
+  def case_created(c)
+    
+    #
+    # Static cases do not count really
+    #
+    unless c.is_static        
+      if can_create_from_subscription?
+        current_subscription.case_created(c)
+      else
+        current_subscription.extra_case_created(c) if current_subscription
+        use_up_purchase(c)
+      end        
+    end
+    
   end
   
   def use_up_purchase(c)    

@@ -31,6 +31,8 @@ class Case < ActiveRecord::Base
   
   validates :title, :presence => true
   
+  validate :require_upload_for_a_new_static_case, :if => :new_static_case?
+  
   after_save :invalidate_report
   after_create :update_stats
     
@@ -154,6 +156,19 @@ class Case < ActiveRecord::Base
    
   def invalidate_report
     Report.invalidate_for_case self.id unless self.is_static
-  end    
+  end
+  
+  def new_static_case?
+    is_static && (!persisted?)
+  end
+  
+  def has_uploaded_file?
+    document && document.has_uploaded_file?
+  end
+  
+  def require_upload_for_a_new_static_case
+    errors.add :uploaded_file, "has to be provided for a static case" unless has_uploaded_file?
+    Rails::logger.debug errors.to_hash
+  end  
   
 end
