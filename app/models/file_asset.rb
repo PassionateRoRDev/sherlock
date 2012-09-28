@@ -2,6 +2,12 @@ class FileAsset < ActiveRecord::Base
   
   include FileAssetUtils
   
+  attr_accessor :uploaded_file
+  
+  attr_accessible :uploaded_file, :parent_id, :parent_type, :user_id, :role
+  
+  before_create :process_upload, :if => :has_uploaded_file?
+  
   before_destroy :delete_file
   
   def move_to_storage(s)
@@ -31,6 +37,8 @@ class FileAsset < ActiveRecord::Base
       Picture
     when :logos
       Logo
+    when :documents
+      Document
     end
   end
   
@@ -77,5 +85,20 @@ class FileAsset < ActiveRecord::Base
     #pp "deleting file_asset: path is" + full_filepath
     File.delete(full_filepath) if File.exists?(full_filepath)
   end
+  
+  def has_uploaded_file?
+    !uploaded_file.nil?
+  end
+  
+  def process_upload 
+    
+    @uploaded_file_bytes ||= uploaded_file.read    
+    
+    self.path = store uploaded_file.original_filename, @uploaded_file_bytes    
+    
+    self.content_type = uploaded_file.content_type
+    self.filesize = File.size(full_filepath)    
+    
+  end  
   
 end

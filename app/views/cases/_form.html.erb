@@ -1,7 +1,7 @@
 
 <div class="form-case">
-    
-<%= form_for(@case) do |f| %>  
+
+<%= form_for(@case, :html => { :enctype => 'multipart/form-data' }) do |f| %>  
   
   <%= render 'shared/form_errors', :errors => @case.errors %>    
 
@@ -18,6 +18,30 @@
       <%= f.select :title_alignment, title_alignment_options %>
     </div>
   </div>
+  
+  <% unless @case.persisted? %>
+  
+    <div class="field">
+      <%= f.label :is_static, 'Static Case :' %>
+      <div style="line-height:25px;">
+        <%= f.check_box :is_static %>        
+        &nbsp;
+        (static case does not have any blocks, but only one attached file uploaded
+        by the user)
+      </div>
+    </div>
+
+    <div class="field" id="static-file-upload-row" 
+         style="display:none;height:30px;">
+      <%= f.label :static_file, 'File to Upload :' %>
+      <span class="btn2 fileinput-button">
+        <%= file_field 'upload', 'static_file', 
+          :title => 'Select file to be uploaded' %>                      
+          <span>Browse...</span>
+      </span>      
+    </div>
+  
+  <% end %>
 
   <div class="field">    
     
@@ -66,8 +90,14 @@
       }
     };
     SHERLOCK.snippets.init(options);
-    
-    
+    $('#case_is_static').click(function() {
+      var staticFileUploadRow = $('#static-file-upload-row');
+      if (this.checked) {
+        staticFileUploadRow.show();
+      } else {
+        staticFileUploadRow.hide();
+      }
+    });    
     
    });
 </script>

@@ -6,6 +6,13 @@ describe Case do
     FactoryGirl.build(:case).should be_valid
   end
   
+  it 'creating a new static case should work' do
+    c = Case.new(:title => 'Title', :summary => 'Summary', :is_static => true)
+    c.author = FactoryGirl.create(:user)
+    c.save
+    c.reload.is_static.should == true
+  end
+  
   context "Existing case" do 
   
     before do

@@ -17,12 +17,15 @@ class Case < ActiveRecord::Base
   
   has_one :footer
   
+  has_one :document, :dependent => :destroy
+  
   attr_accessible :title, :title_alignment,
                   :summary, :number, 
                   :client_name, 
                   :case_type,
-                  :opened_on, :closed_on, :report_date
-  
+                  :is_static,
+                  :opened_on, :closed_on, :report_date                                    
+                    
   scope :readable_by, lambda { |user| user.cases }
   scope :toplevel, where(:folder_id => nil)
   
@@ -30,7 +33,7 @@ class Case < ActiveRecord::Base
   
   after_save :invalidate_report
   after_create :update_stats
-  
+    
   def swap_blocks(block1, block2)    
     block1.weight, block2.weight = block2.weight, block1.weight
     block1.save!   
@@ -40,6 +43,10 @@ class Case < ActiveRecord::Base
   
   def usage
     blocks.empty? ? 0 : blocks.map(&:usage).reduce(:+)
+  end
+  
+  def file_asset
+    FileAsset.find_by_parent_id_and_parent_type(:cases, self.id)
   end
   
   def move_toplevel
@@ -132,13 +139,13 @@ class Case < ActiveRecord::Base
   end
   
   private
-  
+          
   def update_stats
     self.author.case_created(self)
   end
    
   def invalidate_report
-    Report.invalidate_for_case self.id
-  end
+    Report.invalidate_for_case self.id unless self.is_static
+  end    
   
 end

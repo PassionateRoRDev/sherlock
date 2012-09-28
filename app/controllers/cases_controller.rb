@@ -13,9 +13,18 @@ class CasesController < ApplicationController
   end
   
   def create
+    
     @text_snippets = current_user.text_snippets
+    
+    static_file = params[:upload] ? params[:upload]['static_file'] : nil    
+    
     @case = Case.new(params[:case])
-    @case.author = current_user
+    @case.author = current_user    
+    @case.document = Document.new(
+      :title          => 'Static file', 
+      :uploaded_file  => static_file
+    ) if (static_file && @case.is_static)
+    
     respond_to do |format|
       if (@case.save)        
         format.html { redirect_to(cases_path, :notice => 'Case has been successfully created') }
