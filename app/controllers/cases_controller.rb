@@ -36,10 +36,12 @@ class CasesController < ApplicationController
   end
   
   def preview    
-    
-    @letterhead = @case.author.letterhead
-    
-    render :preview, :layout => false
+    if @case.is_static
+      redirect_to @case
+    else  
+      @letterhead = @case.author.letterhead    
+      render :preview, :layout => false
+    end
   end
   
   def show    

@@ -1,8 +1,10 @@
 <div id="case-page-options" class="midright"> 
   <div class="inbox-hd">Other Page Options</div>
       
-  <%= link_to 'Customize Footer for this report', footer_path(@case), 
-      :title => 'Customize Footer for this report' %>
+  <% unless @case.is_static %>  
+    <%= link_to 'Customize Footer for this report', footer_path(@case), 
+        :title => 'Customize Footer for this report' %>
+  <% end %>
     
   <h2 style="clear:both;padding-top:0em;">CLIENTS AUTHORIZED TO VIEW REPORT</h2>
      

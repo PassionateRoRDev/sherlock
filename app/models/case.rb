@@ -42,7 +42,7 @@ class Case < ActiveRecord::Base
   end
   
   def usage
-    blocks.empty? ? 0 : blocks.map(&:usage).reduce(:+)
+    usage_for_blocks + usage_for_documents        
   end
   
   def file_asset
@@ -140,6 +140,14 @@ class Case < ActiveRecord::Base
   
   private
           
+  def usage_for_blocks
+    blocks.empty? ? 0 : blocks.map(&:usage).reduce(:+)
+  end
+  
+  def usage_for_documents
+    document.nil? ? 0 : document.usage
+  end
+  
   def update_stats
     self.author.case_created(self)
   end

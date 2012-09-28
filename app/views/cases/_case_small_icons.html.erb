@@ -6,9 +6,12 @@
               :class => 'icon icon-plus' %>   
   <% end %>
   
-  <%= link_to 'Preview', case_preview_path(c), 
-              :title => 'Preview Report',
-              :class => 'icon icon-eye-open' %>  
+  <% unless c.is_static %>
+  
+    <%= link_to 'Preview', case_preview_path(c), 
+                :title => 'Preview Report',
+                :class => 'icon icon-eye-open' %>  
+  <% end %>
   
   <%= link_to 'Get PDF', report_path(c.id), 
       :class =>'icon icon-pdf', 

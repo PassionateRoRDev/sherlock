@@ -20,8 +20,8 @@ SHERLOCK.notes.init = function() {
   $("#dialog-note-add").dialog({
     resizable: false,
     autoOpen : false,
-    height: 270,
-    width: 660,
+    height: 290,
+    width: 820,
     modal: true,
     buttons: {           
       'Cancel': function() {

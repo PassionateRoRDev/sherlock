@@ -20,6 +20,10 @@ class Document < ActiveRecord::Base
   def author
     self.case.author
   end
+  
+  def usage
+    file_assets.map(&:filesize).reduce(:+)
+  end
           
   private
     

@@ -49,6 +49,11 @@ describe Document do
         file_asset.filesize.should == File.size(filepath)
       end
       
+      it 'should report the correct Document usage' do
+        file_asset = @doc.file_assets.first
+        @doc.usage.should == File.size(file_asset.full_filepath)
+      end
+      
       it 'should remove the asset when the document is removed' do
         @doc.destroy
         FileAsset.all.should == []
