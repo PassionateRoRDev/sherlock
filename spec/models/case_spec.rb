@@ -6,12 +6,60 @@ describe Case do
     FactoryGirl.build(:case).should be_valid
   end
   
-  it 'creating a new static case should work' do
-    c = Case.new(:title => 'Title', :summary => 'Summary', :is_static => true)
-    c.author = FactoryGirl.create(:user)
-    c.save
-    c.reload.is_static.should == true
-  end
+  context 'creating a new static case' do
+    
+    context 'without uploaded file' do
+      before do
+        @c = Case.new(
+          :title => 'Title', 
+          :summary => 'Summary', 
+          :is_static => true)
+        @c.author = FactoryGirl.create(:user)
+      end
+      
+      it 'should not be valid' do
+        @c.valid?.should be_false
+      end      
+    end
+    
+    context 'with uploaded file' do
+      
+      before do
+        @c = Case.new(
+          :title => 'Title', 
+          :summary => 'Summary', 
+          :is_static => true
+        )
+        
+        filename = 'sample.pdf'   
+        data = {
+          :filepath           => fixture_file_path(filename),
+          :content_type       => 'application/pdf',
+          :original_filename  => filename
+        }
+        
+        uploaded = Uploader.new(data)      
+        
+        @c.document = Document.new(
+          :title => 'Sample1', 
+          :uploaded_file  => uploaded
+        )
+        @c.author = FactoryGirl.create(:user)
+        
+      end
+      
+      it 'should be valid' do
+        @c.valid?.should be_true
+      end
+      
+      it 'should work' do
+        @c.save
+        @c.reload.is_static.should be_true
+      end
+      
+    end
+    
+  end    
   
   context "Existing case" do 
   
