@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Footer do
   
   it 'should always return alignment as center' do
-    footer = Factory(:footer, :alignment => 'right')
+    footer = FactoryGirl.create(:footer, :alignment => 'right')
     footer.alignment.should == 'center'
   end
   
@@ -35,7 +35,7 @@ describe Footer do
   end
   
   it 'JSON should return alignment = center no matter what' do
-    footer = Factory(:footer, :alignment => 'left')
+    footer = FactoryGirl.create(:footer, :alignment => 'left')
     decoded = ActiveSupport::JSON.decode footer.to_json
     decoded['alignment'].should == 'center'
   end

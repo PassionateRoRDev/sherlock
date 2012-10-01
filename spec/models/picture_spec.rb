@@ -8,20 +8,20 @@ describe Picture do
   end
   
   it "should generate a unique filename, removing the leading hash if present" do
-    p = Factory.build(:picture)
+    p = FactoryGirl.build(:picture)
     new_name = p.generate_new_filename 'original.png'
     new_name2 = p.generate_new_filename new_name        
     new_name2.length.should == new_name.length
   end
   
   it "should require a file upload for a new object" do
-    picture = Factory.build(:picture)    
+    picture = FactoryGirl.build(:picture)    
     picture.valid?.should be_false
     picture.errors[:uploaded_file].should_not be_empty    
   end
   
   it "should be invalid for uploaded_file set to text file" do
-    user = Factory(:user)
+    user = FactoryGirl.create(:user)
     filename = 'text_file1.txt'   
     data = {
       :filepath           => fixture_file_path(filename),
@@ -69,19 +69,19 @@ describe Picture do
   
             
   it "should return correct author" do
-    c = Factory(:case)
-    p = Factory.build(:picture, :block => Factory(:block, :case => c))
+    c = FactoryGirl.create(:case)
+    p = FactoryGirl.build(:picture, :block => FactoryGirl.create(:block, :case => c))
     p.author.should == c.author
   end
 
   it "should return correct author_id" do            
-    c = Factory(:case)
-    p = Factory.build(:picture, :block => Factory(:block, :case => c))
+    c = FactoryGirl.create(:case)
+    p = FactoryGirl.build(:picture, :block => FactoryGirl.create(:block, :case => c))
     p.author_id.should == c.author.id    
   end
 
   it "should return correct file type" do
-    p = Factory.build(:picture)  
+    p = FactoryGirl.build(:picture)  
     p.file_type.should == 'pictures'    
   end    
   
@@ -110,7 +110,7 @@ describe Picture do
       }
       @upload = Uploader.new(data)
       @picture = Picture.new(:title => 'Test picture', :uploaded_file  => @upload)
-      @picture.block = Factory(:block)
+      @picture.block = FactoryGirl.create(:block)
       @picture.save
       @picture.reload
     end
@@ -158,7 +158,7 @@ describe Picture do
       }
       upload = Uploader.new(data)                  
       @picture       = Picture.new(:title => 'New picture', :uploaded_file => upload)      
-      @picture.block = Factory(:block)
+      @picture.block = FactoryGirl.create(:block)
       @picture.save
       
       # reload the pic from the db:

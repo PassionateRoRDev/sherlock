@@ -5,5 +5,6 @@ FactoryGirl.define do
     content_type 'application/binary'
     role :main
     association :user
+    association :picture
   end  
 end

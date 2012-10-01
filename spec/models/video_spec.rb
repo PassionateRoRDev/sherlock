@@ -3,13 +3,13 @@ require 'spec_helper'
 describe Video do
   
   it "should have proper author_id" do        
-    c = Factory(:case)
-    video = Factory.build(:video, :block => Factory(:block, :case => c))   
+    c = FactoryGirl.create(:case)
+    video = FactoryGirl.build(:video, :block => FactoryGirl.create(:block, :case => c))   
     c.author.id.should == video.author_id    
   end
   
   it 'should store the video contents from a file' do
-    v = Factory.build(:video)
+    v = FactoryGirl.build(:video)
     filename = 'sample.zip'
     v.path = filename
     v.store_from_source(filename, File.new(fixture_file_path(filename)))    
@@ -17,7 +17,7 @@ describe Video do
   end
   
   it 'should extract thumbnail from a .zip file' do
-    v = Factory.build(:video)
+    v = FactoryGirl.build(:video)
     filename = 'sample.zip'
     v.path = v.store_from_source(filename, File.new(fixture_file_path(filename)))    
     v.extract_thumbnail_from_zip    
@@ -25,7 +25,7 @@ describe Video do
   end
   
   it 'should extract thumbnail from a movie' do
-    v = Factory.build(:video, :thumbnail_pos => '00:00:01')
+    v = FactoryGirl.build(:video, :thumbnail_pos => '00:00:01')
     filename = 'video1.mpg'
     v.path = v.store_from_source(filename, File.new(fixture_file_path(filename)))    
     v.extract_thumbnail_from_movie
@@ -33,13 +33,13 @@ describe Video do
   end
   
   it 'should calculate fps correctly' do
-    v = Factory.build(:video)
+    v = FactoryGirl.build(:video)
     fps = v.calculate_fps(25, 1000)
     fps.should == "25.0000"
   end
   
   it 'should calculate fps correctly' do
-    v = Factory.build(:video)
+    v = FactoryGirl.build(:video)
     fps = v.calculate_fps(250, 10000)
     fps.should == "25.0000"
   end
@@ -47,7 +47,7 @@ describe Video do
   context 'when encoding from a zip' do
     
     before do     
-      @video = Factory.build(:video, :thumbnail_pos => '00:00:01')
+      @video = FactoryGirl.build(:video, :thumbnail_pos => '00:00:01')
       filename = 'frames1.zip'
       @video.path = @video.store_from_source(filename, File.new(fixture_file_path(filename)))
       @video.capture_start = 0
@@ -85,7 +85,7 @@ describe Video do
         :original_filename  => filename
       }
       upload = Uploader.new(data)
-      @video = Factory(:video, 
+      @video = FactoryGirl.create(:video, 
         :uploaded_file      => upload,
         :thumbnail_pos      => '00:00:01'
       )
@@ -184,7 +184,7 @@ describe Video do
         :original_filename  => filename
       }
       upload = Uploader.new(data)
-      @video = Factory(:video, 
+      @video = FactoryGirl.create(:video, 
         :uploaded_file      => upload,
         :thumbnail_pos      => '00:00:01'
       )
@@ -207,7 +207,7 @@ describe Video do
         :original_filename  => filename
       }
       upload = Uploader.new(data)
-      @video = Factory(:video, 
+      @video = FactoryGirl.create(:video, 
         :uploaded_file      => upload,
         :thumbnail_pos      => '00:00:01'
       )

@@ -6,7 +6,7 @@ describe Picture do
   
     before do
       
-      @storage1 = Factory(:storage, :mount_point => 'tmp/mnt/vol1')
+      @storage1 = FactoryGirl.create(:storage, :mount_point => 'tmp/mnt/vol1')
       
       @filepath = fixture_file_path('sample_image1.png')
       data = {
@@ -16,7 +16,7 @@ describe Picture do
       }
       upload = Uploader.new(data)                  
       @picture       = Picture.new(:title => 'New picture', :uploaded_file => upload)      
-      @picture.block = Factory(:block)
+      @picture.block = FactoryGirl.create(:block)
       @picture.save
       
       # reload the pic from the db:

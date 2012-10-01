@@ -9,7 +9,7 @@ class LogoSpecHelper
       :original_filename  => filename,
       :content_type       => content_type
     )      
-    Factory(:logo, :uploaded_file => upload)
+    FactoryGirl.create(:logo, :uploaded_file => upload)
   end
   
 end

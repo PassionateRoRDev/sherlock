@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Cropper do
     
-  before do    
+  before do
     prepare_files_dir
     @image_path = copy_fixture_file('sample_image1.png')    
     @cropper = Cropper.new    

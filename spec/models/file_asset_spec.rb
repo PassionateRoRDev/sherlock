@@ -2,6 +2,36 @@ require 'spec_helper'
 
 describe FileAsset do
   
+  context "creating a FileAsset" do
+  
+    before do
+      @asset = FileAsset.create(
+        :role         => :main,
+        :path         => 'something',
+        :filesize     => 100,
+        :format       => :mpg,
+        :content_type => 'image/png'
+    )
+    end
+    
+    it 'should set the content_type' do    
+      @asset.content_type.should == 'image/png'
+    end
+    
+    it 'should set the role' do    
+      @asset.role.to_sym.should == :main
+    end
+    
+    it 'should set the format' do    
+      @asset.format.to_sym.should == :mpg
+    end
+    
+    it 'should set the path' do    
+      @asset.path.should == 'something'
+    end
+    
+  end    
+  
   context "linked with a picture record" do      
   
     before do
@@ -12,10 +42,10 @@ describe FileAsset do
         :content_type       => 'image/png'
       }
       upload = Uploader.new(data)
-      @picture = Factory(:picture, :uploaded_file => upload)      
+      @picture = FactoryGirl.create(:picture, :uploaded_file => upload)      
       @picture = Picture.find @picture.id
       
-      @storage1 = Factory(:storage, :mount_point => 'tmp/mnt/vol1')
+      @storage1 = FactoryGirl.create(:storage, :mount_point => 'tmp/mnt/vol1')
     end
     
     it "should store the image under the main asset" do
