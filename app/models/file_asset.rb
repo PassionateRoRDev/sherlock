@@ -4,7 +4,8 @@ class FileAsset < ActiveRecord::Base
   
   attr_accessor :uploaded_file
   
-  attr_accessible :uploaded_file, :parent_id, :parent_type, :user_id, :role
+  attr_accessible :uploaded_file, :parent_id, :parent_type, :user_id, :role,
+                  :content_type, :path, :filesize
   
   before_create :process_upload, :if => :has_uploaded_file?
   
