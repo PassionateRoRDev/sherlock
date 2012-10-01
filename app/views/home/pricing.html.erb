@@ -7,8 +7,12 @@
   
 <% end %>
 
+
 <div id="pricing">
-    <div class="plansbox">
+    <div class="plansbox" style="position:relative;">
+      <div style="position:absolute;left:80px;top:20px;">
+        <%= render 'authorize_net' %>
+      </div>      
       <div class="pricing-txt">CheckOut SherlockDocs Plans &amp; Pricing<br />
           <font style="color:#64881e;">
         <% if Setting.has_non_cc_trial? %>
