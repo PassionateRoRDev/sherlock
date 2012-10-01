@@ -37,7 +37,7 @@ class Picture < ActiveRecord::Base
   end
           
   def generate_file_assets
-    if self.file_assets.empty?
+    if self.file_assets.empty?     
       generate_main_asset
       generate_orig_asset if File.exists?(orig_path)
       generate_backup_asset if File.exists?(backup_path)        
@@ -139,6 +139,22 @@ class Picture < ActiveRecord::Base
     file_assets.each { |asset| asset.move_to_storage storage }
     self.storage = storage
     self.save
+  end
+  
+  #
+  # Fix the broken main file asset (empty path, content_type and size)
+  #
+  def fix_main_file_asset
+    asset = main_file_asset
+    if path.present? && asset && asset.path.to_s.empty?
+      filepath = File.join(base_dir, path)
+      if File.exists?(filepath)
+        asset.path = path
+        asset.content_type = content_type if content_type == 'image/png'        
+        asset.filesize = File.size(filepath)
+        asset.save
+      end      
+    end
   end
   
   def update_filesize(size)
