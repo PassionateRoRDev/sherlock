@@ -224,6 +224,19 @@ SHERLOCK.utils.hintFieldOnBlur = function(inst) {
     }    
 };
 
+SHERLOCK.utils.initializeSearchBar = function() {  
+  
+  $("#search-bar input" ).autocomplete({
+    minLength: 2,
+    source: '/search/index',
+    select: function( event, ui ) {
+      var prefix = ui.item.type + 's';
+      var url = '/' + prefix + '/' + ui.item.id;      
+      location.href = url;
+    }
+  });
+};
+
 SHERLOCK.utils.initializeAutoHintFields = function() {
     
     var fields = $('.hint');
@@ -263,6 +276,8 @@ $(function() {
       }      
       return $.ajax(options);
     };
+    
+    SHERLOCK.utils.initializeSearchBar();
 
     SHERLOCK.utils.initializeAutoHintFields();            
     

@@ -127,7 +127,19 @@ class User < ActiveRecord::Base
   def current_subscription_ends
     current_subscription ? current_subscription.period_ends_at : nil
   end
-    
+  
+  def base_cases_for_find
+    pi? ? authored_cases : viewable_cases                                   
+  end
+  
+  def find_cases(term)     
+    base_cases_for_find.where('title LIKE ?', "%#{term}%")
+  end
+  
+  def find_folders(term)
+    pi? ? folders.where('title LIKE ?', "%#{term}%") : []
+  end
+  
   def case_created(c)
     
     #

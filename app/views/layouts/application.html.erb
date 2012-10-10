@@ -31,7 +31,10 @@
       <%= render 'shared/company_name' %>
       <a title="SherlockDocs Home" 
          href="<%= url_for root_path %>"><%= 
-         image_tag 'logo.png', :size => '212x198' %></a>            
+         image_tag 'logo.png', :size => '212x198' %></a>
+      
+      <%= render 'search' if signed_in? %>            
+      
       <%= yield %>    
     </div>
   </div>

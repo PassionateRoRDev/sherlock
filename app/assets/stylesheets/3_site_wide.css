@@ -951,3 +951,21 @@ ul.register-why li {
   padding-left: 5px;
 }
 
+#search-bar {
+  position:absolute;
+  right:0;
+  top:180px;
+  height:2em;
+}
+
+#search-bar input {
+  padding: 4px;
+}
+
+body .ui-autocomplete {
+  text-align: left;
+}
+
+body .ui-autocomplete li {
+  font-size: 0.9em;
+}

@@ -58,6 +58,8 @@ Sherlock::Application.routes.draw do
     
   resource :account, :only => [:show, :update]
  
+  get 'search/index'  => 'search#index', :as => :search
+  
   get 'account/upgrade' => 'accounts#upgrade', :as => :upgrade
   get 'account/renew' => 'accounts#renew', :as => :renew
   
