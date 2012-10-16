@@ -3,11 +3,11 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   helper_method :user_is_pi?
-  
-  before_filter :km_init_anonymous
-
+    
   before_filter :check_domain
-
+  before_filter :check_ip
+  before_filter :km_init_anonymous
+  
   force_ssl :if => :secure_area?
   
   rescue_from RailsAdmin::AccessDenied do |exception|
@@ -25,6 +25,12 @@ class ApplicationController < ActionController::Base
   
   protected
 
+  def check_ip
+    blacklisted = BlockedIp.find_by_ip(request.remote_ip)
+    logger.debug("Blacklisted: #{request.remote_ip}: #{blacklisted}" )
+    redirect_to root_path if blacklisted && secure_area?
+  end
+  
   def check_domain
     if request.protocol.include? 'https'
       host = request.host_with_port
