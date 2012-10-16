@@ -45,6 +45,7 @@ Sherlock::Application.routes.draw do
   namespace :dashboard do
     resources :users    
     resources :clients
+    resources :blocked_ips
     resources :client_conversions, :only => [:new, :create]
   end
   

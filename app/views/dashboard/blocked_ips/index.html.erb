@@ -1,0 +1,23 @@
+<h1>Blocked Ips</h1>
+
+<div>
+  <% if @blocked_ips.empty? %>
+    <div style="margin-bottom:1em;">
+      There are no blocked ips yet.
+    </div>
+  <% else %>
+    <ol class="ordinary"  style="margin-bottom:1em;">
+    <% @blocked_ips.each do |ip| %>
+      <li>
+        <%= ip.ip %>
+        -
+        <%= link_to 'Unblock', dashboard_blocked_ip_path(ip), 
+           :confirm => 'Are you sure you want to unblock this IP?', 
+           :method => :delete        
+        %>
+      </li>
+    <% end %>      
+  </ol>  
+  <% end %>
+  <%= link_to 'Block new ip', new_dashboard_blocked_ip_path %>
+</div>

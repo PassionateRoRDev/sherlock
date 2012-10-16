@@ -11,7 +11,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120928071800) do
+ActiveRecord::Schema.define(:version => 20121016064943) do
+
+  create_table "blocked_ips", :force => true do |t|
+    t.string   "ip",         :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "blocks", :force => true do |t|
     t.integer  "case_id",                   :null => false

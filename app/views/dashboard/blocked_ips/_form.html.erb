@@ -1,0 +1,16 @@
+<%= form_for @blocked_ip, :url => dashboard_blocked_ips_path do |f| %>
+  <%= render 'shared/form_errors', :errors => @blocked_ip.errors %>
+
+  <div class="field">
+    <%= f.label :ip, 'IP Address :' %>
+    <div class="boxfield">
+      <%= f.text_field :ip, :class => 'txtfield' %>
+    </div>
+  </div>
+
+  <div class="actions no-margin">
+    <%= f.submit "Save", :class => :button %>    
+    <%= link_to 'Cancel', dashboard_blocked_ips_path %>    
+  </div>  
+
+<% end %>
