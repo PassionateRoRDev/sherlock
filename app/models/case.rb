@@ -10,6 +10,7 @@ class Case < ActiveRecord::Base
   has_many :html_details, :through => :blocks
   has_many :data_log_details, :through => :blocks
   has_many :witness_statements, :through => :blocks  
+  has_many :page_breaks, :through => :blocks
   has_many :pictures, :through => :blocks
   has_many :videos, :through => :blocks  
   

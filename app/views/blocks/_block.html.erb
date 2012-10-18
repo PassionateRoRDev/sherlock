@@ -42,9 +42,21 @@
     </span>
   <% end %>
     
-  <% if block.page_break %>
+  <% if block.page_break %>    
+    <span class="links-for-editable" style="display:none;">      
+      <%= link_to 'Save', 
+          case_page_break_path(block.case, block.page_break),
+          :class => 'link-save', :title => 'Click to save changes' %> |            
+      <a class="link-cancel" href="#">Cancel</a>
+    </span>
+    
     <span class="links-for-static">
       <%= render 'blocks/move_links', :block => block %>
+      <%= case_author_only(block.case) do %>
+      | <%= link_to 'Edit', 
+        edit_case_page_break_path(block.case, block.page_break),
+        :class => 'block-edit-ajax' %>
+      <% end %>
     </span>
   <% end %>
     

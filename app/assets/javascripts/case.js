@@ -39,6 +39,24 @@ SHERLOCK.cases.insertWitnessStatementBlockBefore = function(insertBefore) {
     
 };
 
+SHERLOCK.cases.insertPageBreakBlockBefore = function(insertBefore) {
+    
+    var url = SHERLOCK.urls.create_block_page_break;
+    
+    var next = insertBefore.next();
+    if (next.hasClass('block')) {
+        var blockId = next.data('block_id');
+        url += ('?insert_before_id=' + blockId);            
+    }
+    
+    var newBlock = $('.blocks-area .new-page-break-block');
+    newBlock.data('form-url', url);
+    
+    insertBefore.before(newBlock);
+    newBlock.show();
+    SHERLOCK.cases.startEditingBlockInline(newBlock);
+};
+
 SHERLOCK.cases.insertDataLogBlockBefore = function(insertBefore) {
   
     var url = SHERLOCK.urls.create_block_data_log;    
@@ -172,6 +190,9 @@ SHERLOCK.cases.moveBackCustomForm = function() {
   var customForm = form.find('.custom-form');
   if (customForm.length) {
     switch (customForm.data('block_type')) {
+      case 'page-break':
+        $('.new-page-break-block .block-editable form').prepend(customForm);
+        break;
       case 'data-log':
         $('.new-data-log-block .block-editable form').prepend(customForm);
         break;
@@ -215,6 +236,11 @@ SHERLOCK.cases.moveCustomFormFieldsIntoInjectedForm = function(block) {
         'location': 'location-value'
       }            
       break;
+    case 'page-break':
+      mapping = {
+        'with_header': 'with-header-value'
+      };
+      break;
   }
   
   if (mapping != null) {      
@@ -222,7 +248,15 @@ SHERLOCK.cases.moveCustomFormFieldsIntoInjectedForm = function(block) {
       for (var field in mapping) {        
         value = isNewBlock ? '' 
                 : $.trim($('.' + mapping[field], editable).text())
-        customForm.find('input[name=' + field + ']').val(value);
+        var elt = customForm.find('input[name=' + field + ']');
+        switch (elt.attr('type')) {
+          case 'text':
+            elt.val(value);
+            break;
+          case 'checkbox':
+            elt.get(0).checked = (value == 'Yes');
+            break;
+        }
       }                      
       form.prepend(customForm);
   }
@@ -252,6 +286,8 @@ SHERLOCK.cases.finishEditingBlockInline = function(block) {
     $('#form-tinymce').hide();
   }
   
+  SHERLOCK.cases.showRichEditorElements();
+  
   
 };
 
@@ -279,21 +315,30 @@ SHERLOCK.cases.startEditingBlockInline = function(block) {
     block.find('.links-for-static').hide();
 
     var editable = block.find('.block-editable');
-    var htmlToEdit = editable.find('.block-editable-html').html();
     
     var form = $('#form-tinymce');
     var editableParent = editable.get(0).parentNode;
-
-    SHERLOCK.utils.richEditorRemove('form-tinymce-textarea');            
+    
+    var editableHtml = editable.find('.block-editable-html');
+    var hasEditableHtml = editableHtml.length > 0;
+    var htmlToEdit = editableHtml.html();
+    
+    SHERLOCK.utils.richEditorRemove('form-tinymce-textarea');
     editableParent.insertBefore(form.get(0), editable.get(0));        
-    tinyMCE.execCommand('mceAddControl', false, 'form-tinymce-textarea');
-
-    var ed = tinyMCE.get('form-tinymce-textarea');        
-    if (ed != null) {
-      ed.setContent(htmlToEdit);
+    
+    if (hasEditableHtml) {    
+      tinyMCE.execCommand('mceAddControl', false, 'form-tinymce-textarea');
+      var ed = tinyMCE.get('form-tinymce-textarea');        
+      if (ed != null) {
+        ed.setContent(htmlToEdit);
+      }
     }
     
     SHERLOCK.cases.moveCustomFormFieldsIntoInjectedForm(block);    
+    
+    if (!hasEditableHtml) {
+      SHERLOCK.cases.hideRichEditorElements();
+    }
 
     form.show();
     editable.hide();
@@ -301,10 +346,35 @@ SHERLOCK.cases.startEditingBlockInline = function(block) {
     block.find('.links-for-editable').show();
 };
 
+SHERLOCK.cases.showRichEditorElements = function() {
+  var form = $('#form-tinymce');
+  $('.text-snippets-select-wrapper', form).show();
+  $('#form-tinymce-textarea', form).show();
+};
+
+SHERLOCK.cases.hideRichEditorElements = function() {
+  var form = $('#form-tinymce');
+  $('.text-snippets-select-wrapper', form).hide();
+  $('#form-tinymce-textarea', form).hide();
+};
+
 SHERLOCK.cases.editableCancelClicked = function(link) {      
     var block = $(link).parents('.block:first');      
     SHERLOCK.cases.finishEditingBlockInline(block);
     return false;
+};
+
+SHERLOCK.cases.blockPageBreakCreated = function(blockName, blockHtml, msg) {
+  $('.blocks-area .no-blocks-msg').remove();
+  var temporaryNewBlock = $('.' + blockName);
+  temporaryNewBlock.after(blockHtml);
+  temporaryNewBlock.next().find('select.rich-dropdown').msDropDown();
+  temporaryNewBlock.hide();
+
+  SHERLOCK.cases.resetBlockTypeLists();
+
+  SHERLOCK.utils.hideAjaxLoading();
+  SHERLOCK.utils.flashMessage('notice', msg);
 };
 
 SHERLOCK.cases.blockDetailCreated = function(blockName, blockHtml, msg) {
@@ -321,13 +391,16 @@ SHERLOCK.cases.blockDetailCreated = function(blockName, blockHtml, msg) {
 }
 
 SHERLOCK.cases.blockDetailUpdated = function(fieldNames, values) {
-  var block = $('.injected-form').parents('.block:first');
-  var editable = block.find('.block-editable');
-  var fields = $('.' + fieldNames, editable);  
-  for (var fieldName in values) {
+  var block = $('.injected-form').parents('.block:first');  
+  var editable = block.find('.block-editable');  
+  var fields = $('.' + fieldNames, editable);    
+  for (var fieldName in values) {    
     $('.' + fieldName + '-value', fields).text(values[fieldName]);
-  }
-  
+  }    
+};
+
+SHERLOCK.cases.pageBreakUpdated = function(values) {  
+  SHERLOCK.cases.blockDetailUpdated('page-break-fields', values);        
 };
 
 SHERLOCK.cases.witnessStatementUpdated = function(values) {
@@ -348,7 +421,9 @@ SHERLOCK.cases.blockUpdated = function(msg) {
   var block = $('.injected-form').parents('.block:first');
   var editable = block.find('.block-editable');
   var ed = tinyMCE.get('form-tinymce-textarea');
-  editable.find('.block-editable-html').html(ed.getContent());
+  if (ed) {
+    editable.find('.block-editable-html').html(ed.getContent());
+  }
   
   $('#form-tinymce').hide();
   SHERLOCK.cases.moveBackCustomForm();
@@ -394,6 +469,13 @@ SHERLOCK.cases.editableSaveClicked = function(link) {
           'data_log_detail[location]': form.location.value
         }
       }
+      break;
+    
+    case 'page-break':
+      form = $('#form-tinymce').get(0);
+      data = { 
+          'page_break[with_header]': (form.with_header.checked ? 1 : 0)
+      };
       break;
     
     case 'witness-statement':      
@@ -503,6 +585,10 @@ $(function() {
         switch (t) {
             case '':
                 alert('Please select a block type');
+                break;
+            case 'page_break':
+                SHERLOCK.cases.finishEditingCurrentBlock();
+                SHERLOCK.cases.insertPageBreakBlockBefore(wrapper);
                 break;
             case 'data_log':
                 SHERLOCK.cases.finishEditingCurrentBlock();

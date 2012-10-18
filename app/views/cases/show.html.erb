@@ -57,6 +57,7 @@
   <%= render 'new_text_block' %>
   <%= render 'new_data_log_block' %>
   <%= render 'new_witness_statement_block' %>
+  <%= render 'new_page_break_block' %>
   
   <%= render @case.blocks %>  
     
@@ -86,6 +87,7 @@
   SHERLOCK.urls = {
     new_block_text    : '<%= new_case_html_detail_path(@case) %>',
     create_block_data_log : '<%= case_data_log_details_path(@case) %>',
+    create_block_page_break: '<%= case_page_breaks_path(@case) %>',
     create_witness_statement : '<%= case_witness_statements_path(@case) %>',
     create_block_text    : '<%= case_html_details_path(@case) %>',
     new_block_picture : '<%= new_case_picture_path(@case) %>',

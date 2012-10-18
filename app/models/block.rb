@@ -97,6 +97,8 @@ class Block < ActiveRecord::Base
       'picture'
     elsif self.video
       'video'
+    elsif self.page_break
+      'page-break'
     end
   end
   

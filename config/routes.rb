@@ -34,6 +34,7 @@ Sherlock::Application.routes.draw do
     resources :html_details
     resources :data_log_details
     resources :witness_statements
+    resources :page_breaks
     resources :pictures
     resources :videos
     resources :invitations

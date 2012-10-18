@@ -10,6 +10,8 @@
       </div>
     </div>
   <% end %>
+  <%= render 'blocks/editable_page_break',
+      :page_break => block.page_break if block.page_break %>
   <%= render 'blocks/editable_data_log', 
       :detail => block.data_log_detail if block.data_log_detail %>  
   <%= render 'blocks/editable_witness_statement', 
