@@ -33,6 +33,17 @@ describe Report do
     decoded["case"]['blocks'].count.should == 1
   end
   
+  it 'JSON should contain page_break block details' do
+    c = prepare_case
+    page_break = FactoryGirl.create(:page_break)
+    c.blocks << Block.new(:page_break => page_break)
+    r = prepare_report(c)        
+    decoded = ActiveSupport::JSON.decode(r.to_json)
+    block = decoded['case']['blocks'][0]
+    page_break = block['pageBreak']
+    page_break['withHeader'].should == false    
+  end
+  
   it 'JSON should contain data_log block details' do
     c = prepare_case
     log_detail = FactoryGirl.create(:data_log_detail)

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121016064943) do
+ActiveRecord::Schema.define(:version => 20121018123850) do
 
   create_table "blocked_ips", :force => true do |t|
     t.string   "ip",         :null => false
@@ -173,6 +173,13 @@ ActiveRecord::Schema.define(:version => 20121016064943) do
   end
 
   add_index "notes", ["case_id"], :name => "index_notes_on_case_id"
+
+  create_table "page_breaks", :force => true do |t|
+    t.integer  "block_id",                       :null => false
+    t.boolean  "with_header", :default => false, :null => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
+  end
 
   create_table "pictures", :force => true do |t|
     t.integer  "block_id",          :null => false

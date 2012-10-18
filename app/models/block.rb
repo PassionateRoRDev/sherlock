@@ -5,7 +5,9 @@ class Block < ActiveRecord::Base
   has_one :html_detail, :dependent => :destroy    
   has_one :picture, :dependent => :destroy
   has_one :video, :dependent => :destroy
-  has_one :data_log_detail, :dependent => :destroy  
+  has_one :data_log_detail, :dependent => :destroy
+  has_one :page_break, :class_name => 'BlockTypes::PageBreak',  
+          :dependent => :destroy  
   
   has_one :witness_statement, :class_name => 'BlockTypes::WitnessStatement',  
           :dependent => :destroy
@@ -115,6 +117,9 @@ class Block < ActiveRecord::Base
     if self.video
       result = 'Video Block'
     end
+    if self.page_break
+      result = "Page Break Block"
+    end
     result
     
   end
@@ -163,6 +168,9 @@ class Block < ActiveRecord::Base
     end
     if self.picture
       result['picture'] = self.picture.as_json(options)
+    end
+    if self.page_break
+      result['pageBreak'] = self.page_break.as_json(options)
     end
     result
   

@@ -16,6 +16,11 @@ FactoryGirl.define do
     contents 'Sample contents for the data log block'
   end
   
+  factory :page_break, :class => BlockTypes::PageBreak do
+    association :block
+    with_header false
+  end
+  
   factory :witness_statement, :class => BlockTypes::WitnessStatement do
     association :block
     day '05/03/2012'
