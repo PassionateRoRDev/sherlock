@@ -42,6 +42,12 @@
     </span>
   <% end %>
     
+  <% if block.page_break %>
+    <span class="links-for-static">
+      <%= render 'blocks/move_links', :block => block %>
+    </span>
+  <% end %>
+    
   <% if block.data_log_detail %>
     <span class="links-for-editable" style="display:none;">      
       <%= link_to 'Save', 
