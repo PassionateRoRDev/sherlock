@@ -140,6 +140,10 @@ class User < ActiveRecord::Base
     pi? ? folders.where('title LIKE ?', "%#{term}%") : []
   end
   
+  def header_on_all_pages
+    letterhead.nil? || letterhead.all_pages    
+  end
+  
   def case_created(c)
     
     #

@@ -899,11 +899,12 @@ h2.case-title {
   background-color: #F9F9F9;
 }
 
-#errorExplanation ul, ul.ordinary {
+#errorExplanation ul, ul.ordinary, .block-editable ul
+{
   margin-left: 0;
 }
 
-#errorExplanation ul li, ul.ordinary li {
+#errorExplanation ul li, ul.ordinary li, .block-editable ul li {
   list-style: disc;
   margin-left:1em;
 }

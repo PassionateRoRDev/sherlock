@@ -93,6 +93,10 @@ class Case < ActiveRecord::Base
     picture_copy   
   end
   
+  def header_on_all_pages
+    
+  end
+  
   def as_json(options = {})  
         
     except = [:author_id, :client_name, :id, :footer, :number, :updated_at]

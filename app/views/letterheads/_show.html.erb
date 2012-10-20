@@ -1,4 +1,5 @@
-<div id="header" style="<%= letterhead_style_for_header(@letterhead) %>">
+<div id="header" class="header"
+     style="<%= letterhead_style_for_header(@letterhead) %>">
   
   <%= render 'letterheads/logo', 
       :letterhead => @letterhead, :kase => kase if @letterhead.logo %>

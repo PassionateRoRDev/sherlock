@@ -12,6 +12,18 @@ class BlockTypes::PageBreak < ActiveRecord::Base
     postprocess(super(options))
   end
   
+  def author
+    kase.author
+  end
+  
+  def letterhead
+    author.letterhead
+  end
+  
+  def kase
+    block.case
+  end      
+  
   def postprocess(json)   
     json.merge('withHeader' => json['with_header'])
   end

@@ -28,3 +28,8 @@
     <%= render 'videos/jplayer', :video => block.video %>
   </div>
 <% end %>
+
+<% if block.page_break %>
+  <%= render 'page_breaks/preview', :page_break => block.page_break %>  
+<% end %>
+

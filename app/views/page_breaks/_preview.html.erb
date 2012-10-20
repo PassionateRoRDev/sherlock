@@ -1,0 +1,7 @@
+<div style="text-align:center;background-color:#c0c0c0;margin:1em 0;padding:3px 0;">--- PAGE BREAK ---</div>
+
+<% if page_break.with_header %>
+  <% unless page_break.author.header_on_all_pages %>    
+    <%= render 'letterheads/show', :kase => page_break.kase if page_break.letterhead %>
+  <% end %>
+<% end %>

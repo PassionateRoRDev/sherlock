@@ -24,13 +24,14 @@
       margin-top: 0.5em;
     }
     
+    .header,
     #header {
       margin-top:5px;      
       padding:2px;
       position:relative;
     }
     
-    #logo-wrapper {
+    .logo-wrapper {
       position: absolute;
     }
     
@@ -40,6 +41,7 @@
       padding-bottom: 1em;
     }
     
+    div.header hr,
     div#header hr, div#footer hr {            
       border: none;
       clear: both;
@@ -95,14 +97,17 @@
     if (!textHeight) {
       textHeight = 0;
     }
-    var logoHeight = $('#logo-wrapper').height();  
+    var logoHeight = $('.logo-wrapper:first').height();  
     if (!logoHeight) {
       logoHeight = 0;
     }
     var h = textHeight > logoHeight ? textHeight : logoHeight;
-    if ( $('#header').height() < h) {
-      $('#header').css('height', h);
-    }
+    
+    $('.header').each(function() {
+      if ( $(this).height() < h) {
+        $(this).css('height', h);
+      }
+    });        
   });
   //]]>
 </script>
