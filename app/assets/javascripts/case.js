@@ -14,9 +14,11 @@ SHERLOCK.ajaxHtmlDo = function(url, success) {
 SHERLOCK.cases = SHERLOCK.cases || {};
 
 SHERLOCK.cases.resetBlockTypeLists = function() {
-  $('.form-insert-block select').each(function() {
-     this.selectedIndex = 0; 
-  });
+  $('.form-insert-block select.rich-dropdown').each(function() {
+    if (this.selectedIndex > 0) {
+      $(this).msDropDown().data("dd").selectedIndex(0);     
+    }
+  });  
 };
 
 SHERLOCK.cases.insertWitnessStatementBlockBefore = function(insertBefore) {
@@ -364,7 +366,7 @@ SHERLOCK.cases.editableCancelClicked = function(link) {
     return false;
 };
 
-SHERLOCK.cases.blockPageBreakCreated = function(blockName, blockHtml, msg) {
+SHERLOCK.cases.blockCreated = function(blockName, blockHtml, msg) {
   $('.blocks-area .no-blocks-msg').remove();
   var temporaryNewBlock = $('.' + blockName);
   temporaryNewBlock.after(blockHtml);
@@ -376,19 +378,6 @@ SHERLOCK.cases.blockPageBreakCreated = function(blockName, blockHtml, msg) {
   SHERLOCK.utils.hideAjaxLoading();
   SHERLOCK.utils.flashMessage('notice', msg);
 };
-
-SHERLOCK.cases.blockDetailCreated = function(blockName, blockHtml, msg) {
-  $('.blocks-area .no-blocks-msg').remove();
-  var temporaryNewBlock = $('.' + blockName);
-  temporaryNewBlock.after(blockHtml);
-  temporaryNewBlock.next().find('select.rich-dropdown').msDropDown();
-  temporaryNewBlock.hide();
-
-  SHERLOCK.cases.resetBlockTypeLists();
-
-  SHERLOCK.utils.hideAjaxLoading();
-  SHERLOCK.utils.flashMessage('notice', msg);
-}
 
 SHERLOCK.cases.blockDetailUpdated = function(fieldNames, values) {
   var block = $('.injected-form').parents('.block:first');  
