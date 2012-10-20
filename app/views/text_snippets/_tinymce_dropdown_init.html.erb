@@ -3,6 +3,33 @@ window.tinyMCECustomInit = function(ed) {
   var dropdown = ed.controlManager.get('snippetDropdown');
   <% @text_snippets.each do |snippet| %>
       dropdown.add('<%= escape_javascript(snippet.title) %>', '<%= snippet.id %>');
-  <% end %>    
+  <% end %>
+    
+  // fix the tab behavior: 
+  ed.onKeyDown.add(function(inst, e) {
+    
+    var code = 0;    
+    // Firefox uses the e.which event for keypress
+    // While IE and others use e.keyCode, so we look for both
+    if (e.keyCode) code = e.keyCode;
+    else if (e.which) code = e.which;
+    
+    if (code == 9 && !e.altKey && !e.ctrlKey) {
+      // toggle between Indent and Outdent command, depending on if SHIFT is pressed
+      //if (e.shiftKey) inst.execCommand('Outdent');
+      //else inst.execCommand('Indent');
+      
+      var tab = "&nbsp;&nbsp;&nbsp;&nbsp;";
+      tab += tab;
+      inst.execCommand('mceInsertContent', false, tab);
+      
+      // prevent tab key from leaving editor in some browsers
+      if (e.preventDefault) {
+        e.preventDefault();
+      }
+      return false;
+    }
+  });
+    
 }
 </script>
