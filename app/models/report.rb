@@ -26,7 +26,6 @@ class Report
     r = Report.new
     r.case = Case.find(case_id)    
     r.destroy_report
-    
   end  
   
   def self.invalidate_for_user(user_id)
