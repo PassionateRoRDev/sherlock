@@ -133,6 +133,43 @@ SHERLOCK.utils.richEditorInitialized = function(inst) {
   //alert('Initialized!');
 };
 
+SHERLOCK.utils.richEditorContentChanged = function(ed, caseID) {  
+  
+  var saveNeeded = false;
+  var requestInProgress = false;
+  
+  //console.log("Content changed! " + new Date().valueOf());
+  //console.log("Request in progress: " + requestInProgress);
+  
+  function makeCall()
+  {      
+    requestInProgress = true;
+    $.ajax({  
+      'url': '/cases/' + caseID,
+      'data': {
+        '_method' : 'put',
+        'autosave' : true,
+        'case[summary]' : ed.getContent()
+      },
+      'type': 'POST',
+      'success': function(data, textStatus, jqXHR) {
+        if (saveNeeded) {
+          setTimeout(makeCall, 10);          
+        } else {
+          requestInProgress = false;
+        }
+      }
+    });
+  }
+  
+  if (requestInProgress) {
+    saveNeeded = true;
+  } else {
+    makeCall();
+  }
+  
+};
+
 SHERLOCK.utils.formAjaxify = function(form) {
   form.bind('ajax:before', function() {
     var f = this;

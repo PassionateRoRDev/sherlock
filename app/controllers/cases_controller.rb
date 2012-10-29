@@ -35,6 +35,10 @@ class CasesController < ApplicationController
     
   end
   
+  def autosave
+    
+  end
+  
   def preview    
     if @case.is_static
       redirect_to @case
@@ -65,7 +69,7 @@ class CasesController < ApplicationController
     if @case      
       
       params[:case] = convert_dates(params[:case])
-      params[:case] = preparse_hinted(params[:case], params[:hinted])
+      params[:case] = preparse_hinted(params[:case], params[:hinted]) if params[:hinted]
       
       @text_snippets = current_user.text_snippets
             

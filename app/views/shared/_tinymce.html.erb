@@ -6,7 +6,7 @@ var tinyMCEParams = {
   mode: 'specific_textareas',
   editor_selector : "rich",
   
-  init_instance_callback : SHERLOCK.utils.richEditorInitialized,
+  init_instance_callback : SHERLOCK.utils.richEditorInitialized,  
 
   theme: 'advanced',
   //theme_advanced_statusbar_location : 'top',
@@ -24,7 +24,7 @@ $(function() {
       tinyMCEParams.setup = function(ed) {
         ed.onInit.add(window.tinyMCECustomInit);
       };
-  }      
-  tinyMCE.init(tinyMCEParams);  
+  }          
+  tinyMCE.init(tinyMCEParams);    
 });
 </script>

@@ -4,9 +4,12 @@ window.tinyMCECustomInit = function(ed) {
   <% @text_snippets.each do |snippet| %>
       dropdown.add('<%= escape_javascript(snippet.title) %>', '<%= snippet.id %>');
   <% end %>
-    
-  // fix the tab behavior: 
-  ed.onKeyDown.add(function(inst, e) {
+                        
+  var caseID = 0;
+            
+  function processKeyDown(inst, e)        
+  {
+    var result = true;
     
     var code = 0;    
     // Firefox uses the e.which event for keypress
@@ -27,9 +30,30 @@ window.tinyMCECustomInit = function(ed) {
       if (e.preventDefault) {
         e.preventDefault();
       }
-      return false;
+      result = false;
     }
-  });
-    
+    return result;
+  }
+  
+  function processKeyDownAndAutoSave(inst, e)
+  {
+    var result = processKeyDown(inst, e);
+    SHERLOCK.utils.richEditorContentChanged(inst, caseID);
+    return result;
+  }
+  
+  // fix the tab behavior
+  // we add autosave on top of it - only for selected pages
+          
+  var m = location.href.match(/cases\/(\d+)\/edit/)
+  if (m && m.length > 1) {
+    caseID = m[1];
+    ed.onKeyDown.add(processKeyDownAndAutoSave);
+  } else {
+    ed.onKeyDown.add(processKeyDown);
+  }  
+  
+  
+        
 }
 </script>
