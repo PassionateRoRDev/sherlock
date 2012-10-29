@@ -955,12 +955,12 @@ ul.register-why li {
 #search-bar {
   position:absolute;
   right:0;
-  top:136px;
+  top:134px;
   height:2em;
 }
 
 #search-bar input {
-  padding: 4px;
+  padding: 4px;  
 }
 
 body .ui-autocomplete {
