@@ -119,10 +119,57 @@ SHERLOCK.utils.richEditorRemove = function(eltId) {
   }
 };
 
+SHERLOCK.utils.richEditorAutosaveForBlock = function(inst, url, param) {  
+  inst.onKeyUp.add(function() {        
+    SHERLOCK.utils.richEditorContentChanged(inst, url, param);
+  });  
+};
+
+SHERLOCK.utils.richEditorAutosaveForCase = function(inst) {
+  var m = location.href.match(/cases\/(\d+)\/edit/)
+  if (m && m.length > 1) {      
+    var href = '/cases/' + m[1];
+    inst.onKeyUp.add(function() {        
+      SHERLOCK.utils.richEditorContentChanged(inst, href, 'case[summary]');
+    });
+  }
+};
+
 SHERLOCK.utils.richEditorInitialized = function(inst) {  
   setTimeout(function() {
-    var textarea = $('#' + inst.id);
+    var textarea = $('#' + inst.id);    
+    //console.debug('Editor was activated: ' + inst.id);    
     var newBlock = textarea.parents('.new-block:first');    
+    
+    //
+    // autosave for edit-case-summary page
+    //
+    if (inst.id == 'case_summary') {
+      SHERLOCK.utils.richEditorAutosaveForCase(inst);      
+    } else if (inst.id == 'form-tinymce-textarea') {
+      if (newBlock.length == 0) {
+        var block = textarea.parents('.block-wrapper:first');
+        if (block.length) {
+          var links = $('.block-action-links', block);
+          var save = $('.link-save', links);
+          var saveHref = save.attr('href');
+          //console.log('save href:' + saveHref);
+          if (saveHref.indexOf('html_details') >= 0) {
+            SHERLOCK.utils.richEditorAutosaveForBlock(
+              inst, saveHref, 'html_detail[contents]');
+          }
+          if (saveHref.indexOf('data_log_details') >= 0) {
+            SHERLOCK.utils.richEditorAutosaveForBlock(
+              inst, saveHref, 'data_log_detail[contents]');
+          }          
+          if (saveHref.indexOf('witness_statements') >= 0) {
+            SHERLOCK.utils.richEditorAutosaveForBlock(
+              inst, saveHref, 'witness_statement[contents]');
+          }          
+        }
+      }
+    }
+        
     if ((newBlock.length > 0) && $.browser.mozilla) {
       // do not focus - TinyMCE inserts a bogus BR which breaks the experience
       // only in Firefox for empty blocks      
@@ -133,24 +180,25 @@ SHERLOCK.utils.richEditorInitialized = function(inst) {
   //alert('Initialized!');
 };
 
-SHERLOCK.utils.richEditorContentChanged = function(ed, caseID) {  
+SHERLOCK.utils.richEditorContentChanged = function(ed, url, param) {  
   
   var saveNeeded = false;
   var requestInProgress = false;
   
-  //console.log("Content changed! " + new Date().valueOf());
-  //console.log("Request in progress: " + requestInProgress);
+  console.log("Content changed! " + new Date().valueOf());
+  console.log("Request in progress: " + requestInProgress);
   
   function makeCall()
   {      
-    requestInProgress = true;
+    requestInProgress = true;    
+    var data = {
+      '_method' : 'put',
+      'autosave' : true      
+    };
+    data[param] = ed.getContent();    
     $.ajax({  
-      'url': '/cases/' + caseID,
-      'data': {
-        '_method' : 'put',
-        'autosave' : true,
-        'case[summary]' : ed.getContent()
-      },
+      'url': url,
+      'data': data,
       'type': 'POST',
       'success': function(data, textStatus, jqXHR) {
         if (saveNeeded) {

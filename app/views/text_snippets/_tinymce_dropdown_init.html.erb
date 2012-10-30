@@ -4,9 +4,7 @@ window.tinyMCECustomInit = function(ed) {
   <% @text_snippets.each do |snippet| %>
       dropdown.add('<%= escape_javascript(snippet.title) %>', '<%= snippet.id %>');
   <% end %>
-                        
-  var caseID = 0;
-            
+                                      
   function processKeyDown(inst, e)        
   {
     var result = true;
@@ -16,6 +14,8 @@ window.tinyMCECustomInit = function(ed) {
     // While IE and others use e.keyCode, so we look for both
     if (e.keyCode) code = e.keyCode;
     else if (e.which) code = e.which;
+    
+    //console.log('editor id: ' + inst.id);    
     
     if (code == 9 && !e.altKey && !e.ctrlKey) {
       // toggle between Indent and Outdent command, depending on if SHIFT is pressed
@@ -33,27 +33,12 @@ window.tinyMCECustomInit = function(ed) {
       result = false;
     }
     return result;
-  }
+  }    
   
-  function processKeyDownAndAutoSave(inst, e)
-  {
-    var result = processKeyDown(inst, e);
-    SHERLOCK.utils.richEditorContentChanged(inst, caseID);
-    return result;
-  }
+  //console.log('Adding processKeyDown');
   
   // fix the tab behavior
-  // we add autosave on top of it - only for selected pages
-          
-  var m = location.href.match(/cases\/(\d+)\/edit/)
-  if (m && m.length > 1) {
-    caseID = m[1];
-    ed.onKeyDown.add(processKeyDownAndAutoSave);
-  } else {
-    ed.onKeyDown.add(processKeyDown);
-  }  
-  
-  
+  ed.onKeyDown.add(processKeyDown);    
         
 }
 </script>

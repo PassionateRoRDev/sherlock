@@ -1,8 +1,10 @@
-SHERLOCK.cases.witnessStatementUpdated({
-  day: '<%= escape_javascript(@detail.day) %>', 
-  hour: '<%= escape_javascript(@detail.hour) %>', 
-  name: '<%= escape_javascript(@detail.name) %>',
-  address: '<%= escape_javascript(@detail.address) %>',  
-  city_state_zip: '<%= escape_javascript(@detail.city_state_zip) %>'
-  });
-SHERLOCK.cases.blockUpdated('Witness Statement has been updated');
+<% unless params[:autosave] %>
+  SHERLOCK.cases.witnessStatementUpdated({
+    day: '<%= escape_javascript(@detail.day) %>', 
+    hour: '<%= escape_javascript(@detail.hour) %>', 
+    name: '<%= escape_javascript(@detail.name) %>',
+    address: '<%= escape_javascript(@detail.address) %>',  
+    city_state_zip: '<%= escape_javascript(@detail.city_state_zip) %>'
+    });
+  SHERLOCK.cases.blockUpdated('Witness Statement has been updated');
+<% end %>
