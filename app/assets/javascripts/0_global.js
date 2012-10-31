@@ -259,7 +259,7 @@ SHERLOCK.utils.cookie = function(cookieName) {
     var cookies = document.cookie.split(';');
     $(cookies).each(function() {
         var pair = this.split('=');
-        alert(pair[0]);
+        //alert(pair[0]);
         if (pair[0] == cookieName) {          
           result = pair[1];          
         }
