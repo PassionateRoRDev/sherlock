@@ -45,6 +45,8 @@ class User < ActiveRecord::Base
 
   accepts_nested_attributes_for :user_address
   
+  after_create :setup_free_plan_for_pi
+  
   RANDOM_PASSWORD_LENGTH = 10
   
   def self.investigators
@@ -277,6 +279,11 @@ class User < ActiveRecord::Base
   
   def from_address(name)
     self.user_address ? self.user_address.send(name) : ''
+  end
+  
+  def setup_free_plan_for_pi
+    Rails::logger.debug 'Setup free plan for PI?'
+    setup_free_trial if pi? && Setting.has_non_cc_trial? && subscriptions.empty?      
   end
       
   

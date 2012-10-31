@@ -19,12 +19,10 @@ class RegistrationsController < Devise::RegistrationsController
     logger.info current_user
     
     if current_user      
-      if current_user.pi?        
-        current_user.setup_free_trial if Setting.has_non_cc_trial? && current_user.subscriptions.empty?
-      end
-        
-      km_alias_identity_for current_user 
-      
+      #if current_user.pi?        
+      #  current_user.setup_free_trial if Setting.has_non_cc_trial? && current_user.subscriptions.empty?
+      #end        
+      km_alias_identity_for current_user      
     end
     
     dashboard_path    
