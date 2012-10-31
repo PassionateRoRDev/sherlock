@@ -2,16 +2,16 @@
 
 <div class="breadcrumb">
   <%= link_to 'Dashboard', dashboard_path %> /
-  <%= link_to 'My Cases', cases_path %> / <%= @case.title %>
-  
-  <div style="float:right;">             
-    <%= render 'case_small_icons', :c => @case, :single_case => true %>
-  </div>
+  <%= link_to 'My Cases', cases_path %> / <%= @case.title %>        
   
 </div>
 
 <h1 style="position:relative;">
   <%= @case.title %>
+  
+  <div style="position:absolute;bottom:8px;right:0;">
+    <%= render 'case_small_icons', :c => @case, :single_case => true %>
+  </div>
   
   <%= render 'case_upper_links' if false %>  
   
