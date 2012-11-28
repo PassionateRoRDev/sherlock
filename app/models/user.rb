@@ -25,6 +25,9 @@ class User < ActiveRecord::Base
   has_many :user_clients
   has_many :clients, :through => :user_clients  
   
+  has_many :user_employees
+  has_many :employees, :through => :user_employees  
+  
   has_many :folders
   
   has_many :purchases  

@@ -1,0 +1,22 @@
+%h2 BASIC INFO
+  
+%dl.employee-info
+  %dt First name:
+  %dd
+    = print_or @employee.first_name
+  %dt Last name:
+  %dd
+    = print_or @employee.last_name
+  %dt Email:
+  %dd
+    = @employee.email
+  %dt Phone
+  %dd
+    = print_or @employee.user_address.phone
+  %dt Last Signed On:
+  %dd
+    = print_date_or @employee.last_sign_in_at, 'never' 
+    
+
+.link-buttons
+  = link_to 'Edit', edit_employee_path(@employee), :class => :button

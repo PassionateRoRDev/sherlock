@@ -1,0 +1,16 @@
+.breadcrumb
+  = link_to 'Dashboard', dashboard_path
+  \/
+  = link_to 'My Employees', employees_path
+  \/
+  = @employee.full_name
+
+%h1 
+  Employee: 
+  = @employee.full_name
+
+.employee-detail-page
+  .div{:style => "float:left;width:49%;"}
+    = render 'employees/basic_info'
+
+  

@@ -1,0 +1,36 @@
+.employee-detail-page {
+  
+  overflow:hidden;
+  font-size: 120%;
+  
+  .link-buttons {
+      clear:both;
+      margin-left: 30%;
+  }
+}
+
+.employees-list table {
+  width: 100%;
+  margin-bottom: 0;
+}
+
+.employee-form {
+  margin-top: 1em;
+}
+
+dl.employee-info {
+  margin-left: 0;  
+  dt { 
+    float: left;
+    text-align: right;
+    font-weight: bold;
+    padding-right: 1ex;        
+    width: 30%;
+  }
+  dd {
+    width: 60%;
+    margin-left: 0;
+    float: left;
+    margin-bottom: 7px;
+  }
+}
