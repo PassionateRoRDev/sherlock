@@ -1,0 +1,30 @@
+.breadcrumb
+  = link_to 'Dashboard', dashboard_path
+  \/ 
+  My Employees
+
+%h1 My Employees
+
+.employees-list
+  %table.table-bordered.table-striped
+    %thead
+      %tr
+        %th{:style => 'width:17em;'} Email      
+        %th First Name
+        %th Last Name
+        %th Phone
+        %th.center{:style => 'width:13em;'} Last Signed On        
+    %tbody      
+    - @employees.each do |employee|
+      %tr{:class => cycle("even", "odd")}      
+        %td
+          = link_to employee.email, employee_path(employee)
+        %td        
+          = print_or employee.first_name
+        %td
+          = print_or employee.last_name
+        %td
+          = print_or employee.phone        
+        %td{:style => "text-align:center;"}
+          = print_date_or employee.last_sign_in_at, 'never'
+   

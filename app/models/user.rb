@@ -19,7 +19,7 @@ class User < ActiveRecord::Base
   
   has_many :authored_cases, :class_name => 'Case', :foreign_key => 'author_id' 
   has_and_belongs_to_many :viewable_cases, :join_table => 'viewers', :foreign_key => 'viewer_id', :association_foreign_key => 'case_id', :class_name => 'Case'
-  
+        
   has_many :sent_emails
   
   has_many :user_clients
@@ -28,6 +28,12 @@ class User < ActiveRecord::Base
   has_many :user_employees
   has_many :employees, :through => :user_employees  
   
+  has_and_belongs_to_many :employers, 
+                          :join_table => 'user_employees', 
+                          :foreign_key => 'employee_id', 
+                          :association_foreign_key => 'user_id', 
+                          :class_name => 'User'
+    
   has_many :folders
   
   has_many :purchases  
@@ -150,6 +156,10 @@ class User < ActiveRecord::Base
     letterhead.nil? || letterhead.all_pages    
   end
   
+  def employer
+    employers.first
+  end
+  
   def case_created(c)
     
     #
@@ -263,6 +273,10 @@ class User < ActiveRecord::Base
   #
   def pi?
     (invitation_accepted_at.blank? && (!invited?)) || has_subscriptions?
+  end
+  
+  def employee?
+    !pi? and employer.present?
   end
   
   def has_subscriptions?

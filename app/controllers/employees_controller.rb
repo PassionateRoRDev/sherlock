@@ -8,6 +8,10 @@ class EmployeesController < ApplicationController
     @employees = current_user.employees   
   end
   
+  def new
+    @employee = current_user.employees.build
+  end
+  
   def edit
     @employee.build_user_address unless @employee.user_address
   end
