@@ -16,7 +16,7 @@ class TempVideosController < ApplicationController
             
     temp_video = TempVideo.new do |video|        
       video.upload  = params[:upload][:video]
-      video.user_id = current_user.id     
+      video.user_id = current_company.id     
     end
     temp_video.save
         

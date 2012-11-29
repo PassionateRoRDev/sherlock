@@ -13,8 +13,8 @@ class BlockSwapsController < ApplicationController
   
   def resolve_blocks
     
-    @block1 = current_user.blocks.find_by_id(params[:block1_id])
-    @block2 = current_user.blocks.find_by_id(params[:block2_id])
+    @block1 = current_company.blocks.find_by_id(params[:block1_id])
+    @block2 = current_company.blocks.find_by_id(params[:block2_id])
               
     unless @block1 && @block2
       redirect_to(cases_path) 

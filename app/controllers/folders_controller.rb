@@ -6,12 +6,12 @@ class FoldersController < ApplicationController
   before_filter :resolve_folder, :except => [ :new, :create ]
   
   def new  
-    @folder = current_user.folders.new    
+    @folder = current_company.folders.new    
   end
   
   def create
     
-    @folder = current_user.folders.new(params[:folder])
+    @folder = current_company.folders.new(params[:folder])
     if @folder.save
       redirect_to cases_path
     else
@@ -44,8 +44,8 @@ class FoldersController < ApplicationController
   end
   
   def show    
-    @cases = current_user.cases.select { |c| c.folder == @folder }    
-    @cases_to_move = current_user.cases.select { |c| c.folder != @folder }   
+    @cases = current_company.cases.select { |c| c.folder == @folder }    
+    @cases_to_move = current_company.cases.select { |c| c.folder != @folder }   
   end
   
   def move_out_case
@@ -64,7 +64,7 @@ class FoldersController < ApplicationController
   private
   
   def resolve_folder
-    @folder = current_user.folders.find_by_id(params[:id]) || redirect_to(cases_path)
+    @folder = current_company.folders.find_by_id(params[:id]) || redirect_to(cases_path)
   end  
   
 end

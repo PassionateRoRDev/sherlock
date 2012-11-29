@@ -31,7 +31,7 @@ class ReportsController < ApplicationController
     
     report = Report.new
     report.title = the_case.title
-    report.header = current_user.letterhead
+    report.header = current_company.letterhead
     report.case = the_case    
     report.template = 'template.xhtml'        
     

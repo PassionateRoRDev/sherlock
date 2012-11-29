@@ -8,7 +8,18 @@
 %h1 Add Employee  
 
 .employee-form
-  =form_for @employee, :url => employee_path do |f|
+  =form_for @employee, :url => employees_path do |f|
+  
+    =f.error_messages :header_message => 'Please correct the following errors:', :message => nil
+    
+    .field
+      =f.label :email, 'Email :'
+      .boxfield
+        =f.text_field :email, :class => :txtfield    
+    .field
+      =f.label :password, 'Password :'
+      .boxfield
+        =f.password_field :password, :class => :txtfield        
     .field
       =f.label :first_name, 'First Name :'
       .boxfield
@@ -20,4 +31,4 @@
     
     .controls
       =f.submit 'Add', :class => 'button'
-      =link_to 'Cancel', employee_path(@employee)
+      =link_to 'Cancel', employees_path

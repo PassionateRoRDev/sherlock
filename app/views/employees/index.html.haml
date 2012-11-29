@@ -27,4 +27,7 @@
           = print_or employee.phone        
         %td{:style => "text-align:center;"}
           = print_date_or employee.last_sign_in_at, 'never'
-   
+
+ 
+.link-buttons
+  = link_to 'Add Employee', new_employee_path, :class => 'button button-wide'

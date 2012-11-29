@@ -24,7 +24,7 @@ class PicturesController < ApplicationController
   
   def create
     
-    params[:picture][:user] = current_user       
+    params[:picture][:user] = current_company     
     
     image = params[:upload] ? params[:upload]['image'] : nil    
     params[:picture][:uploaded_file] = image if image    
@@ -106,7 +106,7 @@ class PicturesController < ApplicationController
   end
   
   def verify_case_author!    
-    is_author = (@case.author == current_user)
+    is_author = (@case.author == current_company)
     redirect_to @case unless is_author    
   end
   

@@ -2,7 +2,8 @@ class AccountsController < ApplicationController
 
   before_filter :authenticate_user!
   before_filter :authorize_pi!
-
+  before_filter :block_employee!
+    
   def show
     
     @account = current_user

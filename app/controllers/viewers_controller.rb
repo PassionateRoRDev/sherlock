@@ -6,7 +6,7 @@ class ViewersController < ApplicationController
   before_filter :resolve_case
   
   def destroy        
-    @viewer = current_user.clients.find_by_id(params[:id])
+    @viewer = current_company.clients.find_by_id(params[:id])
     if @viewer
       @case.viewers.delete(@viewer)
       @case.save     

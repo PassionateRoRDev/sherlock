@@ -8,7 +8,7 @@ class LogosController < ApplicationController
   # GET /logos
   # GET /logos.json
   def index
-    @logos = current_user.logos.all
+    @logos = current_company.logos.all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -49,8 +49,8 @@ class LogosController < ApplicationController
     params[:logo][:uploaded_file] = image if image
         
     @logo = Logo.new(params[:logo])
-    @logo.user = current_user    
-    
+    @logo.user = current_company
+   
     respond_to do |format|
       if @logo.save
         format.html { redirect_to dashboard_path, :notice => 'Logo was successfully created.' }
@@ -100,7 +100,7 @@ class LogosController < ApplicationController
   private
   
   def resolve_logo
-    @logo = current_user.logos.find_by_id(params[:id]) || redirect_to(cases_path)
+    @logo = current_company.logos.find_by_id(params[:id]) || redirect_to(cases_path)
   end
   
   

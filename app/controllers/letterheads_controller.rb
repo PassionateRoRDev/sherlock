@@ -28,8 +28,8 @@ class LetterheadsController < ApplicationController
   # GET /letterheads/new.json
   def new
     
-    if current_user.letterhead
-      return redirect_to edit_letterhead_path(current_user.letterhead) 
+    if current_company.letterhead
+      return redirect_to edit_letterhead_path(current_company.letterhead) 
     end
     
     @letterhead = Letterhead.new(
@@ -56,7 +56,7 @@ class LetterheadsController < ApplicationController
     params = handle_logo_upload_for_create
     
     @letterhead = Letterhead.new(params[:letterhead])
-    @letterhead.user = current_user    
+    @letterhead.user = current_company    
     
     respond_to do |format|
       if @letterhead.save
@@ -110,12 +110,12 @@ class LetterheadsController < ApplicationController
   private
   
   def resolve_letterhead
-    @letterhead = current_user.letterhead || redirect_to(cases_path)
+    @letterhead = current_company.letterhead || redirect_to(cases_path)
   end    
   
   def init_logo(image)
     Logo.new(
-      :user           => current_user,
+      :user           => current_company,
       :uploaded_file  => image
     )
   end

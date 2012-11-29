@@ -3,6 +3,9 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   helper_method :user_is_pi?
+  helper_method :user_is_employee?
+  
+  helper_method :current_company
     
   before_filter :check_domain
   before_filter :check_ip
@@ -20,8 +23,12 @@ class ApplicationController < ActionController::Base
   end  
   
   def user_is_pi?
-    (current_user && current_user.pi?)
-  end  
+    (current_company && current_company.pi?)
+  end
+  
+  def user_is_employee?    
+    (current_user && current_user.employee?)
+  end
   
   protected
 
@@ -89,7 +96,7 @@ class ApplicationController < ActionController::Base
     if current_user.admin
       @case = Case.find_by_id(params[param]) || redirect_to(cases_path)
     else    
-      @case = current_user.find_case_by_id(params[param]) || redirect_to(cases_path)    
+      @case = current_company.find_case_by_id(params[param]) || redirect_to(cases_path)    
     end
   end
     
@@ -99,6 +106,15 @@ class ApplicationController < ActionController::Base
   
   def authorize_pi!
     redirect_to dashboard_path unless user_is_pi?
+  end
+  
+  def block_employee!
+    redirect_to dashboard_path if user_is_employee?
+  end
+  
+  # current_user or the employer
+  def current_company
+    current_user ? current_user.company : nil
   end
 
   def authorize_for( object, atts = {})

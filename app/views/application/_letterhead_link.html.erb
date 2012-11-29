@@ -1,5 +1,5 @@
-<% if current_user.letterhead %>
-  <%= link_to 'Edit Letterhead', edit_letterhead_path(current_user.letterhead) %>
+<% if current_company.letterhead %>
+  <%= link_to 'Edit Letterhead', edit_letterhead_path(current_company.letterhead) %>
 <% else %>
   <%= link_to 'Create Letterhead', new_letterhead_path %>
 <% end %>

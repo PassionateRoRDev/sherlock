@@ -4,7 +4,7 @@ class PurchasesController < ApplicationController
   before_filter :authorize_pi!  
   
   def new    
-    s = current_user.current_subscription
+    s = current_company.current_subscription
     
     if s.extra_case_price.to_i == 0
       redirect_to new_case_path
@@ -17,7 +17,7 @@ class PurchasesController < ApplicationController
   
   def create    
     amount = params[:purchase][:amount]   
-    @purchase = current_user.purchases.new(
+    @purchase = current_company.purchases.new(
       :label  => :one_time_report,
       :amount => amount
     )    

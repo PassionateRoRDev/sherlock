@@ -8,18 +8,18 @@ class CasesController < ApplicationController
   before_filter :verify_case_author!, :only => [ :edit, :update, :destroy ]
     
   def new
-    @text_snippets = current_user.text_snippets
+    @text_snippets = current_company.text_snippets
     @case = Case.new    
   end
   
   def create
     
-    @text_snippets = current_user.text_snippets
+    @text_snippets = current_company.text_snippets
     
     static_file = params[:upload] ? params[:upload]['static_file'] : nil    
     
     @case = Case.new(params[:case])
-    @case.author = current_user    
+    @case.author = current_company    
     @case.document = Document.new(
       :title          => 'Static file', 
       :uploaded_file  => static_file
@@ -52,12 +52,12 @@ class CasesController < ApplicationController
     
     @notes = @case.notes.order('id DESC').limit(5)
     
-    @text_snippets = current_user.text_snippets
+    @text_snippets = current_company.text_snippets
     
     respond_to do |format|
       #format.xml { render :xml => @case }
       format.html {
-        redirect_to :action => :preview unless current_user.pi?
+        redirect_to :action => :preview unless current_company.pi?
       }     
       format.pdf { render_pdf2(@case) }
       format.js { render :json => @case }
@@ -71,7 +71,7 @@ class CasesController < ApplicationController
       params[:case] = convert_dates(params[:case])
       params[:case] = preparse_hinted(params[:case], params[:hinted]) if params[:hinted]
       
-      @text_snippets = current_user.text_snippets
+      @text_snippets = current_company.text_snippets
             
       respond_to do |format|
         if @case.update_attributes(params[:case])
@@ -95,12 +95,12 @@ class CasesController < ApplicationController
   end
   
   def edit
-    @text_snippets = current_user.text_snippets
+    @text_snippets = current_company.text_snippets
   end
   
   def index
     
-    @folders = current_user.folders    
+    @folders = current_company.folders    
     @cases =  cases_for_user
     
   end
@@ -108,15 +108,15 @@ class CasesController < ApplicationController
   private
     
   def cases_for_user
-    if current_user.pi?
-      current_user.cases.select { |c| c.folder_id == nil }
+    if current_company.pi?
+      current_company.cases.select { |c| c.folder_id == nil }
     else
-      current_user.cases
+      current_company.cases
     end
   end
   
   def verify_case_author!    
-    is_author = (@case.author == current_user)
+    is_author = (@case.author == current_company)
     redirect_to @case unless is_author    
   end
   
@@ -128,7 +128,7 @@ class CasesController < ApplicationController
     
     report = Report.new
     report.title = the_case.title
-    report.header = current_user.letterhead
+    report.header = current_company.letterhead
     report.case = the_case    
     report.template = 'template.xhtml'        
     
@@ -182,11 +182,11 @@ class CasesController < ApplicationController
   
   def upgrade_or_purchase
     
-    @current_user = current_user
-    @plans        = current_user.plans_to_upgrade
-    @current_plan = current_user.current_plan
+    @current_user = current_company
+    @plans        = current_company.plans_to_upgrade
+    @current_plan = current_company.current_plan
     
-    @subscription = current_user.current_subscription
+    @subscription = current_company.current_subscription
     @subscription_inactive = @subscription && @subscription.is_inactive?
     
     @subscription_expired = @subscription && @subscription.is_expired?
@@ -195,7 +195,7 @@ class CasesController < ApplicationController
   end
   
   def authorize_case_create!
-    upgrade_or_purchase unless current_user.can_create_case?
+    upgrade_or_purchase unless current_company.can_create_case?
   end
   
   def convert_dates(params)    

@@ -7,7 +7,7 @@ class TextSnippetsController < ApplicationController
   # GET /text_snippets
   # GET /text_snippets.json
   def index
-    @text_snippets = current_user.text_snippets
+    @text_snippets = current_company.text_snippets
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @text_snippets }
@@ -41,12 +41,12 @@ class TextSnippetsController < ApplicationController
   # POST /text_snippets.json
   def create        
     @text_snippet = TextSnippet.new(params[:text_snippet])
-    @text_snippet.user = current_user
+    @text_snippet.user = current_company
 
     respond_to do |format|
       if @text_snippet.save
         
-        @text_snippets = current_user.text_snippets
+        @text_snippets = current_company.text_snippets
         
         format.html { redirect_to @text_snippet, notice: 'Text snippet was successfully created.' }
         format.json          

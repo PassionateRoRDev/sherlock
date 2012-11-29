@@ -21,12 +21,12 @@ class BlocksController < ApplicationController
   private
   
   def resolve_block
-    @block = current_user.blocks.find_by_id(params[:id]) || 
+    @block = current_company.blocks.find_by_id(params[:id]) || 
       redirect_to(cases_path)
   end
   
   def verify_case_author!    
-    is_author = (@block.case.author == current_user)
+    is_author = (@block.case.author == current_company)
     redirect_to @block.case unless is_author    
   end
   

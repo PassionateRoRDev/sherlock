@@ -26,7 +26,8 @@ class VideosController < ApplicationController
     params[:upload].delete('thumbnail') if params[:video][:thumbnail_method] == 'auto'      
     params[:video].delete(:thumbnail_method)
                
-    params[:upload]['video'] = TempVideo.get_upload_for_user(self.current_user) if uploaded_via_tmp?
+    params[:upload]['video'] = 
+      TempVideo.get_upload_for_user(self.current_company) if uploaded_via_tmp?
     
     video     = params[:upload]['video']
     thumbnail = params[:upload]['thumbnail']
@@ -42,7 +43,7 @@ class VideosController < ApplicationController
     
     respond_to do |format|
       if (@video.save)        
-        TempVideo.remove_for_user(current_user) if uploaded_via_tmp?        
+        TempVideo.remove_for_user(current_company) if uploaded_via_tmp?        
         format.html { redirect_to(@case, :notice => 'Video block has been added') }
       else  
         format.html { render :action => 'new' }
@@ -81,7 +82,7 @@ class VideosController < ApplicationController
     
     if uploaded_via_tmp?
       params[:upload] ||= {}
-      params[:upload]['video'] = TempVideo.get_upload_for_user(self.current_user) 
+      params[:upload]['video'] = TempVideo.get_upload_for_user(self.current_company) 
     end
     
     has_upload = params[:upload]
@@ -104,7 +105,7 @@ class VideosController < ApplicationController
             
     respond_to do |format|
       if @video.update_attributes(params[:video])                
-        TempVideo.remove_for_user(current_user) if uploaded_via_tmp?
+        TempVideo.remove_for_user(current_company) if uploaded_via_tmp?
         format.html { redirect_to(@case, :notice => 'The video has been successfully updated') }
       else
         format.html do
@@ -127,7 +128,7 @@ class VideosController < ApplicationController
   end
   
   def verify_case_author!    
-    is_author = (@case.author == current_user)
+    is_author = (@case.author == current_company)
     redirect_to @case unless is_author    
   end
   

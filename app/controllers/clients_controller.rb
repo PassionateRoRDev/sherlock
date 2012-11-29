@@ -5,12 +5,12 @@ class ClientsController < ApplicationController
   before_filter :resolve_client, :only => [:show, :edit, :update ]
   
   def index    
-    @clients = current_user.clients    
+    @clients = current_company.clients    
   end
   
   def show
     @client.user_address ||= UserAddress.new
-    @cases = current_user.cases
+    @cases = current_company.cases
   end
   
   def edit
@@ -33,7 +33,7 @@ class ClientsController < ApplicationController
   private
   
   def resolve_client
-    @client = current_user.clients.find_by_id(params[:id])
+    @client = current_company.clients.find_by_id(params[:id])
     redirect_to clients_path unless @client
   end
   

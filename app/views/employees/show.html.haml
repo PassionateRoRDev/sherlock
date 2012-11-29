@@ -13,4 +13,5 @@
   .div{:style => "float:left;width:49%;"}
     = render 'employees/basic_info'
 
-  
+.link-buttons
+  = link_to 'Edit', edit_employee_path(@employee), :class => :button

@@ -17,11 +17,11 @@ class InvitationsController < ApplicationController
   def create
     
     @invitation = Invitation.new( params[:invitation] )
-    @invitation.current_user = current_user
+    @invitation.current_user = current_company
     
     if @invitation.valid?
     
-      @invitation.current_user = current_user
+      @invitation.current_user = current_company
 
       #"#{cases_url}/#{@invitation.case.id}.pdf"      
       @invitation.url_report = report_url(@invitation.case.id)
@@ -44,7 +44,7 @@ class InvitationsController < ApplicationController
   protected
   
   def existing_clients    
-    current_user.clients.map do |c|
+    current_company.clients.map do |c|
       {
         :email      => c.email,
         :first_name => c.first_name,
@@ -55,7 +55,7 @@ class InvitationsController < ApplicationController
   
   def initialize_case!
     
-    @case = current_user.authored_cases.find_by_id(params[:case_id])
+    @case = current_company.authored_cases.find_by_id(params[:case_id])
     return redirect_to cases_path unless @case    
     
   end

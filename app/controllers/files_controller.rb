@@ -93,12 +93,12 @@ class FilesController < ApplicationController
     if current_user.admin
       Case.find_by_id params[:case_id]
     else    
-      current_user.find_case_by_id params[:case_id]
+      current_company.find_case_by_id params[:case_id]
     end
   end
   
   def resolve_owner_for_logo(filename)        
-    user = current_user    
+    user = current_company    
     logo = Logo.find_by_path(filename)        
     if user.admin      
       logo ? logo.user : nil

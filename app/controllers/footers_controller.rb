@@ -111,7 +111,7 @@ class FootersController < ApplicationController
   end    
   
   def verify_case_author!    
-    is_author = (@case.author == current_user)
+    is_author = (@case.author == current_company)
     redirect_to @case unless is_author    
   end
   

@@ -114,7 +114,7 @@ class User < ActiveRecord::Base
       return user
       
   end
-  
+    
   def setup_free_trial    
     self.subscriptions << ::Subscription.create_free_trial        
   end
@@ -122,6 +122,10 @@ class User < ActiveRecord::Base
   def plans_to_upgrade    
     s = self.current_subscription
     (s && !s.is_expired?) ? s.plans_to_upgrade : SubscriptionPlan.all_but_free
+  end
+    
+  def company
+    employer.present? ? employer : self
   end
   
   def current_subscription
@@ -246,11 +250,11 @@ class User < ActiveRecord::Base
   def self.generate_random_password(len)
     (0...len).map{ ('a'..'z').to_a[rand(26)] }.join
   end
-  
-  def cases
-    (authored_cases + viewable_cases).uniq
-  end
     
+  def cases
+    (authored_cases + viewable_cases).uniq    
+  end
+      
   def invited?
     ! self.invitation_token.blank?  
   end
@@ -270,13 +274,15 @@ class User < ActiveRecord::Base
   #
   # PI's are uses who haven't been invited OR those that have subscriptions
   # linked
+  # 
+  # Employees have also pi? set to true
   #
-  def pi?
-    (invitation_accepted_at.blank? && (!invited?)) || has_subscriptions?
+  def pi?        
+    (invitation_accepted_at.blank? && (!invited?)) || has_subscriptions?    
   end
   
   def employee?
-    !pi? and employer.present?
+    employer.present?
   end
   
   def has_subscriptions?
@@ -300,7 +306,7 @@ class User < ActiveRecord::Base
   
   def setup_free_plan_for_pi
     Rails::logger.debug 'Setup free plan for PI?'
-    setup_free_trial if pi? && Setting.has_non_cc_trial? && subscriptions.empty?      
+    setup_free_trial if pi? && (!employee?) && Setting.has_non_cc_trial? && subscriptions.empty?      
   end
       
   

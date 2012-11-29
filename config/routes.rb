@@ -11,7 +11,9 @@ Sherlock::Application.routes.draw do
   resources :letterheads
   resources :logos
   resources :clients
+  
   resources :employees
+    
   resources :folders
   resources :reports
   

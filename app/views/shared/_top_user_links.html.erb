@@ -8,7 +8,9 @@
     <%= link_to 'My Cases', cases_path %> |    
     <%= investigators_only do %>
       <%= link_to 'Clients', clients_path %> |
-      <%= link_to 'Employees', employees_path %> |
+      <%= disable_if_employee do %>
+        <%= link_to 'Employees', employees_path %> |
+      <% end %>
     <% end %>
     <%- if current_user.admin? %>
       <%= link_to 'Admin area', '/admin' %> |

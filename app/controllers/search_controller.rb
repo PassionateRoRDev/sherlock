@@ -10,11 +10,11 @@ class SearchController < ApplicationController
   private
   
   def search_cases(term)
-    current_user.find_cases(term).map { |c| case_to_result(c) }    
+    current_company.find_cases(term).map { |c| case_to_result(c) }    
   end
   
   def search_folders(term)
-    current_user.find_folders(term).map { |f| folder_to_result f }                  
+    current_company.find_folders(term).map { |f| folder_to_result f }                  
   end
   
   def folder_to_result(f)

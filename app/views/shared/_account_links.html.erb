@@ -1,13 +1,17 @@
 <div class="head">
   <%= investigators_only do %>
-    <div class="headtxt link-account">
-      <%= link_to 'Account', account_path, :title => 'Account Settings' %>
-    </div>
+    <%= disable_if_employee do %>
+      <div class="headtxt link-account">
+        <%= link_to 'Account', account_path, :title => 'Account Settings' %>
+      </div>
+    <% end %>
   <% end %>
   <div class="head-account-links">
     <%= investigators_only do %>
-      <a class="settings" href="<%= account_path %>" 
-         title="Account Settings">Settings</a>
+      <%= disable_if_employee do %>
+        <a class="settings" href="<%= account_path %>" 
+           title="Account Settings">Settings</a>
+      <% end %>
     <% end %>
     <a class="help" href="<%= help_path %>" title="Help">Help</a>
   </div>
