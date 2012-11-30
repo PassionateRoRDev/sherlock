@@ -29,7 +29,7 @@
         %td{:style => "text-align:center;"}
           = print_date_or employee.last_sign_in_at, 'never'
         %td.center
-          = employee.employee_info.active
+          = employee.employee_info.active ? 'yes' : 'no'
 
  
 .link-buttons
