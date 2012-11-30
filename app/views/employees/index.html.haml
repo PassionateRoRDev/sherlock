@@ -14,6 +14,7 @@
         %th Last Name
         %th Phone
         %th.center{:style => 'width:13em;'} Last Signed On        
+        %th.center Active
     %tbody      
     - @employees.each do |employee|
       %tr{:class => cycle("even", "odd")}      
@@ -27,6 +28,8 @@
           = print_or employee.phone        
         %td{:style => "text-align:center;"}
           = print_date_or employee.last_sign_in_at, 'never'
+        %td.center
+          = employee.employee_info.active
 
  
 .link-buttons

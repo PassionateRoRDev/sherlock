@@ -42,12 +42,28 @@ class EmployeesController < ApplicationController
     
     data = params[:user] || {}
     address = data[:user_address_attributes] || {}
+    info = data[:employee_info_attributes] || {}
+        
+    pp 'info:'
+    pp info
     
+    @employee.email = data[:email]
     @employee.first_name = data[:first_name]
     @employee.last_name = data[:last_name]
     @employee.user_address || @employee.build_user_address
     
+    @employee.employee_info.active = (info[:active].to_i == 1)
+    
     @employee.user_address.phone = address[:phone]
+    
+    if data[:password].present?
+      @employee.password = data[:password]
+      @employee.password_confirmation = data[:password_confirmation]
+      
+      pp @employee
+      
+    end
+    
          
     if @employee.save      
       redirect_to employee_path(@employee), :notice => 'Employee info has been updated'

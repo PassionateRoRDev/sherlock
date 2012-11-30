@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121127185157) do
+ActiveRecord::Schema.define(:version => 20121130072509) do
 
   create_table "blocked_ips", :force => true do |t|
     t.string   "ip",         :null => false
@@ -310,8 +310,9 @@ ActiveRecord::Schema.define(:version => 20121127185157) do
   create_table "user_employees", :force => true do |t|
     t.integer  "user_id"
     t.integer  "employee_id"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+    t.boolean  "active",      :default => true, :null => false
   end
 
   add_index "user_employees", ["user_id", "employee_id"], :name => "index_user_employees_on_user_id_and_employee_id", :unique => true

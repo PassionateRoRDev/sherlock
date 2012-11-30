@@ -23,10 +23,14 @@ class User < ActiveRecord::Base
   has_many :sent_emails
   
   has_many :user_clients
-  has_many :clients, :through => :user_clients  
-  
+  has_many :clients, :through => :user_clients
+      
   has_many :user_employees
-  has_many :employees, :through => :user_employees  
+  has_many :employees, :through => :user_employees    
+  
+  has_one :employee_info, :foreign_key => 'employee_id', :class_name => 'UserEmployee'
+  
+  accepts_nested_attributes_for :employee_info
   
   has_and_belongs_to_many :employers, 
                           :join_table => 'user_employees', 
@@ -295,6 +299,14 @@ class User < ActiveRecord::Base
       object.viewers.include?( self ) || object.author == self
     else
       false
+    end
+  end 
+  
+  def active_for_authentication? 
+    if employee?
+      employee_info.active && super
+    else
+      super
     end
   end 
   
