@@ -3,13 +3,15 @@ class HomeController < ApplicationController
   before_filter :authenticate_user!, :only => [:dashboard]
   before_filter :check_public_section, :except => [:dashboard]
   
+  layout "public"
+  
   def index    
     @title = 'SherlockDocs'
     #render :layout => 'public'
     
     @email = CapturedEmail.new
     
-    render 'landing', :layout => false
+    render 'landing'
   end
   
   def contact
