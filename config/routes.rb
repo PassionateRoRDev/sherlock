@@ -83,6 +83,7 @@ Sherlock::Application.routes.draw do
   get 'contact'   => 'home#contact',    :as => :contact
   get 'tos'       => 'home#tos',        :as => :tos
   get 'privacy'   => 'home#privacy',    :as => :privacy
+  get 'how_it_works' => 'home#how_it_works', :as => :how_it_works
   
   resources :blocks
   
