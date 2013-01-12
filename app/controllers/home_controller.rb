@@ -44,6 +44,10 @@ class HomeController < ApplicationController
     render 'customers', :layout => 'public'
   end
   
+  def how_it_works
+    
+  end
+  
   def dashboard
     #@cases = current_user.cases
     redirect_to cases_path
