@@ -5,11 +5,11 @@ body {
   font-size: 12px; }
   body a {
     text-decoration: none;
-    color: #fff;
+    color: #f16600;
     font-weight: normal; }
     body a:hover {
       text-decoration: none;
-      color: #006897; }
+      color: #ff6600; }
   body h1, body h2, body h3, body h4, body h5, body h6 {
     font-weight: normal;
     text-align: center;
@@ -277,9 +277,9 @@ body {
       height: 510px;
       background: #fff;
       padding: 30px 20px 0;
-      -moz-box-shadow: 1px 1px 1px 1px #d8d6ce;
-      -webkit-box-shadow: 1px 1px 1px 1px #d8d6ce;
-      box-shadow: 1px 1px 1px 1px #d8d6ce; }
+      -moz-box-shadow: 0px 0px 7px #d8d6ce;
+      -webkit-box-shadow: 0px 0px 7px #d8d6ce;
+      box-shadow: 0px 0px 7px #d8d6ce; }
       #content #security .section .info h4 {
         font-family: Georgia, Times, "Times New Roman", serif;
         font-size: 18px;
@@ -344,6 +344,248 @@ body {
       font-size: 12px;
       text-align: center;
       color: #928b7b; }
+  #content #tutorial_vids .image_preview {
+    margin-top: 10px;
+    padding: 10px;
+    display: block;
+    background: #fff;
+    -moz-box-shadow: 0px 0px 7px #d8d6ce;
+    -webkit-box-shadow: 0px 0px 7px #d8d6ce;
+    box-shadow: 0px 0px 7px #d8d6ce;
+    margin-bottom: 20px;
+    position: relative; }
+    #content #tutorial_vids .image_preview img {
+      z-index: 1; }
+    #content #tutorial_vids .image_preview .play {
+      display: block;
+      z-index: 2;
+      position: absolute;
+      top: 75px;
+      left: 120px;
+      bottom: center;
+      background: url("../images/video_play.png") left top;
+      width: 61px;
+      height: 61px;
+      text-indent: -9999px; }
+    #content #tutorial_vids .image_preview:hover {
+      background: #e6e3da;
+      -moz-box-shadow: 0px 0px 7px #969084;
+      -webkit-box-shadow: 0px 0px 7px #969084;
+      box-shadow: 0px 0px 7px #969084; }
+      #content #tutorial_vids .image_preview:hover .play {
+        background: url("../images/video_play.png") right top; }
+  #content #tutorial_vids .title {
+    font-family: Georgia, Times, "Times New Roman", serif;
+    display: block;
+    font-size: 14px;
+    color: #3a211a;
+    text-transform: uppercase;
+    text-align: center;
+    letter-spacing: 1px;
+    margin-bottom: 10px; }
+    #content #tutorial_vids .title:hover {
+      color: #f16600; }
+  #content #tutorial_vids p {
+    font-size: 14px;
+    color: #624942;
+    line-height: 22px;
+    margin-bottom: 60px; }
+  #content #pricing #plans {
+    display: block;
+    width: 940px;
+    margin-left: 10px;
+    background: url("../images/pricing_body.jpg") repeat-y center center;
+    -moz-box-shadow: 0px 0px 7px #b8b4ab;
+    -webkit-box-shadow: 0px 0px 7px #b8b4ab;
+    box-shadow: 0px 0px 7px #b8b4ab;
+    border: 1px solid #dcd9d2; }
+    #content #pricing #plans .unit, #content #pricing #plans .lastUnit {
+      width: 168px;
+      padding: 10px; }
+    #content #pricing #plans .headings {
+      background: url("../images/pricing_headings.jpg") repeat-y center center; }
+      #content #pricing #plans .headings .unit h3, #content #pricing #plans .headings .lastUnit h3 {
+        font-size: 18px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: #fff2cf;
+        margin-bottom: 2px; }
+      #content #pricing #plans .headings .unit h4, #content #pricing #plans .headings .lastUnit h4 {
+        font-family: Georgia, Times, "Times New Roman", serif;
+        font-size: 14px;
+        line-height: 14px;
+        color: #8e7861;
+        margin-bottom: 5px; }
+        #content #pricing #plans .headings .unit h4 strong, #content #pricing #plans .headings .lastUnit h4 strong {
+          font-size: 20px;
+          line-height: 14px;
+          font-weight: normal;
+          color: #fff; }
+      #content #pricing #plans .headings .unit .popular, #content #pricing #plans .headings .lastUnit .popular {
+        color: #ebab7b; }
+    #content #pricing #plans .data .unit, #content #pricing #plans .data .lastUnit {
+      padding: 0 11px 0 9px; }
+    #content #pricing #plans .data ul li {
+      padding: 10px 0;
+      border-top: 1px solid #ece9e3;
+      text-align: center; }
+      #content #pricing #plans .data ul li strong {
+        font-size: 20px;
+        color: #5b3a31; }
+      #content #pricing #plans .data ul li .item {
+        font-size: 14px;
+        color: #957b73;
+        display: block; }
+      #content #pricing #plans .data ul li em {
+        font-size: 11px;
+        color: #9b7f77;
+        display: block; }
+    #content #pricing #plans .data ul .reports {
+      border: 0; }
+      #content #pricing #plans .data ul .reports strong {
+        font-size: 22px; }
+      #content #pricing #plans .data ul .reports .item {
+        font-size: 16px; }
+    #content #pricing #plans .data ul .reports_big {
+      padding: 14px 0 13px; }
+      #content #pricing #plans .data ul .reports_big strong {
+        font-size: 26px; }
+      #content #pricing #plans .data ul .reports_big .item {
+        font-size: 18px; }
+  #content #pricing .huge_signup {
+    margin-bottom: 40px; }
+    #content #pricing .huge_signup strong {
+      display: block;
+      text-align: center;
+      font-size: 16px;
+      margin-top: 20px;
+      color: #5b433d; }
+    #content #pricing .huge_signup em {
+      display: block;
+      text-align: center;
+      font-size: 12px;
+      color: #755e57; }
+  #content #pricing .img_authorize {
+    margin: 0 auto;
+    display: block;
+    width: 90px;
+    margin-bottom: 40px; }
+  #content #faq ul {
+    margin-bottom: 60px; }
+    #content #faq ul li {
+      padding: 20px; }
+      #content #faq ul li .number {
+        background: url("../images/numbers_circle.png") no-repeat;
+        display: block;
+        width: 28px;
+        text-align: center;
+        color: #fff;
+        font-size: 16px;
+        font-weight: bold;
+        padding-top: 2px;
+        height: 28px;
+        margin-right: 15px; }
+      #content #faq ul li .question {
+        font-size: 20px;
+        display: block;
+        margin-bottom: 10px; }
+      #content #faq ul li p {
+        margin-left: 45px;
+        font-size: 14px;
+        color: #514135;
+        margin-bottom: 5px; }
+    #content #faq ul .odd {
+      background: url("../images/testimonials_bg.jpg"); }
+  #content #contact h3 {
+    font-size: 24px;
+    text-align: left;
+    text-transform: uppercase;
+    letter-spacing: 2px; }
+  #content #contact .form_element {
+    padding-bottom: 20px; }
+    #content #contact .form_element .text {
+      background: #dfd9c8;
+      display: block;
+      border: 1px solid #c7bfaa;
+      padding: 10px 5px;
+      font-size: 14px;
+      width: 528px;
+      color: #3b2822; }
+    #content #contact .form_element .text_small {
+      width: 248px; }
+    #content #contact .form_element label {
+      display: block;
+      color: #784e42;
+      font-size: 16px;
+      font-weight: bold;
+      padding-bottom: 10px; }
+    #content #contact .form_element textarea {
+      background: #dfd9c8;
+      display: block;
+      border: 1px solid #c7bfaa;
+      padding: 10px 5px;
+      font-size: 16px;
+      width: 528px;
+      height: 180px;
+      color: #3b2822; }
+    #content #contact .form_element .button {
+      margin-bottom: 60px;
+      font-family: Georgia, Times, "Times New Roman", serif;
+      font-size: 18px;
+      text-indent: 2px;
+      color: #fff;
+      background: #e27524 url("../images/button_bg.png");
+      display: block;
+      width: 250px;
+      border: 1px solid #c16112;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      text-align: center;
+      padding: 15px 0;
+      cursor: pointer; }
+      #content #contact .form_element .button:hover {
+        background: #e27524 url("../images/button_bg.png") left -58px;
+        color: #fff;
+        border: 1px solid #c15100; }
+  #content #contact #sidebar {
+    background: url("../images/sidebar_divider.png") no-repeat left center;
+    padding-left: 20px;
+    font-family: Georgia, Times, "Times New Roman", serif; }
+    #content #contact #sidebar h4 {
+      text-align: left;
+      font-size: 18px;
+      text-transform: uppercase;
+      overflow: hidden;
+      color: #23110b;
+      margin-bottom: 10px; }
+      #content #contact #sidebar h4 span {
+        display: block;
+        float: left;
+        margin-right: 10px; }
+      #content #contact #sidebar h4 .icon {
+        width: 26px;
+        height: 23px; }
+    #content #contact #sidebar .home .icon {
+      background: url("../images/contact_icons.png") no-repeat 2px top; }
+    #content #contact #sidebar .phone .icon {
+      background: url("../images/contact_icons.png") no-repeat -34px top; }
+    #content #contact #sidebar .mail .icon {
+      background: url("../images/contact_icons.png") no-repeat right 2px; }
+    #content #contact #sidebar p {
+      font-size: 22px;
+      color: #74513a;
+      margin-bottom: 40px; }
+      #content #contact #sidebar p span {
+        color: #aa9689; }
+    #content #contact #sidebar .address {
+      font-size: 28px;
+      font-style: italic;
+      line-height: 34px; }
+      #content #contact #sidebar .address em {
+        font-size: 34px;
+        color: #f16600;
+        font-style: normal;
+        display: block; }
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ LETTER ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
@@ -439,6 +681,41 @@ body {
     border-left: 1px solid #f1bf9d;
     padding: 15px 0; }
 
+.small_button {
+  font-family: Georgia, Times, "Times New Roman", serif;
+  font-size: 14px;
+  color: #fff;
+  background: #e27524 url("../images/button_bg.png");
+  display: block;
+  margin: 0 auto;
+  width: 166px;
+  border: 1px solid #c16112;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-align: center; }
+  .small_button:hover {
+    background: #e27524 url("../images/button_bg.png") left -58px;
+    color: #fff;
+    border: 1px solid #c15100; }
+    .small_button:hover span {
+      border-left: 1px solid #ffa263; }
+  .small_button span {
+    display: block;
+    border-left: 1px solid #f1bf9d;
+    padding: 5px 0;
+    color: #fff; }
+
+.small_button_brown {
+  background: #e27524 url("../images/button_brown_bg.png");
+  border: 1px solid #8b6950; }
+  .small_button_brown:hover {
+    background: #e27524 url("../images/button_brown_bg.png") left -38px;
+    border: 1px solid #74533a; }
+    .small_button_brown:hover span {
+      border-left: 1px solid #cdb9aa; }
+  .small_button_brown span {
+    border-left: 1px solid #b99d88; }
+
 .fancy_list li {
   padding: 0 0 0 25px;
   margin-bottom: 5px;
@@ -447,37 +724,38 @@ body {
   .fancy_list li strong {
     color: #4d3832; }
 
-#content {
+.letter_bg {
   background: url("../images/lined_paper_torn.png") repeat-x left bottom; }
-  #content .hr {
-    border: 0;
-    background: url("../images/hr.png") no-repeat;
-    width: 940px;
-    height: 28px;
-    display: block;
-    margin: 0 auto;
-    margin-top: 30px;
-    margin-bottom: 20px; }
-  #content .numbered_list .number {
-    float: left;
-    background: url("../images/numbers_circle.png") no-repeat;
-    width: 28px;
-    height: 22px;
-    text-align: center;
-    font-size: 16px;
-    line-height: 16px;
-    font-weight: bold;
-    color: #fff;
-    display: block;
-    padding-top: 6px;
-    margin-right: 5px; }
-  #content .numbered_list .small_text p {
-    padding: 6px 0 0 0;
-    font-size: 13px;
-    margin: 0 0 10px 0; }
-  #content .numbered_list .fancy_list li {
-    font-size: 11px;
-    background: url("../images/list_bullet.png") no-repeat left 3px; }
+
+#content .hr {
+  border: 0;
+  background: url("../images/hr.png") no-repeat;
+  width: 940px;
+  height: 28px;
+  display: block;
+  margin: 0 auto;
+  margin-top: 30px;
+  margin-bottom: 20px; }
+#content .numbered_list .number {
+  float: left;
+  background: url("../images/numbers_circle.png") no-repeat;
+  width: 28px;
+  height: 22px;
+  text-align: center;
+  font-size: 16px;
+  line-height: 16px;
+  font-weight: bold;
+  color: #fff;
+  display: block;
+  padding-top: 6px;
+  margin-right: 5px; }
+#content .numbered_list .small_text p {
+  padding: 6px 0 0 0;
+  font-size: 13px;
+  margin: 0 0 10px 0; }
+#content .numbered_list .fancy_list li {
+  font-size: 11px;
+  background: url("../images/list_bullet.png") no-repeat left 3px; }
 
 /* Clearing and Units */
 .clear {
@@ -549,6 +827,9 @@ html > body .clearfix {
 
 .padding20b {
   padding-bottom: 20px; }
+
+.padding20l {
+  padding-left: 20px; }
 
 .padding0t {
   padding-top: 0; }

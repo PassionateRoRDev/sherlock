@@ -1,7 +1,5 @@
 <% content_for :head do %>
-  <%= render 'zopim_chat' %>
   <link rel="stylesheet" href="/stylesheets/jplayer.pink.flag.css" type="text/css" media="screen"/>
-  <%= render 'sharethis_init' %>
 <% end %>
 
 
@@ -20,7 +18,7 @@
       <div class="torn_paper"></div>
     </div>
     
-    <div id="content" class="line">
+    <div id="content" class="line letter_bg">
       <div class="container_12">
         
         <div id="video_features" class="line">
@@ -44,7 +42,7 @@
           </div>
           
           <div class="huge_signup line padding30t">
-            <a href="" class="huge_button"><span>Create your first case now</span></a>
+            <a href="<%= new_user_registration_path %>" class="huge_button"><span>Create your first case now</span></a>
             
             <em>Free report <strong>"Definitive Guide to Report Writing for PI's"</strong></em>
             <em>30 day free trial - no CC</em>
@@ -324,7 +322,7 @@
                 
               </div>
               
-              <a href="" class="big_button"><span>Create your first case now</span></a>
+              <a href="<%= new_user_registration_path %>" class="big_button"><span>Create your first case now</span></a>
             </div>
           </div>
           
@@ -398,7 +396,7 @@
             
             <div class="grid_5">
               <div class="icon_100">100% Satisfaction Guaranteed</div>
-              <a href="" class="big_button"><span>View Plans and Pricing</span></a>
+              <a href="<%= pricing_path %>" class="big_button"><span>View Plans and Pricing</span></a>
               <p class="small_trial">30 Day FREE Trial on All Accounts.</p>
             </div>
           </div>
@@ -488,7 +486,7 @@
           
           <p class="strong">Simply click on the “Create My First Case” Button and Get Ready to Finally Start Saving Time, <br/>Growing Your Business, and Take Advantage of Your 30 Day Trial of Sherlock Docs Today</p>
           
-          <a href="" class="huge_button"><span>Create your first case now</span></a>
+          <a href="<%= new_user_registration_path %>" class="huge_button"><span>Create your first case now</span></a>
           
           
           <div class="testimonials">

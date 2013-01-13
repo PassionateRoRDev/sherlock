@@ -1,167 +1,297 @@
 
 <% content_for :head do %>
   <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW"/>
-  <link href="/public/css/pricing.css" rel="stylesheet" type="text/css" />
-  
-  <%= render 'zopim_chat' %>
-  
 <% end %>
 
 
-<div id="pricing">
-    <div class="plansbox" style="position:relative;">
-      <div style="position:absolute;left:80px;top:20px;">
-        <%= render 'authorize_net' %>
-      </div>      
-      <div class="pricing-txt">CheckOut SherlockDocs Plans &amp; Pricing<br />
-          <font style="color:#64881e;">
-        <% if Setting.has_non_cc_trial? %>
-          <%= link_to Setting.trial_days.to_s + '-day Free Trial - 3 reports, no credit card required',
-              new_user_registration_path,
-              :title => 'Free Trial - 3 reports, no credit card required' %>  
-        <% else %>
-          30-day Free Trial on All Accounts.
-        <% end %>
-        </font>
-      </div>
-      <div class="pricing-txt3">Create Your Reports in Half the Time</div>      
-    </div>
-    <div class="plansbox">    
-      <div class="plan-labels">
-        <div class="topbox-intro">
-          <div class="topbox-head">&nbsp;</div>
-          <div class="topbox-txt2">Monthly Price</div>
+    <div id="torn_paper_header" class="line">
+      <div class="container_12">
+        <div class="grid_12">
+          <h1>
+            CheckOut <em>SherlockDocs</em> Plans &amp; Pricing
+          </h1>
+          
+          <p>Create Your Reports in Half the Time. Users have access to their reports forever.</p>
         </div>
-        <div class="box-intro"># Reports/month included</div>
-        <div class="box-intro">Price/report for additional reports</div>
-        <div class="box-intro">Storage</div>
-        <div class="box-intro"># clients per months</div>
-        <div class="box-intro"># reports to consider upgrade</div>
       </div>
-      <div class="plan-one">
-        <div class="topbox">
-          <div class="topbox-head">Corporate</div>
-          <div class="topbox-txt">$99<br />
-            (per month)</div>
-        </div>
-        <div class="box-in2">60</div>
-        <div class="box-in2">$1</div>
-        <div class="box-in2">25 GB</div>
-        <div class="box-in2">unlimited</div>
-        <div class="box-in2">&nbsp;</div>
-        <div class="choose-plan"><a class="fl"
-        rel="nofollow"
-        href="<%= @url_plan3 %>"><img src="/public/images/chosse-plan.jpg" width="150" height="43" alt="" border="0" /></a></div>
-      </div>
-      <div class="plan-one">
-        <div class="topbox">
-          <div class="topbox-head">Company</div>
-          <div class="topbox-txt">$59<br />
-            (per month)</div>
-        </div>
-        <div class="box-in2">30</div>
-        <div class="box-in2">$2</div>
-        <div class="box-in2">12 GB</div>
-        <div class="box-in2">250</div>
-        <div class="box-in2">43</div>
-        <div class="choose-plan"><a class="fl"
-        rel="nofollow"
-        href="<%= @url_plan4 %>"><img src="/public/images/chosse-plan.jpg" width="150" height="43" alt="" border="0" /></a></div>
-      </div> 
-      <div class="plan-one">
-        <div class="topbox2">
-          <div class="topbox-head">Agency</div>
-          <div class="topbox-txt">$29<br />
-            (per month)</div>
-        </div>
-        <div class="box-in">12</div>
-        <div class="box-in">$3</div>
-        <div class="box-in">5 GB</div>
-        <div class="box-in">100</div>
-        <div class="box-in">21</div>
-        <div class="choose-plan"><a class="fl"
-        rel="nofollow"
-        href="<%= @url_plan2 %>"><img src="/public/images/chosse-plan1.jpg" width="150" height="43" alt="" border="0" /></a></div>
-      </div>
-      <div class="plan-one">
-        <div class="topbox">
-          <div class="topbox-head">Independent</div>
-          <div class="topbox-txt">$9<br />
-            (per month)</div>
-        </div>
-        <div class="box-in">3</div>
-        <div class="box-in">$4</div>
-        <div class="box-in">2 GB</div>
-        <!--
-        <div class="box-in">1</div>
-        -->
-        <div class="box-in">15</div>
-        <div class="box-in">7</div>
-        <div class="choose-plan"><a class="fl"
-        rel="nofollow"
-        href="<%= @url_plan1 %>"><img src="/public/images/chosse-plan.jpg" 
-                      width="150" height="43" alt="" border="0" /></a></div>
-      </div>
-    </div>
-  
-    <div class="plansbox">  
-  
-      <div class="pricing-txt1">Users have access to their reports for as long your account is active +90 days</div>
-      <div class="pricing-txt2">
-        <a style="color:#64881e; font-size:33px;" 
-           title="Free Trial - 3 reports, no credit card required"
-           href="<%= new_user_registration_path %>">Sign up in 60 seconds.</a><br />
-      Upgrade, downgrade, or cancel anytime.</div>
+      
+      <div class="torn_paper"></div>
     </div>
     
-</div>
-<div class="clr"></div>
-<div id="midbox">
-  <!--<div class="midbox"> SherlockDocs is so simple that you can't do anything wrong.<br />
-    SherlockDocs is addictively easy-to-use. </div>-->
-  <div class="midwrapper">
-    <div class="contract-btn">
-      <a href="<%= new_user_registration_path %>"
-         title="Free Trial - 3 reports, no credit card required">
-        <img src="/public/images/contract-btn.jpg"
-           style="border: 0;"
-           width="247" height="34" /></a><br />
-      <a class="txt" href="#">SherlockDocs starts at $9/month</a> </div>
-    <div class="inbox">
-      
-        <% if Setting.has_non_cc_trial? %>
-          <div class="question-part">How does the <%= Setting.trial_days %>-day free trial work?</div>
-          <div class="answer-part">
-            You can create 3 free reports and share them with your clients. 
-            Once you try to create a fourth report you will be redirected 
-            to a sign up page to choose a plan. No obligation required 
-            to try this service out.</div>
-      
-        <% else %>
-          <div class="question-part">How does the 30-day free trial work?</div>
-          <div class="answer-part">
-          Simply sign up and create reports within your plan. 
-          Experiment with the reports for 30 days - change them, play with them, 
-          see what they can do.</div>
-        <% end %>
+    <div id="content" class="line">
+      <div class="container_12">
         
-        <div class="question-part">Do I get a 30-day free trial if I upgrade?</div>
-        <div class="answer-part">No. </div>
-        <div class="question-part">Can I change plans at any time?</div>
-        <div class="answer-part">Yes, Change plans anytime - upgrade to the $29/month or $99/month plan or down grade to $9/month. </div>
-        <div class="question-part">Do I have to sign a long term contract?</div>
-        <div class="answer-part">No long term requirements are ever required.</div>
-        <div class="question-part">Are there per-user fees?</div>
-        <div class="answer-part">No per user fees. Have as many people in your office use this report as you want. However, only one logon per office is allowed.</div>
-        <div class="question-part">What types of payment do you accept?</div>
-        <div class="answer-part">We accept all major credit cards.</div>
+        <div id="pricing" class="line">
+        
+           <div id="plans">
+            <div class="headings clearfix">
+              <div class="unit">
+                <h3>Corporate</h3>
+                <h4><strong>$99</strong>/month</h4>
+              </div>
+              <div class="unit">
+                <h3>Company</h3>
+                <h4><strong>$59</strong>/month</h4>
+              </div>
+              <div class="unit">
+                <h3>Agency</h3>
+                <h4 class="popular"><strong>$29</strong>/month</h4>
+              </div>
+              <div class="unit">
+                <h3>Independent</h3>
+                <h4><strong>$14</strong>/month</h4>
+              </div>
+              <div class="lastUnit">
+                <h3>Pay as you Go</h3>
+                <h4><strong>$3</strong>/month</h4>
+              </div>
+            </div>
+            
+            <div class="data clearfix">
+            
+              <div class="unit">
+                <ul>
+                  <li class="reports reports_big">
+                    <strong>60</strong>
+                    <span class="item">reports/month</span>
+                  </li>
+                  <li>
+                    <strong>$1</strong>
+                    <span class="item">per additional report</span>
+                  </li>
+                  <li>
+                    <strong>25GB</strong>
+                    <span class="item">storage</span>
+                  </li>
+                  <li>
+                    <strong>unlimited</strong>
+                    <span class="item">clients, users and <br />PDF report uploads</span>
+                  </li>
+                  
+                  <li class="border0">
+                    <a rel="nofollow" href="<%= @url_plan3 %>" class="small_button small_button_brown"><span>Choose</span></a>
+                  </li>
+                </ul>
+              </div>
+              
+              <div class="unit">
+                <ul>
+                  <li class="reports">
+                    <strong>30</strong>
+                    <span class="item">reports/month</span>
+                    <em>43 reports to consider upgrade</em>
+                  </li>
+                  <li>
+                    <strong>$2</strong>
+                    <span class="item">per additional report</span>
+                  </li>
+                  <li>
+                    <strong>12GB</strong>
+                    <span class="item">storage</span>
+                  </li>
+                  <li>
+                    <strong>unlimited</strong>
+                    <span class="item">clients, users and <br />PDF report uploads</span>
+                  </li>
+                  
+                  <li class="border0">
+                    <a rel="nofollow" href="<%= @url_plan4 %>"  class="small_button small_button_brown"><span>Choose</span></a>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="unit">
+                <ul>
+                  <li class="reports">
+                    <strong>12</strong>
+                    <span class="item">reports/month</span>
+                    <em>21 reports to consider upgrade</em>
+                  </li>
+                  <li>
+                    <strong>$3</strong>
+                    <span class="item">per additional report</span>
+                  </li>
+                  <li>
+                    <strong>5GB</strong>
+                    <span class="item">storage</span>
+                  </li>
+                  <li>
+                    <strong>unlimited</strong>
+                    <span class="item">clients, users and <br />PDF report uploads</span>
+                  </li>
+                  
+                  <li class="border0">
+                    <a rel="nofollow" href="<%= @url_plan2 %>" class="small_button"><span>Choose</span></a>
+                  </li>
+                </ul>
+              </div>
+              
+              <div class="unit">
+                <ul>
+                  <li class="reports">
+                    <strong>5</strong>
+                    <span class="item">reports/month</span>
+                    <em>9 reports to consider upgrade</em>
+                  </li>
+                  <li>
+                    <strong>$4</strong>
+                    <span class="item">per additional report</span>
+                  </li>
+                  <li>
+                    <strong>2GB</strong>
+                    <span class="item">storage</span>
+                  </li>
+                  <li>
+                    <strong>unlimited</strong>
+                    <span class="item">clients, users and <br />PDF report uploads</span>
+                  </li>
+                  
+                  <li class="border0">
+                    <a rel="nofollow" href="<%= @url_plan1 %>"  class="small_button small_button_brown"><span>Choose</span></a>
+                  </li>
+                </ul>
+              </div>
+              
+              <div class="unit">
+                <ul>
+                  <li class="reports reports_big">
+                    <strong>No</strong>
+                    <span class="item">reports included</span>
+                  </li>
+                  <li>
+                    <strong>$5</strong>
+                    <span class="item">per additional report</span>
+                  </li>
+                  <li>
+                    <strong>1GB</strong>
+                    <span class="item">storage</span>
+                  </li>
+                  <li>
+                    <strong>unlimited</strong>
+                    <span class="item">clients, users and <br />PDF report uploads</span>
+                  </li>
+                  
+                  <li class="border0">
+                    <a href="" class="small_button small_button_brown"><span>Choose</span></a>
+                  </li>
+                </ul>
+              </div>
+              
+            </div>
+           </div>
+         
+          <div class="huge_signup line padding30t">
+            <a href="<%= new_user_registration_path %>" class="huge_button"><span>Create your first case now</span></a>
+            
+            <strong>30-day Free Trial - 3 reports, no credit card required.</strong>
+            <em>Upgrade, downgrade, or cancel anytime. No long term contracts.</em>
+          </div>
+
+          
+          <div class="img_authorize">
+            <%= render 'authorize_net' %>
+          </div>
+
+          <div class="hr"></div>
+          
+        </div>
+        
+        <div id="faq" class="line">
+          <h2>Frequently Asked Questions</h2>
+          
+          <ul>
+            <li class="odd">
+              <div class="line">
+                <div class="unit">
+                  <span class="number">1</span>
+                </div>
+                <div class="lastUnit">
+                  <strong class="question">How does the 30-day free trial work?</strong>
+                </div>
+                
+                <p>You can create 3 free reports and share them with your clients. Once you try to create a fourth report you will be redirected to a sign up page to choose a plan. No obligation required to try this service out.</p>
+              </div>
+            </li>
+            <li>
+              <div class="line">
+                <div class="unit">
+                  <span class="number">2</span>
+                </div>
+                <div class="lastUnit">
+                  <strong class="question">Do I get a 30-day free trial if I upgrade?</strong>
+                </div>
+                
+                <p>No.</p>
+              </div>
+            </li>
+            <li class="odd">
+              <div class="line">
+                <div class="unit">
+                  <span class="number">3</span>
+                </div>
+                <div class="lastUnit">
+                  <strong class="question">Can I change plans at any time?</strong>
+                </div>
+                
+                <p>Yes, Change plans anytime - upgrade to the $29/month or $99/month plan or down grade to $14/month. </p>
+              </div>
+            </li>
+            <li>
+              <div class="line">
+                <div class="unit">
+                  <span class="number">4</span>
+                </div>
+                <div class="lastUnit">
+                  <strong class="question">Do I have to sign a long term contract?</strong>
+                </div>
+                
+                <p>No long term requirements are ever required.</p>
+              </div>
+            </li>
+            <li class="odd">
+              <div class="line">
+                <div class="unit">
+                  <span class="number">5</span>
+                </div>
+                <div class="lastUnit">
+                  <strong class="question">Are there per-user fees?</strong>
+                </div>
+                
+                <p>No per user fees. Have as many people in your office use this report as you want. However, only one logon per office is allowed.</p>
+              </div>
+            </li>
+            <li>
+              <div class="line">
+                <div class="unit">
+                  <span class="number">6</span>
+                </div>
+                <div class="lastUnit">
+                  <strong class="question">What types of payment do you accept?</strong>
+                </div>
+                
+                <p>We accept all major credit cards.</p>
+              </div>
+            </li>
+            <li class="odd">
+              <div class="line">
+                <div class="unit">
+                  <span class="number">7</span>
+                </div>
+                <div class="lastUnit">
+                  <strong class="question">How long will my clients have access to their reports?</strong>
+                </div>
+                
+                <p>Unless you delete the report, your clients always will have access to their reports - we will not delete the report even if you cancel your account.</p>
+              </div>
+            </li>
+          </ul>
+          
+          
+        </div>
       
+      </div>
+    
     </div>
-    <div class="bottomtxt">SherlockDocs focus on <font style="color:#e75c0d;">simplicity,</font> <font style="color:#67911c;">clarity,</font> and <font style="color:#2670b0;">ease of use</font> make it truly unique.<br />
-      You’ll love using SherlockDocs.</div>
-  </div>
-</div>
-<div class="clr"></div>
 
 <%= kissmetrics_track do %>
 <script type="text/javascript">  

@@ -6,15 +6,18 @@ class ContactMessagesController < ApplicationController
     :email      => 'Email Address',
     :message    => 'Message'
   }
+
+  layout "public"
   
   def new
     @title = 'Contact'    
     @contact_message = ContactMessage.new    
-    render 'new', :layout => false
+    @active_navlink = "contact"
+    render 'new'
   end
   
   def create
-    
+    @active_navlink = "contact"
     message = params[:contact_message]
     DEFAULT_VALUES.each_pair do |key, value|       
       message.delete(key) if message[key] == value      
@@ -26,7 +29,7 @@ class ContactMessagesController < ApplicationController
       redirect_to new_contact_message_path, 
                   :notice => 'Your message was successfully sent'
     else      
-      render 'new', :layout => false
+      render 'new'
     end
     
   end

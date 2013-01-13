@@ -4,6 +4,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <%= render 'optimizely' %>
     <%= render 'kissmetrics' %>
+    <%= render 'zopim_chat' %>
+    <%= render 'sharethis_init' %>
     <title>SherlockDocs - Report Writing Software for Private Investigators - <%= @title %></title>   
        
     <link rel="shortcut icon" href="/public/images/icon.jpg" type="image/x-icon" />
@@ -31,7 +33,7 @@
     <div id="header" class="line">
       <div class="container_12">
         <div class="grid_5">
-          <a class="logo" href="">
+          <a class="logo" href="/">
             SherlockDocs
           </a>
         </div>
@@ -62,7 +64,7 @@
             </ul>
           </div>
           
-          <%= render 'navi' %> 
+          <%= render '/home/navi' %> 
           
         </div>
       </div>
@@ -79,7 +81,7 @@
     <div id="footer" class="line">
       <div class="container_12">
         <div class="grid_4">
-          <a href="" class="logo">SherlockDocs</a>
+          <a href="/" class="logo">SherlockDocs</a>
           
           <p class="copy"> &copy; Sherlock Docs 2012-2013. All Right Reserved. </p>
         </div>

@@ -8,7 +8,7 @@ class HomeController < ApplicationController
   def index    
     @title = 'SherlockDocs'
     #render :layout => 'public'
-    
+    @active_navlink = "home"
     @email = CapturedEmail.new
     
     render 'landing'
@@ -45,7 +45,7 @@ class HomeController < ApplicationController
   end
   
   def how_it_works
-    
+    @active_navlink = "how_it_works"
   end
   
   def dashboard
@@ -55,6 +55,7 @@ class HomeController < ApplicationController
   
   def pricing
     @title = 'Plans and Pricing'
+    @active_navlink = "pricing"
     
     url_base = 'https://sherlockdocs.chargify.com/'
     
