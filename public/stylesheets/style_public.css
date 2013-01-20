@@ -132,7 +132,7 @@ body {
     display: block;
     width: 192px;
     height: 61px;
-    background: #3d241d url("../images/footer_logo.png");
+    background: url("../images/footer_logo.png");
     text-indent: -9999px;
     margin: 0 0 20px 0; }
   #footer .copy {
