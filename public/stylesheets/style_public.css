@@ -468,8 +468,8 @@ body {
   #content #pricing .img_authorize {
     margin: 0 auto;
     display: block;
-    width: 90px;
-    margin-bottom: 40px; }
+    margin-bottom: 40px;
+    width: 90px; }
   #content #faq ul {
     margin-bottom: 60px; }
     #content #faq ul li {
@@ -573,7 +573,7 @@ body {
       background: url("../images/contact_icons.png") no-repeat right 2px; }
     #content #contact #sidebar p {
       font-size: 22px;
-      color: #74513a;
+      color: #916b52;
       margin-bottom: 40px; }
       #content #contact #sidebar p span {
         color: #aa9689; }
@@ -657,6 +657,40 @@ body {
     border-left: 1px solid #f1bf9d;
     padding: 15px 0; }
 
+.dialog_box .huge_button {
+  font-size: 14px;
+  text-indent: 1px;
+  background: #e27524 url("../images/button_bg.png");
+  float: right;
+  width: 268px;
+  border: 1px solid #c16112;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-align: center;
+  color: #fff;
+  margin: 20px 0 0; }
+  .dialog_box .huge_button:hover {
+    background: #e27524 url("../images/button_bg.png") left -58px;
+    color: #fff;
+    border: 1px solid #c15100; }
+    .dialog_box .huge_button:hover span {
+      border-left: 1px solid #ffa263; }
+  .dialog_box .huge_button span {
+    display: block;
+    border-left: 1px solid #f1bf9d;
+    padding: 15px 0; }
+.dialog_box .brown_button {
+  background: #e27524 url("../images/button_brown_bg.png");
+  float: left;
+  border: 1px solid #74533a; }
+  .dialog_box .brown_button:hover {
+    background: #e27524 url("../images/button_brown_bg.png") left -58px;
+    border: 1px solid #74533a; }
+    .dialog_box .brown_button:hover span {
+      border-left: 1px solid #cdb9aa; }
+  .dialog_box .brown_button span {
+    border-left: 1px solid #b99d88; }
+
 .big_button {
   font-family: Georgia, Times, "Times New Roman", serif;
   font-size: 16px;
@@ -709,7 +743,7 @@ body {
   background: #e27524 url("../images/button_brown_bg.png");
   border: 1px solid #8b6950; }
   .small_button_brown:hover {
-    background: #e27524 url("../images/button_brown_bg.png") left -38px;
+    background: #e27524 url("../images/button_brown_bg.png") left -58px;
     border: 1px solid #74533a; }
     .small_button_brown:hover span {
       border-left: 1px solid #cdb9aa; }
@@ -756,6 +790,72 @@ body {
 #content .numbered_list .fancy_list li {
   font-size: 11px;
   background: url("../images/list_bullet.png") no-repeat left 3px; }
+
+/* Notification Messages */
+.errorExplanation {
+  background: #ebcfd5;
+  border: 1px solid #cd97a3;
+  padding: 10px 20px;
+  margin-bottom: 20px;
+  font-size: 12px;
+  color: #891717; }
+  .errorExplanation ul {
+    list-style-type: disc;
+    margin-left: 10px; }
+
+.flash-messages .notice {
+  display: block;
+  background: #e1f0d6;
+  border: 1px solid #acce94;
+  padding: 10px 20px;
+  margin-bottom: 20px;
+  font-size: 12px;
+  color: #2a4e10;
+  font-weight: bold; }
+
+/* Modal Window Forced Design */
+.ui-dialog {
+  border: 10px solid #100705 !important;
+  padding: 0px !important; }
+
+.ui-dialog-titlebar {
+  background: #351c15 !important;
+  border: 0px !important;
+  -webkit-border-radius: 0px !important;
+  -moz-border-radius: 0px !important;
+  border-radius: 0px !important;
+  font-size: 24px !important;
+  color: #fff2cf !important;
+  font-family: Georgia, Times, "Times New Roman", serif;
+  text-transform: uppercase;
+  font-weight: normal !important;
+  letter-spacing: 2px;
+  padding: 10px 20px !important; }
+
+.ui-dialog-content {
+  padding: 20px !important;
+  background: #f1eee6 !important; }
+
+.ui-dialog-titlebar-close {
+  background: transparent !important;
+  border: 0 !important;
+  float: right !important;
+    margin-top: 10px !important;
+   }
+
+.ui-dialog-titlebar-close:hover {
+  background: #100705 !important; }
+
+.ui-dialog-titlebar-close .ui-icon {
+  background: transparent url("../images/cross.png") no-repeat !important;
+  text-indent: -9999px !important;
+  width: 17px;
+  height: 18px; 
+  color: #351C15 !important;
+  font-size: 0px !important;
+  line-height: 1px !important;
+  display: block !important;
+  }
 
 /* Clearing and Units */
 .clear {
