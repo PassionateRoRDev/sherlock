@@ -63,16 +63,19 @@ class HomeController < ApplicationController
     @plan2 = SubscriptionPlan.find_by_chargify_handle(:agency)
     @plan3 = SubscriptionPlan.find_by_chargify_handle(:corporate)
     @plan4 = SubscriptionPlan.find_by_chargify_handle(:company)
+    @plan5 = SubscriptionPlan.find_by_chargify_handle(:payasyougo)
     
     @url_plan1 = url_base + @plan1.chargify_slug + '/subscriptions/new'
     @url_plan2 = url_base + @plan2.chargify_slug + '/subscriptions/new'
     @url_plan3 = url_base + @plan3.chargify_slug + '/subscriptions/new'
     @url_plan4 = url_base + @plan4.chargify_slug + '/subscriptions/new'
+    @url_plan5 = url_base + @plan5.chargify_slug + '/subscriptions/new'
     
     @url_plan1 = subscription_plan_path(:independent)
     @url_plan2 = subscription_plan_path(:agency)
     @url_plan3 = subscription_plan_path(:corporate)
     @url_plan4 = subscription_plan_path(:company)
+    @url_plan5 = subscription_plan_path(:payasyougo)
     
     render 'pricing', :layout => 'public'
   end
