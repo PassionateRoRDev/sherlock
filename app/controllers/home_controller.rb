@@ -57,25 +57,23 @@ class HomeController < ApplicationController
     @title = 'Plans and Pricing'
     @active_navlink = "pricing"
     
-    url_base = 'https://sherlockdocs.chargify.com/'
+    @plan_independent   = SubscriptionPlan.find_by_chargify_handle(:independent)
+    @plan_agency        = SubscriptionPlan.find_by_chargify_handle(:agency)
+    @plan_corporate     = SubscriptionPlan.find_by_chargify_handle(:corporate)
+    @plan_company       = SubscriptionPlan.find_by_chargify_handle(:company)
+    @plan_pay_as_you_go = SubscriptionPlan.find_by_chargify_handle(:payasyougo)
     
-    @plan1 = SubscriptionPlan.find_by_chargify_handle(:independent)
-    @plan2 = SubscriptionPlan.find_by_chargify_handle(:agency)
-    @plan3 = SubscriptionPlan.find_by_chargify_handle(:corporate)
-    @plan4 = SubscriptionPlan.find_by_chargify_handle(:company)
-    @plan5 = SubscriptionPlan.find_by_chargify_handle(:payasyougo)
-    
-    @url_plan1 = url_base + @plan1.chargify_slug + '/subscriptions/new'
-    @url_plan2 = url_base + @plan2.chargify_slug + '/subscriptions/new'
-    @url_plan3 = url_base + @plan3.chargify_slug + '/subscriptions/new'
-    @url_plan4 = url_base + @plan4.chargify_slug + '/subscriptions/new'
-    @url_plan5 = url_base + @plan5.chargify_slug + '/subscriptions/new'
-    
-    @url_plan1 = subscription_plan_path(:independent)
-    @url_plan2 = subscription_plan_path(:agency)
-    @url_plan3 = subscription_plan_path(:corporate)
-    @url_plan4 = subscription_plan_path(:company)
-    @url_plan5 = subscription_plan_path(:payasyougo)
+    @plan_independent.reports_to_consider_upgrade   = 9
+    @plan_agency.reports_to_consider_upgrade        = 21
+    @plan_company.reports_to_consider_upgrade       = 43
+    @plan_corporate.reports_to_consider_upgrade     = 0
+    @plan_pay_as_you_go.reports_to_consider_upgrade = 0
+        
+    @url_independent     = subscription_plan_path(:independent)
+    @url_agency          = subscription_plan_path(:agency)
+    @url_corporate       = subscription_plan_path(:corporate)
+    @url_company         = subscription_plan_path(:company)
+    @url_pay_as_you_go   = subscription_plan_path(:payasyougo)
     
     render 'pricing', :layout => 'public'
   end

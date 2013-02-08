@@ -27,154 +27,45 @@
             <div class="headings clearfix">
               <div class="unit">
                 <h3>Corporate</h3>
-                <h4><strong>$99</strong>/month</h4>
+                <h4><strong>$<%= @plan_corporate.price %></strong>/month</h4>
               </div>
               <div class="unit">
                 <h3>Company</h3>
-                <h4><strong>$59</strong>/month</h4>
+                <h4><strong>$<%= @plan_company.price %></strong>/month</h4>
               </div>
               <div class="unit">
                 <h3>Agency</h3>
-                <h4 class="popular"><strong>$29</strong>/month</h4>
+                <h4 class="popular"><strong>$<%= @plan_agency.price %></strong>/month</h4>
               </div>
               <div class="unit">
                 <h3>Independent</h3>
-                <h4><strong>$9</strong>/month</h4>
+                <h4><strong>$<%= @plan_independent.price %></strong>/month</h4>
               </div>
               <div class="lastUnit">
                 <h3>Pay as you Go</h3>
-                <h4><strong>$3</strong>/month</h4>
+                <h4><strong>$<%= @plan_pay_as_you_go.price %></strong>/month</h4>
               </div>
             </div>
             
             <div class="data clearfix">
             
-              <div class="unit">
-                <ul>
-                  <li class="reports reports_big">
-                    <strong>60</strong>
-                    <span class="item">reports/month</span>
-                  </li>
-                  <li>
-                    <strong>$1</strong>
-                    <span class="item">per additional report</span>
-                  </li>
-                  <li>
-                    <strong>25GB</strong>
-                    <span class="item">storage</span>
-                  </li>
-                  <li>
-                    <strong>unlimited</strong>
-                    <span class="item">clients, users and <br />PDF report uploads</span>
-                  </li>
-                  
-                  <li class="border0">
-                    <a rel="nofollow" href="<%= @url_plan3 %>" class="small_button small_button_brown"><span>Choose</span></a>
-                  </li>
-                </ul>
+              <div class="unit reports_big">
+                <%= render 'plan_corporate', :plan => @plan_corporate, :url => @url_corporate %>                                                
               </div>
               
               <div class="unit">
-                <ul>
-                  <li class="reports">
-                    <strong>30</strong>
-                    <span class="item">reports/month</span>
-                    <em>43 reports to consider upgrade</em>
-                  </li>
-                  <li>
-                    <strong>$2</strong>
-                    <span class="item">per additional report</span>
-                  </li>
-                  <li>
-                    <strong>12GB</strong>
-                    <span class="item">storage</span>
-                  </li>
-                  <li>
-                    <strong>unlimited</strong>
-                    <span class="item">clients, users and <br />PDF report uploads</span>
-                  </li>
-                  
-                  <li class="border0">
-                    <a rel="nofollow" href="<%= @url_plan4 %>"  class="small_button small_button_brown"><span>Choose</span></a>
-                  </li>
-                </ul>
+                <%= render 'plan_company', :plan => @plan_company, :url => @url_company %>
               </div>
-
-              <div class="unit">
-                <ul>
-                  <li class="reports">
-                    <strong>12</strong>
-                    <span class="item">reports/month</span>
-                    <em>21 reports to consider upgrade</em>
-                  </li>
-                  <li>
-                    <strong>$3</strong>
-                    <span class="item">per additional report</span>
-                  </li>
-                  <li>
-                    <strong>5GB</strong>
-                    <span class="item">storage</span>
-                  </li>
-                  <li>
-                    <strong>unlimited</strong>
-                    <span class="item">clients, users and <br />PDF report uploads</span>
-                  </li>
-                  
-                  <li class="border0">
-                    <a rel="nofollow" href="<%= @url_plan2 %>" class="small_button"><span>Choose</span></a>
-                  </li>
-                </ul>
+              <div class="unit unit-popular">
+                <%= render 'plan_agency', :plan => @plan_agency, :url => @url_agency %>
               </div>
               
               <div class="unit">
-                <ul>
-                  <li class="reports">
-                    <strong>5</strong>
-                    <span class="item">reports/month</span>
-                    <em>9 reports to consider upgrade</em>
-                  </li>
-                  <li>
-                    <strong>$4</strong>
-                    <span class="item">per additional report</span>
-                  </li>
-                  <li>
-                    <strong>2GB</strong>
-                    <span class="item">storage</span>
-                  </li>
-                  <li>
-                    <strong>unlimited</strong>
-                    <span class="item">clients, users and <br />PDF report uploads</span>
-                  </li>
-                  
-                  <li class="border0">
-                    <a rel="nofollow" href="<%= @url_plan1 %>"  class="small_button small_button_brown"><span>Choose</span></a>
-                  </li>
-                </ul>
+                <%= render 'plan_independent', :plan => @plan_independent, :url => @url_independent %>
               </div>
-              
-              <div class="unit">
-                <ul>
-                  <li class="reports reports_big">
-                    <strong>No</strong>
-                    <span class="item">reports included</span>
-                  </li>
-                  <li>
-                    <strong>$5</strong>
-                    <span class="item">per additional report</span>
-                  </li>
-                  <li>
-                    <strong>1GB</strong>
-                    <span class="item">storage</span>
-                  </li>
-                  <li>
-                    <strong>unlimited</strong>
-                    <span class="item">clients, users and <br />PDF report uploads</span>
-                  </li>
-                  
-                  <li class="border0">
-                    <a rel="nofollow" href="<%= @url_plan5 %>" class="small_button small_button_brown"><span>Choose</span></a>
-                  </li>
-                </ul>
+                              
+              <div class="unit reports_big">
+                <%= render 'plan_pay_as_you_go', :plan => @plan_pay_as_you_go, :url => @url_pay_as_yu_go %>
               </div>
               
             </div>

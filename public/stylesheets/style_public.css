@@ -446,12 +446,19 @@ body {
         font-size: 22px; }
       #content #pricing #plans .data ul .reports .item {
         font-size: 16px; }
-    #content #pricing #plans .data ul .reports_big {
-      padding: 14px 0 13px; }
-      #content #pricing #plans .data ul .reports_big strong {
-        font-size: 26px; }
-      #content #pricing #plans .data ul .reports_big .item {
-        font-size: 18px; }
+      
+#content #pricing #plans .data .reports_big li.reports {
+  padding: 14px 0 13px;
+}
+      
+#content #pricing #plans .data .reports_big .reports strong {
+  font-size: 26px; 
+}
+
+#content #pricing #plans .data .reports_big .reports .item {
+  font-size: 18px; 
+}
+
   #content #pricing .huge_signup {
     margin-bottom: 40px; }
     #content #pricing .huge_signup strong {

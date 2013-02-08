@@ -6,6 +6,10 @@ module PlanHelper
   
   private
   
+  def clients_number(plan)
+    plan.clients_max.to_i == 0 ? 'unlimited' : plan.clients_max
+  end
+  
   def url_params(user)
     if user
       "?email=#{URI.escape(user.email.to_s)}" +

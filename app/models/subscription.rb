@@ -121,7 +121,7 @@ class Subscription < ActiveRecord::Base
         :detail_i1      => s.id        
     )
         
-  end
+  end    
   
   def is_inactive?
     INACTIVE_STATES.include? self.status
