@@ -726,29 +726,41 @@ body {
   border: 1px solid #c16112;
   text-transform: uppercase;
   letter-spacing: 2px;
-  text-align: center; }
-  .small_button:hover {
-    background: #e27524 url("../images/button_bg.png") left -58px;
-    color: #fff;
-    border: 1px solid #c15100; }
-    .small_button:hover span {
-      border-left: 1px solid #ffa263; }
-  .small_button span {
+  text-align: center; 
+}
+  
+.small_button:hover {
+  background-position: 0 -58px;
+  border: 1px solid #c15100; 
+}
+    
+.small_button:hover span {
+  border-left: 1px solid #ffa263; 
+}
+
+.small_button span {
     display: block;
     border-left: 1px solid #f1bf9d;
     padding: 5px 0;
-    color: #fff; }
+    color: #fff; 
+}
 
 .small_button_brown {
   background: #e27524 url("../images/button_brown_bg.png");
-  border: 1px solid #8b6950; }
-  .small_button_brown:hover {
-    background: #e27524 url("../images/button_brown_bg.png") left -58px;
-    border: 1px solid #74533a; }
-    .small_button_brown:hover span {
-      border-left: 1px solid #cdb9aa; }
-  .small_button_brown span {
-    border-left: 1px solid #b99d88; }
+  border: 1px solid #8b6950; 
+}
+  
+.small_button_brown:hover {
+  border: 1px solid #74533a; 
+}
+   
+.small_button_brown:hover span {
+  border-left: 1px solid #cdb9aa; 
+}
+
+.small_button_brown span {
+  border-left: 1px solid #b99d88; 
+}
 
 .fancy_list li {
   padding: 0 0 0 25px;
