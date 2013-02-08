@@ -1,0 +1,209 @@
+<% content_for :head do %>
+    <link rel="stylesheet" type="text/css" href="/public/javascript/base/jquery.ui.all.css" />
+    <link rel="stylesheet" type="text/css" href="/public/javascript/base/jquery.ui.dialog.css" />
+    <script type="text/javascript" src="/public/javascript/jquery-1.9.0.js"></script>
+    <script type="text/javascript" src="/public/javascript/jquery-ui-1.10.0.custom.min.js"></script>
+    
+    
+    <script type="text/javascript">
+      $(function() {
+        $( ".dialog_box" ).dialog({
+          autoOpen: false,
+          show: "blind",
+          hide: "explode",
+          width: 600,
+          height: 495,
+          modal: true
+        });
+        
+
+        $( ".get_started_button" ).click(function() {
+          $( "#get_started" ).dialog( "open" );
+            return false;
+        });
+        
+        $( ".upload_cases_button" ).click(function() {
+          $( "#upload_cases" ).dialog( "open" );
+            return false;
+        });
+        
+        $( ".video_image_button" ).click(function() {
+          $( "#video_image" ).dialog( "open" );
+            return false;
+        });
+        
+        $( ".autotext_button" ).click(function() {
+          $( "#autotext" ).dialog( "open" );
+            return false;
+        });
+        
+        $( ".manager_button" ).click(function() {
+          $( "#manager" ).dialog( "open" );
+            return false;
+        });
+        
+        $( ".page_breaks_button" ).click(function() {
+          $( "#page_breaks" ).dialog( "open" );
+            return false;
+          });
+          
+        });
+    </script>
+  
+<% end %>
+
+
+
+
+    <div id="get_started" class="dialog_box" title="How to get started">
+      <iframe width="560" height="315" src="http://www.youtube.com/embed/xz3Ig1_Sm7w" frameborder="0" allowfullscreen></iframe>
+      <div class="line">
+        <a href="<%= pricing_path %>" class="huge_button brown_button"><span>View Plans and Pricing</span></a>
+        <a href="<%= new_user_registration_path %>" class="huge_button"><span>Free Trial</span></a>
+      </div>
+    </div>
+
+    <div id="upload_cases" class="dialog_box" title="Upload your old cases">
+      <iframe width="560" height="315" src="http://www.youtube.com/embed/tHKYnxCMcms" frameborder="0" allowfullscreen></iframe>
+      <div class="line">
+        <a href="<%= pricing_path %>" class="huge_button brown_button"><span>View Plans and Pricing</span></a>
+        <a href="<%= new_user_registration_path %>" class="huge_button"><span>Free Trial</span></a>
+      </div>
+    </div>
+    
+    <div id="video_image" class="dialog_box" title="Video and Image capture">
+      <iframe width="560" height="315" src="http://www.youtube.com/embed/Gqc1HlSYfnE" frameborder="0" allowfullscreen></iframe>
+      <div class="line">
+        <a href="<%= pricing_path %>" class="huge_button brown_button"><span>View Plans and Pricing</span></a>
+        <a href="<%= new_user_registration_path %>" class="huge_button"><span>Free Trial</span></a>
+      </div>
+    </div>
+   
+
+    <div id="autotext" class="dialog_box" title="Using AutoText to end retyping">
+      <iframe width="560" height="315" src="http://www.youtube.com/embed/kceqqZe4AWs" frameborder="0" allowfullscreen></iframe>
+      <div class="line">
+        <a href="<%= pricing_path %>" class="huge_button brown_button"><span>View Plans and Pricing</span></a>
+        <a href="<%= new_user_registration_path %>" class="huge_button"><span>Free Trial</span></a>
+      </div>
+    </div>
+    
+
+    <div id="manager" class="dialog_box" title="Manager control panel">
+      <iframe width="560" height="315" src="http://www.youtube.com/embed/HTYWi_7rKl0" frameborder="0" allowfullscreen></iframe>
+      <div class="line">
+        <a href="<%= pricing_path %>" class="huge_button brown_button"><span>View Plans and Pricing</span></a>
+        <a href="<%= new_user_registration_path %>" class="huge_button"><span>Free Trial</span></a>
+      </div>
+    </div>
+    
+
+    <div id="page_breaks" class="dialog_box" title="Forcing page breaks">
+      <iframe width="560" height="315" src="http://www.youtube.com/embed/0Zrpko2TQ6c" frameborder="0" allowfullscreen></iframe>
+      <div class="line">
+        <a href="<%= pricing_path %>" class="huge_button brown_button"><span>View Plans and Pricing</span></a>
+        <a href="<%= new_user_registration_path %>" class="huge_button"><span>Free Trial</span></a>
+      </div>
+    </div>
+
+    
+  
+  
+    <div id="torn_paper_header" class="line">
+      <div class="container_12">
+        <div class="grid_12">
+          <h1>
+            Here's How <em>SherlockDocs</em> Works
+          </h1>
+          
+          <p>Learn how to use the features of SherlockDocs in just 30 minutes.</p>
+        </div>
+      </div>
+      
+      <div class="torn_paper"></div>
+    </div>
+    
+    <div id="content" class="line">
+      <div class="container_12">
+        
+        <div id="tutorial_vids" class="line">
+        
+          <div class="line">
+            <div class="grid_4">
+              <a href="#" class="get_started_button image_preview">
+                <span class="play">Play Video</span>
+                <img src="images/video_previews/1_start.jpg" alt="" />
+              </a>
+              <a href="#" class="get_started_button title">How to get started</a>
+              <p>
+                Learn how to set up folders, create a case, use and move "building blocks" around, create a header and footer, share your reports with clients and add confidential notes.
+              </p>
+            </div>
+
+            <div class="grid_4">
+              <a href="#" class="upload_cases_button image_preview">
+                <span class="play">Play Video</span>
+                <img src="images/video_previews/2_upload.jpg" alt="" />
+              </a>
+              <a href="#" class="upload_cases_button title">Upload your old cases</a>
+              <p>
+                You can upload a PDF of any case for free - the case will be available forever and you can share it with clients and add confidential notes as well.
+              </p>
+            </div>
+            
+            <div class="grid_4">
+              <a href="#" class="video_image_button image_preview">
+                <span class="play">Play Video</span>
+                <img src="images/video_previews/3_capture.jpg" alt="" />
+              </a>
+              <a href="#" class="video_image_button title">Video and Image capture</a>
+              <p>
+                Learn how easy it is to capture images from your computer screen, resize and capture them. Capture a video and embed it just by playing it on your computer.
+              </p>
+            </div>
+          </div>
+          
+          <div class="line">
+          
+            <div class="grid_4">
+              <a href="#" class="autotext_button image_preview">
+                <span class="play">Play Video</span>
+                <img src="images/video_previews/4_autotext.jpg" alt="" />
+              </a>
+              <a href="#" class="autotext_button title">Using AutoText to end retyping</a>
+              <p>
+                Our "text snippets" feature provides a way to type words, phrases, paragraphs or whole pages just once.
+              </p>
+            </div>
+
+            <div class="grid_4">
+              <a href="#" class="manager_button image_preview">
+                <span class="play">Play Video</span>
+                <img src="images/video_previews/5_manage.jpg" alt="" />
+              </a>
+              <a href="#" class="manager_button title">Manager control panel</a>
+              <p>
+                Examine your stats, who has access to which case, creating employees and changing your plan.
+              </p>
+            </div>
+            
+            <div class="grid_4">
+              <a href="#" class="page_breaks_button image_preview">
+                <span class="play">Play Video</span>
+                <img src="images/video_previews/6_breaks.jpg" alt="" />
+              </a>
+              <a href="#" class="page_breaks_button title">Forcing page breaks</a>
+              <p>
+                Learn how to split pages and create a separate billing page.
+              </p>
+            </div>
+          </div>
+          
+
+        </div>
+
+      
+      </div>
+    
+    </div>
+    

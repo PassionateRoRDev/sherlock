@@ -3,13 +3,15 @@ class HomeController < ApplicationController
   before_filter :authenticate_user!, :only => [:dashboard]
   before_filter :check_public_section, :except => [:dashboard]
   
+  layout "public"
+  
   def index    
     @title = 'SherlockDocs'
     #render :layout => 'public'
-    
+    @active_navlink = "home"
     @email = CapturedEmail.new
     
-    render 'landing', :layout => false
+    render 'landing'
   end
   
   def contact
@@ -42,6 +44,10 @@ class HomeController < ApplicationController
     render 'customers', :layout => 'public'
   end
   
+  def how_it_works
+    @active_navlink = "how_it_works"
+  end
+  
   def dashboard
     #@cases = current_user.cases
     redirect_to cases_path
@@ -49,6 +55,7 @@ class HomeController < ApplicationController
   
   def pricing
     @title = 'Plans and Pricing'
+    @active_navlink = "pricing"
     
     url_base = 'https://sherlockdocs.chargify.com/'
     
@@ -56,16 +63,19 @@ class HomeController < ApplicationController
     @plan2 = SubscriptionPlan.find_by_chargify_handle(:agency)
     @plan3 = SubscriptionPlan.find_by_chargify_handle(:corporate)
     @plan4 = SubscriptionPlan.find_by_chargify_handle(:company)
+    @plan5 = SubscriptionPlan.find_by_chargify_handle(:payasyougo)
     
     @url_plan1 = url_base + @plan1.chargify_slug + '/subscriptions/new'
     @url_plan2 = url_base + @plan2.chargify_slug + '/subscriptions/new'
     @url_plan3 = url_base + @plan3.chargify_slug + '/subscriptions/new'
     @url_plan4 = url_base + @plan4.chargify_slug + '/subscriptions/new'
+    @url_plan5 = url_base + @plan5.chargify_slug + '/subscriptions/new'
     
     @url_plan1 = subscription_plan_path(:independent)
     @url_plan2 = subscription_plan_path(:agency)
     @url_plan3 = subscription_plan_path(:corporate)
     @url_plan4 = subscription_plan_path(:company)
+    @url_plan5 = subscription_plan_path(:payasyougo)
     
     render 'pricing', :layout => 'public'
   end

@@ -1,82 +1,102 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Contact Us</title>
-
-<%= render 'optimizely' %>
-<%= render 'kissmetrics' %>
-
-<link href="/public/css/pricing.css" rel="stylesheet" type="text/css" />
-<link rel="shortcut icon" href="/public/images/icon.jpg" type="image/x-icon" />
-<script type="text/javascript" src="/javascript/jquery-1.7.1.min.js"></script>
-<script type="text/javascript" src="/javascript/jquery-hint.js"></script>
-<META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW"/>
-</head>
-
-<body>
-<div id="midbox">
-<div id="header">
-  <%= render 'home/navi' %>  
-</div>
-  <div class="midwrapper">
-    <div class="inbox">      
-        <div class="termsofservice">Contact - Sherlock Docs</div>
-        
-        <div style="text-align:center;color:#00aa00;">
-          <%= render('shared/flash', :flash => flash) %>
-        </div>
-        
-        <div class="contact">
+    <div id="torn_paper_header" class="line">
+      <div class="container_12">
+        <div class="grid_12">
+          <h1>
+            Contact <em>SherlockDocs</em>
+          </h1>
           
-          <div class="contactus">
+          <p>Any ideas, suggestions? Feel free to contact us through email, call or you can even visit us.</p>
+        </div>
+      </div>
+      
+      <div class="torn_paper"></div>
+    </div>
+    
+    <div id="content" class="line">
+      <div class="container_12">
+        
+        <div id="contact" class="line">
+        
+          <div class="grid_7">
+            <h3>Message Us</h3>
+            
+            <%= render('shared/flash', :flash => flash) %>
           
             <%= form_for @contact_message do |f| %>
                         
             <%= f.error_messages :header_message => nil, :message => nil %>
-                        
-            <div class="fieldbox">
-              <div class="fieldbox-small">
-                <%= f.text_field :first_name, 
-                    :class => 'auto-hint', :title => 'First Name' %>                
+            
+              <div class="form_element line">
+                <div class="unit">
+                  <label>First Name</label>
+                  
+                  <%= f.text_field :first_name, 
+                      :class => 'text text_small', :title => 'First Name' %> 
+                    
+                </div>
+                <div class="lastUnit padding20l">
+                  <label>Last Name</label>
+                  <%= f.text_field :last_name,
+                      :class => 'text text_small', :title => 'Last Name' %> 
+                </div>
               </div>
-              <div class="fieldbox-small">
-                <%= f.text_field :last_name,
-                    :class => 'auto-hint', :title => 'Last Name' %>                
-              </div>
-            </div>
-            <div class="fieldbox-big">
-              <%= f.text_field :email, 
-                  :class => 'auto-hint', :title => 'Email Address' %>              
-            </div>            
-            <div class="message-box">
-              <%= f.text_area :message, :class => 'auto-hint2', :title => 'Message' %>              
-            </div>
-            <div class="fieldbox"><a class="fl" id="contact-form-send"
-                                     href="#"><img src="/public/images/contact-us.jpg" width="110" height="40" alt="" border="0" /></a></div>
-          
-            <% end %>
-          
-          </div>
-          
-          
-          
-          <div class="contactus2">
-            <p class="ptxt"> <font class="cus-name">SherlockDocs </font><br />
-              343 Girdle Rd <br />
-              East Aurora <br />
-              NY 14052<br />
-              Phone: (866) 620-2716<br/>
-              <span style="font-size:16px;">or Email to: <a class="txt" href="mailto:info@sherlockdocs.com">info@sherlockdocs.com</a></span> </p>
-          </div>
-        </div>      
-    </div>
-    <div class="bottomtxt">SherlockDocs focus on <font style="color:#e75c0d;">simplicity,</font> <font style="color:#67911c;">clarity,</font> and <font style="color:#2670b0;">ease of use</font> make it truly unique.<br />
-      You’ll love using SherlockDocs.</div>
-  </div>
-</div>
-<div class="clr"></div>
 
+              <div class="form_element line">
+                <label> Email Addrees</label>
+                <%= f.text_field :email, 
+                    :class => 'text', :title => 'Email Address' %> 
+              </div>
+
+              <div class="form_element line">
+                <label> Message</label>                
+                <%= f.text_area :message, :class => 'auto-hint2 textarea', :title => 'Message' %>              
+              </div>
+
+              <div class="form_element line">
+             
+                <a class="button" id="contact-form-send" href="#">Contact Us</a>
+                                     
+              </div>
+            
+            <% end %>
+            
+            
+          </div>
+          
+          <div class="grid_5">
+            <div id="sidebar">
+              <h4 class="home"><span class="icon"></span><span>Visit us at</span></h4>
+
+              <p class="address">
+                <em>SherlockDocs</em>
+                Girdle Rd <br />
+                East Aurora <br />
+                NY 14052 <br />            
+              </p>
+  
+              
+              <h4 class="phone"><span class="icon"></span><span>Call us at</span></h4>
+ 
+              <p>
+                <span>Phone:</span> (866) 620-2716      
+              </p>
+ 
+              
+              <h4 class="mail"><span class="icon"></span><span>Email us at</span></h4>
+ 
+              <p>
+                <a href="mailto:info@sherlockdocs.com">info@sherlockdocs.com</a>   
+              </p>
+              
+            </div>
+          </div>
+          
+        </div>
+        
+      </div>
+    
+    </div>
+    
 <script type="text/javascript">
   $(function() {
     $('#contact-form-send').click(function(e) {
@@ -86,6 +106,3 @@
   });
   
 </script>
-
-</body>
-</html>

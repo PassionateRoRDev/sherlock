@@ -1,31 +1,104 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-  <%= render 'optimizely' %>
-  <%= render 'kissmetrics' %>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <%= render 'optimizely' %>
+    <%= render 'kissmetrics' %>
+    <%= render 'zopim_chat' %>
+    <%= render 'sharethis_init' %>
+    <title>SherlockDocs - Report Writing Software for Private Investigators - <%= @title %></title>   
+       
+    <link rel="shortcut icon" href="/public/images/icon.jpg" type="image/x-icon" />
+    <link href="/stylesheets/reset-type-360.css" rel="stylesheet" type="text/css" />
+    <link href="/stylesheets/style_public.css" rel="stylesheet" type="text/css" />
     
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <title>SherlockDocs - Report Writing Software for Private Investigators - <%= @title %></title>      
-  <link rel="shortcut icon" href="/public/images/icon.jpg" type="image/x-icon" />
-
-  <meta name="Keywords" content="private investigator software, report writing software, investigation case reporting"/>
-  <meta name="Description" content="SherlockDocs is a report writing software tool for private investigators that helps create reports without using special video editors or photo tools. SherlockDocs allows your clients instant, secure accesst to your reports."/>
+    <meta name="Keywords" content="private investigator software, report writing software, investigation case reporting"/>
+    <meta name="Description" content="SherlockDocs is a report writing software tool for private investigators that helps create reports without using special video editors or photo tools. SherlockDocs allows your clients instant, secure accesst to your reports."/>
   
-  <%= javascript_include_tag "application" %>
-  
-  <%= yield :head %>    
-  
+    <%= javascript_include_tag "application" %>
+    <%= yield :head %>   
+    
+    
+    <!--[if IE 7]>
+    <style type="text/css">        
+        .testimonials .grid_12 .background {
+          height: 200px;
+        }
+    </style>
+    <![endif]--> 
+    
 </head>
   <body>
-    
-    <div id="header">
-      <%= render 'navi' %>  
+
+    <div id="header" class="line">
+      <div class="container_12">
+        <div class="grid_5">
+          <a class="logo" href="/">
+            SherlockDocs
+          </a>
+        </div>
+        
+        <div class="grid_7">
+          <div id="top_nav" class="line">
+            <ul>
+              <li class="telephone">
+                United States :  (866) 620-2716
+              </li>
+              <% if signed_in? %>
+                <li>
+                  <a href="<%= dashboard_path %>" class="button orange">Dashboard</a>
+                </li>
+                <li>
+                  <%= link_to 'Logout', destroy_user_session_path, :method => :delete, :class => 'button brown' %>
+                </li>
+                        
+                
+              <% else %>
+                <li>
+                  <a href="" class="button orange">Get Started</a>
+                </li>
+                <li>
+                  <a href="<%= new_user_session_path %>" class="button brown">Login</a>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+          
+          <%= render '/home/navi' %> 
+          
+        </div>
+      </div>
+      
+      
     </div>
-    <div class="clr"></div>
+    
     
     <%= yield  %>
     
-    <%= yield :footer %>        
+    <%= yield :footer %>   
+   
+        
+    <div id="footer" class="line">
+      <div class="container_12">
+        <div class="grid_4">
+          <a href="/" class="logo">SherlockDocs</a>
+          
+          <p class="copy"> &copy; Sherlock Docs 2012-2013. All Right Reserved. </p>
+        </div>
+        
+        <div class="grid_8">
+        
+          <p class="tagline">The report writing tool for the smart Private Investigator</p>
+          
+          <div class="links">
+            <a href="">Privacy Policy</a> <span class="link_divider">|</span>
+            <a href="">Terms of Service</a> <span class="link_divider">|</span>
+            <a href="">Contact Us</a>
+          </div>
+        </div>
+      </div>
+    </div>
+         
     
   </body>
 </html>

@@ -1,179 +1,512 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html>
-<head>
-<title>SherlockDocs - Report Writing Software for Private Investigators</title>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<% content_for :head do %>
+  <link rel="stylesheet" href="/stylesheets/jplayer.pink.flag.css" type="text/css" media="screen"/>
+<% end %>
 
-<meta name="Keywords" content="private investigator software, report writing software, investigation case reporting"/>
-<meta name="Description" content="SherlockDocs is a report writing software tool for private investigators that helps create reports without using special video editors or photo tools. SherlockDocs allows your clients instant, secure accesst to your reports."/>
 
-<%= render 'optimizely' %>
-<%= render 'kissmetrics' %>
-
-<%= render 'zopim_chat' %>
-
-<link rel="stylesheet" href="/stylesheets/jplayer.pink.flag.css" type="text/css" media="screen"/>
-
-<link rel="stylesheet" href="/public/css/style_vertical.css" type="text/css" media="screen"/>
-<link rel="shortcut icon" href="/public/images/icon.jpg" type="image/x-icon" />
-
-<%= javascript_include_tag "application" %>
-
-<style type="text/css">
-a {
-	color:#fff;
-	text-decoration:none;
-}
-a:hover {
-	text-decoration:underline;
-}
-span.reference {
-	position:fixed;
-	left:10px;
-	bottom:10px;
-	font-size:13px;
-	font-weight:bold;
-}
-span.reference a {
-	color:#fff;
-	text-shadow:1px 1px 1px #000;
-	padding-right:20px;
-}
-span.reference a:hover {
-	color:#ddd;
-	text-decoration:none;
-}
-
-.white .jp-interface ul li {
-    padding: 0;
-}
-
-.navigation {
-  z-index: 5000;
-}
-
-</style>
-
-<%= render 'sharethis_init' %>
-
-</head>
-<body>
-  
-<%= render 'landing_navigation' %>  
-  
-<div class="section black">
-  
-  <%= render 'landing_middle1' if true %>
-  <%= render 'landing_middle2' if false %>
+    <div id="torn_paper_header" class="line">
+      <div class="container_12">
+        <div class="grid_12">
+          <h1>
+            Eliminate your report writing hassles
+            <span>so you can <em>grow your business</em>, <em>save time</em> and <em>money</em></span>
+          </h1>
+          
+          <p>Transform mountains of images, video and written evidence into THE powerful report your clients expects with SherlockDocs</p>
+        </div>
+      </div>
+      
+      <div class="torn_paper"></div>
+    </div>
     
-  <div class="midwrapper">
-    <div class="bottomtxt"><font style="color:#ff6f1d;">SherlockDocs</font> takes the pain out of dealing with video, images and text<br />
-      the average PI is used to taking hours to create reports but <font style="color:#4289ca;">can now do it in minutes</font><br />
-      <a class="txt" href="#">SherlockDocs starts at $9/month</a></div>
-  </div>
-</div>
+    <div id="content" class="line letter_bg">
+      <div class="container_12">
+        
+        <div id="video_features" class="line">
+          <div class="line">
+            <div class="grid_7">
+              <h2><em>SherlockDocs</em> is a cloud based app designed to help Private Investigators take the pain out of writing reports</h2>
+              
+              <img src="images/video_sample.png" alt="" />
+            </div>
+
+            <div id="features_list" class="grid_5">
+              <h4>Features</h4>
+              <ul class="fancy_list">
+                <li><strong>Build the Perfect Report</strong>, Block By Block, in SECONDS from Your PC, Mac or Notepad</li>
+                <li><strong>Quickly Capture Portions</strong> of Your Screen, the Internet, Databases and even Social Media Profiles then embed in a PDF with a Click</li>
+                <li><strong>Embed Video</strong> into a PDF that Your Client Can Watch FAST</li>
+                <li><strong>NEVER have to type the same monotonous information</strong> over and over again with SherlockDocs unique Autotext Function</li>
+                <li>And you can finally stop worrying because every report you create, plus any private details you want to add are uploaded into Amazon's backed up secure cloud server so <strong>your nformation will always be safe from viruses, fires, floods, and theft</strong>.</li>
+              </ul>
+            </div>    
+          </div>
+          
+          <div class="huge_signup line padding30t">
+            <a href="<%= new_user_registration_path %>" class="huge_button"><span>Create your first case now</span></a>
+            
+            <em>Free report <strong>"Definitive Guide to Report Writing for PI's"</strong></em>
+            <em>30 day free trial - no CC</em>
+          </div>
+          <div class="hr"></div>
+        </div>
+        
+        <div class="testimonials">
+          <div class="line">
+            <div class="grid_4">
+              <div id="pi_image">As seen in PI Magazine</div>
+            </div>
+            <div class="grid_8">
+              <div class="quote">
+                <p><strong>With the new tools SherlockDocs provides I save an hour or more per report.</strong> I love it... it's been terrific. It cuts 3 or 4 steps out of my report writing process. My clients like the format of the reports and it's easy for them to create their own private account."</p>
+                <em>A.D. Janney - Central Investigations</em>
+              </div>
+            </div>
+          </div>
+          <div class="hr"></div>
+        </div>
+
+        <div id="feature_table">
+          <h2>Traditional PI report writing vs <em>SherlockDocs</em></h2>
+        
+          <div class="line">
+            <div class="grid_7">
+              <p>
+                <strong>How much time do you spend creating reports?</strong>
+              </p>
+
+              <p>
+                How much time do you spend creating reports? Lets face it, writing reports suck precious time out of your day like a flat tire on the main highway during rush hour.
+              </p>
+
+              <p>
+                Are there other things you would rather be doing (if you had the time) like growing your business?
+              </p>
+              
+              <p>
+                Enough of the problem. Below is a table showing how Sherlock Docs wil make your life easier and more productive.
+              </p>
+            </div>
+            
+            <div class="grid_5">
+              <p>
+                <strong>What's wrong with our traditional process?</strong>
+              </p>
+              
+              <div class="numbered_list">
+                <div class="line">
+                  <span class="number">
+                    1
+                  </span>
+                  
+                  <div class="small_text lastUnit">
+                    <p>
+                      Hugely time consuming
+                    </p>
+                    
+                    <ul class="fancy_list">
+                      <li>Mostly manual - painful - tasks</li>
+                      <li>Does not grow your business - just the mundane day-to-day things you have to do to service your customers.</li>
+                    </ul>
+                  </div>
+                </div>
+                
+                <div class="line">
+                  <span class="number">
+                    2
+                  </span>
+                  
+                  <div class="small_text lastUnit">
+                    <p>
+                      Using templates limit you on how to use video or images
+                    </p>
+                  </div>
+                </div>
+                
+                <div class="line">
+                  <span class="number">
+                    3
+                  </span>
+                  
+                  <div class="small_text lastUnit">
+                    <p>
+                      Your confidential data is not secure or properly backed up
+                    </p>
+                  </div>
+                </div>
+                
+                <div class="line">
+                  <span class="number">
+                    4
+                  </span>
+                  
+                  <div class="small_text lastUnit">
+                    <p>
+                      Sharing information to your clients takes a long time
+                    </p>
+                  </div>
+                </div>
+                
+                
+              </div>
+            </div>
+          </div>
+          
+          <div class="line">
+            
+            <table>
+              <colgroup></colgroup>
+              <colgroup span="2" class="comparison"></colgroup>
+              
+              <thead>
+                <tr>
+                  <th class="side_headings"></th>
+                  <th class="trad">Traditional</th>
+                  <th class="sherlock">Sherlock Docs</th>
+                </tr>
+              </thead>
+              
+              <tbody>
+                <tr class="odd">
+                  <th class="side_headings" scope="col">Videos</th>
+                  <td class="trad">Upload surveillence video into your computer <span class="raquo">&raquo;</span>  Open video editing software <span class="raquo">&raquo;</span>  Search for relevant clips that you can cut and paste into MS Word <span class="raquo">&raquo;</span>  Fiddle around with captions and sizing until it sticks together  and fits properly <span class="raquo">&raquo;</span>  Encode the video <span class="raquo">&raquo;</span>  Burn to DVD's or CD's</td>
+                  <td class="sherlock"><strong>Integrating playable video to your report  is fast  and easy</strong>, just play the video on your computer screen and capture it! No more video editing software.</td>
+                </tr>
+                <tr>
+                  <th class="side_headings" scope="col">Text and Images</th>
+                  <td class="trad">Open MS Word <span class="raquo">&raquo;</span>  Upload images <span class="raquo">&raquo;</span>  Resize them and insert into your report <span class="raquo">&raquo;</span>  Fiddle with captions <span class="raquo">&raquo;</span>  If you want to do a screen capture you capture the whole screen, then upload to a image viewer that allows you to cut out the relavent parts and finally insert into your report then caption  <span class="raquo">&raquo;</span>  Then you start typing information into your report and sometimes you type and type the same phrase, words or names over and over</td>
+                  <td class="sherlock">
+                    <strong>SherlockDocs has a "autotext"...</strong> feature where you only have to type once and just click to insert repeat information and images.<br /><br />
+                    Photos, images or part of your screen embedded into your report is easy to include in your reports, simply open it and capture it, captions are automatically attached to the images</td>
+                </tr>
+                <tr class="odd">
+                  <th class="side_headings" scope="col">Confidential notes</th>
+                  <td class="trad">You have to figure out where to keep all your confidential notes about the case - witness names and phone numbers - stuff you don't want clients to see, but you don't want to lose.<br /><br />If you are not at your best, you email reports over unsecure email servers or upload video to YouTube</td>
+                  <td class="sherlock"><strong>Type in any confidential information in the "Private Notes" section</strong> - these notes always stay with the report while being unviewable to your clients.</td>
+                </tr>
+                <tr>
+                  <th class="side_headings" scope="col">Report Sending</th>
+                  <td class="trad">Finally you mail the report and the CD's to your client who is anxiously waiting for it.<br /><br />If you client is a professional (attorney or insurance company) they have all of these multiple format reports to file and keep track of (does this CD go with report A or report B?)</td>
+                  <td class="sherlock"><strong>Just press the send button</strong> and your clients are given a link to a secure site where they can view the PDF and play any video or download the report to their computer - no more mailing, no burning CD's</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="hr"></div>
+        </div>
+        
+        
+        <div id="security" class="line">
+          <h2 class="margin10b">How Safe is <em>SherlockDocs</em>?</h2>
+          <h3>We are 110% Committed to your <em>Safety and Security</em>.</h3>
+          
+          <p class="alignCenter">
+            <strong>We understand that moving your business online can be scary.</strong>
+          </p>
+          
+          <p class="alignCenter">
+            SherlockDocs incorporates the most advanced security solutions, giving you the same level of data protection and redundancy as an online bank.
+          </p>
+          
+          <div class="clearfix">
+            <div class="section grid_4">
+              <div class="info">
+                <div id="icon_access" class="icon"></div>
+                <h4>Access Anywhere</h4>
+                <p>
+                  Sherlock Docs is always available for you to access no matter where you are in the world via all modern web browsers (Internet Explorer, Firefox, Safari, Chrome, etc).
+                </p>
+              </div>
+            </div>
+            <div class="section grid_4">
+              <div class="info">
+                <div id="icon_online" class="icon"></div>
+                <h4>Online Security</h4>
+                <p>
+                  Your log in connection with Sherlock Docs is secure and encrypted using industry-leading SSL technology. 
+                </p>
+                <p>
+                  The information stored in Amazon.com's S3 data centers is accessible only by SSL encrypted endpoints - meaning your data can't be viewed while being sent from your computer to Amazon's secure facilities.
+                </p>
+                <p>
+                  Your data in SherlockDocs is safer and more secure than with most online applications and is even safer than traditional offline storage.
+                </p>
+              </div>
+            </div>
+            <div class="section grid_4">
+              <div class="info">
+                <div id="icon_backups" class="icon"></div>
+                <h4>Multiple Backups</h4>
+                <p>
+                  SherlockDocs stores user data in Amazon.com's S3 data centers. Every report document uploaded and every word typed into SherlockDocs is automatically and immediately copied to multiple backup locations worldwide.
+                </p>
+                <p>
+                  Because backups are done instantly, the rare interruption at one location can be automatically resolved by accessing data at any other Amazon S3 data center location.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="hr"></div>
+        </div>
+        
+        <div id="getting_started">
+          <h2>Here's how you get started with <em>SherlockDocs</em></h2>
+          <h3>It's simple, risk-free and only takes 30 seconds.</h3>
+          
+          <div class="line">
+            <div class="grid_7">
+              <p>
+                Unlike other report creation software, getting started with SherlockDocs is simple, risk-free and fast.
+              </p>
+              <p>
+                To get started we offer a FREE 30 Day Trial on all of our packages, this way you can use SherlockDocs to see if it brings any value to you and decide whether you want to pay for it later.
+              </p>
+              <p>
+                Because SherlockDocs is a cloud-based application there is no need for you to install any software, hire a technician or pull your hair out with frustration.
+              </p>
+              <p>
+                Simply sign up for an account, login from the SherlockDocs website and create your first 3 cases now!
+              </p>
+            </div>
+            <div class="grid_5">
+              <div class="numbered_list">
+                <div class="line">
+                  <span class="number">
+                    1
+                  </span>
+                  
+                  <div class="big_text lastUnit">
+                    <p>
+                      Sign up for FREE Trial
+                    </p>
+                    
+                  </div>
+                </div>
+                
+                <div class="line">
+                  <span class="number">
+                    2
+                  </span>
+                  
+                  <div class="big_text lastUnit">
+                    <p>
+                      Login
+                    </p>
+                  </div>
+                </div>
+                
+                <div class="line">
+                  <span class="number">
+                    3
+                  </span>
+                  
+                  <div class="big_text lastUnit">
+                    <p>
+                      Watch "How it Works" videos
+                    </p>
+                  </div>
+                </div>
+                
+                <div class="line">
+                  <span class="number">
+                    4
+                  </span>
+                  
+                  <div class="big_text lastUnit">
+                    <p>
+                      Start creating
+                    </p>
+                  </div>
+                </div>
+                
+                
+              </div>
+              
+              <a href="<%= new_user_registration_path %>" class="big_button"><span>Create your first case now</span></a>
+            </div>
+          </div>
+          
+        </div>
+        
+        <div class="testimonials">
+          <div class="clearfix">
+            <div class="grid_12">
+              <div class="testimonial_footer">
+                <div class="background">
+                  <div class="quote">
+                    <p><strong>My client asked me to share my report with the department manager and a few other interested parties</strong>.  I just added them to my recipient list and they all had instant and continued access to the reports."</p>
+                    <em>Matthew Hale, President, Illinois Investigative</em>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        
+        <div id="risk_free">
+          <h2>Here's Why Using <em>SherlockDocs</em> is 100% Risk Free.</h2>
+          
+          <div class="line">
+            <div class="grid_7">
+              <h4>Our Famous Guarantee</h4>
+              
+              <p>All the risk is on us. Our necks are under the guillotine - not yours. Here's why:</p>
+              
+              <div class="numbered_list">
+                <div class="line">
+                  <span class="number">
+                    1
+                  </span>
+                  
+                  <div class="small_text lastUnit">
+                    <p>
+                      All SherlockDocs packages come with a 30-Day Free Trial. Use the full version of SherlockDocs for 30 Days and see for yourself if it saves you hours of time every day and makes you more productive.
+                    </p>
+                    
+                  </div>
+                </div>
+                
+                <div class="line">
+                  <span class="number">
+                    2
+                  </span>
+                  
+                  <div class="small_text lastUnit">
+                    <p>
+                      Once you're using SherlockDocs if you aren't saving hours of time every report We'll refund you immediately for the month. Results are guaranteed.
+                    </p>
+                  </div>
+                </div>
+                
+                <div class="line">
+                  <span class="number">
+                    3
+                  </span>
+                  
+                  <div class="small_text lastUnit">
+                    <p>
+                      Long-Term Contracts Are Obscene. We believe in retaining customers by ensuring they're happy – NOT – locking them in with long-term contracts. Pay month-to-month with SherlockDocs and cancel whenever you like.
+                    </p>
+                  </div>
+                </div>
+                
+              </div>
+            </div>
+            
+            <div class="grid_5">
+              <div class="icon_100">100% Satisfaction Guaranteed</div>
+              <a href="<%= pricing_path %>" class="big_button"><span>View Plans and Pricing</span></a>
+              <p class="small_trial">30 Day FREE Trial on All Accounts.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>  
+
     
-<a class="anchor" name="tour"></a>
-<div class="section white">
-  <div id="security">    
-    <%= render 'tour_jplayer' if true %>    
-    <%= render 'tour_mediaplayer' if false %>    
-    <%= render 'tour_share' %>
-  </div>
-</div>
+    <div id="letter" class="line">
+      <div class="container_12">
+        <div class="grid_12">
+          <p>Dear PI,</p>
+          
+          <p>
+            If you're good at what you do you already understand that your biggest problem is how your clients expect you to transform into a report creating, video editing genius just to present the cold hard facts you found and get paid. Life would be so much easier if you could just focus on your real area of expertise, finding the powerful written, picture, and video evidence your client needs to process the truth, wouldn't it?
+          </p>
+          
+          <p class="strong">As if your word isn't enough, your clients demand VIDEO PROOF…</p>
+          
+          <p>
+            And that drains money from your pocket every month. If you've got a good grasp on technology you could always risk identity theft and email the report with a video attached from your <strong>unsecure email server</strong>.
+          </p>
+          
+          <p>
+            <strong>If you're really daring</strong> you could save money on DVD's and postage by sending you're a video client a link after spending hours uploading the evidence filled video to YouTube, but we both know you'd risk beaching confidentiality and privacy laws, and open yourself up to a lawsuit, or worse, risk losing your license, and your client won't watch it all anyway, right?
+          </p>
+          
+          <p class="strong">Risk losing your license?</p>
+          
+          <p>
+            So even when you act like the world's best PI by asking the right questions, thinking outside the box, and always provide exactly what your client wants, you LOSE because still you still have to get that mountain of facts, pictures, and video into a report that will never make you more money or grow your business.
+          </p>
+          
+          <p class="strong">Building a Program as Powerful as Sherlock Docs Costs HOW MUCH?</p>
+          
+          <p>
+            Don't worry because you have a few choices. You could pay a bunch of technical geniuses $10k to build you an SSL encrypted, Fort Knox secure database for all of your information, or go back to school to learn how to program software and create a time-saving report creation software, or even spend hundreds on the five pieces of video editing software you need to produce the report your client expects. You could even hire someone for $20-$50 bucks an hour to create reports for you.
+          </p>
+          
 
-<a class="anchor" name="customers"></a>
-<div class="section black">  
-  <div id="security">
-    <div class="testimonials"><span class="cus-name">Testimonials</span></div>
-    <div class="customerbox">"<strong>With the new tools SherlockDocs provides I save an hour or more per report</strong>. I love it so far... it's been terrific. It cuts 3 or 4 steps out of my report writing process. My clients like the format of the reports and it's easy for them to create their own private account."
-      <div class="customer-detail"><br />
-<span class="cus-name">A.D. Janney</span><br />
-        Central Investigations<br />
+          <p class="strong">Spend your time investigating… <br />Not playing administrative assistant!</p>
+          
+          <p>
+            The fact is you just want to do what you do best, investigate, but sooner or later you'll need to catch up with technology if you want to transform from your status as the small PI guy to the highly sought after, super successful, rich guy PI because clients demand the most advanced technology, and without it, you just can't compete with the big guys.
+          </p>
+          
+
+          <p class="strong">That's why we built Sherlock Docs</p>
+          
+          <p>
+            Sherlock Docs is a Genius Report Creation Tool that Eliminates the time and money you lose every time you are forced to spend painful hour after hour just to use ten different kinds of software, and type the same sentence a million times, just to create the powerful, proof-positive report your client expects before paying you what you deserve.  
+          </p>
+          
+          <p class="strong">Simply Click to Create…<br /> You'll Instantly Save Time and Money Because Sherlock Docs Powerful System Delivers Your <br />Proof-Filled Client Reports FAST</p>
+          
+          <p class="strong">Now you can see how you can save thousands on paper, blank DVD's and postage (not to mention your time) every year because you've finally put your foot down and said…</p>
+          
+          <ul class="fancy_list">
+            <li>No more typing out each monotonous piece of information.</li>
+            <li>No more printing, and mailing paper reports.</li>
+            <li>No more spending hundreds buying blank DVD's just to send video. </li>
+          </ul>
+          
+          <p>
+            You'll finally be have what you need to grow your business because your time-wasting, money burning old technologies cost ten times more than what you'll pay for Sherlock Docs in a YEAR…
+          </p>
+          
+          <p>
+            Sooner or later you'll realize you're even saving money on constantly backing up your system because Sherlock Docs backs up the vital reporting information you need for you straight to the 4x's SSL Encrypted Amazon Cloud!
+          </p>
+          
+          <p>
+            Plus you'll never have to pay to import or host old cases, and new cases only count the month you add them. There's no contract, and we've created a flexible, affordable plan for EVERY PI's budget.
+          </p>
+          
+          <p>
+            The fact is that you won't pay anything now because we are determined to prove to you how  Sherlock Docs will save you hours of tedious work, so we'll give you the next 30 days, and allow you to create your next 3 reports, absolutely FREE.
+          </p>
+          
+          <p>
+            Don't pull out your credit card, because we want you to realize just how powerful your new report creation software is before becoming a life-long customer. We'll even act professionally and keep your data live for 90 days, even if you decide that Sherlock Docs just makes your life a little too easy.
+          </p>
+          
+          <p>
+            Plus you'll get our "Definitive Guide to Report Writing for PI's", and we will allow you to import your old cases so you can move all of your old, outdated, unsecure case reports to your new cloud server and quickly experience 100% peace of mind when you sing up today.
+          </p>
+          
+          <p class="strong">Simply click on the “Create My First Case” Button and Get Ready to Finally Start Saving Time, <br/>Growing Your Business, and Take Advantage of Your 30 Day Trial of Sherlock Docs Today</p>
+          
+          <a href="<%= new_user_registration_path %>" class="huge_button"><span>Create your first case now</span></a>
+          
+          
+          <div class="testimonials">
+            <div class="clearfix">
+              <div class="grid_12">
+                <div class="testimonial_footer">
+                  <div class="background">
+                    <div class="quote">
+                      <p><strong>My client asked me to share my report with the department manager and a few other interested parties</strong>.  I just added them to my recipient list and they all had instant and continued access to the reports."</p>
+                      <em>Matthew Hale, President, Illinois Investigative</em>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+        </div>
+      
       </div>
+    
     </div>
-    <div class="customerbox"> "<strong>My clients get to view the report as soon as I'm done</strong> - no waiting to come into the office
-I like the features - <strong>its fun to use</strong> - so easy to upload or capture photos and videos"
-      <div class="customer-detail"><br />
-<span class="cus-name">L. Carillo</span><br />
-        Renault Investigations<br />
-      </div>
-    </div>
-  </div>
-</div>
-
-<a class="anchor" name="security"></a>
-<div class="section white">  
-  <div id="security">
-    <div class="security-txt">110% Commitment to Safety and Security</div>
-    <div class="security-p"> Utilizing 256-bit SSL encryption by GoDaddy and the world-class server infrastructure of Amazon Web Services (AWS), Sherlock Docs ensures the absolute privacy of our users' data. Sherlock Docs incorporates the most advanced security solutions, giving you the same level of data protection and redundancy as an online bank. </div>
-    <div class="security-body">
-      <div class="box">
-        <div class="box-image"><img src="/public/images/access-anywhere.png" alt="" width="71" height="71" /></div>
-        <span class="box-head">Access Anywhere</span><br />
-        <p>Sherlock Docs is always available for you to access no matter where you are in the world via all modern web browsers (Internet Explorer, Firefox, Safari, Chrome, etc).<br />
-         </p>
-      </div>
-      <div style="margin-left:12px;" class="box">
-        <div class="box-image"> <img src="/public/images/security.png" alt="" width="71" height="71" /></div>
-        <span class="box-head">Online Security</span><br />
-        <p>Your log in connection with Sherlock Docs is secure and encrypted using industry-leading SSL technology. The information stored in Amazon.com's S3 data centers is accessible only by SSL encrypted endpoints - meaning your data can't be viewed while being sent from your computer to Amazon's secure facilities.<br />
-          Your data in Sherlock Docs is safer and more secure than with most online applications and is even safer than traditional offline storage.</p>
-      </div>
-      <div style="margin-left:12px;" class="box">
-        <div class="box-image"><img src="/public/images/backup.png" alt="" width="71" height="71" /></div>
-        <span class="box-head">Multiple Backups</span><br />
-        <p>Sherlock Docs stores user data in Amazon.com's S3 data centers. Every report document uploaded and every word typed into Sherlock Docs is automatically and immediately copied to multiple backup locations worldwide. <br />
-          Because backups are done instantly, the rare interruption at one location can be automatically resolved by accessing data at any other Amazon S3 data center location.</p>
-      </div>
-    </div>
-  </div>
-</div>
-  
-
-<a class="anchor" name="features"></a>
-<div class="section black">
-  <div id="security">
-    <div class="featurelist"> <span class="cus-name">Features</span><br />
-      <img src="/public/images/bullet-icon.gif" alt="" width="15" height="13" />&nbsp;Secure link for your clients - never worry about emailing confidential information<br />
-      <img src="/public/images/bullet-icon.gif" alt="" width="15" height="13" />&nbsp;Never lose your data - reports stored for as long as you keep your account at minimum level<br />
-      <img src="/public/images/bullet-icon.gif" alt="" width="15" height="13" />&nbsp;Put videos in PDF that your clients can play live in the report<br />
-      <img src="/public/images/bullet-icon.gif" alt="" width="15" height="13" />&nbsp;Capture video from any media player - never use video editing software again<br />
-      <img src="/public/images/bullet-icon.gif" alt="" width="15" height="13" />&nbsp;Access from anywhere - home, office, iPad<br />
-      <img src="/public/images/bullet-icon.gif" alt="" width="15" height="13" />&nbsp;Keep private notes of confidential information<br />
-      <img src="/public/images/bullet-icon.gif" alt="" width="15" height="13" />&nbsp;Unlimited users in your office<br />
-      <img src="/public/images/bullet-icon.gif" alt="" width="15" height="13" />&nbsp;Never pay for a software update again - your monthly payment will never change as long as <br />
-      &nbsp;&nbsp;&nbsp; you keep your current plan<br />
-      <img src="/public/images/bullet-icon.gif" alt="" width="15" height="13" />&nbsp;Create folders for each client or by case type<br />
-      <img src="/public/images/bullet-icon.gif" alt="" width="15" height="13" />&nbsp;Never lose a clients file<br />
-      <img src="/public/images/bullet-icon.gif" alt="" width="15" height="13" />&nbsp;Clients have secure access without possibility of accessing your data<br />
-      <img src="/public/images/bullet-icon.gif" alt="" width="15" height="13" />&nbsp;99.95% uptime<br />
-      <img src="/public/images/bullet-icon.gif" alt="" width="15" height="13" />&nbsp;Additional feature - mute function on video helps with audio recording laws </div>
-  </div>
-</div>
-
-<%= render 'pricing' if false %>
-
-<div id="bot-navi">
-  <a target="_blank" href="<%= privacy_path %>">Privacy Policy</a> | 
-  <a target="_blank" href="<%= tos_path %>">Terms of Service</a> | 
-  <a target="_blank" href="<%= contact_path %>">Contact Us</a><br />
-  &copy; Sherlock Docs 2012. All Right Reserved. </div>
-
-<script type="text/javascript" src="/javascript/jquery.easing.1.3.js"></script> 
-
-<script type="text/javascript" src="/public/javascript/landing.js"></script> 
-
-<script type="text/javascript">
-  <%= kissmetrics_track do %>  
-    _kmq.push(['record', 'viewed landing page']);
-  <% end %>  
-</script>
-
-<%= render 'statcounter' %>
-<%= render 'crazyegg' %>
-
-<link rel="stylesheet" href="/jquery-ui/base/jquery.ui.combined.css"/>
-
-</body>
-</html>
+    
