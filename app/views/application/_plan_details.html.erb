@@ -1,5 +1,5 @@
 <ul>
-  <li class="reports">    
+  <li class="reports">
     <% if plan.cases_max.to_i == 0 %>
       <strong>No</strong>
       <span class="item">reports included</span>
@@ -9,7 +9,7 @@
     <% end %>
     <% if plan.reports_to_consider_upgrade.to_i > 0 %>
       <em><%= plan.reports_to_consider_upgrade %> reports to consider upgrade</em>
-    <% end %>      
+    <% end %>
   </li>
   <li>
     <strong>$<%= plan.extra_case_price %></strong>
@@ -24,7 +24,7 @@
     <span class="item">clients, users and <br />PDF report uploads</span>
   </li>
   <li class="border0">
-    <a rel="nofollow" href="<%= url %>" 
-       class="small_button small_button_brown"><span>Choose</span></a>
+    <a rel="nofollow" href="<%= url %>"  
+       class="small_button"><span>Choose</span></a>
   </li>
 </ul>

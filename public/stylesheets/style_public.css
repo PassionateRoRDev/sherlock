@@ -752,21 +752,26 @@ body {
     color: #fff; 
 }
 
+.brown .small_button,
 .small_button_brown {
   background: #e27524 url("../images/button_brown_bg.png");
   border: 1px solid #8b6950; 
 }
   
+.brown .small_button:hover,
 .small_button_brown:hover {
-  border: 1px solid #74533a; 
-}
-   
-.small_button_brown:hover span {
-  border-left: 1px solid #cdb9aa; 
+  border: 1px solid #74533a;
+  background-position: 0 -58px;
 }
 
+.brown .small_button span,
 .small_button_brown span {
   border-left: 1px solid #b99d88; 
+}
+
+.brown .small_button:hover span,
+.small_button_brown:hover span {
+  border-left: 1px solid #cdb9aa; 
 }
 
 .fancy_list li {

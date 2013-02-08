@@ -49,23 +49,23 @@
             
             <div class="data clearfix">
             
-              <div class="unit reports_big">
-                <%= render 'plan_corporate', :plan => @plan_corporate, :url => @url_corporate %>                                                
+              <div class="unit reports_big brown">
+                <%= render 'plan_details', :plan => @plan_corporate, :url => @url_corporate %>                                                
               </div>
               
-              <div class="unit">
-                <%= render 'plan_company', :plan => @plan_company, :url => @url_company %>
+              <div class="unit brown">
+                <%= render 'plan_details', :plan => @plan_company, :url => @url_company %>
               </div>
               <div class="unit unit-popular">
-                <%= render 'plan_agency', :plan => @plan_agency, :url => @url_agency %>
+                <%= render 'plan_details', :plan => @plan_agency, :url => @url_agency %>
               </div>
               
-              <div class="unit">
-                <%= render 'plan_independent', :plan => @plan_independent, :url => @url_independent %>
+              <div class="unit brown">
+                <%= render 'plan_details', :plan => @plan_independent, :url => @url_independent %>
               </div>
                               
-              <div class="unit reports_big">
-                <%= render 'plan_pay_as_you_go', :plan => @plan_pay_as_you_go, :url => @url_pay_as_yu_go %>
+              <div class="unit reports_big brown">
+                <%= render 'plan_details', :plan => @plan_pay_as_you_go, :url => @url_pay_as_yu_go %>
               </div>
               
             </div>
