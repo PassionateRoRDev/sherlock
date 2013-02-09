@@ -57,7 +57,7 @@ class HomeController < ApplicationController
     @title = 'Plans and Pricing'
     @active_navlink = "pricing"
     
-    @plan_independent   = SubscriptionPlan.find_by_chargify_handle(:independent)
+    @plan_independent   = SubscriptionPlan.find_by_chargify_handle(:independent2)
     @plan_agency        = SubscriptionPlan.find_by_chargify_handle(:agency)
     @plan_corporate     = SubscriptionPlan.find_by_chargify_handle(:corporate)
     @plan_company       = SubscriptionPlan.find_by_chargify_handle(:company)
@@ -69,7 +69,7 @@ class HomeController < ApplicationController
     @plan_corporate.reports_to_consider_upgrade     = 0
     @plan_pay_as_you_go.reports_to_consider_upgrade = 0
         
-    @url_independent     = subscription_plan_path(:independent)
+    @url_independent     = subscription_plan_path(:independent2)
     @url_agency          = subscription_plan_path(:agency)
     @url_corporate       = subscription_plan_path(:corporate)
     @url_company         = subscription_plan_path(:company)
