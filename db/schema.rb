@@ -22,8 +22,8 @@ ActiveRecord::Schema.define(:version => 20121130072509) do
   create_table "blocks", :force => true do |t|
     t.integer  "case_id",                   :null => false
     t.integer  "weight",     :default => 0, :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
   end
 
   create_table "captured_emails", :force => true do |t|
@@ -37,8 +37,8 @@ ActiveRecord::Schema.define(:version => 20121130072509) do
   create_table "cases", :force => true do |t|
     t.string   "title",                              :null => false
     t.integer  "author_id",                          :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
     t.string   "number"
     t.string   "client_name"
     t.date     "opened_on"
@@ -76,8 +76,8 @@ ActiveRecord::Schema.define(:version => 20121130072509) do
     t.integer  "started_at"
     t.integer  "finished_at"
     t.integer  "duration"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
     t.integer  "user_id"
     t.string   "detail_s2"
   end
@@ -119,15 +119,15 @@ ActiveRecord::Schema.define(:version => 20121130072509) do
     t.text     "contents"
     t.string   "text_align",    :default => "left", :null => false
     t.boolean  "divider_below", :default => false,  :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
   end
 
   create_table "html_details", :force => true do |t|
     t.integer  "block_id",                       :null => false
-    t.text     "contents",   :limit => 16777215
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.text     "contents",   :limit => 16777215, :null => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
   end
 
   create_table "letterheads", :force => true do |t|
@@ -146,8 +146,8 @@ ActiveRecord::Schema.define(:version => 20121130072509) do
     t.string   "divider_color"
     t.text     "contents"
     t.string   "logo_alignment", :default => "left", :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
     t.string   "text_align",     :default => "left", :null => false
   end
 
@@ -156,8 +156,8 @@ ActiveRecord::Schema.define(:version => 20121130072509) do
     t.integer  "letterhead_id"
     t.string   "path",          :null => false
     t.string   "content_type",  :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
     t.integer  "width"
     t.integer  "height"
     t.integer  "storage_id"
@@ -185,8 +185,8 @@ ActiveRecord::Schema.define(:version => 20121130072509) do
     t.integer  "block_id",          :null => false
     t.string   "title"
     t.string   "path",              :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
     t.string   "original_filename"
     t.string   "content_type"
     t.string   "unique_code"
@@ -219,8 +219,8 @@ ActiveRecord::Schema.define(:version => 20121130072509) do
     t.string   "table"
     t.integer  "month",      :limit => 2
     t.integer  "year",       :limit => 8
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",              :null => false
+    t.datetime "updated_at",              :null => false
   end
 
   add_index "rails_admin_histories", ["item", "table", "month", "year"], :name => "index_rails_admin_histories"
@@ -294,8 +294,8 @@ ActiveRecord::Schema.define(:version => 20121130072509) do
     t.string   "country"
     t.string   "zip"
     t.string   "phone"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "user_clients", :force => true do |t|
@@ -318,18 +318,18 @@ ActiveRecord::Schema.define(:version => 20121130072509) do
   add_index "user_employees", ["user_id", "employee_id"], :name => "index_user_employees_on_user_id_and_employee_id", :unique => true
 
   create_table "users", :force => true do |t|
-    t.string   "email",                                 :default => "",    :null => false
-    t.string   "encrypted_password",     :limit => 128, :default => ""
+    t.string   "email",                                :default => "",    :null => false
+    t.string   "encrypted_password",                   :default => ""
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                         :default => 0
+    t.integer  "sign_in_count",                        :default => 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                              :null => false
+    t.datetime "updated_at",                                              :null => false
     t.string   "invitation_token",       :limit => 60
     t.datetime "invitation_sent_at"
     t.datetime "invitation_accepted_at"
@@ -337,7 +337,7 @@ ActiveRecord::Schema.define(:version => 20121130072509) do
     t.integer  "invited_by_id"
     t.string   "invited_by_type"
     t.string   "company_name"
-    t.boolean  "admin",                                 :default => false
+    t.boolean  "admin",                                :default => false
     t.string   "first_name"
     t.string   "last_name"
     t.string   "confirmation_token"
@@ -358,8 +358,8 @@ ActiveRecord::Schema.define(:version => 20121130072509) do
     t.string   "path",              :null => false
     t.string   "original_filename"
     t.string   "content_type"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
     t.integer  "width"
     t.integer  "height"
     t.string   "thumbnail"
