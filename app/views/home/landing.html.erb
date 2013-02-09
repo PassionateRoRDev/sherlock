@@ -24,9 +24,12 @@
         <div id="video_features" class="line">
           <div class="line">
             <div class="grid_7">
-              <h2><em>SherlockDocs</em> is a cloud based app designed to help Private Investigators take the pain out of writing reports</h2>
-              
-              <img src="images/video_sample.png" alt="" />
+              <h2><em>SherlockDocs</em> is a cloud based app designed to help Private Investigators take the pain out of writing reports</h2>              
+              <% if false %>
+                <img src="images/video_sample.png" alt="" />
+              <% else %>              
+                <%= render 'tour_jplayer2' %>
+              <% end %>              
             </div>
 
             <div id="features_list" class="grid_5">
