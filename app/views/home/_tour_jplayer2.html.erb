@@ -20,7 +20,7 @@
                                         <div class="jp-play-bar"></div>
                                 </div>
                         </div>
-                        <% if true %>
+                        <% if false %>
                           <div class="jp-current-time"></div>
                           <div class="jp-duration"></div>
                           <div class="jp-title">
@@ -87,8 +87,8 @@ $(function() {
     cssSelectorAncestor: ancestor,
     ready: function () {
       $(this).jPlayer("setMedia", {              
-              flv : 'http://localhost:3000/videos/adtoons640x360.flv',
-              m4v : 'http://localhost:3000/videos/adtoons640x360.mp4',
+              flv : 'https://s3.amazonaws.com/sherlockdocs-public/adtoons640x360.flv',
+              m4v : 'https://s3.amazonaws.com/sherlockdocs-public/adtoons640x360.mp4',
               poster: '/images/video_sample.png'
       });
     },        
@@ -99,9 +99,7 @@ $(function() {
     swfPath: "/javascript/",
     supplied: 'flv, m4v'    
   });
-  
-  /*
-  
+      
   var isPlaying = false;
   
   $('.jp-video-play', ancestor).click(function() {
@@ -118,7 +116,7 @@ $(function() {
         player.jPlayer('play');
       }
       isPlaying = !isPlaying;
-  });*/
+  });
   
   <%= kissmetrics_track do %>  
     $(".jp-jplayer", ancestor).bind($.jPlayer.event.play, function(event) {      
