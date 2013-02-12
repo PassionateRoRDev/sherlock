@@ -34,6 +34,8 @@ gem 'therubyracer'
 
 gem 'dimensions'
 
+gem 'infusionsoft'
+
 # gem 'tinymce-rails', '3.4.7'
 
 # Gems used only for assets and not required
