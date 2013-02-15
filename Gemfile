@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.2.11'
+gem 'rails', '3.2.12'
 
 # Bundle edge Rails instead:
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
@@ -12,7 +12,7 @@ gem 'devise_invitable'
 gem 'dynamic_form'
 
 gem 'fastercsv'
-gem 'json'
+gem 'json', '~> 1.7.7'
 gem 'rails_admin', :git => 'git://github.com/sferik/rails_admin.git'
 gem 'valuable'
 gem 'km'
