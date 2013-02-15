@@ -37,7 +37,9 @@ filter: progid:DXImageTransform.Microsoft.Alpha(opacity=80);
 }
 #header {
 	width:auto;
+        /*
 	height:58px;
+        */
 	background-color:#272727;
 	border-bottom:1px solid #7d7d7d;
 }
