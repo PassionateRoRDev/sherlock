@@ -14,12 +14,11 @@ class SpellcheckController < ApplicationController
     
     s = SpellCheck.new
     
+    words = params[:params][0]
     case params[:method].to_sym
     when :checkWords      
-      words = params[:params][1]
       result = s.check_words(words)      
     when :getSuggestions
-      word = params[:params][1]
       result = s.suggestions(word)      
     end
         
