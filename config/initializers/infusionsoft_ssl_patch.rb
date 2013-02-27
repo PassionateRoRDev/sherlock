@@ -24,6 +24,8 @@ module Infusionsoft
       rescue Timeout::Error
         retry if ok_to_retry
       rescue
+        Rails::logger.error $!
+        Rails::logger.error $!.backtrace
         retry if ok_to_retry
       end
 
