@@ -222,7 +222,7 @@ class User < ActiveRecord::Base
   def init_address
     self.user_address = UserAddress.new(
       :user     => self,
-      :country  => :US
+      :country  => "USA"
     )
   end
   
