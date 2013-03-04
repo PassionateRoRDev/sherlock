@@ -64,7 +64,27 @@ plans = [
     :extra_case_price => 1,
     :clients_max      => 0,
     :storage_max_mb   => 1024 * 25
-  }    
+  },
+  
+  {
+    :chargify_handle  => :independent2,
+    :chargify_slug    => 'h/3288587',
+    :price            => 14,        
+    :cases_max        => 5,
+    :extra_case_price => 4,
+    :clients_max      => 0,
+    :storage_max_mb   => 1024 * 2
+  },
+  
+  {
+    :chargify_handle  => :payasyougo,
+    :chargify_slug    => 'h/3288210',
+    :price            => 3,        
+    :cases_max        => 0,
+    :extra_case_price => 5,
+    :clients_max      => 0,
+    :storage_max_mb   => 1024 * 1
+  }
   
 ]
 
