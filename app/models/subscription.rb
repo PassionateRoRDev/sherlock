@@ -1,4 +1,5 @@
 class Subscription < ActiveRecord::Base
+  include InfusionsoftUtils
   
   belongs_to :user
   belongs_to :subscription_plan
@@ -7,12 +8,12 @@ class Subscription < ActiveRecord::Base
   
   default_scope :order => 'period_ends_at'
   
-  INACTIVE_STATES = %w{past_due unpaid canceled expired suspended}    
+  INACTIVE_STATES = %w{past_due unpaid canceled expired suspended}
   
-  #
+  STATUS_TRIALING = "trialing"
+  
   # Create Subscription record from the ChargifySubscription received from
   # Chargify API
-  #
   def self.create_from_chargify(subscription)
     
     plan = SubscriptionPlan.find_by_chargify_handle(subscription.product.handle)
@@ -35,6 +36,8 @@ class Subscription < ActiveRecord::Base
       :extra_cases_count  => 0
     )
     
+    push_status_change_to_infusionsoft
+    
   end
   
   def self.free_trials
@@ -54,7 +57,7 @@ class Subscription < ActiveRecord::Base
         
         :period_ends_at     => Setting.trial_days.days.from_now,
         
-        :status             => :trialing,
+        :status             => STATUS_TRIALING,
 
         :cases_max          => plan.cases_max,
         :cases_count        => 0,
@@ -65,6 +68,9 @@ class Subscription < ActiveRecord::Base
         :extra_case_price   => plan.extra_case_price,
         :extra_cases_count  => 0
       )
+      
+      push_status_change_to_infusionsoft
+      
     end
   end
   
@@ -81,6 +87,8 @@ class Subscription < ActiveRecord::Base
         :event_subtype  => self.status,
         :detail_i1      => self.id   
       )
+      
+      push_status_change_to_infusionsoft
       
     end
                 
@@ -120,6 +128,8 @@ class Subscription < ActiveRecord::Base
         :detail_s1      => s.period_ends_at.to_s,
         :detail_i1      => s.id        
     )
+    
+    push_status_change_to_infusionsoft
         
   end    
   
@@ -139,9 +149,7 @@ class Subscription < ActiveRecord::Base
     self.subscription_plan.plans_to_upgrade
   end
   
-  #
-  # Cancel the subscription on the Chargify end:
-  #
+  # Cancel the subscription on the Chargify end
   def cancel    
     unless self.status == 'canceled'
       ev = Event.create(
@@ -159,14 +167,14 @@ class Subscription < ActiveRecord::Base
       self.status = 'canceled'
       self.save
       
-      ev.finish      
+      ev.finish
+      
+      push_status_change_to_infusionsoft
     end
     
   end
   
-  #
   # When subscription is 'used', it means the user can't create any more cases 
-  #
   def is_used?
     self.cases_count == self.cases_max
   end
@@ -179,6 +187,12 @@ class Subscription < ActiveRecord::Base
   def case_created(c)
     self.cases_count += 1
     save!
+  end
+  
+  private
+  
+  def push_status_change_to_infusionsoft
+    InfusionsoftUtils.update_contact(self)
   end
     
 end

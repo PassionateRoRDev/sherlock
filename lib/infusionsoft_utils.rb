@@ -1,6 +1,8 @@
 module InfusionsoftUtils
 
   DATE_FORMAT = "%Y-%m-%d"
+  
+  TAG_ID_STARTED_FREE_TRIAL = 193
  
   def self.update_contact(subscription)
     update_contact_by_user(subscription.user, subscription)
@@ -66,11 +68,12 @@ module InfusionsoftUtils
       Rails.logger.error "INFUSIONSOFT > Could not get contacts for #{email}"
     else
       Rails.logger.info "INFUSIONSOFT > Contacts found: #{contacts}"
+      handled_contact_id = nil
       size = contacts.length
       if size == 0
         # New contact, create it
-        new_contact_id = Infusionsoft.contact_add(fields)
-        Rails.logger.info "INFUSIONSOFT > Contact created, email: #{email}, id: #{new_contact_id}"
+        handled_contact_id = Infusionsoft.contact_add(fields)
+        Rails.logger.info "INFUSIONSOFT > Contact created, email: #{email}, id: #{handled_contact_id}"
       else
         # Existing contact
         contact_id = -1
@@ -96,13 +99,22 @@ module InfusionsoftUtils
         end
         
         # Update contact
-        updated_contact_id = Infusionsoft.contact_update(contact_id, fields)
-        if updated_contact_id.blank?
+        handled_contact_id = Infusionsoft.contact_update(contact_id, fields)
+        if handled_contact_id.blank?
           Rails.logger.error "INFUSIONSOFT > Could not update contact, email: #{email}, id: #{contact_id}"
         else
           Rails.logger.info "INFUSIONSOFT > Contact updated, email: #{email}, id: #{contact_id}"
         end
-        
+      end
+      
+      unless handled_contact_id.blank?
+        if subscription.status == Subscription::STATUS_TRIALING
+          # Push into the trialing group
+          pushed = Infusionsoft.contact_add_to_group(handled_contact_id, TAG_ID_STARTED_FREE_TRIAL)
+          if pushed
+            Rails.logger.info "INFUSIONSOFT > Contact pushed into the Started Free Trial group."
+          end
+        end  
       end
     end
   end
