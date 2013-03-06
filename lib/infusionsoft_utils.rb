@@ -27,14 +27,23 @@ module InfusionsoftUtils
     fields = {:_SherlockDocsID => user.id, 
               :Email => user.email,
               :_SigninCount0 => user.sign_in_count,
-              :_LastSignDate => get_formatted_date(user.last_sign_in_at),
-              :_SherlockDocsDateCreated => get_formatted_date(user.created_at),
               :_Product => subscription.product_handle,
-              :_PeriodEndsAt => get_formatted_date(subscription.period_ends_at),
               :_CasesAllowed => subscription.cases_max,
               :_CasesCreatedInPeriod => subscription.cases_count,
               :_Status => subscription.status
              }
+             
+    unless user.last_sign_in_at.blank?
+      fields[:_LastSignDate] = get_formatted_date(user.last_sign_in_at)
+    end
+
+    unless user.created_at.blank?
+      fields[:_SherlockDocsDateCreated] = get_formatted_date(user.created_at)
+    end
+
+    unless subscription.period_ends_at.blank?
+      fields[:_PeriodEndsAt] = get_formatted_date(subscription.period_ends_at)
+    end
              
     unless user.company_name.blank?
       fields[:Company] = user.company_name
