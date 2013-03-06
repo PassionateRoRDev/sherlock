@@ -18,7 +18,7 @@ class Subscription < ActiveRecord::Base
     
     plan = SubscriptionPlan.find_by_chargify_handle(subscription.product.handle)
           
-    find_or_create_by_chargify_id(
+    result = find_or_create_by_chargify_id(
       :chargify_id        => subscription.id,
       :product_handle     => plan.chargify_handle,
       :subscription_plan  => plan,
@@ -36,8 +36,9 @@ class Subscription < ActiveRecord::Base
       :extra_cases_count  => 0
     )
     
-    push_status_change_to_infusionsoft
+    InfusionsoftUtils.update_contact(result)
     
+    return result
   end
   
   def self.free_trials
@@ -49,9 +50,10 @@ class Subscription < ActiveRecord::Base
   end
   
   def self.create_free_trial
+    result = nil
     plan = SubscriptionPlan.find_by_chargify_handle(:free_trial)
     if plan
-      Subscription.create(        
+      result = Subscription.create(        
         :product_handle     => plan.chargify_handle,
         :subscription_plan  => plan,
         
@@ -69,9 +71,9 @@ class Subscription < ActiveRecord::Base
         :extra_cases_count  => 0
       )
       
-      push_status_change_to_infusionsoft
-      
+      InfusionsoftUtils.update_contact(result)
     end
+    return result
   end
   
   def apply_chargify_event(subscription_payload)
@@ -88,7 +90,7 @@ class Subscription < ActiveRecord::Base
         :detail_i1      => self.id   
       )
       
-      push_status_change_to_infusionsoft
+      InfusionsoftUtils.update_contact(self)
       
     end
                 
@@ -129,7 +131,7 @@ class Subscription < ActiveRecord::Base
         :detail_i1      => s.id        
     )
     
-    push_status_change_to_infusionsoft
+    InfusionsoftUtils.update_contact(s)
         
   end    
   
@@ -169,7 +171,7 @@ class Subscription < ActiveRecord::Base
       
       ev.finish
       
-      push_status_change_to_infusionsoft
+      InfusionsoftUtils.update_contact(self)
     end
     
   end
@@ -187,12 +189,6 @@ class Subscription < ActiveRecord::Base
   def case_created(c)
     self.cases_count += 1
     save!
-  end
-  
-  private
-  
-  def push_status_change_to_infusionsoft
-    InfusionsoftUtils.update_contact(self)
   end
     
 end
