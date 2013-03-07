@@ -1,9 +1,9 @@
 ActionMailer::Base.smtp_settings = {
-  :address  => 'relay.cloudsmtp.com',
+  :address  => 'smtp.sendgrid.net',
   :port => 587,
-  :user_name => 'jinnasoft',  
-  :password => 'sherl0ckdocs40!',  
-  :authentication       => 'LOGIN'
+  :user_name => 'Jinnasoft',  
+  :password => 'Sherl0ckdocs!',  
+  :authentication => 'LOGIN'
   # :enable_starttls_auto => true
   
   #:openssl_verify_mode => 'none'
