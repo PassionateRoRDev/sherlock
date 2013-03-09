@@ -105,7 +105,7 @@ class User < ActiveRecord::Base
         )
       end
       
-      user.subscriptions << ::Subscription.create_from_chargify(subscription)
+      user.subscriptions << ::Subscription.create_from_chargify(user, subscription)
       
       if exists
         Rails::logger.debug('The user already existed')
@@ -120,7 +120,7 @@ class User < ActiveRecord::Base
   end
     
   def setup_free_trial    
-    self.subscriptions << ::Subscription.create_free_trial        
+    self.subscriptions << ::Subscription.create_free_trial(self)
   end
   
   def plans_to_upgrade    
