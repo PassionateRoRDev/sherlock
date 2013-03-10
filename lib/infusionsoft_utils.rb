@@ -3,10 +3,6 @@ module InfusionsoftUtils
   DATE_FORMAT = "%Y-%m-%d"
   
   TAG_ID_STARTED_FREE_TRIAL = 193
- 
-  def self.update_contact(subscription)
-    update_contact_by_user(subscription.user, subscription)
-  end
   
   def self.get_infusionsoft_country(country)
     unless country.nil?
@@ -17,6 +13,10 @@ module InfusionsoftUtils
       end
     end
     return country
+  end
+
+  def self.update_contact(subscription)
+    update_contact_by_user(subscription.user, subscription)
   end
 
   def self.update_contact_by_user(user, subscription)

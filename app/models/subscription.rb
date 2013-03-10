@@ -14,7 +14,7 @@ class Subscription < ActiveRecord::Base
   
   # Create Subscription record from the ChargifySubscription received from
   # Chargify API
-  def self.create_from_chargify(subscription)
+  def self.create_from_chargify(user, subscription)
     
     plan = SubscriptionPlan.find_by_chargify_handle(subscription.product.handle)
           
@@ -36,7 +36,7 @@ class Subscription < ActiveRecord::Base
       :extra_cases_count  => 0
     )
     
-    InfusionsoftUtils.update_contact(result)
+    InfusionsoftUtils.update_contact_by_user(user, result)
     
     return result
   end
@@ -49,7 +49,7 @@ class Subscription < ActiveRecord::Base
     where('period_ends_at BETWEEN ? AND ?', day.beginning_of_day, day.end_of_day)
   end
   
-  def self.create_free_trial
+  def self.create_free_trial(user)
     result = nil
     plan = SubscriptionPlan.find_by_chargify_handle(:free_trial)
     if plan
@@ -71,7 +71,7 @@ class Subscription < ActiveRecord::Base
         :extra_cases_count  => 0
       )
       
-      InfusionsoftUtils.update_contact(result)
+      InfusionsoftUtils.update_contact_by_user(user, result)
     end
     return result
   end
@@ -131,7 +131,7 @@ class Subscription < ActiveRecord::Base
         :detail_i1      => s.id        
     )
     
-    InfusionsoftUtils.update_contact(s)
+    InfusionsoftUtils.update_contact_by_user(self.user, s)
         
   end    
   
