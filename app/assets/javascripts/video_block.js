@@ -93,16 +93,13 @@ SHERLOCK.videos.initEditForm = function(settings) {
         
   function initUploadify()
   {
-    //alert(settings.paths.tmp_check);
-    //alert(settings.paths.tmp_new + '.js');
-    
     $('#upload_video').uploadify({        
       buttonText: 'Select File...',
       buttonClass: 'button2 button2-wide',
       uploader : settings.paths.tmp_new + '.js',
       removeCompleted: false,
       width: uploadifyWidth,
-      checkExisting: settings.paths.tmp_check,
+      checkExisting: false,
       cancelImage: '/assets/uploadify-cancel.png',
       fileObjName: 'upload[video]',
       postData: { 
