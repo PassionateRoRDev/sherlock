@@ -6,15 +6,7 @@ class Chargify::EventsController < ApplicationController
         
     body = request.raw_post
     
-    pp "Body is:"
-    pp body
-    
-    pp "Params:"
-    pp params
-    
     signature = params[:signature].to_s    
-    
-    #pp "Signature: #{signature}"
     
     c = ::Sherlock::Chargify.new
     calculated = c.calculate_webhook_signature(body)
