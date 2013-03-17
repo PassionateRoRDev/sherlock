@@ -83,6 +83,10 @@ module InfusionsoftUtils
         # New contact, create it
         handled_contact_id = Infusionsoft.contact_add(fields)
         Rails.logger.info "INFUSIONSOFT > Contact created, email: #{email}, id: #{handled_contact_id}"
+        
+        # Opt-in 
+        Infusionsoft.email_optin(email, "SherlockDocs Trialing has been added")
+        Rails.logger.info "INFUSIONSOFT > Opt-in executed for the new contact."
       else
         # Existing contact
         contact_id = -1
