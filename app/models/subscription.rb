@@ -11,6 +11,7 @@ class Subscription < ActiveRecord::Base
   INACTIVE_STATES = %w{past_due unpaid canceled expired suspended}
   
   STATUS_TRIALING = "trialing"
+  STATUS_TRIAL_EXPIRED = "trial expired"
   
   # Create Subscription record from the ChargifySubscription received from
   # Chargify API
@@ -174,6 +175,16 @@ class Subscription < ActiveRecord::Base
       InfusionsoftUtils.update_contact(self)
     end
     
+  end
+  
+  def self.revise_records
+    # Find the subscriptions where trial expired
+    Subscription.where("status = ? AND period_ends_at < ?", STATUS_TRIALING, Time.now).each do |subscription|
+      # Trial expired
+      subscription.status = STATUS_TRIAL_EXPIRED
+      subscription.save
+      InfusionsoftUtils.update_contact(subscription)
+    end
   end
   
   # When subscription is 'used', it means the user can't create any more cases 
